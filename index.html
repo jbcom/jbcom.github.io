@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    
+    <!-- SEO -->
+    <title>Jon Bogaty | jbcom - Software Engineer</title>
+    <meta name="description" content="Jon Bogaty - Software Engineer specializing in AI orchestration, procedural graphics, and enterprise infrastructure. Explore the jbcom open source ecosystem." />
+    <meta name="keywords" content="Jon Bogaty, jbcom, software engineer, open source, AI, strata, agentic-control, TypeScript, Python, Go, React Three Fiber" />
+    <meta name="author" content="Jon Bogaty" />
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Jon Bogaty | jbcom" />
+    <meta property="og:description" content="Software Engineer - AI orchestration, procedural graphics, enterprise infrastructure" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://jonbogaty.com" />
+    <meta property="og:image" content="/og-image.png" />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Jon Bogaty | jbcom" />
+    <meta name="twitter:description" content="Software Engineer - AI orchestration, procedural graphics, enterprise infrastructure" />
+    
+    <!-- Fonts - Space Grotesk (headings), Inter (body), JetBrains Mono (code) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    
+    <!-- Theme color for mobile browsers -->
+    <meta name="theme-color" content="#020617" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    
+    <!-- Capacitor -->
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    
+    <style>
+      /* Critical CSS - prevent FOUC */
+      html, body, #root {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        background-color: #020617;
+        color: #f8fafc;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      
+      /* Loading state */
+      #root:empty::after {
+        content: '';
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        width: 40px;
+        height: 40px;
+        margin: -20px 0 0 -20px;
+        border: 3px solid rgba(14, 165, 212, 0.2);
+        border-top-color: #0ea5e9;
+        border-radius: 50%;
+        animation: spinner 0.8s linear infinite;
+      }
+      
+      @keyframes spinner {
+        to { transform: rotate(360deg); }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
