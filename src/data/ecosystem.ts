@@ -1,6 +1,6 @@
 /**
  * jbcom Ecosystem Data
- * 
+ *
  * Complete catalog of all packages in the jbcom organization.
  * This data powers the Ecosystem page and project detail views.
  */
@@ -336,12 +336,15 @@ All connectors include AI tool interfaces for LangChain/CrewAI.`,
 // CATEGORY METADATA
 // ═══════════════════════════════════════════════════════════════════════════
 
-export const categories: Record<Category, {
-  name: string
-  description: string
-  color: string
-  icon: string
-}> = {
+export const categories: Record<
+  Category,
+  {
+    name: string
+    description: string
+    color: string
+    icon: string
+  }
+> = {
   ai: {
     name: 'AI & Agents',
     description: 'AI orchestration, agent management, and intelligent automation',
@@ -372,11 +375,14 @@ export const categories: Record<Category, {
 // LANGUAGE METADATA
 // ═══════════════════════════════════════════════════════════════════════════
 
-export const languages: Record<Language, {
-  name: string
-  color: string
-  icon: string
-}> = {
+export const languages: Record<
+  Language,
+  {
+    name: string
+    color: string
+    icon: string
+  }
+> = {
   typescript: {
     name: 'TypeScript',
     color: '#3178c6',
@@ -403,23 +409,22 @@ export const languages: Record<Language, {
 // HELPERS
 // ═══════════════════════════════════════════════════════════════════════════
 
-export const getFeaturedPackages = () => packages.filter(p => p.featured)
+export const getFeaturedPackages = () => packages.filter((p) => p.featured)
 
-export const getPackagesByCategory = (category: Category) => 
-  packages.filter(p => p.category === category)
+export const getPackagesByCategory = (category: Category) =>
+  packages.filter((p) => p.category === category)
 
 export const getPackagesByLanguage = (language: Language) =>
-  packages.filter(p => p.language === language)
+  packages.filter((p) => p.language === language)
 
-export const getPackageById = (id: string) =>
-  packages.find(p => p.id === id)
+export const getPackageById = (id: string) => packages.find((p) => p.id === id)
 
 export const getPackageCount = () => packages.length
 
 export const getCategoryStats = () => {
-  return Object.keys(categories).map(cat => ({
+  return Object.keys(categories).map((cat) => ({
     category: cat as Category,
     ...categories[cat as Category],
-    count: packages.filter(p => p.category === cat).length,
+    count: packages.filter((p) => p.category === cat).length,
   }))
 }

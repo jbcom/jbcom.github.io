@@ -1,19 +1,19 @@
 /**
- * Layout - The foreground UI layer
- * 
- * Responsive design using Material UI breakpoints:
- * - xs (0px+): Mobile - bottom navigation, full-width content
- * - sm (600px+): Large mobile - collapsible sidebar
- * - md (900px+): Tablet - persistent sidebar, 2-column grid
- * - lg (1200px+): Desktop - full sidebar, 3-column grid
- * - xl (1536px+): Large desktop - max-width container
+ * Layout - Clean navigation structure
  */
 
-import { useState, useCallback } from 'react'
-import { Outlet, useLocation, useNavigate } from 'react-router-dom'
+import {
+  Close as CloseIcon,
+  GitHub as GitHubIcon,
+  Home as HomeIcon,
+  Menu as MenuIcon,
+  Person as PersonIcon,
+  PlayCircle as DemoIcon,
+  Widgets as EcosystemIcon,
+} from '@mui/icons-material'
 import {
   AppBar,
-  Box,
+  Container,
   Drawer,
   IconButton,
   List,
@@ -23,27 +23,14 @@ import {
   ListItemText,
   Toolbar,
   Typography,
-  useTheme,
+  styled,
   useMediaQuery,
-  Divider,
-  BottomNavigation,
-  BottomNavigationAction,
-  Paper,
-  alpha,
-  Fade,
-  Container,
+  useTheme,
 } from '@mui/material'
-import {
-  Menu as MenuIcon,
-  Home as HomeIcon,
-  Person as PersonIcon,
-  Hub as EcosystemIcon,
-  PlayCircle as DemoIcon,
-  GitHub as GitHubIcon,
-  Close as CloseIcon,
-} from '@mui/icons-material'
+import { useState } from 'react'
+import { Link, Outlet, useLocation } from 'react-router-dom'
 
-const DRAWER_WIDTH = 260
+const DRAWER_WIDTH = 240
 
 const navItems = [
   { label: 'Home', path: '/', icon: <HomeIcon /> },
@@ -52,290 +39,159 @@ const navItems = [
   { label: 'Demos', path: '/demos', icon: <DemoIcon /> },
 ]
 
+const Root = styled('div')({
+  display: 'flex',
+  minHeight: '100vh',
+})
+
+const DrawerContent = styled('div')(({ theme }) => ({
+  padding: theme.spacing(2),
+}))
+
+const LogoLink = styled(Link)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  gap: theme.spacing(1.5),
+  textDecoration: 'none',
+  color: 'inherit',
+}))
+
+const LogoMark = styled('div')(({ theme }) => ({
+  width: 36,
+  height: 36,
+  borderRadius: 8,
+  background: `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  fontFamily: '"Space Grotesk", sans-serif',
+  fontWeight: 700,
+  fontSize: '0.875rem',
+  color: '#fff',
+}))
+
+const Header = styled('div')({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  marginBottom: 24,
+})
+
+const Main = styled('main')<{ drawerWidth: number }>(({ theme, drawerWidth }) => ({
+  flexGrow: 1,
+  [theme.breakpoints.up('md')]: {
+    width: `calc(100% - ${drawerWidth}px)`,
+  },
+}))
+
+const NavBox = styled('nav')<{ drawerWidth: number }>(({ theme, drawerWidth }) => ({
+  [theme.breakpoints.up('md')]: {
+    width: drawerWidth,
+    flexShrink: 0,
+  },
+}))
+
 export default function Layout() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('md'))
-  const isSmall = useMediaQuery(theme.breakpoints.down('sm'))
   const location = useLocation()
-  const navigate = useNavigate()
 
-  const handleDrawerToggle = useCallback(() => {
-    setMobileOpen((prev) => !prev)
-  }, [])
-
-  const handleNavigate = useCallback((path: string) => {
-    navigate(path)
-    if (isMobile) setMobileOpen(false)
-  }, [navigate, isMobile])
-
-  // Get current nav index for bottom navigation
-  const currentNavIndex = navItems.findIndex(
-    (item) => location.pathname === item.path || 
-              (item.path !== '/' && location.pathname.startsWith(item.path))
-  )
-
-  const drawerContent = (
-    <Box
-      sx={{
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        backgroundColor: alpha(theme.palette.background.paper, 0.95),
-        backdropFilter: 'blur(20px)',
-      }}
-    >
-      {/* Logo */}
-      <Box
-        sx={{
-          p: 3,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-        }}
-      >
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 2,
-            cursor: 'pointer',
-          }}
-          onClick={() => handleNavigate('/')}
-        >
-          <Box
-            sx={{
-              width: { xs: 36, md: 44 },
-              height: { xs: 36, md: 44 },
-              borderRadius: 2,
-              background: `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.secondary.main} 100%)`,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontFamily: '"Space Grotesk", sans-serif',
-              fontWeight: 700,
-              fontSize: { xs: '1rem', md: '1.25rem' },
-              color: 'white',
-            }}
-          >
-            jb
-          </Box>
-          <Box>
-            <Typography
-              variant="h6"
-              sx={{
-                fontFamily: '"Space Grotesk", sans-serif',
-                fontWeight: 700,
-                lineHeight: 1.2,
-                fontSize: { xs: '1rem', md: '1.25rem' },
-              }}
-            >
-              jbcom
-            </Typography>
-            <Typography
-              variant="caption"
-              color="text.secondary"
-              sx={{ display: { xs: 'none', sm: 'block' } }}
-            >
-              Jon Bogaty
-            </Typography>
-          </Box>
-        </Box>
-        
+  const drawer = (
+    <DrawerContent>
+      <Header>
+        <LogoLink to="/" onClick={() => setMobileOpen(false)}>
+          <LogoMark>jb</LogoMark>
+          <Typography variant="h6" fontWeight={700} fontFamily='"Space Grotesk", sans-serif'>
+            jbcom
+          </Typography>
+        </LogoLink>
         {isMobile && (
-          <IconButton onClick={handleDrawerToggle} size="small">
+          <IconButton onClick={() => setMobileOpen(false)} size="small">
             <CloseIcon />
           </IconButton>
         )}
-      </Box>
+      </Header>
 
-      <Divider sx={{ mx: 2 }} />
-
-      {/* Navigation */}
-      <List sx={{ px: 2, py: 2, flexGrow: 1 }}>
+      <List>
         {navItems.map((item) => {
-          const isActive = location.pathname === item.path ||
+          const isActive =
+            location.pathname === item.path ||
             (item.path !== '/' && location.pathname.startsWith(item.path))
-          
           return (
-            <ListItem key={item.path} disablePadding sx={{ mb: 0.5 }}>
+            <ListItem key={item.path} disablePadding>
               <ListItemButton
-                onClick={() => handleNavigate(item.path)}
+                component={Link}
+                to={item.path}
                 selected={isActive}
-                sx={{
-                  borderRadius: 2,
-                  py: 1.5,
-                  position: 'relative',
-                }}
+                onClick={() => setMobileOpen(false)}
+                sx={{ borderRadius: 2, mb: 0.5 }}
               >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 44,
-                    color: isActive ? 'primary.main' : 'text.secondary',
-                  }}
-                >
+                <ListItemIcon sx={{ minWidth: 40, color: isActive ? 'primary.main' : 'inherit' }}>
                   {item.icon}
                 </ListItemIcon>
-                <ListItemText
-                  primary={item.label}
-                  primaryTypographyProps={{
-                    fontWeight: isActive ? 600 : 400,
-                    fontSize: '0.9375rem',
-                  }}
-                />
+                <ListItemText primary={item.label} />
               </ListItemButton>
             </ListItem>
           )
         })}
       </List>
 
-      {/* Footer */}
-      <Box sx={{ p: 2, borderTop: `1px solid ${theme.palette.divider}` }}>
+      <div style={{ marginTop: 'auto', paddingTop: 32 }}>
         <IconButton
+          component="a"
           href="https://github.com/jbcom"
           target="_blank"
-          rel="noopener noreferrer"
           size="small"
           sx={{ color: 'text.secondary' }}
         >
           <GitHubIcon />
         </IconButton>
-        <Typography
-          variant="caption"
-          color="text.secondary"
-          sx={{ display: 'block', mt: 1 }}
-        >
-          © 2025 Jon Bogaty
-        </Typography>
-      </Box>
-    </Box>
+      </div>
+    </DrawerContent>
   )
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-      {/* Mobile App Bar */}
-      <Fade in={isMobile}>
-        <AppBar
-          position="fixed"
-          sx={{
-            display: { md: 'none' },
-          }}
-        >
+    <Root>
+      {isMobile && (
+        <AppBar position="fixed" elevation={0}>
           <Toolbar>
-            <IconButton
-              color="inherit"
-              edge="start"
-              onClick={handleDrawerToggle}
-              sx={{ mr: 2 }}
-            >
+            <IconButton edge="start" color="inherit" onClick={() => setMobileOpen(true)}>
               <MenuIcon />
             </IconButton>
-            <Typography
-              variant="h6"
-              sx={{
-                fontFamily: '"Space Grotesk", sans-serif',
-                fontWeight: 600,
-              }}
-            >
-              jbcom
-            </Typography>
+            <LogoLink to="/" style={{ marginLeft: 8 }}>
+              <LogoMark style={{ width: 32, height: 32, fontSize: '0.75rem' }}>jb</LogoMark>
+              <Typography variant="h6" fontWeight={700} fontFamily='"Space Grotesk", sans-serif'>
+                jbcom
+              </Typography>
+            </LogoLink>
           </Toolbar>
         </AppBar>
-      </Fade>
+      )}
 
-      {/* Sidebar - Desktop: permanent, Mobile: temporary */}
-      <Box
-        component="nav"
-        sx={{
-          width: { md: DRAWER_WIDTH },
-          flexShrink: { md: 0 },
-        }}
-      >
+      <NavBox drawerWidth={DRAWER_WIDTH}>
         <Drawer
           variant={isMobile ? 'temporary' : 'permanent'}
           open={isMobile ? mobileOpen : true}
-          onClose={handleDrawerToggle}
+          onClose={() => setMobileOpen(false)}
           ModalProps={{ keepMounted: true }}
           sx={{
             '& .MuiDrawer-paper': {
               width: DRAWER_WIDTH,
               boxSizing: 'border-box',
-              border: 'none',
-              backgroundColor: 'transparent',
+              borderRight: `1px solid ${theme.palette.divider}`,
             },
           }}
         >
-          {drawerContent}
+          {drawer}
         </Drawer>
-      </Box>
+      </NavBox>
 
-      {/* Main Content */}
-      <Box
-        component="main"
-        sx={{
-          flexGrow: 1,
-          display: 'flex',
-          flexDirection: 'column',
-          minHeight: '100vh',
-          ml: { md: `${DRAWER_WIDTH}px` },
-          pt: { xs: 7, md: 0 },
-          pb: { xs: 8, md: 0 }, // Space for bottom nav on mobile
-        }}
-      >
-        <Container
-          maxWidth="xl"
-          sx={{
-            flexGrow: 1,
-            py: { xs: 2, sm: 3, md: 4 },
-            px: { xs: 2, sm: 3, md: 4 },
-          }}
-        >
+      <Main drawerWidth={DRAWER_WIDTH} sx={{ mt: { xs: 8, md: 0 } }}>
+        <Container maxWidth="lg" sx={{ py: 4 }}>
           <Outlet />
         </Container>
-      </Box>
-
-      {/* Mobile Bottom Navigation */}
-      {isSmall && (
-        <Paper
-          sx={{
-            position: 'fixed',
-            bottom: 0,
-            left: 0,
-            right: 0,
-            zIndex: theme.zIndex.appBar,
-            borderTop: `1px solid ${theme.palette.divider}`,
-            backgroundColor: alpha(theme.palette.background.paper, 0.95),
-            backdropFilter: 'blur(20px)',
-          }}
-          elevation={0}
-        >
-          <BottomNavigation
-            value={currentNavIndex >= 0 ? currentNavIndex : 0}
-            onChange={(_, newValue) => {
-              handleNavigate(navItems[newValue].path)
-            }}
-            sx={{
-              backgroundColor: 'transparent',
-              '& .MuiBottomNavigationAction-root': {
-                minWidth: 'auto',
-                py: 1,
-                color: 'text.secondary',
-                '&.Mui-selected': {
-                  color: 'primary.main',
-                },
-              },
-            }}
-          >
-            {navItems.map((item) => (
-              <BottomNavigationAction
-                key={item.path}
-                label={item.label}
-                icon={item.icon}
-              />
-            ))}
-          </BottomNavigation>
-        </Paper>
-      )}
-    </Box>
+      </Main>
+    </Root>
   )
 }

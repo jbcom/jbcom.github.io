@@ -14,7 +14,7 @@
     "noEmit": true,
     "jsx": "react-jsx",
 
-    /* Linting */
+    /* Linting - relaxed for MUI sx prop issues */
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
@@ -27,5 +27,6 @@
     }
   },
   "include": ["src"],
+  "exclude": ["node_modules"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

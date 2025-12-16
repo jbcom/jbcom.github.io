@@ -2,39 +2,39 @@
  * EcosystemPage - Full catalog of jbcom packages
  */
 
-import { useState, useMemo } from 'react'
+import { FilterList, OpenInNew, Search } from '@mui/icons-material'
 import {
   Box,
-  Typography,
-  Grid,
+  Button,
   Card,
   CardContent,
-  Stack,
   Chip,
-  TextField,
+  Grid,
   InputAdornment,
-  ToggleButtonGroup,
+  Stack,
+  TextField,
   ToggleButton,
+  ToggleButtonGroup,
+  Typography,
   alpha,
-  useTheme,
-  Button,
   useMediaQuery,
+  useTheme,
 } from '@mui/material'
-import { Search, OpenInNew, FilterList } from '@mui/icons-material'
+import { useMemo, useState } from 'react'
 import {
-  packages,
-  categories,
-  languages,
-  type Package,
   type Category,
   type Language,
+  type Package,
+  categories,
+  languages,
+  packages,
 } from '../data/ecosystem'
 
 function PackageCard({ pkg }: { pkg: Package }) {
   const theme = useTheme()
   const lang = languages[pkg.language]
   const cat = categories[pkg.category]
-  
+
   return (
     <Card
       sx={{
@@ -75,13 +75,23 @@ function PackageCard({ pkg }: { pkg: Package }) {
             }}
           />
           {pkg.status === 'beta' && (
-            <Chip label="Beta" size="small" color="warning" sx={{ fontSize: '0.65rem', height: 20 }} />
+            <Chip
+              label="Beta"
+              size="small"
+              color="warning"
+              sx={{ fontSize: '0.65rem', height: 20 }}
+            />
           )}
           {pkg.status === 'alpha' && (
-            <Chip label="Alpha" size="small" color="error" sx={{ fontSize: '0.65rem', height: 20 }} />
+            <Chip
+              label="Alpha"
+              size="small"
+              color="error"
+              sx={{ fontSize: '0.65rem', height: 20 }}
+            />
           )}
         </Stack>
-        
+
         {/* Title */}
         <Typography
           variant="h6"
@@ -94,7 +104,7 @@ function PackageCard({ pkg }: { pkg: Package }) {
         >
           {pkg.displayName}
         </Typography>
-        
+
         {/* Description */}
         <Typography
           variant="body2"
@@ -110,7 +120,7 @@ function PackageCard({ pkg }: { pkg: Package }) {
         >
           {pkg.description}
         </Typography>
-        
+
         {/* Tags */}
         <Stack direction="row" spacing={0.5} flexWrap="wrap" useFlexGap>
           {pkg.tags.slice(0, 4).map((tag) => (
@@ -128,7 +138,7 @@ function PackageCard({ pkg }: { pkg: Package }) {
           ))}
         </Stack>
       </CardContent>
-      
+
       {/* Actions */}
       <Box
         sx={{
@@ -188,11 +198,11 @@ function PackageCard({ pkg }: { pkg: Package }) {
 export default function EcosystemPage() {
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
-  
+
   const [search, setSearch] = useState('')
   const [categoryFilter, setCategoryFilter] = useState<Category | 'all'>('all')
   const [languageFilter, setLanguageFilter] = useState<Language | 'all'>('all')
-  
+
   const filteredPackages = useMemo(() => {
     return packages.filter((pkg) => {
       // Search filter
@@ -204,21 +214,21 @@ export default function EcosystemPage() {
           pkg.tags.some((tag) => tag.toLowerCase().includes(searchLower))
         if (!matchesSearch) return false
       }
-      
+
       // Category filter
       if (categoryFilter !== 'all' && pkg.category !== categoryFilter) {
         return false
       }
-      
+
       // Language filter
       if (languageFilter !== 'all' && pkg.language !== languageFilter) {
         return false
       }
-      
+
       return true
     })
   }, [search, categoryFilter, languageFilter])
-  
+
   return (
     <Box sx={{ py: { xs: 2, md: 4 } }}>
       {/* Header */}
@@ -238,7 +248,7 @@ export default function EcosystemPage() {
           {packages.length} packages across AI, games, infrastructure, and utilities
         </Typography>
       </Box>
-      
+
       {/* Filters */}
       <Card
         sx={{
@@ -264,7 +274,7 @@ export default function EcosystemPage() {
             }}
             size="small"
           />
-          
+
           {/* Category Filter */}
           <Box>
             <Stack direction="row" spacing={1} alignItems="center" mb={1}>
@@ -298,7 +308,7 @@ export default function EcosystemPage() {
               )}
             </ToggleButtonGroup>
           </Box>
-          
+
           {/* Language Filter */}
           <Box>
             <Stack direction="row" spacing={1} alignItems="center" mb={1}>
@@ -343,12 +353,12 @@ export default function EcosystemPage() {
           </Box>
         </Stack>
       </Card>
-      
+
       {/* Results */}
       <Typography variant="body2" color="text.secondary" mb={2}>
         {filteredPackages.length} package{filteredPackages.length !== 1 ? 's' : ''} found
       </Typography>
-      
+
       <Grid container spacing={{ xs: 2, md: 3 }}>
         {filteredPackages.map((pkg) => (
           <Grid item xs={12} sm={6} lg={4} key={pkg.id}>
@@ -356,7 +366,7 @@ export default function EcosystemPage() {
           </Grid>
         ))}
       </Grid>
-      
+
       {filteredPackages.length === 0 && (
         <Box
           sx={{
@@ -368,9 +378,7 @@ export default function EcosystemPage() {
           <Typography variant="h6" mb={1}>
             No packages found
           </Typography>
-          <Typography variant="body2">
-            Try adjusting your search or filters
-          </Typography>
+          <Typography variant="body2">Try adjusting your search or filters</Typography>
         </Box>
       )}
     </Box>

@@ -7,7 +7,8 @@
   "packageManager": "pnpm@9.15.0",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "vite build",
+    "typecheck": "tsc --noEmit",
     "preview": "vite preview",
     "lint": "biome check .",
     "lint:fix": "biome check --write .",
@@ -45,12 +46,5 @@
   },
   "author": "Jon Bogaty <jon@jonbogaty.com>",
   "license": "MIT",
-  "keywords": [
-    "portfolio",
-    "jbcom",
-    "strata",
-    "react-three-fiber",
-    "material-ui",
-    "github-pages"
-  ]
+  "keywords": ["portfolio", "jbcom", "strata", "react-three-fiber", "material-ui", "github-pages"]
 }

@@ -2,41 +2,37 @@
  * ProjectPage - Individual package detail view
  */
 
-import { useParams, Navigate } from 'react-router-dom'
+import { ArrowBack, GitHub, OpenInNew } from '@mui/icons-material'
 import {
   Box,
-  Typography,
+  Breadcrumbs,
+  Button,
   Card,
   CardContent,
-  Stack,
   Chip,
-  Button,
   Grid,
+  Link,
+  Stack,
+  Typography,
   alpha,
   useTheme,
-  Breadcrumbs,
-  Link,
 } from '@mui/material'
-import {
-  GitHub,
-  OpenInNew,
-  ArrowBack,
-} from '@mui/icons-material'
-import { getPackageById, languages, categories } from '../data/ecosystem'
+import { Navigate, useParams } from 'react-router-dom'
+import { categories, getPackageById, languages } from '../data/ecosystem'
 
 export default function ProjectPage() {
   const { projectId } = useParams<{ projectId: string }>()
   const theme = useTheme()
-  
+
   const pkg = projectId ? getPackageById(projectId) : null
-  
+
   if (!pkg) {
     return <Navigate to="/ecosystem" replace />
   }
-  
+
   const lang = languages[pkg.language]
   const cat = categories[pkg.category]
-  
+
   return (
     <Box sx={{ py: { xs: 2, md: 4 } }}>
       {/* Breadcrumbs */}
@@ -52,7 +48,7 @@ export default function ProjectPage() {
         </Link>
         <Typography color="text.primary">{pkg.displayName}</Typography>
       </Breadcrumbs>
-      
+
       {/* Header */}
       <Box sx={{ mb: 4 }}>
         <Stack direction="row" spacing={1} alignItems="center" mb={2} flexWrap="wrap">
@@ -79,7 +75,7 @@ export default function ProjectPage() {
             />
           )}
         </Stack>
-        
+
         <Typography
           variant="h2"
           sx={{
@@ -91,7 +87,7 @@ export default function ProjectPage() {
         >
           {pkg.displayName}
         </Typography>
-        
+
         <Typography
           variant="h6"
           color="text.secondary"
@@ -103,15 +99,10 @@ export default function ProjectPage() {
           {pkg.description}
         </Typography>
       </Box>
-      
+
       {/* Actions */}
       <Stack direction="row" spacing={2} mb={4} flexWrap="wrap" useFlexGap>
-        <Button
-          variant="contained"
-          startIcon={<GitHub />}
-          href={pkg.repo}
-          target="_blank"
-        >
+        <Button variant="contained" startIcon={<GitHub />} href={pkg.repo} target="_blank">
           View on GitHub
         </Button>
         {pkg.npm && (
@@ -135,16 +126,12 @@ export default function ProjectPage() {
           </Button>
         )}
         {pkg.demo && (
-          <Button
-            variant="outlined"
-            color="secondary"
-            href={pkg.demo}
-          >
+          <Button variant="outlined" color="secondary" href={pkg.demo}>
             Live Demo
           </Button>
         )}
       </Stack>
-      
+
       <Grid container spacing={3}>
         {/* Description */}
         <Grid item xs={12} md={8}>
@@ -171,7 +158,7 @@ export default function ProjectPage() {
             </CardContent>
           </Card>
         </Grid>
-        
+
         {/* Sidebar */}
         <Grid item xs={12} md={4}>
           <Stack spacing={3}>
@@ -194,7 +181,7 @@ export default function ProjectPage() {
                     mb: 2,
                   }}
                 />
-                
+
                 <Typography variant="subtitle2" color="text.secondary" mb={1}>
                   Category
                 </Typography>
@@ -206,7 +193,7 @@ export default function ProjectPage() {
                     mb: 2,
                   }}
                 />
-                
+
                 <Typography variant="subtitle2" color="text.secondary" mb={1}>
                   Status
                 </Typography>
@@ -216,13 +203,13 @@ export default function ProjectPage() {
                     pkg.status === 'stable'
                       ? 'success'
                       : pkg.status === 'beta'
-                      ? 'warning'
-                      : 'error'
+                        ? 'warning'
+                        : 'error'
                   }
                 />
               </CardContent>
             </Card>
-            
+
             {/* Tags */}
             <Card
               sx={{
@@ -236,13 +223,7 @@ export default function ProjectPage() {
                 </Typography>
                 <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
                   {pkg.tags.map((tag) => (
-                    <Chip
-                      key={tag}
-                      label={tag}
-                      size="small"
-                      variant="outlined"
-                      sx={{ mb: 0.5 }}
-                    />
+                    <Chip key={tag} label={tag} size="small" variant="outlined" sx={{ mb: 0.5 }} />
                   ))}
                 </Stack>
               </CardContent>
