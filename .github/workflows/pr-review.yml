@@ -45,12 +45,12 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         with:
           fetch-depth: 0
 
       - name: DiffGuard AI Review
-        uses: jonit-dev/diffguard@v1
+        uses: jonit-dev/diffguard@88f63615c769f8db6031973503c2c40a9a3f4feb # v1.0.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           open_router_key: ${{ secrets.OPENROUTER_API_KEY }}
@@ -108,14 +108,17 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         with:
           fetch-depth: 1
 
       - name: Claude Code Review
-        uses: anthropics/claude-code-action@v1
+        uses: anthropics/claude-code-action@f0c8eb29807907de7f5412d04afceb5e24817127 # v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          
+          # Allow bot-triggered workflows (e.g., Cursor agent PRs)
+          allowed_bots: '*'
           
           # Enable progress tracking for visibility
           track_progress: true
@@ -179,17 +182,21 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         with:
           fetch-depth: 0
 
       - name: Codex Code Review
-        uses: openai/codex-action@v1
+        uses: openai/codex-action@086169432f1d2ab2f4057540b1754d550f6a1189 # v1.4
         with:
           openai-api-key: ${{ secrets.OPENAI_API_KEY }}
           sandbox: "read-only"
           model: "o3"
           effort: "high"
+          
+          # Allow bot-triggered workflows (e.g., Cursor agent PRs)
+          allow-bots: "true"
+          allow-users: "*"
           
           prompt: |
             You are reviewing PR #${{ github.event.pull_request.number }} in ${{ github.repository }}.
@@ -243,7 +250,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         with:
           fetch-depth: 1
 
@@ -261,9 +268,10 @@ jobs:
 
       - name: Claude Review (on mention)
         if: steps.reviewer.outputs.reviewer == 'claude'
-        uses: anthropics/claude-code-action@v1
+        uses: anthropics/claude-code-action@f0c8eb29807907de7f5412d04afceb5e24817127 # v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          allowed_bots: '*'
           track_progress: true
           use_sticky_comment: true
           trigger_phrase: "@claude"
@@ -276,11 +284,13 @@ jobs:
 
       - name: Codex Review (on mention)
         if: steps.reviewer.outputs.reviewer == 'codex'
-        uses: openai/codex-action@v1
+        uses: openai/codex-action@086169432f1d2ab2f4057540b1754d550f6a1189 # v1.4
         with:
           openai-api-key: ${{ secrets.OPENAI_API_KEY }}
           sandbox: "read-only"
           model: "o3"
+          allow-bots: "true"
+          allow-users: "*"
           prompt: |
             A user has requested your review with this comment:
             "${{ github.event.comment.body }}"
@@ -300,7 +310,7 @@ jobs:
 
     steps:
       - name: Post Summary
-        uses: actions/github-script@v7
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
         with:
           script: |
             const openrouter = '${{ needs.openrouter-review.result }}';
