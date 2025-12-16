@@ -162,7 +162,7 @@ export default function ProjectPage() {
                   lineHeight: 1.8,
                 }}
               >
-                {pkg.longDescription || pkg.description}
+                {pkg.description}
               </Typography>
             </CardContent>
           </Card>
