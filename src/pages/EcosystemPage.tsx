@@ -188,6 +188,8 @@ function PackageCard({ pkg }: { pkg: Package }) {
             color="primary"
             variant="outlined"
             href={pkg.demo}
+            target="_blank"
+            rel="noopener noreferrer"
             sx={{ textTransform: 'none', fontSize: '0.8rem' }}
           >
             Demo

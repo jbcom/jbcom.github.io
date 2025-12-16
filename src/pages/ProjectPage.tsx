@@ -135,7 +135,13 @@ export default function ProjectPage() {
           </Button>
         )}
         {pkg.demo && (
-          <Button variant="outlined" color="secondary" href={pkg.demo}>
+          <Button
+            variant="outlined"
+            color="secondary"
+            href={pkg.demo}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             Live Demo
           </Button>
         )}
