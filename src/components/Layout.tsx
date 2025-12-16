@@ -4,12 +4,12 @@
 
 import {
   Close as CloseIcon,
+  PlayCircle as DemoIcon,
+  Widgets as EcosystemIcon,
   GitHub as GitHubIcon,
   Home as HomeIcon,
   Menu as MenuIcon,
   Person as PersonIcon,
-  PlayCircle as DemoIcon,
-  Widgets as EcosystemIcon,
 } from '@mui/icons-material'
 import {
   AppBar,

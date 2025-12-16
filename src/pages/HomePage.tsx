@@ -27,11 +27,17 @@ export default function HomePage() {
             fontSize: { xs: '2rem', md: '3rem' },
           }}
         >
-          Tools for builders
+          Production-grade tools
+          <br />
+          for serious builders
         </Typography>
-        <Typography variant="h6" color="text.secondary" sx={{ maxWidth: 600, mb: 4 }}>
-          Production-grade libraries for AI orchestration, procedural graphics, and enterprise
-          infrastructure. {packageCount} packages. All open source.
+        <Typography
+          variant="h6"
+          color="text.secondary"
+          sx={{ maxWidth: 600, mb: 4, fontWeight: 400 }}
+        >
+          {packageCount} open source packages for AI orchestration, procedural graphics, and
+          enterprise infrastructure. Battle-tested in production. Shared with the community.
         </Typography>
         <Stack direction="row" spacing={2}>
           <Button
@@ -57,16 +63,44 @@ export default function HomePage() {
       </Box>
 
       {/* Mission */}
-      <Card sx={{ mb: 6, bgcolor: 'background.paper' }}>
+      <Card sx={{ mb: 6 }}>
         <CardContent sx={{ p: 4 }}>
           <Typography variant="h5" fontWeight={600} gutterBottom>
             Mission
           </Typography>
-          <Typography color="text.secondary" sx={{ maxWidth: 800, lineHeight: 1.8 }}>
+          <Typography color="text.secondary" sx={{ maxWidth: 800, lineHeight: 1.8, mb: 3 }}>
             Build composable, well-documented tools that solve real problems. Every package in the
-            jbcom ecosystem is extracted from production systems—battle-tested code shared with the
-            community. No toy examples. No abandoned experiments. Just working software.
+            jbcom ecosystem is extracted from production systems—code that works, shared openly.
           </Typography>
+          <Typography variant="h6" fontWeight={600} gutterBottom>
+            Principles
+          </Typography>
+          <Grid container spacing={2}>
+            <Grid item xs={12} md={4}>
+              <Typography fontWeight={600} color="primary.main">
+                Production-First
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                No toy examples. Every package solves problems encountered in real systems.
+              </Typography>
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <Typography fontWeight={600} color="primary.main">
+                Composable
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                Small, focused packages that work together. Use what you need.
+              </Typography>
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <Typography fontWeight={600} color="primary.main">
+                Well-Documented
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                Clear APIs, comprehensive examples, and honest limitations.
+              </Typography>
+            </Grid>
+          </Grid>
         </CardContent>
       </Card>
 
@@ -81,7 +115,6 @@ export default function HomePage() {
               sx={{
                 height: '100%',
                 borderLeft: `3px solid ${cat.color}`,
-                '&:hover': { borderColor: cat.color },
               }}
             >
               <CardContent>

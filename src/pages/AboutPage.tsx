@@ -3,16 +3,7 @@
  */
 
 import { Email, GitHub, LinkedIn } from '@mui/icons-material'
-import {
-  Avatar,
-  Card,
-  CardContent,
-  Chip,
-  Grid,
-  IconButton,
-  Stack,
-  Typography,
-} from '@mui/material'
+import { Avatar, Card, CardContent, Chip, Grid, IconButton, Stack, Typography } from '@mui/material'
 
 const skills = {
   languages: ['TypeScript', 'Python', 'Go', 'Rust', 'Terraform', 'SQL'],
@@ -96,7 +87,12 @@ export default function AboutPage() {
           <Grid item xs={12} sm={6} md={4} key={category}>
             <Card sx={{ height: '100%' }}>
               <CardContent>
-                <Typography variant="subtitle1" fontWeight={600} gutterBottom sx={{ textTransform: 'capitalize' }}>
+                <Typography
+                  variant="subtitle1"
+                  fontWeight={600}
+                  gutterBottom
+                  sx={{ textTransform: 'capitalize' }}
+                >
                   {category}
                 </Typography>
                 <Stack direction="row" flexWrap="wrap" gap={1}>
