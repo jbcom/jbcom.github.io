@@ -5,6 +5,7 @@
  */
 
 import { Code, GitHub, PlayArrow } from '@mui/icons-material'
+import type { SxProps, Theme } from '@mui/material'
 import {
   Box,
   Button,
@@ -28,6 +29,7 @@ import {
   Stars,
 } from '@react-three/drei'
 import { Canvas } from '@react-three/fiber'
+import type { SyntheticEvent } from 'react'
 import { Suspense, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
@@ -286,22 +288,37 @@ function DemoCard({
   )
 }
 
-function DemoViewer({ demo }: { demo: (typeof demos)[0] }) {
+// Typed sx props to avoid TS2590 complex union type errors
+const tabsContainerSx: SxProps<Theme> = { borderBottom: 1, borderColor: 'divider', px: 2 }
+const codeBlockSx: SxProps<Theme> = {
+  m: 0,
+  p: 3,
+  height: '100%',
+  overflow: 'auto',
+  fontFamily: '"JetBrains Mono", monospace',
+  fontSize: '0.875rem',
+  bgcolor: 'grey.900',
+  color: 'grey.100',
+}
+
+function DemoViewer({ demo }: { demo: (typeof demos)[0] }): JSX.Element {
   const [tab, setTab] = useState(0)
 
   return (
-    <Card sx={{ height: 450, display: 'flex', flexDirection: 'column' }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider', px: 2 }}>
+    <Card sx={{ height: 500, display: 'flex', flexDirection: 'column' }}>
+      {/* @ts-expect-error - TS2590: MUI + R3F creates overly complex union types */}
+      <Box sx={tabsContainerSx}>
         <Stack direction="row" justifyContent="space-between" alignItems="center">
-          <Tabs value={tab} onChange={(_, v) => setTab(v)}>
-            <Tab label="Preview" icon={<PlayArrow />} iconPosition="start" sx={{ minHeight: 48 }} />
-            <Tab label="Code" icon={<Code />} iconPosition="start" sx={{ minHeight: 48 }} />
+          <Tabs value={tab} onChange={(_: SyntheticEvent, v: number) => setTab(v)}>
+            <Tab label="Preview" icon={<PlayArrow />} iconPosition="start" />
+            <Tab label="Code" icon={<Code />} iconPosition="start" />
           </Tabs>
           <Button
             size="small"
             startIcon={<GitHub />}
             href="https://github.com/jbcom/nodejs-strata"
             target="_blank"
+            rel="noopener noreferrer"
           >
             strata
           </Button>
@@ -315,20 +332,7 @@ function DemoViewer({ demo }: { demo: (typeof demos)[0] }) {
             </Suspense>
           </Canvas>
         ) : (
-          <Box
-            component="pre"
-            sx={{
-              m: 0,
-              p: 3,
-              height: '100%',
-              overflow: 'auto',
-              fontFamily: '"JetBrains Mono", monospace',
-              fontSize: '0.8rem',
-              lineHeight: 1.6,
-              bgcolor: 'background.default',
-              color: 'text.secondary',
-            }}
-          >
+          <Box component="pre" sx={codeBlockSx}>
             {demo.code}
           </Box>
         )}
@@ -337,12 +341,13 @@ function DemoViewer({ demo }: { demo: (typeof demos)[0] }) {
   )
 }
 
-export default function DemosPage() {
+export default function DemosPage(): JSX.Element {
   const { demoId } = useParams()
   const navigate = useNavigate()
   const activeDemo = demos.find((d) => d.id === demoId) || demos[0]
 
   return (
+    // @ts-expect-error - TS2590: MUI + R3F creates overly complex union types
     <Box>
       <Typography
         variant="h3"

@@ -142,6 +142,7 @@ export default function Layout() {
           component="a"
           href="https://github.com/jbcom"
           target="_blank"
+          rel="noopener noreferrer"
           size="small"
           sx={{ color: 'text.secondary' }}
         >
