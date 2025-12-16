@@ -56,10 +56,6 @@ jobs:
           open_router_key: ${{ secrets.OPENROUTER_API_KEY }}
           # Meta model - auto-routes to best available model
           model_id: "openrouter/auto"
-          # Exclude lock files and generated content
-          exclude_files: "yarn.lock,package-lock.json,pnpm-lock.yaml,*.lock,dist/**,build/**,*.min.js,*.min.css"
-          # Quality gate - PRs scoring below 60 get flagged
-          minimum_score: "60"
           max_tokens: "8192"
           custom_prompt: |
             ### **AI PR Review Instructions**
@@ -116,6 +112,9 @@ jobs:
         uses: anthropics/claude-code-action@f0c8eb29807907de7f5412d04afceb5e24817127 # v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          
+          # GitHub token for API access (required when workflow differs from main)
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           
           # Allow bot-triggered workflows (e.g., Cursor agent PRs)
           allowed_bots: '*'
@@ -271,6 +270,7 @@ jobs:
         uses: anthropics/claude-code-action@f0c8eb29807907de7f5412d04afceb5e24817127 # v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           allowed_bots: '*'
           track_progress: true
           use_sticky_comment: true
