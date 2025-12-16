@@ -155,6 +155,7 @@ function PackageCard({ pkg }: { pkg: Package }) {
           endIcon={<OpenInNew sx={{ fontSize: '0.875rem' }} />}
           href={pkg.repo}
           target="_blank"
+          rel="noopener noreferrer"
           sx={{ textTransform: 'none', fontSize: '0.8rem' }}
         >
           GitHub
@@ -164,6 +165,7 @@ function PackageCard({ pkg }: { pkg: Package }) {
             size="small"
             href={`https://npmjs.com/package/${pkg.npm}`}
             target="_blank"
+            rel="noopener noreferrer"
             sx={{ textTransform: 'none', fontSize: '0.8rem' }}
           >
             npm
@@ -174,6 +176,7 @@ function PackageCard({ pkg }: { pkg: Package }) {
             size="small"
             href={`https://pypi.org/project/${pkg.pypi}`}
             target="_blank"
+            rel="noopener noreferrer"
             sx={{ textTransform: 'none', fontSize: '0.8rem' }}
           >
             PyPI

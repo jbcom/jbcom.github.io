@@ -53,6 +53,7 @@ export default function HomePage() {
             component="a"
             href="https://github.com/jbcom"
             target="_blank"
+            rel="noopener noreferrer"
             variant="outlined"
             size="large"
             startIcon={<GitHub />}
@@ -168,6 +169,7 @@ export default function HomePage() {
                   component="a"
                   href={pkg.repo}
                   target="_blank"
+                  rel="noopener noreferrer"
                   size="small"
                   endIcon={<GitHub />}
                 >

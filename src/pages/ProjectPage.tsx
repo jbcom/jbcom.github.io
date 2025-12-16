@@ -17,7 +17,7 @@ import {
   alpha,
   useTheme,
 } from '@mui/material'
-import { Navigate, useParams } from 'react-router-dom'
+import { Navigate, Link as RouterLink, useParams } from 'react-router-dom'
 import { categories, getPackageById, languages } from '../data/ecosystem'
 
 export default function ProjectPage() {
@@ -38,7 +38,8 @@ export default function ProjectPage() {
       {/* Breadcrumbs */}
       <Breadcrumbs sx={{ mb: 3 }}>
         <Link
-          href="/ecosystem"
+          component={RouterLink}
+          to="/ecosystem"
           underline="hover"
           color="text.secondary"
           sx={{ display: 'flex', alignItems: 'center' }}
@@ -102,7 +103,13 @@ export default function ProjectPage() {
 
       {/* Actions */}
       <Stack direction="row" spacing={2} mb={4} flexWrap="wrap" useFlexGap>
-        <Button variant="contained" startIcon={<GitHub />} href={pkg.repo} target="_blank">
+        <Button
+          variant="contained"
+          startIcon={<GitHub />}
+          href={pkg.repo}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           View on GitHub
         </Button>
         {pkg.npm && (
@@ -111,6 +118,7 @@ export default function ProjectPage() {
             endIcon={<OpenInNew />}
             href={`https://npmjs.com/package/${pkg.npm}`}
             target="_blank"
+            rel="noopener noreferrer"
           >
             npm: {pkg.npm}
           </Button>
@@ -121,6 +129,7 @@ export default function ProjectPage() {
             endIcon={<OpenInNew />}
             href={`https://pypi.org/project/${pkg.pypi}`}
             target="_blank"
+            rel="noopener noreferrer"
           >
             PyPI: {pkg.pypi}
           </Button>
@@ -153,7 +162,7 @@ export default function ProjectPage() {
                   lineHeight: 1.8,
                 }}
               >
-                {pkg.longDescription || pkg.description}
+                {pkg.description}
               </Typography>
             </CardContent>
           </Card>
