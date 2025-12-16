@@ -47,6 +47,7 @@ export default function AboutPage() {
               target="_blank"
               rel="noopener noreferrer"
               size="small"
+              aria-label="GitHub profile"
             >
               <GitHub />
             </IconButton>
@@ -56,10 +57,16 @@ export default function AboutPage() {
               target="_blank"
               rel="noopener noreferrer"
               size="small"
+              aria-label="LinkedIn profile"
             >
               <LinkedIn />
             </IconButton>
-            <IconButton component="a" href="mailto:jon@jonbogaty.com" size="small">
+            <IconButton
+              component="a"
+              href="mailto:jon@jonbogaty.com"
+              size="small"
+              aria-label="Send email"
+            >
               <Email />
             </IconButton>
           </Stack>

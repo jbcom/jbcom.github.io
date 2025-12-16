@@ -22,6 +22,7 @@ import {
 import {
   Environment,
   Float,
+  Html,
   MeshDistortMaterial,
   MeshWobbleMaterial,
   OrbitControls,
@@ -327,7 +328,13 @@ function DemoViewer({ demo }: { demo: (typeof demos)[0] }): JSX.Element {
       <Box sx={{ flexGrow: 1 }}>
         {tab === 0 ? (
           <Canvas camera={{ position: [0, 0, 8], fov: 50 }} dpr={[1, 2]}>
-            <Suspense fallback={null}>
+            <Suspense
+              fallback={
+                <Html center>
+                  <CircularProgress size={40} />
+                </Html>
+              }
+            >
               <demo.component />
             </Suspense>
           </Canvas>

@@ -107,7 +107,11 @@ export default function Layout() {
           </Typography>
         </LogoLink>
         {isMobile && (
-          <IconButton onClick={() => setMobileOpen(false)} size="small">
+          <IconButton
+            onClick={() => setMobileOpen(false)}
+            size="small"
+            aria-label="Close navigation"
+          >
             <CloseIcon />
           </IconButton>
         )}
@@ -144,6 +148,7 @@ export default function Layout() {
           target="_blank"
           rel="noopener noreferrer"
           size="small"
+          aria-label="GitHub profile"
           sx={{ color: 'text.secondary' }}
         >
           <GitHubIcon />
@@ -157,7 +162,12 @@ export default function Layout() {
       {isMobile && (
         <AppBar position="fixed" elevation={0}>
           <Toolbar>
-            <IconButton edge="start" color="inherit" onClick={() => setMobileOpen(true)}>
+            <IconButton
+              edge="start"
+              color="inherit"
+              onClick={() => setMobileOpen(true)}
+              aria-label="Open navigation"
+            >
               <MenuIcon />
             </IconButton>
             <LogoLink to="/" style={{ marginLeft: 8 }}>
