@@ -13,6 +13,7 @@ import DemosPage from './pages/DemosPage'
 import EcosystemPage from './pages/EcosystemPage'
 import HomePage from './pages/HomePage'
 import ProjectPage from './pages/ProjectPage'
+import ResumePage from './pages/ResumePage'
 import theme from './theme'
 
 export default function App() {
@@ -24,6 +25,7 @@ export default function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<HomePage />} />
             <Route path="about" element={<AboutPage />} />
+            <Route path="resume" element={<ResumePage />} />
             <Route path="ecosystem" element={<EcosystemPage />} />
             <Route path="ecosystem/:projectId" element={<ProjectPage />} />
             <Route path="demos" element={<DemosPage />} />
