@@ -37,6 +37,11 @@ const colors = {
   warning: '#f59e0b',
   error: '#ef4444',
   info: '#06b6d4',
+
+  // Tier colors for package dependency visualization
+  tierPrimitive: '#f59e0b', // amber - foundation packages
+  tierCore: '#06b6d4', // cyan - built on primitives
+  tierApplication: '#8b5cf6', // violet - end-user applications
 }
 
 let theme = createTheme({
@@ -196,5 +201,12 @@ let theme = createTheme({
 })
 
 theme = responsiveFontSizes(theme)
+
+// Export tier colors for use in package dependency visualizations
+export const tierColors = {
+  primitive: colors.tierPrimitive,
+  core: colors.tierCore,
+  application: colors.tierApplication,
+} as const
 
 export default theme

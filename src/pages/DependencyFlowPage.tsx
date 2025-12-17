@@ -34,22 +34,23 @@ import {
   languages,
   packages,
 } from '../data/ecosystem'
+import { tierColors } from '../theme'
 
 // Tier configuration
 const tierConfig: Record<PackageTier, { label: string; color: string; icon: React.ReactNode }> = {
   primitive: {
     label: 'Primitives',
-    color: '#f59e0b',
+    color: tierColors.primitive,
     icon: <Layers fontSize="small" />,
   },
   core: {
     label: 'Core',
-    color: '#06b6d4',
+    color: tierColors.core,
     icon: <Hub fontSize="small" />,
   },
   application: {
     label: 'Applications',
-    color: '#8b5cf6',
+    color: tierColors.application,
     icon: <AccountTree fontSize="small" />,
   },
 }

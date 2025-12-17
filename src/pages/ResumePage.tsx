@@ -140,16 +140,26 @@ const skills = {
   'Open Source': ['OSS Architecture', 'SDK Design', 'Developer Tooling'],
 }
 
-// Validate share URL to expected domains
-const isValidShareUrl = (url: string) => {
+// Allowed hostnames for share functionality
+const ALLOWED_SHARE_HOSTS = ['jbcom.github.io', 'localhost', '127.0.0.1'] as const
+
+// Validate share URL to expected domains with improved security
+const isValidShareUrl = (url: string): boolean => {
   try {
     const parsed = new URL(url)
-    return (
-      parsed.hostname === 'jbcom.github.io' ||
-      parsed.hostname === 'localhost' ||
-      parsed.hostname === '127.0.0.1'
-    )
-  } catch {
+    // Only allow https (and http for localhost)
+    const isSecureProtocol =
+      parsed.protocol === 'https:' ||
+      (parsed.protocol === 'http:' &&
+        (parsed.hostname === 'localhost' || parsed.hostname === '127.0.0.1'))
+
+    if (!isSecureProtocol) return false
+
+    return ALLOWED_SHARE_HOSTS.includes(parsed.hostname as (typeof ALLOWED_SHARE_HOSTS)[number])
+  } catch (error) {
+    if (process.env.NODE_ENV === 'development') {
+      console.warn('Invalid share URL:', url, error)
+    }
     return false
   }
 }
@@ -237,6 +247,7 @@ export default function ResumePage() {
               startIcon={<CloudDownload />}
               href="/Jon_Bogaty_Resume_2025.pdf"
               download="Jon_Bogaty_Resume_2025.pdf"
+              aria-label="Download resume in PDF format"
             >
               Download PDF
             </Button>
@@ -245,6 +256,7 @@ export default function ResumePage() {
               startIcon={<Description />}
               href="/Jon_Bogaty_Resume_2025.docx"
               download="Jon_Bogaty_Resume_2025.docx"
+              aria-label="Download resume in DOCX format"
             >
               Download DOCX
             </Button>

@@ -116,7 +116,6 @@ function TimelineItem({
   const contentSx: SxProps<Theme> = { pb: isLast ? 0 : 4, flexGrow: 1 }
 
   return (
-    // @ts-expect-error - TS2590: MUI Box with typed sx still produces complex union
     <Box sx={timelineRowSx}>
       {/* Timeline connector */}
       <Box sx={timelineConnectorSx}>
