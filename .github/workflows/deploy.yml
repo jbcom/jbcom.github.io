@@ -21,23 +21,44 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
+      - name: Install pandoc and weasyprint
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pandoc wkhtmltopdf python3-pip
+          pip3 install weasyprint
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Setup Python
+        uses: actions/setup-python@v4
         with:
-          node-version: 20
-          cache: pnpm
+          python-version: '3.x'
 
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+      - name: Install PyYAML
+        run: pip3 install pyyaml
 
-      - name: Lint
-        run: pnpm run lint
+      - name: Build static site
+        run: |
+          # Create dist directory
+          mkdir -p dist
+          
+          # Copy all static HTML files
+          cp *.html dist/
+          
+          # Copy assets directory (CSS, images)
+          cp -r assets dist/
+          
+          # Note: ecosystem.html is already generated and committed
+          # No need to regenerate it from YAML during CI
 
-      - name: Build
-        run: pnpm run build
+      - name: Generate resume PDF and DOCX
+        run: |
+          # Generate PDF from markdown
+          pandoc content/resume.md -o dist/Jon_Bogaty_Resume_2025.pdf \
+            --pdf-engine=wkhtmltopdf \
+            --template=templates/resume-pdf.html \
+            -V geometry:margin=1in
+          
+          # Generate DOCX from markdown
+          pandoc content/resume.md -o dist/Jon_Bogaty_Resume_2025.docx
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

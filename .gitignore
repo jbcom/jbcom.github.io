@@ -7,6 +7,14 @@ dist
 dist-ssr
 *.local
 
+# Generated resume files (built by CI, not committed)
+Jon_Bogaty_Resume_2025.pdf
+Jon_Bogaty_Resume_2025.docx
+
+# Old React app files
+index.html.old
+src/
+
 # Editor directories
 .vscode/*
 !.vscode/extensions.json
