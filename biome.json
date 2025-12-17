@@ -33,6 +33,6 @@
     }
   },
   "files": {
-    "ignore": ["node_modules", "dist", "*.min.js", "pnpm-lock.yaml"]
+    "ignore": ["node_modules", "dist", "coverage", "*.min.js", "pnpm-lock.yaml"]
   }
 }
