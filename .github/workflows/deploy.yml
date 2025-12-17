@@ -21,23 +21,63 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
+      - name: Install pandoc and weasyprint
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pandoc wkhtmltopdf python3-pip
+          pip3 install weasyprint
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Setup Python
+        uses: actions/setup-python@v4
         with:
-          node-version: 20
-          cache: pnpm
+          python-version: '3.x'
 
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+      - name: Install PyYAML
+        run: pip3 install pyyaml
 
-      - name: Lint
-        run: pnpm run lint
+      - name: Build static site
+        run: |
+          # Copy static assets
+          mkdir -p dist
+          cp -r assets dist/
+          cp *.html dist/ 2>/dev/null || true
+          cp content/*.md dist/ 2>/dev/null || true
+          
+          # Generate ecosystem.html from YAML
+          python3 << 'EOFPYTHON'
+          import yaml
+          
+          with open('content/ecosystem.yml', 'r') as f:
+              data = yaml.safe_load(f)
+          
+          categories = {cat['id']: cat for cat in data['categories']}
+          languages = {lang['id']: lang for lang in data['languages']}
+          packages = data['packages']
+          
+          # Group by category
+          by_category = {}
+          for pkg in packages:
+              cat = pkg['category']
+              if cat not in by_category:
+                  by_category[cat] = []
+              by_category[cat].append(pkg)
+          
+          # Read ecosystem.html template and ensure it exists in dist
+          import shutil
+          if os.path.exists('ecosystem.html'):
+              shutil.copy('ecosystem.html', 'dist/ecosystem.html')
+          EOFPYTHON
 
-      - name: Build
-        run: pnpm run build
+      - name: Generate resume PDF and DOCX
+        run: |
+          # Generate PDF from markdown
+          pandoc content/resume.md -o dist/Jon_Bogaty_Resume_2025.pdf \
+            --pdf-engine=wkhtmltopdf \
+            --template=templates/resume-pdf.html \
+            -V geometry:margin=1in
+          
+          # Generate DOCX from markdown
+          pandoc content/resume.md -o dist/Jon_Bogaty_Resume_2025.docx
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

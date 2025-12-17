@@ -1,77 +1,221 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    
-    <!-- SEO -->
-    <title>Jon Bogaty | jbcom - Software Engineer</title>
-    <meta name="description" content="Jon Bogaty - Software Engineer specializing in AI orchestration, procedural graphics, and enterprise infrastructure. Explore the jbcom open source ecosystem." />
-    <meta name="keywords" content="Jon Bogaty, jbcom, software engineer, open source, AI, strata, agentic-control, TypeScript, Python, Go, React Three Fiber" />
-    <meta name="author" content="Jon Bogaty" />
-    
-    <!-- Open Graph -->
-    <meta property="og:title" content="Jon Bogaty | jbcom" />
-    <meta property="og:description" content="Software Engineer - AI orchestration, procedural graphics, enterprise infrastructure" />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://jonbogaty.com" />
-    <meta property="og:image" content="/og-image.png" />
-    
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Jon Bogaty | jbcom" />
-    <meta name="twitter:description" content="Software Engineer - AI orchestration, procedural graphics, enterprise infrastructure" />
-    
-    <!-- Fonts - Space Grotesk (headings), Inter (body), JetBrains Mono (code) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    
-    <!-- Theme color for mobile browsers -->
-    <meta name="theme-color" content="#020617" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    
-    <!-- Capacitor -->
-    <meta name="format-detection" content="telephone=no" />
-    <meta name="msapplication-tap-highlight" content="no" />
-    
-    <style>
-      /* Critical CSS - prevent FOUC */
-      html, body, #root {
-        margin: 0;
-        padding: 0;
-        min-height: 100vh;
-        background-color: #020617;
-        color: #f8fafc;
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-      }
-      
-      /* Loading state */
-      #root:empty::after {
-        content: '';
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        width: 40px;
-        height: 40px;
-        margin: -20px 0 0 -20px;
-        border: 3px solid rgba(14, 165, 212, 0.2);
-        border-top-color: #0ea5e9;
-        border-radius: 50%;
-        animation: spinner 0.8s linear infinite;
-      }
-      
-      @keyframes spinner {
-        to { transform: rotate(360deg); }
-      }
-    </style>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jon Bogaty | jbcom - Production-grade tools for serious builders</title>
+  <meta name="description" content="Open source ecosystem of 20+ production-grade packages for AI orchestration, procedural graphics, and enterprise infrastructure by Jon Bogaty.">
+  <meta name="keywords" content="Jon Bogaty, jbcom, open source, AI orchestration, procedural graphics, enterprise infrastructure, TypeScript, Python, Go">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="Jon Bogaty | jbcom">
+  <meta property="og:description" content="Production-grade tools for serious builders - 20+ open source packages">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://jbcom.github.io">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="header-content">
+      <a href="/" class="logo">
+        <div class="logo-mark">jb</div>
+        <span class="wordmark">jbcom</span>
+      </a>
+      <nav>
+        <a href="/" class="nav-link active">Home</a>
+        <a href="/about.html" class="nav-link">About</a>
+        <a href="/ecosystem.html" class="nav-link">Ecosystem</a>
+        <a href="/resume.html" class="nav-link">Resume</a>
+        <a href="https://github.com/jbcom" class="nav-link" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container section-lg">
+    <!-- Hero -->
+    <section style="margin-bottom: 4rem;">
+      <p class="overline">Open Source Ecosystem</p>
+      <h1 style="font-size: 3rem; margin-bottom: 1rem;">Production-grade tools<br>for serious builders</h1>
+      <p style="font-size: 1.25rem; color: var(--text-secondary); max-width: 600px; margin-bottom: 2rem;">
+        20+ open source packages for AI orchestration, procedural graphics, and enterprise infrastructure. 
+        Battle-tested in production. Shared with the community.
+      </p>
+      <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+        <a href="/ecosystem.html" class="btn btn-primary btn-lg">Explore Packages →</a>
+        <a href="https://github.com/jbcom" class="btn btn-outlined btn-lg" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </div>
+    </section>
+
+    <!-- Mission -->
+    <section class="card mb-2xl">
+      <h2 style="font-size: 1.5rem; margin-bottom: 1rem;">Mission</h2>
+      <p style="color: var(--text-secondary); line-height: 1.8; margin-bottom: 2rem; max-width: 800px;">
+        Build composable, well-documented tools that solve real problems. Every package in the jbcom ecosystem 
+        is extracted from production systems—code that works, shared openly.
+      </p>
+      <h3 style="font-size: 1.25rem; margin-bottom: 1rem;">Principles</h3>
+      <div class="grid grid-3" style="gap: 2rem;">
+        <div>
+          <h4 style="color: var(--primary); margin-bottom: 0.5rem;">Production-First</h4>
+          <p style="font-size: 0.875rem; color: var(--text-secondary);">
+            No toy examples. Every package solves problems encountered in real systems.
+          </p>
+        </div>
+        <div>
+          <h4 style="color: var(--primary); margin-bottom: 0.5rem;">Composable</h4>
+          <p style="font-size: 0.875rem; color: var(--text-secondary);">
+            Small, focused packages that work together. Use what you need.
+          </p>
+        </div>
+        <div>
+          <h4 style="color: var(--primary); margin-bottom: 0.5rem;">Well-Documented</h4>
+          <p style="font-size: 0.875rem; color: var(--text-secondary);">
+            Clear APIs, comprehensive examples, and honest limitations.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Language Stats -->
+    <section class="mb-2xl">
+      <h2 style="margin-bottom: 1.5rem;">Multi-Language Ecosystem</h2>
+      <div class="grid grid-4">
+        <div class="card" style="text-align: center; border-top: 3px solid var(--lang-typescript);">
+          <div class="chip chip-typescript" style="margin-bottom: 1rem;">TS</div>
+          <h3 style="font-size: 2.5rem; margin-bottom: 0.25rem;">8</h3>
+          <p style="font-size: 0.875rem; color: var(--text-secondary);">TypeScript packages</p>
+        </div>
+        <div class="card" style="text-align: center; border-top: 3px solid var(--lang-python);">
+          <div class="chip chip-python" style="margin-bottom: 1rem;">PY</div>
+          <h3 style="font-size: 2.5rem; margin-bottom: 0.25rem;">9</h3>
+          <p style="font-size: 0.875rem; color: var(--text-secondary);">Python packages</p>
+        </div>
+        <div class="card" style="text-align: center; border-top: 3px solid var(--lang-go);">
+          <div class="chip chip-go" style="margin-bottom: 1rem;">GO</div>
+          <h3 style="font-size: 2.5rem; margin-bottom: 0.25rem;">3</h3>
+          <p style="font-size: 0.875rem; color: var(--text-secondary);">Go packages</p>
+        </div>
+        <div class="card" style="text-align: center; border-top: 3px solid var(--lang-terraform);">
+          <div class="chip chip-terraform" style="margin-bottom: 1rem;">TF</div>
+          <h3 style="font-size: 2.5rem; margin-bottom: 0.25rem;">2</h3>
+          <p style="font-size: 0.875rem; color: var(--text-secondary);">Terraform modules</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="mb-2xl">
+      <h2 style="margin-bottom: 1.5rem;">Categories</h2>
+      <div class="grid grid-4">
+        <div class="card" style="border-left: 3px solid #8b5cf6;">
+          <h3 style="font-size: 1.125rem; margin-bottom: 0.5rem;">AI & Agents</h3>
+          <p style="font-size: 0.875rem; color: var(--text-secondary);">
+            Orchestration, fleet management, and intelligent automation
+          </p>
+        </div>
+        <div class="card" style="border-left: 3px solid #06b6d4;">
+          <h3 style="font-size: 1.125rem; margin-bottom: 0.5rem;">Game Development</h3>
+          <p style="font-size: 0.875rem; color: var(--text-secondary);">
+            Procedural graphics, game engines, and interactive experiences
+          </p>
+        </div>
+        <div class="card" style="border-left: 3px solid #10b981;">
+          <h3 style="font-size: 1.125rem; margin-bottom: 0.5rem;">Infrastructure</h3>
+          <p style="font-size: 0.875rem; color: var(--text-secondary);">
+            Enterprise connectors, secrets, and DevOps tooling
+          </p>
+        </div>
+        <div class="card" style="border-left: 3px solid #f59e0b;">
+          <h3 style="font-size: 1.125rem; margin-bottom: 0.5rem;">Libraries</h3>
+          <p style="font-size: 0.875rem; color: var(--text-secondary);">
+            Utilities, data types, and developer tools
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Packages -->
+    <section>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+        <h2>Featured Packages</h2>
+        <a href="/ecosystem.html" style="color: var(--primary); font-weight: 500;">View all →</a>
+      </div>
+      <div class="grid grid-3">
+        <!-- agentic-control -->
+        <div class="card">
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap;">
+            <span class="chip chip-typescript">TS</span>
+            <span class="chip chip-outlined">npm</span>
+          </div>
+          <h3 style="font-family: var(--font-mono); font-size: 1.125rem; margin-bottom: 0.75rem;">agentic-control</h3>
+          <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1rem;">
+            Fleet management for AI agents. Spawn, monitor, triage, and orchestrate agents across organizations.
+          </p>
+          <a href="https://github.com/jbcom/nodejs-agentic-control" class="btn btn-outlined" target="_blank" rel="noopener noreferrer">View Source</a>
+        </div>
+        
+        <!-- agentic-crew -->
+        <div class="card">
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap;">
+            <span class="chip chip-python">PY</span>
+            <span class="chip chip-outlined">PyPI</span>
+          </div>
+          <h3 style="font-family: var(--font-mono); font-size: 1.125rem; margin-bottom: 0.75rem;">agentic-crew</h3>
+          <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1rem;">
+            Define crews once, deploy anywhere. Framework-agnostic AI crew configuration for CrewAI, LangGraph, and Strands.
+          </p>
+          <a href="https://github.com/jbcom/python-agentic-crew" class="btn btn-outlined" target="_blank" rel="noopener noreferrer">View Source</a>
+        </div>
+        
+        <!-- strata -->
+        <div class="card">
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap;">
+            <span class="chip chip-typescript">TS</span>
+            <span class="chip chip-outlined">npm</span>
+          </div>
+          <h3 style="font-family: var(--font-mono); font-size: 1.125rem; margin-bottom: 0.75rem;">strata</h3>
+          <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1rem;">
+            Procedural 3D graphics for React Three Fiber. Layered terrain, water, vegetation, sky, and volumetrics.
+          </p>
+          <a href="https://github.com/jbcom/nodejs-strata" class="btn btn-outlined" target="_blank" rel="noopener noreferrer">View Source</a>
+        </div>
+        
+        <!-- vendor-connectors -->
+        <div class="card">
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap;">
+            <span class="chip chip-python">PY</span>
+            <span class="chip chip-outlined">PyPI</span>
+          </div>
+          <h3 style="font-family: var(--font-mono); font-size: 1.125rem; margin-bottom: 0.75rem;">vendor-connectors</h3>
+          <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1rem;">
+            Unified Python clients for AWS, GCP, GitHub, Slack, Vault, and Zoom. Includes AI tool interfaces.
+          </p>
+          <a href="https://github.com/jbcom/python-vendor-connectors" class="btn btn-outlined" target="_blank" rel="noopener noreferrer">View Source</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-links">
+        <a href="https://github.com/jbcom" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://linkedin.com/in/jonbogaty" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="mailto:jon@jonbogaty.com">Email</a>
+      </div>
+      <p style="color: var(--text-disabled); font-size: 0.875rem;">
+        © 2025 Jon Bogaty. Open source under MIT license.
+      </p>
+    </div>
+  </footer>
+</body>
 </html>

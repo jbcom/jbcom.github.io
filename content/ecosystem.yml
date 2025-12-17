@@ -329,7 +329,7 @@ packages:
   - id: extended-data-types
     name: python-extended-data-types
     displayName: extended-data-types
-    description: Enhanced Python data structures: deep-merge maps, typed lists, and configuration helpers.
+    description: "Enhanced Python data structures: deep-merge maps, typed lists, and configuration helpers."
     category: libs
     language: python
     repo: https://github.com/jbcom/python-extended-data-types

@@ -6,34 +6,37 @@
 
 This site serves as:
 1. **Professional Portfolio** - Resume, skills, experience
-2. **Ecosystem Directory** - All jbcom packages with docs links
-3. **Living Demo** - The site IS the strata demo
+2. **Ecosystem Directory** - All jbcom packages with links to their repos
+3. **Static Site** - Fast, accessible, zero JavaScript required
 
-## 🏗️ Architecture: Layers All The Way Down
+## 🏗️ Architecture: Static-First
 
-The entire site embodies strata's core philosophy: **layered composition**.
+This is a **pure static site** built for GitHub Pages. No React, no build tools, just HTML/CSS.
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│  FOREGROUND LAYER - Material UI Components                  │
-│  ┌────────────────────────────────────────────────────────┐ │
-│  │  Navigation, Cards, Text, Buttons                       │ │
-│  │  React Router, MUI Theme                                │ │
-│  └────────────────────────────────────────────────────────┘ │
-├─────────────────────────────────────────────────────────────┤
-│  MIDGROUND LAYER - Atmospheric Effects                      │
-│  ┌────────────────────────────────────────────────────────┐ │
-│  │  Volumetric clouds, particles, floating geometry        │ │
-│  │  React Three Drei helpers                               │ │
-│  └────────────────────────────────────────────────────────┘ │
-├─────────────────────────────────────────────────────────────┤
-│  BACKGROUND LAYER - Procedural Sky & Stars                  │
-│  ┌────────────────────────────────────────────────────────┐ │
-│  │  Gradient shader, star field, ambient animation         │ │
-│  │  React Three Fiber canvas                               │ │
-│  └────────────────────────────────────────────────────────┘ │
-└─────────────────────────────────────────────────────────────┘
+/
+├── content/              # Content as source (markdown/YAML)
+│   ├── resume.md        # Resume source
+│   ├── about.md         # About page content
+│   ├── vision.md        # Ecosystem vision
+│   └── ecosystem.yml    # 20+ packages with metadata
+├── templates/           # Pandoc templates for resume generation
+│   └── resume-pdf.html  # PDF generation template
+├── assets/
+│   └── css/
+│       └── style.css    # Complete design system implementation
+├── *.html               # Static HTML pages
+└── .github/workflows/
+    └── deploy.yml       # Build & deploy (generates PDF/DOCX)
 ```
+
+### Build Process
+
+1. **Content** - All content stored as markdown or YAML
+2. **Generation** - GitHub Actions generates PDF/DOCX from markdown via pandoc
+3. **Deployment** - Static HTML/CSS deployed to GitHub Pages
+
+**No JavaScript required** for core functionality. Fast page loads (<1s).
 
 ## 🎨 Design System
 
