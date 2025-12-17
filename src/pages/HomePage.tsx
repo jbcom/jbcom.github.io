@@ -1,15 +1,68 @@
 /**
  * HomePage - Mission, vision, and ecosystem overview
+ *
+ * Comprehensive overview with:
+ * - Hero section
+ * - Mission and principles
+ * - Language breakdown
+ * - Featured packages
+ * - Architecture preview
  */
 
-import { ArrowForward, GitHub } from '@mui/icons-material'
-import { Box, Button, Card, CardContent, Chip, Grid, Stack, Typography } from '@mui/material'
+import { AccountTree, ArrowForward, GitHub, Hub, Layers } from '@mui/icons-material'
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  Chip,
+  Grid,
+  Paper,
+  Stack,
+  Typography,
+  alpha,
+  useTheme,
+} from '@mui/material'
+import { useMemo } from 'react'
 import { Link } from 'react-router-dom'
-import { categories, getFeaturedPackages, getPackageCount, languages } from '../data/ecosystem'
+import {
+  categories,
+  getFeaturedPackages,
+  getPackageCount,
+  languages,
+  packages,
+} from '../data/ecosystem'
+
+// Tier configuration for architecture preview
+const tierConfig = {
+  primitive: { label: 'Primitives', color: '#f59e0b', icon: <Layers fontSize="small" /> },
+  core: { label: 'Core', color: '#06b6d4', icon: <Hub fontSize="small" /> },
+  application: { label: 'Applications', color: '#8b5cf6', icon: <AccountTree fontSize="small" /> },
+}
 
 export default function HomePage() {
+  const theme = useTheme()
   const featured = getFeaturedPackages()
   const packageCount = getPackageCount()
+
+  // Language stats
+  const languageStats = useMemo(() => {
+    const stats: Record<string, number> = {}
+    for (const pkg of packages) {
+      stats[pkg.language] = (stats[pkg.language] || 0) + 1
+    }
+    return stats
+  }, [])
+
+  // Tier stats
+  const tierStats = useMemo(() => {
+    const stats = { primitive: 0, core: 0, application: 0 }
+    for (const pkg of packages) {
+      const tier = pkg.tier || 'application'
+      stats[tier]++
+    }
+    return stats
+  }, [])
 
   return (
     <Box>
@@ -102,6 +155,101 @@ export default function HomePage() {
               </Typography>
             </Grid>
           </Grid>
+        </CardContent>
+      </Card>
+
+      {/* Language Ecosystems */}
+      <Typography variant="h5" fontWeight={600} sx={{ mb: 3 }}>
+        Multi-Language Ecosystem
+      </Typography>
+      <Grid container spacing={2} sx={{ mb: 6 }}>
+        {Object.entries(languages).map(([key, lang]) => {
+          const count = languageStats[key] || 0
+          return (
+            <Grid item xs={6} sm={3} key={key}>
+              <Paper
+                sx={{
+                  p: 2,
+                  textAlign: 'center',
+                  borderTop: `3px solid ${lang.color}`,
+                  height: '100%',
+                }}
+              >
+                <Chip
+                  label={lang.icon}
+                  sx={{
+                    backgroundColor: alpha(lang.color, 0.2),
+                    color: lang.color,
+                    fontFamily: '"JetBrains Mono", monospace',
+                    fontWeight: 700,
+                    mb: 1,
+                  }}
+                />
+                <Typography variant="h4" fontWeight={700} fontFamily='"Space Grotesk", sans-serif'>
+                  {count}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  {lang.name} packages
+                </Typography>
+              </Paper>
+            </Grid>
+          )
+        })}
+      </Grid>
+
+      {/* Architecture Preview */}
+      <Card sx={{ mb: 6, background: alpha(theme.palette.primary.main, 0.03) }}>
+        <CardContent sx={{ p: 4 }}>
+          <Stack
+            direction={{ xs: 'column', md: 'row' }}
+            justifyContent="space-between"
+            alignItems={{ xs: 'flex-start', md: 'center' }}
+            spacing={3}
+          >
+            <Box>
+              <Typography variant="h5" fontWeight={600} gutterBottom>
+                Layered Architecture
+              </Typography>
+              <Typography color="text.secondary" sx={{ maxWidth: 500, mb: 2 }}>
+                The jbcom ecosystem follows a structured dependency flow. Primitive libraries
+                provide foundational capabilities that power core packages, which in turn enable
+                sophisticated applications.
+              </Typography>
+              <Button
+                component={Link}
+                to="/architecture"
+                variant="contained"
+                endIcon={<ArrowForward />}
+              >
+                Explore Architecture
+              </Button>
+            </Box>
+
+            <Stack direction="row" spacing={2}>
+              {Object.entries(tierStats).map(([tier, count]) => {
+                const config = tierConfig[tier as keyof typeof tierConfig]
+                return (
+                  <Paper
+                    key={tier}
+                    sx={{
+                      p: 2,
+                      textAlign: 'center',
+                      minWidth: 100,
+                      borderBottom: `3px solid ${config.color}`,
+                    }}
+                  >
+                    <Box sx={{ color: config.color, mb: 1 }}>{config.icon}</Box>
+                    <Typography variant="h5" fontWeight={700}>
+                      {count}
+                    </Typography>
+                    <Typography variant="caption" color="text.secondary">
+                      {config.label}
+                    </Typography>
+                  </Paper>
+                )
+              })}
+            </Stack>
+          </Stack>
         </CardContent>
       </Card>
 

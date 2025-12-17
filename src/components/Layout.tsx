@@ -3,6 +3,7 @@
  */
 
 import {
+  AccountTree as ArchitectureIcon,
   Close as CloseIcon,
   PlayCircle as DemoIcon,
   Widgets as EcosystemIcon,
@@ -38,6 +39,7 @@ const navItems = [
   { label: 'About', path: '/about', icon: <PersonIcon /> },
   { label: 'Resume', path: '/resume', icon: <ResumeIcon /> },
   { label: 'Ecosystem', path: '/ecosystem', icon: <EcosystemIcon /> },
+  { label: 'Architecture', path: '/architecture', icon: <ArchitectureIcon /> },
   { label: 'Demos', path: '/demos', icon: <DemoIcon /> },
 ]
 

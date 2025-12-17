@@ -1,8 +1,10 @@
 /**
  * AboutPage - Professional bio, experience, and skills
+ *
+ * Uses MUI Timeline for experience section and comprehensive skills display
  */
 
-import { ArrowForward, Email, GitHub, LinkedIn } from '@mui/icons-material'
+import { ArrowForward, Email, GitHub, LinkedIn, School, Work } from '@mui/icons-material'
 import type { SxProps, Theme } from '@mui/material'
 import {
   Avatar,
@@ -14,8 +16,11 @@ import {
   Divider,
   Grid,
   IconButton,
+  Paper,
   Stack,
   Typography,
+  alpha,
+  useTheme,
 } from '@mui/material'
 import { Link } from 'react-router-dom'
 
@@ -39,6 +44,7 @@ const experience = [
     period: 'June 2021 – Present',
     description:
       'Lead globally distributed IT and security strategy with emphasis on compliance, resilience, and operational efficiency. Architect Terraform-driven cloud orchestration and unified identity access.',
+    current: true,
   },
   {
     title: 'Senior Site Reliability Engineer',
@@ -46,6 +52,7 @@ const experience = [
     period: 'August 2020 – June 2021',
     description:
       'Led site reliability initiatives improving scalability, availability, and operational visibility. Implemented cloud infrastructure optimizations.',
+    current: false,
   },
   {
     title: 'Senior Development Operations Engineer',
@@ -53,10 +60,92 @@ const experience = [
     period: 'November 2017 – August 2020',
     description:
       'Owned and scaled a large internal CI/CD platform. Built automation using Python, Ansible, Terraform, and Packer across AWS, GCP, and Azure.',
+    current: false,
   },
 ]
 
+// Typed sx props for Timeline component to avoid TS2590
+const timelineRowSx: SxProps<Theme> = { display: 'flex', gap: 2 }
+const timelineConnectorSx: SxProps<Theme> = {
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  minWidth: 40,
+}
+const timelineLineSx: SxProps<Theme> = {
+  width: 2,
+  flexGrow: 1,
+  backgroundColor: 'divider',
+  my: 1,
+}
+
+// Custom Timeline Item component (avoids @mui/lab dependency)
+function TimelineItem({
+  icon,
+  title,
+  subtitle,
+  period,
+  description,
+  isLast,
+  color,
+}: {
+  icon: React.ReactNode
+  title: string
+  subtitle: string
+  period: string
+  description: string
+  isLast?: boolean
+  color?: string
+}) {
+  const theme = useTheme()
+  const dotColor = color || theme.palette.primary.main
+
+  const dotSx: SxProps<Theme> = {
+    width: 40,
+    height: 40,
+    borderRadius: '50%',
+    backgroundColor: alpha(dotColor, 0.15),
+    border: `2px solid ${dotColor}`,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: dotColor,
+    flexShrink: 0,
+  }
+
+  const contentSx: SxProps<Theme> = { pb: isLast ? 0 : 4, flexGrow: 1 }
+
+  return (
+    // @ts-expect-error - TS2590: MUI Box with typed sx still produces complex union
+    <Box sx={timelineRowSx}>
+      {/* Timeline connector */}
+      <Box sx={timelineConnectorSx}>
+        <Box sx={dotSx}>{icon}</Box>
+        {!isLast && <Box sx={timelineLineSx} />}
+      </Box>
+
+      {/* Content */}
+      <Box sx={contentSx}>
+        <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 0.5 }}>
+          {period}
+        </Typography>
+        <Typography variant="h6" fontWeight={600} sx={{ lineHeight: 1.3 }}>
+          {title}
+        </Typography>
+        <Typography color="primary.main" gutterBottom>
+          {subtitle}
+        </Typography>
+        <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.7 }}>
+          {description}
+        </Typography>
+      </Box>
+    </Box>
+  )
+}
+
 export default function AboutPage() {
+  const theme = useTheme()
+
   return (
     <Box sx={containerSx}>
       {/* Header */}
@@ -162,63 +251,48 @@ export default function AboutPage() {
           <Typography variant="h5" fontWeight={600} gutterBottom>
             Experience
           </Typography>
-          <Stack spacing={2} sx={{ mb: 4 }}>
+          <Paper sx={{ p: 3, mb: 4 }}>
             {experience.map((exp) => (
-              <Card key={exp.company}>
-                <CardContent>
-                  <Typography variant="h6" fontWeight={600}>
-                    {exp.title}
-                  </Typography>
-                  <Typography color="primary.main" gutterBottom>
-                    {exp.company}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-                    {exp.period}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    {exp.description}
-                  </Typography>
-                </CardContent>
-              </Card>
+              <TimelineItem
+                key={exp.company}
+                icon={<Work fontSize="small" />}
+                title={exp.title}
+                subtitle={exp.company}
+                period={exp.period}
+                description={exp.description}
+                color={exp.current ? theme.palette.success.main : theme.palette.primary.main}
+                isLast={false}
+              />
             ))}
-            <Card>
-              <CardContent>
-                <Typography variant="h6" fontWeight={600}>
-                  Open Source Maintainer
-                </Typography>
-                <Typography color="primary.main" gutterBottom>
-                  jbcom
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Maintain 20+ packages across AI agent orchestration, procedural graphics, and
-                  enterprise infrastructure. Primary author of agentic-control, strata, and
-                  vendor-connectors.
-                </Typography>
-              </CardContent>
-            </Card>
-          </Stack>
+            <TimelineItem
+              icon={<GitHub fontSize="small" />}
+              title="Open Source Maintainer"
+              subtitle="jbcom"
+              period="Ongoing"
+              description="Maintain 20+ packages across AI agent orchestration, procedural graphics, and enterprise infrastructure. Primary author of agentic-control, strata, and vendor-connectors."
+              color={theme.palette.secondary.main}
+              isLast={true}
+            />
+          </Paper>
 
           {/* Education */}
           <Typography variant="h5" fontWeight={600} gutterBottom>
             Education
           </Typography>
-          <Card sx={{ mb: 4 }}>
-            <CardContent>
-              <Typography variant="h6" fontWeight={600}>
-                Associate of Applied Science (AAS)
-              </Typography>
-              <Typography color="primary.main" gutterBottom>
-                Computer Information Technology
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Ivy Tech Community College
-              </Typography>
-              <Stack direction="row" spacing={1} sx={{ mt: 2 }}>
-                <Chip label="Honors Graduate" size="small" color="success" variant="outlined" />
-                <Chip label="Dean's List" size="small" variant="outlined" />
-              </Stack>
-            </CardContent>
-          </Card>
+          <Paper sx={{ p: 3, mb: 4 }}>
+            <TimelineItem
+              icon={<School fontSize="small" />}
+              title="Associate of Applied Science (AAS)"
+              subtitle="Computer Information Technology"
+              period="Ivy Tech Community College"
+              description="Graduated with honors. Dean's List recognition."
+              isLast={true}
+            />
+            <Stack direction="row" spacing={1} sx={{ mt: 2, ml: 7 }}>
+              <Chip label="Honors Graduate" size="small" color="success" variant="outlined" />
+              <Chip label="Dean's List" size="small" variant="outlined" />
+            </Stack>
+          </Paper>
         </Grid>
 
         {/* Skills */}

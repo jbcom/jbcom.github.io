@@ -1,15 +1,19 @@
 /**
  * ProjectPage - Individual package detail view
+ *
+ * Shows package details including dependencies and dependents
  */
 
-import { ArrowBack, GitHub, OpenInNew } from '@mui/icons-material'
+import { AccountTree, ArrowBack, GitHub, Hub, Layers, OpenInNew } from '@mui/icons-material'
 import {
+  Alert,
   Box,
   Breadcrumbs,
   Button,
   Card,
   CardContent,
   Chip,
+  Divider,
   Grid,
   Link,
   Stack,
@@ -17,8 +21,22 @@ import {
   alpha,
   useTheme,
 } from '@mui/material'
+import { useMemo } from 'react'
 import { Navigate, Link as RouterLink, useParams } from 'react-router-dom'
-import { categories, getPackageById, languages } from '../data/ecosystem'
+import {
+  type PackageTier,
+  categories,
+  getPackageById,
+  languages,
+  packages,
+} from '../data/ecosystem'
+
+// Tier icons and colors - using ReactElement for Chip icon compatibility
+const tierConfig: Record<PackageTier, { icon: React.ReactElement; color: string }> = {
+  primitive: { icon: <Layers fontSize="small" />, color: '#f59e0b' },
+  core: { icon: <Hub fontSize="small" />, color: '#06b6d4' },
+  application: { icon: <AccountTree fontSize="small" />, color: '#8b5cf6' },
+}
 
 export default function ProjectPage() {
   const { projectId } = useParams<{ projectId: string }>()
@@ -26,12 +44,26 @@ export default function ProjectPage() {
 
   const pkg = projectId ? getPackageById(projectId) : null
 
+  // Get packages that depend on this one
+  const dependents = useMemo(() => {
+    if (!pkg) return []
+    return packages.filter((p) => p.dependsOn?.includes(pkg.id))
+  }, [pkg])
+
+  // Get resolved dependencies
+  const dependencies = useMemo(() => {
+    if (!pkg?.dependsOn) return []
+    return pkg.dependsOn.map((id) => getPackageById(id)).filter(Boolean)
+  }, [pkg])
+
   if (!pkg) {
     return <Navigate to="/ecosystem" replace />
   }
 
   const lang = languages[pkg.language]
   const cat = categories[pkg.category]
+  const tier = pkg.tier || 'application'
+  const tierInfo = tierConfig[tier]
 
   return (
     <Box sx={{ py: { xs: 2, md: 4 } }}>
@@ -67,6 +99,15 @@ export default function ProjectPage() {
             sx={{
               backgroundColor: alpha(cat.color, 0.15),
               color: cat.color,
+            }}
+          />
+          <Chip
+            icon={tierInfo.icon}
+            label={tier.charAt(0).toUpperCase() + tier.slice(1)}
+            sx={{
+              backgroundColor: alpha(tierInfo.color, 0.15),
+              color: tierInfo.color,
+              '& .MuiChip-icon': { color: tierInfo.color },
             }}
           />
           {pkg.status !== 'stable' && (
@@ -225,6 +266,83 @@ export default function ProjectPage() {
               </CardContent>
             </Card>
 
+            {/* Dependencies */}
+            {(dependencies.length > 0 || dependents.length > 0) && (
+              <Card
+                sx={{
+                  background: alpha(theme.palette.background.paper, 0.6),
+                  backdropFilter: 'blur(10px)',
+                }}
+              >
+                <CardContent sx={{ p: 3 }}>
+                  {dependencies.length > 0 && (
+                    <>
+                      <Typography variant="subtitle2" color="text.secondary" mb={1}>
+                        Depends On
+                      </Typography>
+                      <Stack spacing={1} sx={{ mb: dependents.length > 0 ? 2 : 0 }}>
+                        {dependencies.map((dep) => {
+                          if (!dep) return null
+                          const depTier = dep.tier || 'application'
+                          const depTierInfo = tierConfig[depTier]
+                          return (
+                            <Chip
+                              key={dep.id}
+                              component={RouterLink}
+                              to={`/ecosystem/${dep.id}`}
+                              label={dep.displayName}
+                              size="small"
+                              icon={depTierInfo.icon}
+                              clickable
+                              sx={{
+                                backgroundColor: alpha(depTierInfo.color, 0.1),
+                                borderColor: depTierInfo.color,
+                                '& .MuiChip-icon': { color: depTierInfo.color },
+                              }}
+                              variant="outlined"
+                            />
+                          )
+                        })}
+                      </Stack>
+                    </>
+                  )}
+
+                  {dependencies.length > 0 && dependents.length > 0 && <Divider sx={{ my: 2 }} />}
+
+                  {dependents.length > 0 && (
+                    <>
+                      <Typography variant="subtitle2" color="text.secondary" mb={1}>
+                        Used By
+                      </Typography>
+                      <Stack spacing={1}>
+                        {dependents.map((dep) => {
+                          const depTier = dep.tier || 'application'
+                          const depTierInfo = tierConfig[depTier]
+                          return (
+                            <Chip
+                              key={dep.id}
+                              component={RouterLink}
+                              to={`/ecosystem/${dep.id}`}
+                              label={dep.displayName}
+                              size="small"
+                              icon={depTierInfo.icon}
+                              clickable
+                              sx={{
+                                backgroundColor: alpha(depTierInfo.color, 0.1),
+                                borderColor: depTierInfo.color,
+                                '& .MuiChip-icon': { color: depTierInfo.color },
+                              }}
+                              variant="outlined"
+                            />
+                          )
+                        })}
+                      </Stack>
+                    </>
+                  )}
+                </CardContent>
+              </Card>
+            )}
+
             {/* Tags */}
             <Card
               sx={{
@@ -246,6 +364,19 @@ export default function ProjectPage() {
           </Stack>
         </Grid>
       </Grid>
+
+      {/* Architecture Link */}
+      <Alert
+        severity="info"
+        sx={{ mt: 4 }}
+        action={
+          <Button component={RouterLink} to="/architecture" color="inherit" size="small">
+            View Architecture
+          </Button>
+        }
+      >
+        See how this package fits into the overall jbcom ecosystem architecture.
+      </Alert>
     </Box>
   )
 }

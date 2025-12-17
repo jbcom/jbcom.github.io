@@ -10,6 +10,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Layout from './components/Layout'
 import AboutPage from './pages/AboutPage'
 import DemosPage from './pages/DemosPage'
+import DependencyFlowPage from './pages/DependencyFlowPage'
 import EcosystemPage from './pages/EcosystemPage'
 import HomePage from './pages/HomePage'
 import ProjectPage from './pages/ProjectPage'
@@ -28,6 +29,7 @@ export default function App() {
             <Route path="resume" element={<ResumePage />} />
             <Route path="ecosystem" element={<EcosystemPage />} />
             <Route path="ecosystem/:projectId" element={<ProjectPage />} />
+            <Route path="architecture" element={<DependencyFlowPage />} />
             <Route path="demos" element={<DemosPage />} />
           </Route>
         </Routes>

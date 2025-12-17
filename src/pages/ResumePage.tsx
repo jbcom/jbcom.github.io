@@ -1,34 +1,60 @@
 /**
  * ResumePage - Full professional resume with download and share options
+ *
+ * Features:
+ * - Tabbed sections for Experience, Open Source, Skills
+ * - Snackbar feedback for share actions
+ * - Download buttons for PDF/DOCX
  */
 
 import {
+  AccountTree,
   CloudDownload,
+  Code,
   Description,
   Email,
   GitHub,
   LinkedIn,
+  School,
   Share,
   Twitter,
+  Work,
 } from '@mui/icons-material'
 import {
+  Alert,
   Box,
   Button,
   Card,
   CardContent,
   Chip,
-  Divider,
   Grid,
   IconButton,
   Paper,
+  Snackbar,
   Stack,
+  Tab,
+  Tabs,
   Tooltip,
   Typography,
   alpha,
   useTheme,
 } from '@mui/material'
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
+
+interface TabPanelProps {
+  children?: React.ReactNode
+  index: number
+  value: number
+}
+
+function TabPanel({ children, value, index }: TabPanelProps) {
+  return (
+    <div role="tabpanel" hidden={value !== index}>
+      {value === index && <Box sx={{ pt: 3 }}>{children}</Box>}
+    </div>
+  )
+}
 
 interface Experience {
   title: string
@@ -130,6 +156,11 @@ const isValidShareUrl = (url: string) => {
 
 export default function ResumePage() {
   const theme = useTheme()
+  const [tabValue, setTabValue] = useState(0)
+  const [snackbar, setSnackbar] = useState<{ open: boolean; message: string }>({
+    open: false,
+    message: '',
+  })
 
   // Use memoized feature detection for Web Share API
   const supportsWebShare = useMemo(
@@ -151,13 +182,19 @@ export default function ResumePage() {
           text: shareText,
           url: shareUrl,
         })
+        setSnackbar({ open: true, message: 'Shared successfully!' })
       } catch (error) {
         // Only ignore AbortError (user cancelled)
         if (error instanceof Error && error.name !== 'AbortError') {
           console.error('Share failed:', error)
+          setSnackbar({ open: true, message: 'Share failed. Please try again.' })
         }
       }
     }
+  }
+
+  const handleSocialShare = (platform: string) => {
+    setSnackbar({ open: true, message: `Opening ${platform}...` })
   }
 
   const linkedInShareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`
@@ -225,6 +262,7 @@ export default function ResumePage() {
                 rel="noopener noreferrer"
                 size="small"
                 sx={{ color: '#0A66C2' }}
+                onClick={() => handleSocialShare('LinkedIn')}
               >
                 <LinkedIn />
               </IconButton>
@@ -236,12 +274,18 @@ export default function ResumePage() {
                 target="_blank"
                 rel="noopener noreferrer"
                 size="small"
+                onClick={() => handleSocialShare('X')}
               >
                 <Twitter />
               </IconButton>
             </Tooltip>
             <Tooltip title="Share via Email">
-              <IconButton component="a" href={emailShareUrl} size="small">
+              <IconButton
+                component="a"
+                href={emailShareUrl}
+                size="small"
+                onClick={() => handleSocialShare('Email')}
+              >
                 <Email />
               </IconButton>
             </Tooltip>
@@ -332,137 +376,188 @@ export default function ResumePage() {
         </CardContent>
       </Card>
 
-      <Grid container spacing={4}>
-        {/* Main Content */}
-        <Grid item xs={12} lg={8}>
-          {/* Professional Experience */}
-          <Typography variant="h5" fontWeight={600} gutterBottom>
-            Professional Experience
-          </Typography>
-          <Stack spacing={3} sx={{ mb: 4 }}>
-            {experience.map((exp) => (
-              <Card key={exp.company}>
-                <CardContent sx={{ p: { xs: 3, md: 4 } }}>
-                  <Typography variant="h6" fontWeight={600}>
-                    {exp.title}
-                  </Typography>
-                  <Typography color="primary.main" gutterBottom>
-                    {exp.company}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                    {exp.period}
-                  </Typography>
-                  <Box component="ul" sx={{ m: 0, pl: 2.5 }}>
-                    {exp.description.map((desc) => (
-                      <Typography
-                        component="li"
-                        key={desc}
-                        variant="body2"
-                        color="text.secondary"
-                        sx={{ mb: 1, lineHeight: 1.7 }}
-                      >
-                        {desc}
-                      </Typography>
-                    ))}
-                  </Box>
-                </CardContent>
-              </Card>
-            ))}
-          </Stack>
+      {/* Tabbed Content */}
+      <Paper sx={{ mb: 4 }}>
+        <Tabs
+          value={tabValue}
+          onChange={(_, newValue) => setTabValue(newValue)}
+          variant="scrollable"
+          scrollButtons="auto"
+          sx={{
+            borderBottom: 1,
+            borderColor: 'divider',
+            '& .MuiTab-root': {
+              textTransform: 'none',
+              fontWeight: 600,
+              minHeight: 56,
+            },
+          }}
+        >
+          <Tab icon={<Work />} iconPosition="start" label="Experience" />
+          <Tab icon={<Code />} iconPosition="start" label="Open Source" />
+          <Tab icon={<AccountTree />} iconPosition="start" label="Skills" />
+          <Tab icon={<School />} iconPosition="start" label="Education" />
+        </Tabs>
 
-          {/* Open Source Projects */}
-          <Typography variant="h5" fontWeight={600} gutterBottom>
-            Open Source & Public Projects
-          </Typography>
-          <Card sx={{ mb: 4 }}>
-            <CardContent sx={{ p: { xs: 3, md: 4 } }}>
-              <Stack spacing={2} divider={<Divider />}>
-                {openSourceProjects.map((project) => (
-                  <Box key={project.name}>
-                    <Typography
-                      fontWeight={600}
-                      fontFamily='"JetBrains Mono", monospace'
-                      color="primary.main"
-                    >
-                      {project.name}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.7 }}>
-                      {project.description}
-                    </Typography>
-                  </Box>
-                ))}
-              </Stack>
-              <Button
-                component={Link}
-                to="/ecosystem"
-                sx={{ mt: 3 }}
-                variant="outlined"
-                size="small"
-              >
-                View All 20+ Packages →
-              </Button>
-            </CardContent>
-          </Card>
-        </Grid>
-
-        {/* Sidebar */}
-        <Grid item xs={12} lg={4}>
-          {/* Skills */}
-          <Typography variant="h5" fontWeight={600} gutterBottom>
-            Skills
-          </Typography>
-          <Paper sx={{ p: 3, mb: 4 }}>
+        <Box sx={{ p: { xs: 2, md: 3 } }}>
+          {/* Experience Tab */}
+          <TabPanel value={tabValue} index={0}>
             <Stack spacing={3}>
-              {Object.entries(skills).map(([category, items]) => (
-                <Box key={category}>
-                  <Typography
-                    variant="subtitle2"
-                    fontWeight={600}
-                    color="text.secondary"
-                    gutterBottom
-                    sx={{ textTransform: 'uppercase', fontSize: '0.7rem', letterSpacing: 1 }}
-                  >
-                    {category}
-                  </Typography>
-                  <Stack direction="row" flexWrap="wrap" gap={0.75}>
-                    {items.map((skill) => (
-                      <Chip
-                        key={skill}
-                        label={skill}
-                        size="small"
-                        variant="outlined"
-                        sx={{ fontSize: '0.75rem' }}
-                      />
-                    ))}
-                  </Stack>
-                </Box>
+              {experience.map((exp) => (
+                <Card key={exp.company} variant="outlined">
+                  <CardContent sx={{ p: { xs: 2, md: 3 } }}>
+                    <Typography variant="h6" fontWeight={600}>
+                      {exp.title}
+                    </Typography>
+                    <Typography color="primary.main" gutterBottom>
+                      {exp.company}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                      {exp.period}
+                    </Typography>
+                    <Box component="ul" sx={{ m: 0, pl: 2.5 }}>
+                      {exp.description.map((desc) => (
+                        <Typography
+                          component="li"
+                          key={desc}
+                          variant="body2"
+                          color="text.secondary"
+                          sx={{ mb: 1, lineHeight: 1.7 }}
+                        >
+                          {desc}
+                        </Typography>
+                      ))}
+                    </Box>
+                  </CardContent>
+                </Card>
               ))}
             </Stack>
-          </Paper>
+          </TabPanel>
 
-          {/* Education */}
-          <Typography variant="h5" fontWeight={600} gutterBottom>
-            Education
-          </Typography>
-          <Card>
-            <CardContent>
-              <Typography variant="h6" fontWeight={600}>
-                Associate of Applied Science (AAS)
-              </Typography>
-              <Typography color="primary.main" gutterBottom>
-                Computer Information Technology
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Ivy Tech Community College
-              </Typography>
-              <Stack direction="row" spacing={1} sx={{ mt: 2 }}>
-                <Chip label="Honors Graduate" size="small" color="success" variant="outlined" />
-                <Chip label="Dean's List" size="small" variant="outlined" />
-              </Stack>
-            </CardContent>
-          </Card>
-        </Grid>
-      </Grid>
+          {/* Open Source Tab */}
+          <TabPanel value={tabValue} index={1}>
+            <Alert severity="info" sx={{ mb: 3 }}>
+              Primary maintainer of 20+ open source packages across AI orchestration, procedural
+              graphics, and enterprise infrastructure.
+            </Alert>
+            <Grid container spacing={2}>
+              {openSourceProjects.map((project) => (
+                <Grid item xs={12} md={6} key={project.name}>
+                  <Card variant="outlined" sx={{ height: '100%' }}>
+                    <CardContent>
+                      <Typography
+                        fontWeight={600}
+                        fontFamily='"JetBrains Mono", monospace'
+                        color="primary.main"
+                        gutterBottom
+                      >
+                        {project.name}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.7 }}>
+                        {project.description}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Grid>
+              ))}
+            </Grid>
+            <Stack direction="row" spacing={2} sx={{ mt: 3 }}>
+              <Button component={Link} to="/ecosystem" variant="outlined">
+                View All Packages →
+              </Button>
+              <Button component={Link} to="/architecture" variant="text">
+                See Architecture →
+              </Button>
+            </Stack>
+          </TabPanel>
+
+          {/* Skills Tab */}
+          <TabPanel value={tabValue} index={2}>
+            <Grid container spacing={3}>
+              {Object.entries(skills).map(([category, items]) => (
+                <Grid item xs={12} sm={6} md={4} key={category}>
+                  <Paper variant="outlined" sx={{ p: 2, height: '100%' }}>
+                    <Typography
+                      variant="subtitle2"
+                      fontWeight={600}
+                      color="text.secondary"
+                      gutterBottom
+                      sx={{ textTransform: 'uppercase', fontSize: '0.7rem', letterSpacing: 1 }}
+                    >
+                      {category}
+                    </Typography>
+                    <Stack direction="row" flexWrap="wrap" gap={0.75}>
+                      {items.map((skill) => (
+                        <Chip
+                          key={skill}
+                          label={skill}
+                          size="small"
+                          variant="outlined"
+                          sx={{ fontSize: '0.75rem' }}
+                        />
+                      ))}
+                    </Stack>
+                  </Paper>
+                </Grid>
+              ))}
+            </Grid>
+          </TabPanel>
+
+          {/* Education Tab */}
+          <TabPanel value={tabValue} index={3}>
+            <Card variant="outlined" sx={{ maxWidth: 500 }}>
+              <CardContent>
+                <Stack direction="row" spacing={2} alignItems="flex-start">
+                  <Box
+                    sx={{
+                      width: 48,
+                      height: 48,
+                      borderRadius: '50%',
+                      backgroundColor: alpha(theme.palette.primary.main, 0.1),
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: 'primary.main',
+                      flexShrink: 0,
+                    }}
+                  >
+                    <School />
+                  </Box>
+                  <Box>
+                    <Typography variant="h6" fontWeight={600}>
+                      Associate of Applied Science (AAS)
+                    </Typography>
+                    <Typography color="primary.main" gutterBottom>
+                      Computer Information Technology
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      Ivy Tech Community College
+                    </Typography>
+                    <Stack direction="row" spacing={1} sx={{ mt: 2 }}>
+                      <Chip
+                        label="Honors Graduate"
+                        size="small"
+                        color="success"
+                        variant="outlined"
+                      />
+                      <Chip label="Dean's List" size="small" variant="outlined" />
+                    </Stack>
+                  </Box>
+                </Stack>
+              </CardContent>
+            </Card>
+          </TabPanel>
+        </Box>
+      </Paper>
+
+      {/* Snackbar for feedback */}
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={3000}
+        onClose={() => setSnackbar({ ...snackbar, open: false })}
+        message={snackbar.message}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      />
     </Box>
   )
 }
