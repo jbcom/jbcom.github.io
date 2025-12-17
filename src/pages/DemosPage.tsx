@@ -4,10 +4,9 @@
  * Dedicated showcase for procedural 3D graphics.
  */
 
-import { Code, GitHub, PlayArrow, SportsEsports } from '@mui/icons-material'
+import { Code, GitHub, PlayArrow } from '@mui/icons-material'
 import type { SxProps, Theme } from '@mui/material'
 import {
-  Alert,
   Box,
   Button,
   Card,
@@ -33,7 +32,7 @@ import {
 import { Canvas } from '@react-three/fiber'
 import type { SyntheticEvent } from 'react'
 import { Suspense, useState } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 // Demo: Distortion geometry
 function DistortionDemo() {
@@ -364,20 +363,6 @@ export default function DemosPage(): JSX.Element {
       <Typography color="text.secondary" sx={{ mb: 2 }}>
         Technical demonstrations of the Strata 3D graphics engine. Drag to orbit, scroll to zoom.
       </Typography>
-
-      <Alert severity="info" icon={<SportsEsports />} sx={{ mb: 3 }}>
-        <Typography variant="body2">
-          Looking for playable games?{' '}
-          <Typography
-            component={Link}
-            to="/arcade"
-            sx={{ fontWeight: 600, color: 'primary.main', textDecoration: 'none' }}
-          >
-            Visit the Arcade
-          </Typography>{' '}
-          to see games built with Strata.
-        </Typography>
-      </Alert>
 
       <Stack direction="row" spacing={1} sx={{ mb: 4 }}>
         <Chip label="React Three Fiber" size="small" />
