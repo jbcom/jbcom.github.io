@@ -1,23 +1,27 @@
 /**
  * DependencyFlowPage - Visual representation of how packages build on each other
  *
- * Shows the layered architecture: Primitives → Core → Applications
+ * Organized by LANGUAGE first, then shows the layered architecture within each:
+ * Primitives → Core → Applications
+ *
  * Uses MUI components with custom CSS for connecting lines
  */
 
-import { AccountTree, ArrowDownward, GitHub, Hub, Layers } from '@mui/icons-material'
-import type { SxProps, Theme } from '@mui/material'
+import { AccountTree, ArrowDownward, Hub, Layers } from '@mui/icons-material'
 import {
   Alert,
   Box,
   Card,
   CardContent,
   Chip,
+  Collapse,
   Fade,
   Grid,
+  IconButton,
   Paper,
   Stack,
-  Tooltip,
+  Tab,
+  Tabs,
   Typography,
   alpha,
   useTheme,
@@ -25,6 +29,7 @@ import {
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
+  type Language,
   type Package,
   type PackageTier,
   categories,
@@ -40,38 +45,21 @@ const tierConfig: Record<
 > = {
   primitive: {
     label: 'Primitives',
-    description: 'Foundation libraries providing core data types, logging, and configuration',
+    description: 'Foundation libraries',
     color: '#f59e0b', // amber/warning
-    icon: <Layers />,
+    icon: <Layers fontSize="small" />,
   },
   core: {
     label: 'Core',
-    description: 'Mid-level packages that combine primitives into powerful abstractions',
+    description: 'Powerful abstractions',
     color: '#06b6d4', // cyan/primary
-    icon: <Hub />,
+    icon: <Hub fontSize="small" />,
   },
   application: {
     label: 'Applications',
-    description: 'End-user tools and applications built on core packages',
+    description: 'End-user tools',
     color: '#8b5cf6', // violet
-    icon: <AccountTree />,
-  },
-}
-
-// Styled container for tier sections
-const tierSectionSx: SxProps<Theme> = {
-  position: 'relative',
-  py: 4,
-  '&::before': {
-    content: '""',
-    position: 'absolute',
-    left: '50%',
-    top: 0,
-    bottom: 0,
-    width: 2,
-    backgroundColor: 'divider',
-    transform: 'translateX(-50%)',
-    zIndex: 0,
+    icon: <AccountTree fontSize="small" />,
   },
 }
 
