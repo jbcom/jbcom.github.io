@@ -2,8 +2,8 @@
 name: Jon Bogaty
 title: Head of Information Technology and Security
 location: Lincoln, Nebraska, United States
-phone: 646-945-4232
 email: jon@jonbogaty.com
+telegram: "@jbpersonaldev"
 github: github.com/jbcom
 linkedin: www.linkedin.com/in/jonbogaty
 portfolio: www.jonbogaty.com
@@ -14,7 +14,7 @@ years_experience: 15+
 
 **Head of Information Technology and Security**  
 Lincoln, Nebraska, United States  
-Mobile: 646-945-4232 | Email: jon@jonbogaty.com  
+Email: jon@jonbogaty.com | Telegram: @jbpersonaldev  
 LinkedIn: [linkedin.com/in/jonbogaty](https://www.linkedin.com/in/jonbogaty) | Portfolio: [jonbogaty.com](https://www.jonbogaty.com) | GitHub: [github.com/jbcom](https://github.com/jbcom)
 
 ## Professional Summary
