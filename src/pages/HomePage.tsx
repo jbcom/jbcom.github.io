@@ -1,23 +1,8 @@
 /**
  * HomePage - Mission, vision, and ecosystem overview
- *
- * Comprehensive overview with:
- * - Hero section
- * - Mission and principles
- * - Language breakdown
- * - Featured packages
- * - Architecture preview
  */
 
-import {
-  AccountTree,
-  ArrowForward,
-  GitHub,
-  Hub,
-  Layers,
-  PlayCircle,
-  SportsEsports,
-} from '@mui/icons-material'
+import { ArrowForward, GitHub, PlayCircle } from '@mui/icons-material'
 import {
   Box,
   Button,
@@ -29,7 +14,6 @@ import {
   Stack,
   Typography,
   alpha,
-  useTheme,
 } from '@mui/material'
 import { useMemo } from 'react'
 import { Link } from 'react-router-dom'
@@ -40,25 +24,8 @@ import {
   languages,
   packages,
 } from '../data/ecosystem'
-import { tierColors } from '../theme'
-
-// Tier configuration for architecture preview
-const tierConfig = {
-  primitive: {
-    label: 'Primitives',
-    color: tierColors.primitive,
-    icon: <Layers fontSize="small" />,
-  },
-  core: { label: 'Core', color: tierColors.core, icon: <Hub fontSize="small" /> },
-  application: {
-    label: 'Applications',
-    color: tierColors.application,
-    icon: <AccountTree fontSize="small" />,
-  },
-}
 
 export default function HomePage() {
-  const theme = useTheme()
   const featured = getFeaturedPackages()
   const packageCount = getPackageCount()
 
@@ -67,16 +34,6 @@ export default function HomePage() {
     const stats: Record<string, number> = {}
     for (const pkg of packages) {
       stats[pkg.language] = (stats[pkg.language] || 0) + 1
-    }
-    return stats
-  }, [])
-
-  // Tier stats
-  const tierStats = useMemo(() => {
-    const stats = { primitive: 0, core: 0, application: 0 }
-    for (const pkg of packages) {
-      const tier = pkg.tier || 'application'
-      stats[tier]++
     }
     return stats
   }, [])
@@ -214,62 +171,6 @@ export default function HomePage() {
         })}
       </Grid>
 
-      {/* Architecture Preview */}
-      <Card sx={{ mb: 6, background: alpha(theme.palette.primary.main, 0.03) }}>
-        <CardContent sx={{ p: 4 }}>
-          <Stack
-            direction={{ xs: 'column', md: 'row' }}
-            justifyContent="space-between"
-            alignItems={{ xs: 'flex-start', md: 'center' }}
-            spacing={3}
-          >
-            <Box>
-              <Typography variant="h5" fontWeight={600} gutterBottom>
-                Layered Architecture
-              </Typography>
-              <Typography color="text.secondary" sx={{ maxWidth: 500, mb: 2 }}>
-                The jbcom ecosystem follows a structured dependency flow. Primitive libraries
-                provide foundational capabilities that power core packages, which in turn enable
-                sophisticated applications.
-              </Typography>
-              <Button
-                component={Link}
-                to="/architecture"
-                variant="contained"
-                endIcon={<ArrowForward />}
-              >
-                Explore Architecture
-              </Button>
-            </Box>
-
-            <Stack direction="row" spacing={2}>
-              {Object.entries(tierStats).map(([tier, count]) => {
-                const config = tierConfig[tier as keyof typeof tierConfig]
-                return (
-                  <Paper
-                    key={tier}
-                    sx={{
-                      p: 2,
-                      textAlign: 'center',
-                      minWidth: 100,
-                      borderBottom: `3px solid ${config.color}`,
-                    }}
-                  >
-                    <Box sx={{ color: config.color, mb: 1 }}>{config.icon}</Box>
-                    <Typography variant="h5" fontWeight={700}>
-                      {count}
-                    </Typography>
-                    <Typography variant="caption" color="text.secondary">
-                      {config.label}
-                    </Typography>
-                  </Paper>
-                )
-              })}
-            </Stack>
-          </Stack>
-        </CardContent>
-      </Card>
-
       {/* Categories */}
       <Typography variant="h5" fontWeight={600} sx={{ mb: 3 }}>
         Categories
@@ -296,61 +197,22 @@ export default function HomePage() {
         ))}
       </Grid>
 
-      {/* Interactive Experiences */}
-      <Typography variant="h5" fontWeight={600} sx={{ mb: 3 }}>
-        Interactive Experiences
-      </Typography>
-      <Grid container spacing={3} sx={{ mb: 6 }}>
-        <Grid item xs={12} md={6}>
-          <Card
-            sx={{
-              height: '100%',
-              background: `linear-gradient(135deg, ${alpha('#8b5cf6', 0.1)}, ${alpha('#06b6d4', 0.05)})`,
-              border: `1px solid ${alpha('#8b5cf6', 0.2)}`,
-            }}
+      {/* Live Demos */}
+      <Card
+        sx={{
+          mb: 6,
+          background: `linear-gradient(135deg, ${alpha('#06b6d4', 0.1)}, ${alpha('#3b82f6', 0.05)})`,
+          border: `1px solid ${alpha('#06b6d4', 0.2)}`,
+        }}
+      >
+        <CardContent sx={{ p: 4 }}>
+          <Stack
+            direction={{ xs: 'column', md: 'row' }}
+            justifyContent="space-between"
+            alignItems={{ xs: 'flex-start', md: 'center' }}
+            spacing={3}
           >
-            <CardContent sx={{ p: 3 }}>
-              <Stack direction="row" spacing={2} alignItems="center" mb={2}>
-                <Box
-                  sx={{
-                    width: 48,
-                    height: 48,
-                    borderRadius: 2,
-                    background: 'linear-gradient(135deg, #8b5cf6, #06b6d4)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <SportsEsports sx={{ color: '#fff' }} />
-                </Box>
-                <Box>
-                  <Typography variant="h6" fontWeight={600}>
-                    Arcade
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    Games built with Strata
-                  </Typography>
-                </Box>
-              </Stack>
-              <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                Explore procedural games including exploration, racing, and educational experiences.
-              </Typography>
-              <Button component={Link} to="/arcade" variant="contained" endIcon={<ArrowForward />}>
-                Play Games
-              </Button>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <Card
-            sx={{
-              height: '100%',
-              background: `linear-gradient(135deg, ${alpha('#06b6d4', 0.1)}, ${alpha('#3b82f6', 0.05)})`,
-              border: `1px solid ${alpha('#06b6d4', 0.2)}`,
-            }}
-          >
-            <CardContent sx={{ p: 3 }}>
+            <Box>
               <Stack direction="row" spacing={2} alignItems="center" mb={2}>
                 <Box
                   sx={{
@@ -365,25 +227,20 @@ export default function HomePage() {
                 >
                   <PlayCircle sx={{ color: '#fff' }} />
                 </Box>
-                <Box>
-                  <Typography variant="h6" fontWeight={600}>
-                    Technical Demos
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    Strata engine showcase
-                  </Typography>
-                </Box>
+                <Typography variant="h5" fontWeight={600}>
+                  Live Demos
+                </Typography>
               </Stack>
-              <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                Interactive demonstrations of procedural 3D graphics capabilities.
+              <Typography color="text.secondary" sx={{ maxWidth: 500 }}>
+                Play games built with the jbcom ecosystem. All games run entirely in your browser.
               </Typography>
-              <Button component={Link} to="/demos" variant="outlined" endIcon={<ArrowForward />}>
-                View Demos
-              </Button>
-            </CardContent>
-          </Card>
-        </Grid>
-      </Grid>
+            </Box>
+            <Button component={Link} to="/demos" variant="contained" endIcon={<ArrowForward />}>
+              View Demos
+            </Button>
+          </Stack>
+        </CardContent>
+      </Card>
 
       {/* Featured */}
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
