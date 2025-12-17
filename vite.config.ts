@@ -24,7 +24,6 @@ export default defineConfig({
             '@emotion/react',
             '@emotion/styled',
           ],
-          'three-vendor': ['three', '@react-three/fiber', '@react-three/drei'],
         },
       },
     },
@@ -49,6 +48,6 @@ export default defineConfig({
 
   // Optimizations
   optimizeDeps: {
-    include: ['react', 'react-dom', 'react-router-dom', '@mui/material', 'three'],
+    include: ['react', 'react-dom', 'react-router-dom', '@mui/material'],
   },
 })

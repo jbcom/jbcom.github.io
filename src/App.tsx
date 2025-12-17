@@ -1,8 +1,8 @@
 /**
  * jbcom.github.io - Professional Portfolio & Ecosystem Directory
  *
- * A clean Material UI site showcasing the jbcom open source ecosystem.
- * Strata powers the interactive demos section, not the entire site.
+ * A world-class responsive Material UI site showcasing the jbcom open source ecosystem.
+ * Individual repos maintain their own demos - this site embeds them via iframe.
  */
 
 import { CssBaseline, ThemeProvider } from '@mui/material'
@@ -27,7 +27,6 @@ export default function App() {
             <Route path="ecosystem" element={<EcosystemPage />} />
             <Route path="ecosystem/:projectId" element={<ProjectPage />} />
             <Route path="demos" element={<DemosPage />} />
-            <Route path="demos/:demoId" element={<DemosPage />} />
           </Route>
         </Routes>
       </BrowserRouter>
