@@ -2,59 +2,59 @@
    jbcom Design System - CSS Implementation
    ═══════════════════════════════════════════════════════════════════════════ */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap");
 
 :root {
   /* ═══════════════════════════════════════════════════════════════════════
      BACKGROUNDS
      ═══════════════════════════════════════════════════════════════════════ */
-  --bg-default: #0a0f1a;      /* Page background - deep navy */
-  --bg-paper: #111827;        /* Cards, elevated surfaces */
-  --bg-elevated: #1e293b;     /* Hover states, highlighted areas */
-  
+  --bg-default: #0a0f1a; /* Page background - deep navy */
+  --bg-paper: #111827; /* Cards, elevated surfaces */
+  --bg-elevated: #1e293b; /* Hover states, highlighted areas */
+
   /* ═══════════════════════════════════════════════════════════════════════
      PRIMARY - CYAN
      ═══════════════════════════════════════════════════════════════════════ */
-  --primary: #06b6d4;         /* Primary actions, links, accents */
-  --primary-light: #22d3ee;   /* Hover states */
-  --primary-dark: #0891b2;    /* Active/pressed states */
-  
+  --primary: #06b6d4; /* Primary actions, links, accents */
+  --primary-light: #22d3ee; /* Hover states */
+  --primary-dark: #0891b2; /* Active/pressed states */
+
   /* ═══════════════════════════════════════════════════════════════════════
      SECONDARY - BLUE
      ═══════════════════════════════════════════════════════════════════════ */
-  --secondary: #3b82f6;       /* Secondary actions */
+  --secondary: #3b82f6; /* Secondary actions */
   --secondary-light: #60a5fa; /* Hover states */
-  --secondary-dark: #2563eb;  /* Active states */
-  
+  --secondary-dark: #2563eb; /* Active states */
+
   /* ═══════════════════════════════════════════════════════════════════════
      TEXT
      ═══════════════════════════════════════════════════════════════════════ */
-  --text-primary: #f1f5f9;    /* Headings, primary text - near white */
-  --text-secondary: #94a3b8;  /* Body text, descriptions - gray */
-  --text-disabled: #475569;   /* Disabled elements - dark gray */
-  
+  --text-primary: #f1f5f9; /* Headings, primary text - near white */
+  --text-secondary: #94a3b8; /* Body text, descriptions - gray */
+  --text-disabled: #475569; /* Disabled elements - dark gray */
+
   /* ═══════════════════════════════════════════════════════════════════════
      DIVIDERS & BORDERS
      ═══════════════════════════════════════════════════════════════════════ */
   --divider: #1e293b;
   --border: #1e293b;
-  
+
   /* ═══════════════════════════════════════════════════════════════════════
      SEMANTIC COLORS
      ═══════════════════════════════════════════════════════════════════════ */
-  --success: #10b981;         /* Success states - green */
-  --warning: #f59e0b;         /* Warnings - amber */
-  --error: #ef4444;           /* Errors - red */
-  --info: #06b6d4;            /* Info - cyan (same as primary) */
-  
+  --success: #10b981; /* Success states - green */
+  --warning: #f59e0b; /* Warnings - amber */
+  --error: #ef4444; /* Errors - red */
+  --info: #06b6d4; /* Info - cyan (same as primary) */
+
   /* ═══════════════════════════════════════════════════════════════════════
      CATEGORY COLORS (for ecosystem)
      ═══════════════════════════════════════════════════════════════════════ */
-  --cat-ai: #8b5cf6;          /* AI & Agents - purple */
-  --cat-games: #06b6d4;       /* Game Development - cyan */
-  --cat-infra: #10b981;       /* Infrastructure - green */
-  --cat-libs: #f59e0b;        /* Libraries - amber */
-  
+  --cat-ai: #8b5cf6; /* AI & Agents - purple */
+  --cat-games: #06b6d4; /* Game Development - cyan */
+  --cat-infra: #10b981; /* Infrastructure - green */
+  --cat-libs: #f59e0b; /* Libraries - amber */
+
   /* ═══════════════════════════════════════════════════════════════════════
      LANGUAGE COLORS (for ecosystem)
      ═══════════════════════════════════════════════════════════════════════ */
@@ -62,14 +62,14 @@
   --lang-python: #3776ab;
   --lang-go: #00add8;
   --lang-terraform: #7b42bc;
-  
+
   /* ═══════════════════════════════════════════════════════════════════════
      TYPOGRAPHY
      ═══════════════════════════════════════════════════════════════════════ */
-  --font-heading: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
-  
+  --font-heading: "Space Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", "Consolas", monospace;
+
   /* ═══════════════════════════════════════════════════════════════════════
      SPACING
      ═══════════════════════════════════════════════════════════════════════ */
@@ -80,7 +80,7 @@
   --space-xl: 32px;
   --space-2xl: 48px;
   --space-3xl: 64px;
-  
+
   /* ═══════════════════════════════════════════════════════════════════════
      BORDER RADIUS
      ═══════════════════════════════════════════════════════════════════════ */
@@ -94,7 +94,9 @@
    RESET & BASE
    ═══════════════════════════════════════════════════════════════════════════ */
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -119,43 +121,48 @@ body {
    TYPOGRAPHY
    ═══════════════════════════════════════════════════════════════════════════ */
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-heading);
   color: var(--text-primary);
   line-height: 1.2;
   margin: 0 0 0.5em;
 }
 
-h1 { 
-  font-size: 2.5rem; 
-  font-weight: 700; 
-  letter-spacing: -0.02em; 
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
-h2 { 
-  font-size: 2rem; 
-  font-weight: 700; 
-  letter-spacing: -0.01em; 
+h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
 }
 
-h3 { 
-  font-size: 1.5rem; 
-  font-weight: 600; 
+h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
 }
 
-h4 { 
-  font-size: 1.25rem; 
-  font-weight: 600; 
+h4 {
+  font-size: 1.25rem;
+  font-weight: 600;
 }
 
-h5 { 
-  font-size: 1.125rem; 
-  font-weight: 600; 
+h5 {
+  font-size: 1.125rem;
+  font-weight: 600;
 }
 
-h6 { 
-  font-size: 1rem; 
-  font-weight: 600; 
+h6 {
+  font-size: 1rem;
+  font-weight: 600;
 }
 
 p {
@@ -172,7 +179,8 @@ a:hover {
   color: var(--primary-light);
 }
 
-code, pre {
+code,
+pre {
   font-family: var(--font-mono);
   font-size: 0.875rem;
 }
@@ -441,13 +449,16 @@ nav {
 }
 
 @media (max-width: 900px) {
-  .grid-3, .grid-4 {
+  .grid-3,
+  .grid-4 {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 600px) {
-  .grid-2, .grid-3, .grid-4 {
+  .grid-2,
+  .grid-3,
+  .grid-4 {
     grid-template-columns: 1fr;
   }
 }
@@ -456,22 +467,50 @@ nav {
    UTILITY CLASSES
    ═══════════════════════════════════════════════════════════════════════════ */
 
-.text-primary { color: var(--text-primary); }
-.text-secondary { color: var(--text-secondary); }
-.text-disabled { color: var(--text-disabled); }
-.text-center { text-align: center; }
+.text-primary {
+  color: var(--text-primary);
+}
+.text-secondary {
+  color: var(--text-secondary);
+}
+.text-disabled {
+  color: var(--text-disabled);
+}
+.text-center {
+  text-align: center;
+}
 
-.mb-sm { margin-bottom: var(--space-sm); }
-.mb-md { margin-bottom: var(--space-md); }
-.mb-lg { margin-bottom: var(--space-lg); }
-.mb-xl { margin-bottom: var(--space-xl); }
-.mb-2xl { margin-bottom: var(--space-2xl); }
+.mb-sm {
+  margin-bottom: var(--space-sm);
+}
+.mb-md {
+  margin-bottom: var(--space-md);
+}
+.mb-lg {
+  margin-bottom: var(--space-lg);
+}
+.mb-xl {
+  margin-bottom: var(--space-xl);
+}
+.mb-2xl {
+  margin-bottom: var(--space-2xl);
+}
 
-.mt-sm { margin-top: var(--space-sm); }
-.mt-md { margin-top: var(--space-md); }
-.mt-lg { margin-top: var(--space-lg); }
-.mt-xl { margin-top: var(--space-xl); }
-.mt-2xl { margin-top: var(--space-2xl); }
+.mt-sm {
+  margin-top: var(--space-sm);
+}
+.mt-md {
+  margin-top: var(--space-md);
+}
+.mt-lg {
+  margin-top: var(--space-lg);
+}
+.mt-xl {
+  margin-top: var(--space-xl);
+}
+.mt-2xl {
+  margin-top: var(--space-2xl);
+}
 
 /* ═══════════════════════════════════════════════════════════════════════════
    FOOTER
@@ -508,10 +547,16 @@ footer {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  html {
+    scroll-behavior: auto !important;
   }
 }
 
@@ -546,40 +591,55 @@ footer {
    ═══════════════════════════════════════════════════════════════════════════ */
 
 @media (max-width: 900px) {
-  h1 { font-size: 2rem; }
-  h2 { font-size: 1.75rem; }
-  h3 { font-size: 1.25rem; }
-  
-  .section { padding: var(--space-xl) 0; }
-  .section-lg { padding: var(--space-2xl) 0; }
-  
+  h1 {
+    font-size: 2rem;
+  }
+  h2 {
+    font-size: 1.75rem;
+  }
+  h3 {
+    font-size: 1.25rem;
+  }
+
+  .section {
+    padding: var(--space-xl) 0;
+  }
+  .section-lg {
+    padding: var(--space-2xl) 0;
+  }
+
   nav {
     gap: var(--space-md);
   }
-  
-  .container, .container-wide {
+
+  .container,
+  .container-wide {
     padding: 0 var(--space-md);
   }
 }
 
 @media (max-width: 600px) {
-  h1 { font-size: 1.75rem; }
-  h2 { font-size: 1.5rem; }
-  
+  h1 {
+    font-size: 1.75rem;
+  }
+  h2 {
+    font-size: 1.5rem;
+  }
+
   .header-content {
     padding: var(--space-sm) var(--space-md);
   }
-  
+
   .logo-mark {
     width: 32px;
     height: 32px;
     font-size: 0.75rem;
   }
-  
+
   .wordmark {
     font-size: 1.125rem;
   }
-  
+
   nav {
     gap: var(--space-sm);
     font-size: 0.875rem;
