@@ -28,6 +28,10 @@ export interface Package {
   dependsOn?: string[]
   /** Tier: primitive (foundation), core (built on primitives), application (end-user) */
   tier?: PackageTier
+  /** For games/apps: indicates web version is coming soon */
+  comingSoon?: boolean
+  /** Expected launch info for coming soon items */
+  comingSoonText?: string
 }
 
 export const packages: Package[] = [
