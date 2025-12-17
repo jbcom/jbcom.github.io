@@ -10,6 +10,7 @@ import {
   Home as HomeIcon,
   Menu as MenuIcon,
   Person as PersonIcon,
+  Description as ResumeIcon,
 } from '@mui/icons-material'
 import {
   AppBar,
@@ -35,6 +36,7 @@ const DRAWER_WIDTH = 240
 const navItems = [
   { label: 'Home', path: '/', icon: <HomeIcon /> },
   { label: 'About', path: '/about', icon: <PersonIcon /> },
+  { label: 'Resume', path: '/resume', icon: <ResumeIcon /> },
   { label: 'Ecosystem', path: '/ecosystem', icon: <EcosystemIcon /> },
   { label: 'Demos', path: '/demos', icon: <DemoIcon /> },
 ]

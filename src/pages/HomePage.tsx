@@ -2,14 +2,41 @@
  * HomePage - Mission, vision, and ecosystem overview
  */
 
-import { ArrowForward, GitHub } from '@mui/icons-material'
-import { Box, Button, Card, CardContent, Chip, Grid, Stack, Typography } from '@mui/material'
+import { ArrowForward, GitHub, PlayCircle } from '@mui/icons-material'
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  Chip,
+  Grid,
+  Paper,
+  Stack,
+  Typography,
+  alpha,
+} from '@mui/material'
+import { useMemo } from 'react'
 import { Link } from 'react-router-dom'
-import { categories, getFeaturedPackages, getPackageCount, languages } from '../data/ecosystem'
+import {
+  categories,
+  getFeaturedPackages,
+  getPackageCount,
+  languages,
+  packages,
+} from '../data/ecosystem'
 
 export default function HomePage() {
   const featured = getFeaturedPackages()
   const packageCount = getPackageCount()
+
+  // Language stats
+  const languageStats = useMemo(() => {
+    const stats: Record<string, number> = {}
+    for (const pkg of packages) {
+      stats[pkg.language] = (stats[pkg.language] || 0) + 1
+    }
+    return stats
+  }, [])
 
   return (
     <Box>
@@ -105,6 +132,45 @@ export default function HomePage() {
         </CardContent>
       </Card>
 
+      {/* Language Ecosystems */}
+      <Typography variant="h5" fontWeight={600} sx={{ mb: 3 }}>
+        Multi-Language Ecosystem
+      </Typography>
+      <Grid container spacing={2} sx={{ mb: 6 }}>
+        {Object.entries(languages).map(([key, lang]) => {
+          const count = languageStats[key] || 0
+          return (
+            <Grid item xs={6} sm={3} key={key}>
+              <Paper
+                sx={{
+                  p: 2,
+                  textAlign: 'center',
+                  borderTop: `3px solid ${lang.color}`,
+                  height: '100%',
+                }}
+              >
+                <Chip
+                  label={lang.icon}
+                  sx={{
+                    backgroundColor: alpha(lang.color, 0.2),
+                    color: lang.color,
+                    fontFamily: '"JetBrains Mono", monospace',
+                    fontWeight: 700,
+                    mb: 1,
+                  }}
+                />
+                <Typography variant="h4" fontWeight={700} fontFamily='"Space Grotesk", sans-serif'>
+                  {count}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  {lang.name} packages
+                </Typography>
+              </Paper>
+            </Grid>
+          )
+        })}
+      </Grid>
+
       {/* Categories */}
       <Typography variant="h5" fontWeight={600} sx={{ mb: 3 }}>
         Categories
@@ -130,6 +196,51 @@ export default function HomePage() {
           </Grid>
         ))}
       </Grid>
+
+      {/* Live Demos */}
+      <Card
+        sx={{
+          mb: 6,
+          background: `linear-gradient(135deg, ${alpha('#06b6d4', 0.1)}, ${alpha('#3b82f6', 0.05)})`,
+          border: `1px solid ${alpha('#06b6d4', 0.2)}`,
+        }}
+      >
+        <CardContent sx={{ p: 4 }}>
+          <Stack
+            direction={{ xs: 'column', md: 'row' }}
+            justifyContent="space-between"
+            alignItems={{ xs: 'flex-start', md: 'center' }}
+            spacing={3}
+          >
+            <Box>
+              <Stack direction="row" spacing={2} alignItems="center" mb={2}>
+                <Box
+                  sx={{
+                    width: 48,
+                    height: 48,
+                    borderRadius: 2,
+                    background: 'linear-gradient(135deg, #06b6d4, #3b82f6)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <PlayCircle sx={{ color: '#fff' }} />
+                </Box>
+                <Typography variant="h5" fontWeight={600}>
+                  Live Demos
+                </Typography>
+              </Stack>
+              <Typography color="text.secondary" sx={{ maxWidth: 500 }}>
+                Play games built with the jbcom ecosystem. All games run entirely in your browser.
+              </Typography>
+            </Box>
+            <Button component={Link} to="/demos" variant="contained" endIcon={<ArrowForward />}>
+              View Demos
+            </Button>
+          </Stack>
+        </CardContent>
+      </Card>
 
       {/* Featured */}
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
