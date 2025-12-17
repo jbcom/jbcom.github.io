@@ -44,7 +44,11 @@ import { tierColors } from '../theme'
 
 // Tier configuration for architecture preview
 const tierConfig = {
-  primitive: { label: 'Primitives', color: tierColors.primitive, icon: <Layers fontSize="small" /> },
+  primitive: {
+    label: 'Primitives',
+    color: tierColors.primitive,
+    icon: <Layers fontSize="small" />,
+  },
   core: { label: 'Core', color: tierColors.core, icon: <Hub fontSize="small" /> },
   application: {
     label: 'Applications',
@@ -58,16 +62,16 @@ export default function HomePage() {
   const featured = getFeaturedPackages()
   const packageCount = getPackageCount()
 
-  // Language stats - packages is a static import, but we include it for correctness
+  // Language stats
   const languageStats = useMemo(() => {
     const stats: Record<string, number> = {}
     for (const pkg of packages) {
       stats[pkg.language] = (stats[pkg.language] || 0) + 1
     }
     return stats
-  }, [packages])
+  }, [])
 
-  // Tier stats - packages is a static import, but we include it for correctness
+  // Tier stats
   const tierStats = useMemo(() => {
     const stats = { primitive: 0, core: 0, application: 0 }
     for (const pkg of packages) {
@@ -75,7 +79,7 @@ export default function HomePage() {
       stats[tier]++
     }
     return stats
-  }, [packages])
+  }, [])
 
   return (
     <Box>
