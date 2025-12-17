@@ -120,7 +120,7 @@ export const packages: Package[] = [
     dependsOn: ['strata'],
     tier: 'application',
     comingSoon: true,
-    comingSoonText: 'Web demo coming Q1 2025',
+    comingSoonText: 'Web demo coming Q1 2026',
   },
   {
     id: 'otterfall',
@@ -170,7 +170,7 @@ export const packages: Package[] = [
     tags: ['Education', 'Game Dev', 'Learning', 'Interactive'],
     tier: 'application',
     comingSoon: true,
-    comingSoonText: 'Coming 2025',
+    comingSoonText: 'Coming 2026',
   },
   {
     id: 'ai-game-dev',
