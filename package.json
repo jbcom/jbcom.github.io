@@ -21,12 +21,12 @@
     "@emotion/styled": "^11.11.5",
     "@mui/icons-material": "^5.15.20",
     "@mui/material": "^5.15.20",
-    "@react-three/drei": "^10.7.7",
-    "@react-three/fiber": "^9.4.2",
+    "@react-three/drei": "^9.122.0",
+    "@react-three/fiber": "^8.18.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.23.1",
-    "three": "^0.182.0"
+    "three": "^0.168.0"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
@@ -45,5 +45,11 @@
   },
   "author": "Jon Bogaty <jon@jonbogaty.com>",
   "license": "MIT",
-  "keywords": ["portfolio", "jbcom", "material-ui", "github-pages", "responsive"]
+  "keywords": [
+    "portfolio",
+    "jbcom",
+    "material-ui",
+    "github-pages",
+    "responsive"
+  ]
 }
