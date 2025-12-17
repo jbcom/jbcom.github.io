@@ -27,6 +27,8 @@ import {
   alpha,
   useTheme,
 } from '@mui/material'
+import { useMemo } from 'react'
+import { Link } from 'react-router-dom'
 
 interface Experience {
   title: string
@@ -112,10 +114,31 @@ const skills = {
   'Open Source': ['OSS Architecture', 'SDK Design', 'Developer Tooling'],
 }
 
+// Validate share URL to expected domains
+const isValidShareUrl = (url: string) => {
+  try {
+    const parsed = new URL(url)
+    return (
+      parsed.hostname === 'jbcom.github.io' ||
+      parsed.hostname === 'localhost' ||
+      parsed.hostname === '127.0.0.1'
+    )
+  } catch {
+    return false
+  }
+}
+
 export default function ResumePage() {
   const theme = useTheme()
 
-  const shareUrl = typeof window !== 'undefined' ? window.location.href : 'https://jbcom.github.io'
+  // Use memoized feature detection for Web Share API
+  const supportsWebShare = useMemo(
+    () => typeof navigator !== 'undefined' && 'share' in navigator,
+    []
+  )
+
+  const rawShareUrl = typeof window !== 'undefined' ? window.location.href : ''
+  const shareUrl = isValidShareUrl(rawShareUrl) ? rawShareUrl : 'https://jbcom.github.io/resume'
   const shareTitle = 'Jon Bogaty - Head of IT & Security | Resume'
   const shareText =
     'Check out the resume of Jon Bogaty - Senior IT, Security, and Platform leader with 15+ years of experience'
@@ -128,8 +151,11 @@ export default function ResumePage() {
           text: shareText,
           url: shareUrl,
         })
-      } catch {
-        // User cancelled or error
+      } catch (error) {
+        // Only ignore AbortError (user cancelled)
+        if (error instanceof Error && error.name !== 'AbortError') {
+          console.error('Share failed:', error)
+        }
       }
     }
   }
@@ -219,7 +245,7 @@ export default function ResumePage() {
                 <Email />
               </IconButton>
             </Tooltip>
-            {typeof navigator !== 'undefined' && 'share' in navigator && (
+            {supportsWebShare && (
               <Tooltip title="Share...">
                 <IconButton onClick={handleShare} size="small">
                   <Share />
@@ -367,8 +393,8 @@ export default function ResumePage() {
                 ))}
               </Stack>
               <Button
-                component="a"
-                href="/ecosystem"
+                component={Link}
+                to="/ecosystem"
                 sx={{ mt: 3 }}
                 variant="outlined"
                 size="small"

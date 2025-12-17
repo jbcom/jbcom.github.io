@@ -3,6 +3,7 @@
  */
 
 import { ArrowForward, Email, GitHub, LinkedIn } from '@mui/icons-material'
+import type { SxProps, Theme } from '@mui/material'
 import {
   Avatar,
   Box,
@@ -17,6 +18,9 @@ import {
   Typography,
 } from '@mui/material'
 import { Link } from 'react-router-dom'
+
+// Typed sx props to avoid TS2590 complex union type errors
+const containerSx: SxProps<Theme> = { py: { xs: 2, md: 4 } }
 
 const skills = {
   'Cloud Platforms': ['AWS', 'Google Cloud', 'Azure'],
@@ -54,8 +58,7 @@ const experience = [
 
 export default function AboutPage() {
   return (
-    // @ts-expect-error - TS2590: MUI creates overly complex union types
-    <Box sx={{ py: { xs: 2, md: 4 } }}>
+    <Box sx={containerSx}>
       {/* Header */}
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={4} alignItems="center" mb={6}>
         <Avatar
@@ -212,7 +215,7 @@ export default function AboutPage() {
               </Typography>
               <Stack direction="row" spacing={1} sx={{ mt: 2 }}>
                 <Chip label="Honors Graduate" size="small" color="success" variant="outlined" />
-                <Chip label="Dean's List (All Semesters)" size="small" variant="outlined" />
+                <Chip label="Dean's List" size="small" variant="outlined" />
               </Stack>
             </CardContent>
           </Card>
