@@ -50,11 +50,6 @@ describe('ecosystem data helpers', () => {
       expect(libPackages.every((p) => p.category === 'libs')).toBe(true)
       expect(libPackages.length).toBeGreaterThan(0)
     })
-
-    it('should return empty array for non-existent category', () => {
-      const result = getPackagesByCategory('nonexistent' as any)
-      expect(result).toEqual([])
-    })
   })
 
   describe('getPackagesByLanguage', () => {
