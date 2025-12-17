@@ -3,6 +3,7 @@
  */
 
 import {
+  SportsEsports as ArcadeIcon,
   AccountTree as ArchitectureIcon,
   Close as CloseIcon,
   PlayCircle as DemoIcon,
@@ -40,6 +41,7 @@ const navItems = [
   { label: 'Resume', path: '/resume', icon: <ResumeIcon /> },
   { label: 'Ecosystem', path: '/ecosystem', icon: <EcosystemIcon /> },
   { label: 'Architecture', path: '/architecture', icon: <ArchitectureIcon /> },
+  { label: 'Arcade', path: '/arcade', icon: <ArcadeIcon /> },
   { label: 'Demos', path: '/demos', icon: <DemoIcon /> },
 ]
 

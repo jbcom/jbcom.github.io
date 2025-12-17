@@ -9,7 +9,15 @@
  * - Architecture preview
  */
 
-import { AccountTree, ArrowForward, GitHub, Hub, Layers } from '@mui/icons-material'
+import {
+  AccountTree,
+  ArrowForward,
+  GitHub,
+  Hub,
+  Layers,
+  PlayCircle,
+  SportsEsports,
+} from '@mui/icons-material'
 import {
   Box,
   Button,
@@ -277,6 +285,95 @@ export default function HomePage() {
             </Card>
           </Grid>
         ))}
+      </Grid>
+
+      {/* Interactive Experiences */}
+      <Typography variant="h5" fontWeight={600} sx={{ mb: 3 }}>
+        Interactive Experiences
+      </Typography>
+      <Grid container spacing={3} sx={{ mb: 6 }}>
+        <Grid item xs={12} md={6}>
+          <Card
+            sx={{
+              height: '100%',
+              background: `linear-gradient(135deg, ${alpha('#8b5cf6', 0.1)}, ${alpha('#06b6d4', 0.05)})`,
+              border: `1px solid ${alpha('#8b5cf6', 0.2)}`,
+            }}
+          >
+            <CardContent sx={{ p: 3 }}>
+              <Stack direction="row" spacing={2} alignItems="center" mb={2}>
+                <Box
+                  sx={{
+                    width: 48,
+                    height: 48,
+                    borderRadius: 2,
+                    background: 'linear-gradient(135deg, #8b5cf6, #06b6d4)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <SportsEsports sx={{ color: '#fff' }} />
+                </Box>
+                <Box>
+                  <Typography variant="h6" fontWeight={600}>
+                    Arcade
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Games built with Strata
+                  </Typography>
+                </Box>
+              </Stack>
+              <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                Explore procedural games including exploration, racing, and educational experiences.
+              </Typography>
+              <Button component={Link} to="/arcade" variant="contained" endIcon={<ArrowForward />}>
+                Play Games
+              </Button>
+            </CardContent>
+          </Card>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Card
+            sx={{
+              height: '100%',
+              background: `linear-gradient(135deg, ${alpha('#06b6d4', 0.1)}, ${alpha('#3b82f6', 0.05)})`,
+              border: `1px solid ${alpha('#06b6d4', 0.2)}`,
+            }}
+          >
+            <CardContent sx={{ p: 3 }}>
+              <Stack direction="row" spacing={2} alignItems="center" mb={2}>
+                <Box
+                  sx={{
+                    width: 48,
+                    height: 48,
+                    borderRadius: 2,
+                    background: 'linear-gradient(135deg, #06b6d4, #3b82f6)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <PlayCircle sx={{ color: '#fff' }} />
+                </Box>
+                <Box>
+                  <Typography variant="h6" fontWeight={600}>
+                    Technical Demos
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Strata engine showcase
+                  </Typography>
+                </Box>
+              </Stack>
+              <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                Interactive demonstrations of procedural 3D graphics capabilities.
+              </Typography>
+              <Button component={Link} to="/demos" variant="outlined" endIcon={<ArrowForward />}>
+                View Demos
+              </Button>
+            </CardContent>
+          </Card>
+        </Grid>
       </Grid>
 
       {/* Featured */}
