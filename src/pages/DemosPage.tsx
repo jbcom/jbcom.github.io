@@ -64,7 +64,14 @@ function GameCard({
           borderColor: 'primary.main',
           transform: 'translateY(-2px)',
         },
+        '&:focus-visible': {
+          outline: '2px solid',
+          outlineColor: 'primary.main',
+          outlineOffset: 2,
+        },
       }}
+      tabIndex={0}
+      onKeyDown={(e) => e.key === 'Enter' && onClick()}
     >
       <CardContent>
         <Stack direction="row" spacing={1} alignItems="center" mb={1}>
@@ -142,6 +149,7 @@ function GameViewer({ game }: { game: LiveGame }) {
           component="iframe"
           src={game.url}
           title={game.name}
+          sandbox="allow-scripts allow-same-origin allow-popups"
           onLoad={() => setLoading(false)}
           sx={{
             width: '100%',
@@ -156,7 +164,7 @@ function GameViewer({ game }: { game: LiveGame }) {
 }
 
 export default function DemosPage() {
-  const [activeGame, setActiveGame] = useState(liveGames[0])
+  const [activeGame, setActiveGame] = useState<LiveGame | null>(liveGames[0] || null)
 
   return (
     <Box>
@@ -178,22 +186,24 @@ export default function DemosPage() {
               <GameCard
                 key={game.id}
                 game={game}
-                active={game.id === activeGame.id}
+                active={activeGame ? game.id === activeGame.id : false}
                 onClick={() => setActiveGame(game)}
               />
             ))}
 
             {/* Instructions card */}
-            <Card sx={{ bgcolor: 'action.hover' }}>
-              <CardContent>
-                <Typography variant="subtitle2" gutterBottom>
-                  How to Play
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {activeGame.instructions}
-                </Typography>
-              </CardContent>
-            </Card>
+            {activeGame && (
+              <Card sx={{ bgcolor: 'action.hover' }}>
+                <CardContent>
+                  <Typography variant="subtitle2" gutterBottom>
+                    How to Play
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {activeGame.instructions}
+                  </Typography>
+                </CardContent>
+              </Card>
+            )}
 
             {/* Coming soon placeholder */}
             <Card
@@ -214,7 +224,7 @@ export default function DemosPage() {
         </Grid>
 
         <Grid item xs={12} md={8}>
-          <GameViewer key={activeGame.id} game={activeGame} />
+          {activeGame && <GameViewer key={activeGame.id} game={activeGame} />}
         </Grid>
       </Grid>
     </Box>
