@@ -5,11 +5,14 @@ This guide will help you get started with PACKAGE_NAME.
 ## Basic Usage
 
 ```python
-# TODO: Add basic usage example
-from PACKAGE_NAME import example
+from PACKAGE_NAME import Client
 
-result = example.do_something()
-print(result)
+# Initialize the client
+client = Client()
+
+# Perform an operation
+result = client.process(data="example")
+print(f"Result: {result}")
 ```
 
 ## Next Steps
