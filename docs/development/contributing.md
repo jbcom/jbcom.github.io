@@ -9,55 +9,63 @@ Thank you for your interest in contributing to jbcom.github.io!
 git clone https://github.com/jbcom/jbcom.github.io.git
 cd jbcom.github.io
 
-# Install with all development dependencies
-uv sync --all-extras
+# Install dependencies
+pnpm install
+
+# Start development server
+pnpm dev
 ```
 
-## Running Tests
+## Running Type Checks
 
 ```bash
-# Run tests
-uv run pytest
-
-# Run with coverage
-uv run pytest --cov=jbcom.github.io
+# Run TypeScript type checking
+pnpm typecheck
 ```
 
 ## Code Style
 
 This project uses:
-- [Ruff](https://docs.astral.sh/ruff/) for linting and formatting
-- Type hints throughout
+- [Biome](https://biomejs.dev/) for linting and formatting
+- TypeScript with strict type checking
 
 ```bash
 # Check code style
-uv run ruff check .
-uv run ruff format --check .
+pnpm lint
 
-# Auto-fix issues
-uv run ruff check --fix .
-uv run ruff format .
+# Auto-fix linting issues
+pnpm lint:fix
+
+# Format code
+pnpm format
+```
+
+## Building
+
+```bash
+# Create production build
+pnpm build
+
+# Preview the build
+pnpm preview
 ```
 
 ## Building Documentation
 
 ```bash
-# Install docs dependencies
-uv sync --extra docs
+# Install docs dependencies (requires Python)
+pip install sphinx sphinx-rtd-theme myst-parser
 
 # Build docs
 cd docs
-uv run sphinx-build -b html . _build/html
-
-# Or use make
 make html
 ```
 
 ## Pull Request Process
 
 1. Create a feature branch from `main`
-2. Make your changes with tests
-3. Ensure CI passes (lint + tests)
+2. Make your changes
+3. Ensure `pnpm typecheck` and `pnpm lint` pass
 4. Submit PR - an AI agent will review and merge
 
 ## Commit Messages

@@ -2,32 +2,44 @@
 
 ## Requirements
 
-- Python 3.9+
-- [uv](https://docs.astral.sh/uv/) (recommended) or pip
+- Node.js 18+
+- [pnpm](https://pnpm.io/) (recommended) or npm
 
-## Install from PyPI
-
-```bash
-# Using uv (recommended)
-uv add jbcom.github.io
-
-# Using pip
-pip install jbcom.github.io
-```
-
-## Install from Source
+## Quick Start
 
 ```bash
+# Clone the repository
 git clone https://github.com/jbcom/jbcom.github.io.git
 cd jbcom.github.io
-uv sync
+
+# Install dependencies
+pnpm install
+
+# Start development server
+pnpm dev
+```
+
+## Build for Production
+
+```bash
+# Create production build
+pnpm build
+
+# Preview the production build
+pnpm preview
 ```
 
 ## Development Installation
 
 ```bash
-# Clone and install with dev dependencies
+# Clone and install all dependencies
 git clone https://github.com/jbcom/jbcom.github.io.git
 cd jbcom.github.io
-uv sync --extra dev --extra docs
+pnpm install
+
+# Run type checking
+pnpm typecheck
+
+# Run linting
+pnpm lint
 ```

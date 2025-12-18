@@ -1,10 +1,11 @@
 # Configuration file for the Sphinx documentation builder.
 # Synced from jbcom-control-center - customize as needed
 
+import json
 import os
 import sys
 
-# Add source to path for autodoc
+# Add source to path (not used for this TypeScript project, but kept for compatibility)
 sys.path.insert(0, os.path.abspath("../src"))
 
 # -- Project information -----------------------------------------------------
@@ -12,34 +13,20 @@ project = "jbcom.github.io"
 copyright = "2025, Jon Bogaty"
 author = "Jon Bogaty"
 
-# Try to get version from pyproject.toml or package.json
+# Get version from package.json
 try:
-    import tomllib
-    with open("../pyproject.toml", "rb") as f:
-        data = tomllib.load(f)
-        release = data.get("project", {}).get("version", "0.0.0")
+    with open("../package.json") as f:
+        release = json.load(f).get("version", "0.0.0")
 except Exception:
-    try:
-        import json
-        with open("../package.json") as f:
-            release = json.load(f).get("version", "0.0.0")
-    except Exception:
-        release = "0.0.0"
+    release = "0.0.0"
 
 # -- General configuration ---------------------------------------------------
 
 extensions = [
-    # Python documentation
-    "sphinx.ext.autodoc",
-    "sphinx.ext.autosummary",
-    "sphinx.ext.napoleon",
-    "sphinx.ext.viewcode",
-    "sphinx.ext.intersphinx",
-    "sphinx_autodoc_typehints",
     # Markdown support
     "myst_parser",
-    # Diagrams (optional - requires sphinxcontrib-mermaid)
-    # "sphinxcontrib.mermaid",
+    # Note: Python-specific extensions (autodoc, autosummary, napoleon, etc.)
+    # are not used as this is a TypeScript project
 ]
 
 templates_path = ["_templates"]
@@ -66,33 +53,6 @@ html_theme_options = {
 }
 
 # -- Extension configuration -------------------------------------------------
-
-# autodoc settings
-autodoc_default_options = {
-    "members": True,
-    "member-order": "bysource",
-    "special-members": "__init__",
-    "undoc-members": True,
-    "exclude-members": "__weakref__",
-    "show-inheritance": True,
-}
-autodoc_typehints = "description"
-autodoc_class_signature = "separated"
-
-# autosummary settings
-autosummary_generate = True
-
-# napoleon settings (Google/NumPy style docstrings)
-napoleon_google_docstring = True
-napoleon_numpy_docstring = True
-napoleon_include_init_with_doc = True
-napoleon_use_param = True
-napoleon_use_rtype = True
-
-# intersphinx settings
-intersphinx_mapping = {
-    "python": ("https://docs.python.org/3", None),
-}
 
 # myst_parser settings
 myst_enable_extensions = [

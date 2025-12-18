@@ -5,7 +5,8 @@
 jbcom.github.io Documentation
 =======================================
 
-.. TODO: Add your project description here
+Jon Bogaty's professional portfolio and jbcom ecosystem showcase.
+Built with React, Material UI, TypeScript, and Vite.
 
 .. toctree::
    :maxdepth: 2
@@ -25,5 +26,4 @@ Indices and tables
 ==================
 
 * :ref:`genindex`
-* :ref:`modindex`
 * :ref:`search`
