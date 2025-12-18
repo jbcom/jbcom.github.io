@@ -495,16 +495,3 @@ packages:
       - Procedural
     tier: application
 
-# ═══════════════════════════════════════════════════════════════════════════
-# DELETED (removed from GitHub, for historical reference)
-# ═══════════════════════════════════════════════════════════════════════════
-deleted:
-  - id: go-port-api
-    name: go-port-api
-    reason: "No longer supported"
-    deletedAt: "2025-12-18"
-    
-  - id: go-vault-secret-sync
-    name: go-vault-secret-sync
-    reason: "Duplicate of go-secretsync"
-    deletedAt: "2025-12-18"
