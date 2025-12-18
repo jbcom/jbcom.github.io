@@ -62,7 +62,6 @@
   --lang-python: #3776ab;
   --lang-go: #00add8;
   --lang-terraform: #7b42bc;
-  --lang-rust: #dea584;
 
   /* ═══════════════════════════════════════════════════════════════════════
      TYPOGRAPHY
@@ -426,27 +425,6 @@ nav {
 .chip-terraform {
   background: rgba(123, 66, 188, 0.15);
   color: var(--lang-terraform);
-}
-
-.chip-rust {
-  background: rgba(222, 165, 132, 0.15);
-  color: var(--lang-rust);
-}
-
-/* Release status chips */
-.chip-production {
-  background: rgba(16, 185, 129, 0.15);
-  color: var(--success);
-}
-
-.chip-beta {
-  background: rgba(59, 130, 246, 0.15);
-  color: var(--secondary);
-}
-
-.chip-alpha {
-  background: rgba(245, 158, 11, 0.15);
-  color: var(--warning);
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════

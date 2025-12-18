@@ -1,23 +1,13 @@
 # jbcom.github.io
 
-> Jon Bogaty's professional portfolio and jbcom organization control center
+> Jon Bogaty's professional portfolio and jbcom ecosystem showcase
 
 ## 🎯 Purpose
 
-This repository serves **dual purposes**:
-
-### 1. Professional Portfolio Site
-- **Resume** - Professional background and experience
-- **Ecosystem Directory** - All jbcom packages with links to repos
-- **Static Site** - Fast, accessible, zero JavaScript required
-
-### 2. Organization Control Center
-- **Settings Sync** - [Probot Settings App](https://probot.github.io/apps/settings/) propagates `.github/settings.yml` to all org repos
-- **AI Agent Instructions** - Centralized guidance for Claude, Copilot, Cursor, and other AI agents
-- **Standardized Labels** - Consistent labeling across all repositories
-- **Branch Protection** - Org-wide rulesets for main and PR branches
-
-> 📖 **See [docs/ORGANIZATION-HUB.md](docs/ORGANIZATION-HUB.md) for full documentation on organization settings and propagation.**
+This site serves as:
+1. **Professional Portfolio** - Resume, skills, experience
+2. **Ecosystem Directory** - All jbcom packages with links to their repos
+3. **Static Site** - Fast, accessible, zero JavaScript required
 
 ## 🏗️ Architecture: Static-First
 
