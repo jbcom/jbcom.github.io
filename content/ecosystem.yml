@@ -363,6 +363,24 @@ packages:
       - WebGL
     tier: application
 
+  - id: agentic-game-development
+    name: rust-agentic-game-development
+    displayName: Agentic Game Development
+    description: Core AI libraries for game development - multi-provider LLM client and game blending algorithms.
+    category: ai
+    language: rust
+    releaseStatus: alpha
+    repo: https://github.com/jbcom/rust-agentic-game-development
+    featured: false
+    visibility: private
+    alphaWarning: "🦀 Heavily Alpha - Rust ecosystem, under active development"
+    tags:
+      - AI
+      - LLM
+      - Game Dev
+      - Rust
+    tier: core
+
   # --- TypeScript Games (Alpha - no releases, in development) ---
   - id: rivermarsh
     name: nodejs-rivermarsh
@@ -478,15 +496,15 @@ packages:
     tier: application
 
 # ═══════════════════════════════════════════════════════════════════════════
-# ARCHIVED/DEPRECATED (for reference, not displayed)
+# DELETED (removed from GitHub, for historical reference)
 # ═══════════════════════════════════════════════════════════════════════════
-archived:
+deleted:
   - id: go-port-api
     name: go-port-api
     reason: "No longer supported"
-    archivedAt: "2025-12-18"
+    deletedAt: "2025-12-18"
     
   - id: go-vault-secret-sync
     name: go-vault-secret-sync
     reason: "Duplicate of go-secretsync"
-    archivedAt: "2025-12-18"
+    deletedAt: "2025-12-18"
