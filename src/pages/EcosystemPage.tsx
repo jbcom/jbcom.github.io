@@ -20,7 +20,7 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material'
-import { useMemo, useState } from 'react'
+import { memo, useMemo, useState } from 'react'
 import {
   type Category,
   type Language,
@@ -30,7 +30,7 @@ import {
   packages,
 } from '../data/ecosystem'
 
-function PackageCard({ pkg }: { pkg: Package }) {
+const PackageCard = memo(function PackageCard({ pkg }: { pkg: Package }) {
   const theme = useTheme()
   const lang = languages[pkg.language]
   const cat = categories[pkg.category]
@@ -198,7 +198,7 @@ function PackageCard({ pkg }: { pkg: Package }) {
       </Box>
     </Card>
   )
-}
+})
 
 export default function EcosystemPage() {
   const theme = useTheme()
