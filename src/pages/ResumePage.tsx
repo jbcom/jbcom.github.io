@@ -202,6 +202,7 @@ export default function ResumePage() {
                 target="_blank"
                 rel="noopener noreferrer"
                 size="small"
+                aria-label="Share on LinkedIn"
                 sx={{ color: '#0A66C2' }}
               >
                 <LinkedIn />
@@ -214,18 +215,24 @@ export default function ResumePage() {
                 target="_blank"
                 rel="noopener noreferrer"
                 size="small"
+                aria-label="Share on X"
               >
                 <Twitter />
               </IconButton>
             </Tooltip>
             <Tooltip title="Share via Email">
-              <IconButton component="a" href={emailShareUrl} size="small">
+              <IconButton
+                component="a"
+                href={emailShareUrl}
+                size="small"
+                aria-label="Share via Email"
+              >
                 <Email />
               </IconButton>
             </Tooltip>
             {typeof navigator !== 'undefined' && 'share' in navigator && (
               <Tooltip title="Share...">
-                <IconButton onClick={handleShare} size="small">
+                <IconButton onClick={handleShare} size="small" aria-label="Share this page">
                   <Share />
                 </IconButton>
               </Tooltip>
