@@ -1,306 +1,234 @@
-# jbcom.github.io - Portfolio & Ecosystem Hub
+# TypeScript/Node.js Copilot Instructions
 
-## 🎯 Site Purpose
+## Environment Setup
 
-This is **Jon Bogaty's personal portfolio site** hosted on GitHub Pages. It serves as:
-
-1. **Introduction to the developer** - Professional background, vision, contact
-2. **Ecosystem overview** - Links (not embeds) to jbcom open source packages
-3. **Resume** - Stored as markdown, generated to PDF/DOCX at build time
-4. **Vision statement** - The philosophy behind the jbcom agent-fueled ecosystem
-
-### What This Site Is NOT
-
-- ❌ A React single-page application
-- ❌ A place to embed or recreate demos (repos have their own demo sites)
-- ❌ A documentation site for individual packages (each repo has its own docs)
-- ❌ A place to commit static PDF/DOCX files
-
-## 🏗️ Architecture Principles
-
-### Static-First
-
-This is a **static site** for GitHub Pages. Use:
-- Jekyll (GitHub Pages native) OR
-- Astro/Hugo with static HTML output
-- Minimal or zero JavaScript
-- Markdown for all content
-
-### Content as Source
-
-All content should be in editable, versionable formats:
-
-```
-content/
-├── resume.md          # Resume in markdown
-├── about.md           # About/bio content  
-├── vision.md          # Ecosystem vision statement
-└── ecosystem.yml      # Package metadata (name, repo URL, one-liner)
-```
-
-### Generated Artifacts
-
-PDFs and DOCXs are **build artifacts**, not source files:
-
+### Package Manager: pnpm (preferred)
 ```bash
-# Build process generates:
-# resume.md → public/Jon_Bogaty_Resume_2025.pdf
-# resume.md → public/Jon_Bogaty_Resume_2025.docx
-```
+# Install pnpm if not present
+npm install -g pnpm
 
-Use tools like:
-- `pandoc` for markdown → DOCX/PDF
-- `weasyprint` for HTML → PDF
-- GitHub Actions for automated generation
-
-### Links, Not Embeds
-
-Individual packages have their own GitHub Pages sites with:
-- Full documentation
-- Live demos
-- API references
-
-This portfolio site should **link to them**, not recreate their content:
-
-```yaml
-# ecosystem.yml
-packages:
-  - name: agentic-control
-    repo: https://github.com/jbcom/agentic-control
-    site: https://jbcom.github.io/agentic-control
-    description: AI agent orchestration framework
-    
-  - name: strata
-    repo: https://github.com/jbcom/nodejs-strata  
-    site: https://jbcom.github.io/nodejs-strata
-    demo: https://jbcom.github.io/nodejs-strata/demo
-    description: Procedural 3D graphics for React Three Fiber
-```
-
-## 📁 Target File Structure
-
-```
-/
-├── .github/
-│   ├── workflows/
-│   │   └── build.yml        # Build static site + generate resume artifacts
-│   └── copilot-instructions.md
-├── content/
-│   ├── resume.md            # Resume source (markdown)
-│   ├── about.md             # About page content
-│   ├── vision.md            # Ecosystem vision
-│   └── ecosystem.yml        # Package list with links
-├── templates/
-│   ├── resume-pdf.html      # Template for PDF generation
-│   └── resume-docx.md       # Template for DOCX generation
-├── _layouts/                 # Jekyll layouts (if using Jekyll)
-├── _includes/                # Jekyll partials
-├── assets/
-│   ├── css/
-│   │   └── style.css        # Site styles (can use a CSS framework)
-│   └── images/
-├── index.html               # Home page
-├── about.html               # About page
-├── resume.html              # Resume page (with download links)
-├── ecosystem.html           # Links to all packages
-├── _config.yml              # Jekyll config (if using Jekyll)
-└── README.md
-```
-
-## 🔧 Development Commands
-
-### If Using Jekyll (GitHub Pages Native)
-
-```bash
 # Install dependencies
-bundle install
-
-# Local development
-bundle exec jekyll serve
-
-# Build
-bundle exec jekyll build
+pnpm install
 ```
 
-### If Using Astro/Hugo
-
+### Node Version
+Check `.nvmrc` or `package.json` engines field for required version.
 ```bash
-# Install
-pnpm install  # or npm install
+nvm use  # If .nvmrc exists
+```
 
-# Development
-pnpm dev
+## Development Commands
 
-# Build static output
+### Testing (ALWAYS run tests)
+```bash
+# Run all tests
+pnpm test
+
+# Run tests in watch mode
+pnpm test:watch
+
+# Run with coverage
+pnpm test:coverage
+
+# Run specific test file
+pnpm test -- src/__tests__/specific.test.ts
+
+# Run tests matching pattern
+pnpm test -- -t "pattern"
+```
+
+### Linting & Formatting
+```bash
+# Lint (ESLint or Biome)
+pnpm lint
+
+# Fix lint issues
+pnpm lint:fix
+
+# Format (Prettier or Biome)
+pnpm format
+
+# Check formatting
+pnpm format:check
+
+# Type checking
+pnpm typecheck
+```
+
+### Building
+```bash
+# Build for production
 pnpm build
 
-# Preview build
-pnpm preview
+# Build in watch mode
+pnpm build:watch
+
+# Clean build artifacts
+pnpm clean
 ```
 
-### Resume Generation
+## Code Patterns
 
+### Imports
+```typescript
+// Node built-ins first
+import { readFile } from 'node:fs/promises';
+import path from 'node:path';
+
+// External packages
+import { z } from 'zod';
+
+// Internal absolute imports
+import { config } from '@/config';
+import { logger } from '@/utils/logger';
+
+// Relative imports last
+import { helper } from './helper';
+```
+
+### Type Definitions
+```typescript
+// Prefer interfaces for object shapes
+interface UserConfig {
+  readonly id: string;
+  name: string;
+  settings?: Settings;
+}
+
+// Use type for unions/intersections
+type Result<T> = Success<T> | Failure;
+
+// Export types explicitly
+export type { UserConfig, Result };
+```
+
+### Error Handling
+```typescript
+// Custom error classes
+class ProcessingError extends Error {
+  constructor(
+    message: string,
+    public readonly code: string,
+    public readonly cause?: Error
+  ) {
+    super(message);
+    this.name = 'ProcessingError';
+  }
+}
+
+// Result pattern (alternative to exceptions)
+type Result<T, E = Error> = 
+  | { success: true; data: T }
+  | { success: false; error: E };
+```
+
+### Async Patterns
+```typescript
+// Prefer async/await over .then()
+async function fetchData(url: string): Promise<Data> {
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new FetchError(`HTTP ${response.status}`);
+  }
+  return response.json();
+}
+
+// Use Promise.all for parallel operations
+const [users, posts] = await Promise.all([
+  fetchUsers(),
+  fetchPosts(),
+]);
+```
+
+### Testing Patterns
+```typescript
+import { describe, it, expect, beforeEach, vi } from 'vitest';
+
+describe('Processor', () => {
+  let processor: Processor;
+
+  beforeEach(() => {
+    processor = new Processor({ debug: false });
+  });
+
+  it('should process valid input', async () => {
+    const result = await processor.process('valid');
+    expect(result.success).toBe(true);
+  });
+
+  it('should throw on invalid input', async () => {
+    await expect(processor.process('')).rejects.toThrow('Invalid');
+  });
+
+  it('should call external service', async () => {
+    const mockService = vi.fn().mockResolvedValue({ data: 'test' });
+    // ...
+  });
+});
+```
+
+### React Patterns (if applicable)
+```typescript
+// Functional components with proper typing
+interface ButtonProps {
+  label: string;
+  onClick: () => void;
+  disabled?: boolean;
+}
+
+export function Button({ label, onClick, disabled = false }: ButtonProps) {
+  return (
+    <button onClick={onClick} disabled={disabled}>
+      {label}
+    </button>
+  );
+}
+
+// Hooks
+function useDebounce<T>(value: T, delay: number): T {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+  // ...
+  return debouncedValue;
+}
+```
+
+## Common Issues
+
+### "Cannot find module"
 ```bash
-# Generate PDF from markdown
-pandoc content/resume.md -o public/Jon_Bogaty_Resume_2025.pdf \
-  --pdf-engine=weasyprint \
-  --template=templates/resume-pdf.html
+# Rebuild TypeScript
+pnpm build
 
-# Generate DOCX from markdown  
-pandoc content/resume.md -o public/Jon_Bogaty_Resume_2025.docx \
-  --reference-doc=templates/reference.docx
+# Check tsconfig.json paths
 ```
 
-## 📝 Content Guidelines
-
-### Resume (content/resume.md)
-
-```markdown
----
-name: Jon Bogaty
-title: Head of Information Technology and Security
-location: Lincoln, Nebraska
-email: jon@jonbogaty.com
-github: jbcom
-linkedin: jonbogaty
----
-
-## Professional Summary
-
-Senior IT, Security, and Platform leader with 15+ years...
-
-## Experience
-
-### Head of Information Technology and Security
-**Flipside Crypto** | June 2021 – Present
-
-- Lead globally distributed IT and security strategy...
-
-## Skills
-
-- **Cloud Platforms**: AWS, Google Cloud, Azure
-- **Infrastructure**: Terraform, Kubernetes, Docker...
-
-## Education
-
-### Associate of Applied Science (AAS)
-**Ivy Tech Community College** | Computer Information Technology
-- Honors Graduate, Dean's List
+### Type errors after package update
+```bash
+# Regenerate types
+pnpm install
+pnpm typecheck
 ```
 
-### Ecosystem Data (content/ecosystem.yml)
+### ESM vs CommonJS issues
+```typescript
+// In ESM (type: "module" in package.json)
+import { something } from './module.js';  // .js extension required
 
-```yaml
-categories:
-  - id: ai
-    name: AI & Agents
-    description: Agent orchestration and AI tooling
-    
-  - id: graphics  
-    name: 3D Graphics
-    description: Procedural graphics and visualization
-
-packages:
-  - id: agentic-control
-    name: agentic-control
-    category: ai
-    language: python
-    description: AI agent orchestration framework
-    repo: https://github.com/jbcom/agentic-control
-    docs: https://jbcom.github.io/agentic-control
-    
-  - id: strata
-    name: strata
-    category: graphics
-    language: typescript
-    description: Procedural 3D graphics for React Three Fiber
-    repo: https://github.com/jbcom/nodejs-strata
-    demo: https://jbcom.github.io/nodejs-strata/demo
+// For JSON imports
+import config from './config.json' with { type: 'json' };
 ```
 
-## 🚀 Deployment
-
-### GitHub Pages (Automatic)
-
-For Jekyll sites, GitHub Pages builds automatically on push to `main`.
-
-For other static generators, use GitHub Actions:
-
-```yaml
-# .github/workflows/build.yml
-name: Build and Deploy
-
-on:
-  push:
-    branches: [main]
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      
-      - name: Setup Node (if using Astro/etc)
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          
-      - name: Install pandoc
-        run: sudo apt-get install -y pandoc weasyprint
-        
-      - name: Build site
-        run: pnpm build
-        
-      - name: Generate resume artifacts
-        run: |
-          pandoc content/resume.md -o dist/Jon_Bogaty_Resume_2025.pdf --pdf-engine=weasyprint
-          pandoc content/resume.md -o dist/Jon_Bogaty_Resume_2025.docx
-          
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+## File Structure
 ```
-
-## 🎨 Design Guidelines
-
-### Keep It Simple
-
-- Clean, professional design
-- Fast loading (minimal/no JS)
-- Mobile responsive
-- Accessible (semantic HTML, proper contrast)
-
-### Suggested CSS Frameworks
-
-- **Pico CSS** - Classless, minimal
-- **Simple.css** - Classless, elegant
-- **Tailwind** - Utility-first (if you need more control)
-- **Water.css** - Classless, dark mode support
-
-### No Heavy Dependencies
-
-Avoid:
-- React, Vue, Angular (not needed for static content)
-- Material UI, Chakra, etc. (overkill for this use case)
-- Three.js, WebGL (demos live in their own repos)
-
-## ✅ Quality Checklist
-
-Before merging:
-
-- [ ] All content is in markdown or YAML (not hardcoded HTML)
-- [ ] Resume generates correctly to PDF and DOCX
-- [ ] Site builds to static HTML
-- [ ] No JavaScript required for core functionality
-- [ ] Links to package repos/sites work
-- [ ] Mobile responsive
-- [ ] Fast loading (<1s for static pages)
-- [ ] No committed build artifacts (PDF/DOCX generated in CI)
-
-## 🔗 Related Resources
-
-- **jbcom GitHub**: https://github.com/jbcom
-- **Package repos**: Each has its own documentation site
-- **Design inspiration**: https://minimal.gallery, https://brutalistwebsites.com
+src/
+├── index.ts           # Main entry point
+├── core/              # Core logic (no framework deps)
+├── components/        # React components (if applicable)
+├── hooks/             # React hooks
+├── utils/             # Utility functions
+├── types/             # Type definitions
+└── __tests__/         # Unit tests
+tests/
+├── integration/       # Integration tests
+└── e2e/              # End-to-end tests
+```
