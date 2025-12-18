@@ -10,6 +10,7 @@ import {
   Box,
   Button,
   Card,
+  CardActionArea,
   CardContent,
   Chip,
   CircularProgress,
@@ -266,9 +267,7 @@ function DemoCard({
 }) {
   return (
     <Card
-      onClick={onClick}
       sx={{
-        cursor: 'pointer',
         borderColor: active ? 'primary.main' : 'divider',
         borderWidth: active ? 2 : 1,
         borderStyle: 'solid',
@@ -276,15 +275,17 @@ function DemoCard({
         '&:hover': { borderColor: 'primary.main' },
       }}
     >
-      <CardContent sx={{ py: 2 }}>
-        <Stack direction="row" spacing={1} alignItems="center" mb={0.5}>
-          <PlayArrow fontSize="small" color={active ? 'primary' : 'action'} />
-          <Typography fontWeight={600}>{demo.name}</Typography>
-        </Stack>
-        <Typography variant="body2" color="text.secondary">
-          {demo.description}
-        </Typography>
-      </CardContent>
+      <CardActionArea onClick={onClick} sx={{ height: '100%' }}>
+        <CardContent sx={{ py: 2 }}>
+          <Stack direction="row" spacing={1} alignItems="center" mb={0.5}>
+            <PlayArrow fontSize="small" color={active ? 'primary' : 'action'} />
+            <Typography fontWeight={600}>{demo.name}</Typography>
+          </Stack>
+          <Typography variant="body2" color="text.secondary">
+            {demo.description}
+          </Typography>
+        </CardContent>
+      </CardActionArea>
     </Card>
   )
 }
