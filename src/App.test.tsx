@@ -2,7 +2,7 @@
  * App component tests - routing and theme integration
  */
 import { render, screen, waitFor } from '@testing-library/react'
-import { describe, it, expect, vi } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import App from './App'
 
 // Mock the page components to simplify testing

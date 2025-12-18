@@ -1,10 +1,10 @@
-import { describe, it, expect } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import {
   getFeaturedPackages,
-  getPackagesByCategory,
-  getPackagesByLanguage,
   getPackageById,
   getPackageCount,
+  getPackagesByCategory,
+  getPackagesByLanguage,
   packages,
 } from './ecosystem'
 

@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import theme from './theme'
 
 describe('theme configuration', () => {
@@ -86,13 +86,19 @@ describe('theme configuration', () => {
     it('should have Card component overrides', () => {
       expect(theme.components?.MuiCard?.defaultProps?.elevation).toBe(0)
       expect(theme.components?.MuiCard?.styleOverrides?.root).toHaveProperty('borderRadius', 12)
-      expect(theme.components?.MuiCard?.styleOverrides?.root).toHaveProperty('backgroundImage', 'none')
+      expect(theme.components?.MuiCard?.styleOverrides?.root).toHaveProperty(
+        'backgroundImage',
+        'none'
+      )
     })
 
     it('should have Button component overrides', () => {
       expect(theme.components?.MuiButton?.defaultProps?.disableElevation).toBe(true)
       expect(theme.components?.MuiButton?.styleOverrides?.root).toHaveProperty('borderRadius', 8)
-      expect(theme.components?.MuiButton?.styleOverrides?.root).toHaveProperty('padding', '8px 20px')
+      expect(theme.components?.MuiButton?.styleOverrides?.root).toHaveProperty(
+        'padding',
+        '8px 20px'
+      )
     })
 
     it('should have Chip component overrides', () => {
@@ -102,15 +108,24 @@ describe('theme configuration', () => {
 
     it('should have AppBar component overrides', () => {
       expect(theme.components?.MuiAppBar?.defaultProps?.elevation).toBe(0)
-      expect(theme.components?.MuiAppBar?.styleOverrides?.root).toHaveProperty('backgroundColor', '#111827')
+      expect(theme.components?.MuiAppBar?.styleOverrides?.root).toHaveProperty(
+        'backgroundColor',
+        '#111827'
+      )
     })
 
     it('should have Drawer component overrides', () => {
-      expect(theme.components?.MuiDrawer?.styleOverrides?.paper).toHaveProperty('backgroundColor', '#111827')
+      expect(theme.components?.MuiDrawer?.styleOverrides?.paper).toHaveProperty(
+        'backgroundColor',
+        '#111827'
+      )
     })
 
     it('should have ListItemButton component overrides', () => {
-      expect(theme.components?.MuiListItemButton?.styleOverrides?.root).toHaveProperty('borderRadius', 8)
+      expect(theme.components?.MuiListItemButton?.styleOverrides?.root).toHaveProperty(
+        'borderRadius',
+        8
+      )
     })
   })
 

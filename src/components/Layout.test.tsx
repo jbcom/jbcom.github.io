@@ -1,10 +1,10 @@
+import { ThemeProvider, createTheme, useMediaQuery } from '@mui/material'
 /**
  * Layout component tests
  */
-import { render, screen, fireEvent, waitFor } from '@testing-library/react'
-import { BrowserRouter, MemoryRouter, Routes, Route } from 'react-router-dom'
-import { ThemeProvider, createTheme, useMediaQuery } from '@mui/material'
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+import { MemoryRouter, Route, Routes } from 'react-router-dom'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import Layout from './Layout'
 
 // Mock useMediaQuery for mobile/desktop testing
@@ -20,7 +20,7 @@ const theme = createTheme({
   palette: { mode: 'dark' },
 })
 
-const TestWrapper = ({ children, initialRoute = '/' }: { children?: React.ReactNode; initialRoute?: string }) => (
+const TestWrapper = ({ initialRoute = '/' }: { initialRoute?: string }) => (
   <ThemeProvider theme={theme}>
     <MemoryRouter initialEntries={[initialRoute]}>
       <Routes>
@@ -29,7 +29,10 @@ const TestWrapper = ({ children, initialRoute = '/' }: { children?: React.ReactN
           <Route path="about" element={<div data-testid="about">About Page</div>} />
           <Route path="resume" element={<div data-testid="resume">Resume Page</div>} />
           <Route path="ecosystem" element={<div data-testid="ecosystem">Ecosystem Page</div>} />
-          <Route path="ecosystem/:projectId" element={<div data-testid="project">Project Page</div>} />
+          <Route
+            path="ecosystem/:projectId"
+            element={<div data-testid="project">Project Page</div>}
+          />
           <Route path="demos" element={<div data-testid="demos">Demos Page</div>} />
         </Route>
       </Routes>
@@ -90,10 +93,10 @@ describe('Layout', () => {
 
     it('navigates to different pages when clicking nav items', async () => {
       render(<TestWrapper initialRoute="/" />)
-      
+
       const aboutLink = screen.getByRole('link', { name: /about/i })
       fireEvent.click(aboutLink)
-      
+
       await waitFor(() => {
         expect(screen.getByTestId('about')).toBeInTheDocument()
       })
@@ -113,10 +116,10 @@ describe('Layout', () => {
 
     it('opens mobile drawer when menu button is clicked', async () => {
       render(<TestWrapper />)
-      
+
       const menuButton = screen.getByRole('button', { name: /open navigation/i })
       fireEvent.click(menuButton)
-      
+
       await waitFor(() => {
         // Should have close button visible
         expect(screen.getByRole('button', { name: /close navigation/i })).toBeInTheDocument()
@@ -125,15 +128,15 @@ describe('Layout', () => {
 
     it('closes mobile drawer when close button is clicked', async () => {
       render(<TestWrapper />)
-      
+
       // Open drawer
       const menuButton = screen.getByRole('button', { name: /open navigation/i })
       fireEvent.click(menuButton)
-      
+
       // Close drawer
       const closeButton = screen.getByRole('button', { name: /close navigation/i })
       fireEvent.click(closeButton)
-      
+
       // The drawer should close (close button should not be visible)
       await waitFor(() => {
         expect(screen.queryByRole('button', { name: /close navigation/i })).not.toBeInTheDocument()
@@ -142,15 +145,15 @@ describe('Layout', () => {
 
     it('closes mobile drawer when a nav item is clicked', async () => {
       render(<TestWrapper />)
-      
+
       // Open drawer
       const menuButton = screen.getByRole('button', { name: /open navigation/i })
       fireEvent.click(menuButton)
-      
+
       // Click a nav item
-      const aboutButton = screen.getByRole('button', { name: /about/i })
-      fireEvent.click(aboutButton)
-      
+      const aboutLink = screen.getByRole('link', { name: /about/i })
+      fireEvent.click(aboutLink)
+
       // Drawer should close
       await waitFor(() => {
         expect(screen.queryByRole('button', { name: /close navigation/i })).not.toBeInTheDocument()
@@ -159,18 +162,18 @@ describe('Layout', () => {
 
     it('closes mobile drawer when logo is clicked', async () => {
       render(<TestWrapper initialRoute="/about" />)
-      
+
       // Open drawer
       const menuButton = screen.getByRole('button', { name: /open navigation/i })
       fireEvent.click(menuButton)
-      
+
       // Find and click the logo link inside the drawer
       const logoLinks = screen.getAllByRole('link')
-      const drawerLogoLink = logoLinks.find(link => link.getAttribute('href') === '/')
+      const drawerLogoLink = logoLinks.find((link) => link.getAttribute('href') === '/')
       if (drawerLogoLink) {
         fireEvent.click(drawerLogoLink)
       }
-      
+
       // Navigation should occur
       await waitFor(() => {
         expect(screen.getByTestId('home')).toBeInTheDocument()
@@ -181,14 +184,14 @@ describe('Layout', () => {
   describe('Navigation Active States', () => {
     it('correctly identifies active state for nested routes', () => {
       render(<TestWrapper initialRoute="/ecosystem/test-package" />)
-      const ecosystemButton = screen.getByRole('button', { name: /ecosystem/i })
-      expect(ecosystemButton).toHaveClass('Mui-selected')
+      const ecosystemLink = screen.getByRole('link', { name: /ecosystem/i })
+      expect(ecosystemLink).toHaveClass('Mui-selected')
     })
 
     it('home is not active on other routes', () => {
       render(<TestWrapper initialRoute="/about" />)
-      const homeButton = screen.getByRole('button', { name: /home/i })
-      expect(homeButton).not.toHaveClass('Mui-selected')
+      const homeLink = screen.getByRole('link', { name: /home/i })
+      expect(homeLink).not.toHaveClass('Mui-selected')
     })
   })
 })
