@@ -14,5 +14,4 @@ This guide will help you get started with jbcom.github.io.
 
 ## Next Steps
 
-- Check out the [API Reference](../api/index.rst) for detailed documentation
 - See [Contributing](../development/contributing.md) to help improve this project
