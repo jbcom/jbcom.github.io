@@ -67,20 +67,20 @@ describe('Layout', () => {
 
     it('displays Home as active on root route', () => {
       render(<TestWrapper initialRoute="/" />)
-      const homeButton = screen.getByRole('button', { name: /home/i })
-      expect(homeButton).toHaveClass('Mui-selected')
+      const homeLink = screen.getByRole('link', { name: /home/i })
+      expect(homeLink).toHaveClass('Mui-selected')
     })
 
     it('displays About as active on about route', () => {
       render(<TestWrapper initialRoute="/about" />)
-      const aboutButton = screen.getByRole('button', { name: /about/i })
-      expect(aboutButton).toHaveClass('Mui-selected')
+      const aboutLink = screen.getByRole('link', { name: /about/i })
+      expect(aboutLink).toHaveClass('Mui-selected')
     })
 
     it('displays Ecosystem as active on ecosystem sub-route', () => {
       render(<TestWrapper initialRoute="/ecosystem/some-project" />)
-      const ecosystemButton = screen.getByRole('button', { name: /ecosystem/i })
-      expect(ecosystemButton).toHaveClass('Mui-selected')
+      const ecosystemLink = screen.getByRole('link', { name: /ecosystem/i })
+      expect(ecosystemLink).toHaveClass('Mui-selected')
     })
 
     it('renders the main content outlet', () => {
@@ -91,7 +91,7 @@ describe('Layout', () => {
     it('navigates to different pages when clicking nav items', async () => {
       render(<TestWrapper initialRoute="/" />)
       
-      const aboutLink = screen.getByRole('button', { name: /about/i })
+      const aboutLink = screen.getByRole('link', { name: /about/i })
       fireEvent.click(aboutLink)
       
       await waitFor(() => {
