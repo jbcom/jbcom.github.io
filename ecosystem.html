@@ -39,298 +39,83 @@
         Production-grade tools extracted from real systems. 20+ open source packages across AI orchestration, 
         procedural graphics, enterprise infrastructure, and developer libraries.
       </p>
+      
+      <!-- Release Status Legend -->
+      <div style="display: flex; gap: 1.5rem; margin-top: 1.5rem; flex-wrap: wrap;">
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <span class="chip chip-production">Production</span>
+          <span style="font-size: 0.75rem; color: var(--text-secondary);">Passing CI + Published</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <span class="chip chip-beta">Beta</span>
+          <span style="font-size: 0.75rem; color: var(--text-secondary);">Active Development</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <span class="chip chip-alpha">Alpha</span>
+          <span style="font-size: 0.75rem; color: var(--text-secondary);">Early Stage / Experimental</span>
+        </div>
+      </div>
     </div>
 
-    <!-- AI & Agents -->
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         PRODUCTION - Passing CI + Published
+         ═══════════════════════════════════════════════════════════════════════ -->
     <section class="mb-2xl">
       <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
-        <div style="width: 4px; height: 2rem; background: #8b5cf6; border-radius: 2px;"></div>
+        <div style="width: 4px; height: 2rem; background: var(--success); border-radius: 2px;"></div>
         <div>
-          <h2 style="margin: 0;">AI & Agents</h2>
-          <p style="font-size: 0.875rem; color: var(--text-secondary); margin: 0;">Orchestration, fleet management, and intelligent automation</p>
+          <h2 style="margin: 0;">Production</h2>
+          <p style="font-size: 0.875rem; color: var(--text-secondary); margin: 0;">Stable releases with passing CI and published packages</p>
         </div>
       </div>
-      <div class="grid grid-3">
 
+      <!-- TypeScript Production -->
+      <h3 style="font-size: 1rem; color: var(--lang-typescript); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+        <span class="chip chip-typescript">TS</span> TypeScript
+      </h3>
+      <div class="grid grid-3 mb-xl">
         <div class="card">
           <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap;">
             <span class="chip chip-typescript">TS</span>
             <span class="chip chip-outlined">npm</span>
-            <span class="chip chip-filled" style="background: rgba(16, 185, 129, 0.15); color: var(--success);">Stable</span>
-          </div>
-          <h3 style="font-family: var(--font-mono); font-size: 1.125rem; margin-bottom: 0.75rem;">agentic-control</h3>
-          <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.7;">
-            Fleet management for AI agents. Spawn, monitor, triage, and orchestrate agents across organizations.
-          </p>
-
-          <a href="https://github.com/jbcom/nodejs-agentic-control" class="btn btn-outlined" target="_blank" rel="noopener noreferrer">View Source</a>
-        </div>
-
-        <div class="card">
-          <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap;">
-            <span class="chip chip-python">PY</span>
-            <span class="chip chip-outlined">PyPI</span>
-            <span class="chip chip-outlined" style="color: var(--info);">Beta</span>
-          </div>
-          <h3 style="font-family: var(--font-mono); font-size: 1.125rem; margin-bottom: 0.75rem;">agentic-crew</h3>
-          <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.7;">
-            Define crews once, deploy anywhere. Framework-agnostic AI crew configuration for CrewAI, LangGraph, and Strands.
-          </p>
-
-          <a href="https://github.com/jbcom/python-agentic-crew" class="btn btn-outlined" target="_blank" rel="noopener noreferrer">View Source</a>
-        </div>
-
-        <div class="card">
-          <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap;">
-            <span class="chip chip-typescript">TS</span>
-            <span class="chip chip-outlined">npm</span>
-            <span class="chip chip-outlined" style="color: var(--info);">Beta</span>
-          </div>
-          <h3 style="font-family: var(--font-mono); font-size: 1.125rem; margin-bottom: 0.75rem;">agentic-triage</h3>
-          <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.7;">
-            AI-powered GitHub issue triage and sprint planning. Classify, prioritize, and route issues automatically.
-          </p>
-
-          <a href="https://github.com/jbcom/nodejs-agentic-triage" class="btn btn-outlined" target="_blank" rel="noopener noreferrer">View Source</a>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- Game Development -->
-    <section class="mb-2xl">
-      <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
-        <div style="width: 4px; height: 2rem; background: #06b6d4; border-radius: 2px;"></div>
-        <div>
-          <h2 style="margin: 0;">Game Development</h2>
-          <p style="font-size: 0.875rem; color: var(--text-secondary); margin: 0;">Procedural graphics, game engines, and interactive experiences</p>
-        </div>
-      </div>
-      <div class="grid grid-3">
-
-        <div class="card">
-          <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap;">
-            <span class="chip chip-typescript">TS</span>
-            <span class="chip chip-outlined">npm</span>
-            <span class="chip chip-outlined" style="color: var(--info);">Beta</span>
+            <span class="chip chip-production">v1.3.1</span>
           </div>
           <h3 style="font-family: var(--font-mono); font-size: 1.125rem; margin-bottom: 0.75rem;">strata</h3>
           <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.7;">
             Procedural 3D graphics for React Three Fiber. Layered terrain, water, vegetation, sky, and volumetrics.
           </p>
-
           <a href="https://github.com/jbcom/nodejs-strata" class="btn btn-outlined" target="_blank" rel="noopener noreferrer">View Source</a>
         </div>
-
-        <div class="card">
-          <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap;">
-            <span class="chip chip-typescript">TS</span>
-            
-            <span class="chip chip-outlined" style="color: var(--warning);">Coming Soon</span>
-          </div>
-          <h3 style="font-family: var(--font-mono); font-size: 1.125rem; margin-bottom: 0.75rem;">Rivermarsh</h3>
-          <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.7;">
-            Mobile 3D exploration game built with strata and Capacitor. Explore procedurally generated marshlands, discover wildlife, and uncover hidden secrets.
-          </p>
-
-          <p style="font-size: 0.75rem; color: var(--warning); font-style: italic; margin-bottom: 1rem;">
-            Web demo coming Q1 2026
-          </p>
-
-          <a href="https://github.com/jbcom/nodejs-rivermarsh" class="btn btn-outlined" target="_blank" rel="noopener noreferrer">View Source</a>
-        </div>
-
-        <div class="card">
-          <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap;">
-            <span class="chip chip-typescript">TS</span>
-            
-            <span class="chip chip-outlined" style="color: var(--warning);">Coming Soon</span>
-          </div>
-          <h3 style="font-family: var(--font-mono); font-size: 1.125rem; margin-bottom: 0.75rem;">Otterfall</h3>
-          <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.7;">
-            3D adventure with procedural terrain generation. Guide your otter through cascading waterfalls and dynamic environments.
-          </p>
-
-          <p style="font-size: 0.75rem; color: var(--warning); font-style: italic; margin-bottom: 1rem;">
-            In development
-          </p>
-
-          <a href="https://github.com/jbcom/nodejs-otterfall" class="btn btn-outlined" target="_blank" rel="noopener noreferrer">View Source</a>
-        </div>
-
-        <div class="card">
-          <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap;">
-            <span class="chip chip-typescript">TS</span>
-            
-            <span class="chip chip-outlined" style="color: var(--warning);">Coming Soon</span>
-          </div>
-          <h3 style="font-family: var(--font-mono); font-size: 1.125rem; margin-bottom: 0.75rem;">Otter River Rush</h3>
-          <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.7;">
-            Fast-paced river racing with procedurally generated levels. Dodge obstacles, collect power-ups, and race against time.
-          </p>
-
-          <p style="font-size: 0.75rem; color: var(--warning); font-style: italic; margin-bottom: 1rem;">
-            In development
-          </p>
-
-          <a href="https://github.com/jbcom/nodejs-otter-river-rush" class="btn btn-outlined" target="_blank" rel="noopener noreferrer">View Source</a>
-        </div>
-
-        <div class="card">
-          <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap;">
-            <span class="chip chip-typescript">TS</span>
-            
-            <span class="chip chip-outlined" style="color: var(--warning);">Coming Soon</span>
-          </div>
-          <h3 style="font-family: var(--font-mono); font-size: 1.125rem; margin-bottom: 0.75rem;">Pixel's Palace</h3>
-          <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.7;">
-            Professor Pixel's educational platform for learning game development. Interactive tutorials, coding challenges, and creative projects.
-          </p>
-
-          <p style="font-size: 0.75rem; color: var(--warning); font-style: italic; margin-bottom: 1rem;">
-            Coming 2026
-          </p>
-
-          <a href="https://github.com/jbcom/nodejs-pixels-pygame-palace" class="btn btn-outlined" target="_blank" rel="noopener noreferrer">View Source</a>
-        </div>
-
-        <div class="card">
-          <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap;">
-            <span class="chip chip-python">PY</span>
-            
-            
-          </div>
-          <h3 style="font-family: var(--font-mono); font-size: 1.125rem; margin-bottom: 0.75rem;">AI Game Dev</h3>
-          <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.7;">
-            AI-assisted game development tools.
-          </p>
-
-          <a href="https://github.com/jbcom/python-ai-game-dev" class="btn btn-outlined" target="_blank" rel="noopener noreferrer">View Source</a>
-        </div>
-
-        <div class="card">
-          <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap;">
-            <span class="chip chip-python">PY</span>
-            
-            
-          </div>
-          <h3 style="font-family: var(--font-mono); font-size: 1.125rem; margin-bottom: 0.75rem;">Rivers of Reckoning</h3>
-          <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.7;">
-            Narrative roguelike with procedural storytelling.
-          </p>
-
-          <a href="https://github.com/jbcom/python-rivers-of-reckoning" class="btn btn-outlined" target="_blank" rel="noopener noreferrer">View Source</a>
-        </div>
-
       </div>
-    </section>
 
-    <!-- Infrastructure -->
-    <section class="mb-2xl">
-      <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
-        <div style="width: 4px; height: 2rem; background: #10b981; border-radius: 2px;"></div>
-        <div>
-          <h2 style="margin: 0;">Infrastructure</h2>
-          <p style="font-size: 0.875rem; color: var(--text-secondary); margin: 0;">Enterprise connectors, secrets, and DevOps tooling</p>
-        </div>
-      </div>
-      <div class="grid grid-3">
-
+      <!-- Python Production -->
+      <h3 style="font-size: 1rem; color: var(--lang-python); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+        <span class="chip chip-python">PY</span> Python
+      </h3>
+      <div class="grid grid-3 mb-xl">
         <div class="card">
           <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap;">
             <span class="chip chip-python">PY</span>
             <span class="chip chip-outlined">PyPI</span>
-            <span class="chip chip-filled" style="background: rgba(16, 185, 129, 0.15); color: var(--success);">Stable</span>
+            <span class="chip chip-production">Production</span>
           </div>
           <h3 style="font-family: var(--font-mono); font-size: 1.125rem; margin-bottom: 0.75rem;">vendor-connectors</h3>
           <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.7;">
             Unified Python clients for AWS, GCP, GitHub, Slack, Vault, and Zoom. Includes AI tool interfaces.
           </p>
-
           <a href="https://github.com/jbcom/python-vendor-connectors" class="btn btn-outlined" target="_blank" rel="noopener noreferrer">View Source</a>
         </div>
 
         <div class="card">
           <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap;">
-            <span class="chip chip-go">GO</span>
-            
-            <span class="chip chip-filled" style="background: rgba(16, 185, 129, 0.15); color: var(--success);">Stable</span>
-          </div>
-          <h3 style="font-family: var(--font-mono); font-size: 1.125rem; margin-bottom: 0.75rem;">SecretSync</h3>
-          <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.7;">
-            Sync secrets from HashiCorp Vault to AWS Secrets Manager in real-time.
-          </p>
-
-          <a href="https://github.com/jbcom/go-secretsync" class="btn btn-outlined" target="_blank" rel="noopener noreferrer">View Source</a>
-        </div>
-
-        <div class="card">
-          <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap;">
-            <span class="chip chip-go">GO</span>
-            
-            <span class="chip chip-filled" style="background: rgba(16, 185, 129, 0.15); color: var(--success);">Stable</span>
-          </div>
-          <h3 style="font-family: var(--font-mono); font-size: 1.125rem; margin-bottom: 0.75rem;">Vault Secret Sync</h3>
-          <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.7;">
-            Kubernetes operator for Vault-to-cloud secret synchronization.
-          </p>
-
-          <a href="https://github.com/jbcom/go-vault-secret-sync" class="btn btn-outlined" target="_blank" rel="noopener noreferrer">View Source</a>
-        </div>
-
-        <div class="card">
-          <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap;">
-            <span class="chip chip-terraform">TF</span>
-            
-            <span class="chip chip-filled" style="background: rgba(16, 185, 129, 0.15); color: var(--success);">Stable</span>
-          </div>
-          <h3 style="font-family: var(--font-mono); font-size: 1.125rem; margin-bottom: 0.75rem;">terraform-github-markdown</h3>
-          <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.7;">
-            Terraform module for managing GitHub repository files.
-          </p>
-
-          <a href="https://github.com/jbcom/terraform-github-markdown" class="btn btn-outlined" target="_blank" rel="noopener noreferrer">View Source</a>
-        </div>
-
-        <div class="card">
-          <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap;">
-            <span class="chip chip-terraform">TF</span>
-            
-            <span class="chip chip-filled" style="background: rgba(16, 185, 129, 0.15); color: var(--success);">Stable</span>
-          </div>
-          <h3 style="font-family: var(--font-mono); font-size: 1.125rem; margin-bottom: 0.75rem;">terraform-repository-automation</h3>
-          <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.7;">
-            Terraform module for GitHub repository settings, rulesets, and configuration.
-          </p>
-
-          <a href="https://github.com/jbcom/terraform-repository-automation" class="btn btn-outlined" target="_blank" rel="noopener noreferrer">View Source</a>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- Libraries -->
-    <section class="mb-2xl">
-      <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
-        <div style="width: 4px; height: 2rem; background: #f59e0b; border-radius: 2px;"></div>
-        <div>
-          <h2 style="margin: 0;">Libraries</h2>
-          <p style="font-size: 0.875rem; color: var(--text-secondary); margin: 0;">Utilities, data types, and developer tools</p>
-        </div>
-      </div>
-      <div class="grid grid-3">
-
-        <div class="card">
-          <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap;">
             <span class="chip chip-python">PY</span>
             <span class="chip chip-outlined">PyPI</span>
-            <span class="chip chip-filled" style="background: rgba(16, 185, 129, 0.15); color: var(--success);">Stable</span>
+            <span class="chip chip-production">Production</span>
           </div>
           <h3 style="font-family: var(--font-mono); font-size: 1.125rem; margin-bottom: 0.75rem;">extended-data-types</h3>
           <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.7;">
             Enhanced Python data structures: deep-merge maps, typed lists, and configuration helpers.
           </p>
-
           <a href="https://github.com/jbcom/python-extended-data-types" class="btn btn-outlined" target="_blank" rel="noopener noreferrer">View Source</a>
         </div>
 
@@ -338,13 +123,12 @@
           <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap;">
             <span class="chip chip-python">PY</span>
             <span class="chip chip-outlined">PyPI</span>
-            <span class="chip chip-filled" style="background: rgba(16, 185, 129, 0.15); color: var(--success);">Stable</span>
+            <span class="chip chip-production">Production</span>
           </div>
           <h3 style="font-family: var(--font-mono); font-size: 1.125rem; margin-bottom: 0.75rem;">directed-inputs-class</h3>
           <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.7;">
             Type-safe configuration with environment variable overrides and validation.
           </p>
-
           <a href="https://github.com/jbcom/python-directed-inputs-class" class="btn btn-outlined" target="_blank" rel="noopener noreferrer">View Source</a>
         </div>
 
@@ -352,13 +136,12 @@
           <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap;">
             <span class="chip chip-python">PY</span>
             <span class="chip chip-outlined">PyPI</span>
-            <span class="chip chip-filled" style="background: rgba(16, 185, 129, 0.15); color: var(--success);">Stable</span>
+            <span class="chip chip-production">Production</span>
           </div>
           <h3 style="font-family: var(--font-mono); font-size: 1.125rem; margin-bottom: 0.75rem;">lifecyclelogging</h3>
           <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.7;">
             Structured logging with rich formatting, verbosity controls, and lifecycle tracking.
           </p>
-
           <a href="https://github.com/jbcom/python-lifecyclelogging" class="btn btn-outlined" target="_blank" rel="noopener noreferrer">View Source</a>
         </div>
 
@@ -366,30 +149,273 @@
           <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap;">
             <span class="chip chip-python">PY</span>
             <span class="chip chip-outlined">PyPI</span>
-            <span class="chip chip-filled" style="background: rgba(16, 185, 129, 0.15); color: var(--success);">Stable</span>
+            <span class="chip chip-production">Production</span>
           </div>
           <h3 style="font-family: var(--font-mono); font-size: 1.125rem; margin-bottom: 0.75rem;">python-terraform-bridge</h3>
           <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.7;">
             Python utilities for Terraform external data sources and module development.
           </p>
-
           <a href="https://github.com/jbcom/python-terraform-bridge" class="btn btn-outlined" target="_blank" rel="noopener noreferrer">View Source</a>
+        </div>
+      </div>
+
+      <!-- Terraform Production -->
+      <h3 style="font-size: 1rem; color: var(--lang-terraform); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+        <span class="chip chip-terraform">TF</span> Terraform
+      </h3>
+      <div class="grid grid-3">
+        <div class="card">
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap;">
+            <span class="chip chip-terraform">TF</span>
+            <span class="chip chip-production">Production</span>
+          </div>
+          <h3 style="font-family: var(--font-mono); font-size: 1.125rem; margin-bottom: 0.75rem;">terraform-github-markdown</h3>
+          <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.7;">
+            Terraform module for managing GitHub repository files.
+          </p>
+          <a href="https://github.com/jbcom/terraform-github-markdown" class="btn btn-outlined" target="_blank" rel="noopener noreferrer">View Source</a>
         </div>
 
         <div class="card">
           <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap;">
-            <span class="chip chip-go">GO</span>
-            
-            <span class="chip chip-filled" style="background: rgba(16, 185, 129, 0.15); color: var(--success);">Stable</span>
+            <span class="chip chip-terraform">TF</span>
+            <span class="chip chip-production">Production</span>
           </div>
-          <h3 style="font-family: var(--font-mono); font-size: 1.125rem; margin-bottom: 0.75rem;">Port API</h3>
+          <h3 style="font-family: var(--font-mono); font-size: 1.125rem; margin-bottom: 0.75rem;">terraform-repository-automation</h3>
           <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.7;">
-            Service port management and discovery API.
+            Terraform module for GitHub repository settings, rulesets, and configuration.
           </p>
+          <a href="https://github.com/jbcom/terraform-repository-automation" class="btn btn-outlined" target="_blank" rel="noopener noreferrer">View Source</a>
+        </div>
+      </div>
+    </section>
 
-          <a href="https://github.com/jbcom/go-port-api" class="btn btn-outlined" target="_blank" rel="noopener noreferrer">View Source</a>
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         BETA - Active Development
+         ═══════════════════════════════════════════════════════════════════════ -->
+    <section class="mb-2xl">
+      <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+        <div style="width: 4px; height: 2rem; background: var(--secondary); border-radius: 2px;"></div>
+        <div>
+          <h2 style="margin: 0;">Beta</h2>
+          <p style="font-size: 0.875rem; color: var(--text-secondary); margin: 0;">Active development with published packages or working releases</p>
+        </div>
+      </div>
+
+      <!-- TypeScript Beta -->
+      <h3 style="font-size: 1rem; color: var(--lang-typescript); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+        <span class="chip chip-typescript">TS</span> TypeScript
+      </h3>
+      <div class="grid grid-3 mb-xl">
+        <div class="card">
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap;">
+            <span class="chip chip-typescript">TS</span>
+            <span class="chip chip-beta">Beta</span>
+          </div>
+          <h3 style="font-family: var(--font-mono); font-size: 1.125rem; margin-bottom: 0.75rem;">agentic-control</h3>
+          <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.7;">
+            Fleet management for AI agents. Spawn, monitor, triage, and orchestrate agents across organizations.
+          </p>
+          <a href="https://github.com/jbcom/nodejs-agentic-control" class="btn btn-outlined" target="_blank" rel="noopener noreferrer">View Source</a>
         </div>
 
+        <div class="card">
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap;">
+            <span class="chip chip-typescript">TS</span>
+            <span class="chip chip-beta">v0.2.0</span>
+          </div>
+          <h3 style="font-family: var(--font-mono); font-size: 1.125rem; margin-bottom: 0.75rem;">agentic-triage</h3>
+          <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.7;">
+            AI-powered GitHub issue triage and sprint planning. Classify, prioritize, and route issues automatically.
+          </p>
+          <a href="https://github.com/jbcom/nodejs-agentic-triage" class="btn btn-outlined" target="_blank" rel="noopener noreferrer">View Source</a>
+        </div>
+      </div>
+
+      <!-- Python Beta -->
+      <h3 style="font-size: 1rem; color: var(--lang-python); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+        <span class="chip chip-python">PY</span> Python
+      </h3>
+      <div class="grid grid-3 mb-xl">
+        <div class="card">
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap;">
+            <span class="chip chip-python">PY</span>
+            <span class="chip chip-outlined">PyPI</span>
+            <span class="chip chip-beta">v0.2.0</span>
+          </div>
+          <h3 style="font-family: var(--font-mono); font-size: 1.125rem; margin-bottom: 0.75rem;">agentic-crew</h3>
+          <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.7;">
+            Define crews once, deploy anywhere. Framework-agnostic AI crew configuration for CrewAI, LangGraph, and Strands.
+          </p>
+          <a href="https://github.com/jbcom/python-agentic-crew" class="btn btn-outlined" target="_blank" rel="noopener noreferrer">View Source</a>
+        </div>
+      </div>
+
+      <!-- Go Beta -->
+      <h3 style="font-size: 1rem; color: var(--lang-go); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+        <span class="chip chip-go">GO</span> Go
+      </h3>
+      <div class="grid grid-3">
+        <div class="card">
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap;">
+            <span class="chip chip-go">GO</span>
+            <span class="chip chip-beta">Beta</span>
+          </div>
+          <h3 style="font-family: var(--font-mono); font-size: 1.125rem; margin-bottom: 0.75rem;">SecretSync</h3>
+          <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.7;">
+            Enterprise-grade secret synchronization. Sync from HashiCorp Vault to AWS Secrets Manager with two-phase architecture.
+          </p>
+          <a href="https://github.com/jbcom/go-secretsync" class="btn btn-outlined" target="_blank" rel="noopener noreferrer">View Source</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         ALPHA - Early Stage / Experimental
+         ═══════════════════════════════════════════════════════════════════════ -->
+    <section class="mb-2xl">
+      <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+        <div style="width: 4px; height: 2rem; background: var(--warning); border-radius: 2px;"></div>
+        <div>
+          <h2 style="margin: 0;">Alpha</h2>
+          <p style="font-size: 0.875rem; color: var(--text-secondary); margin: 0;">Early stage, experimental, or non-core language ecosystems</p>
+        </div>
+      </div>
+
+      <!-- Rust Alpha -->
+      <h3 style="font-size: 1rem; color: var(--lang-rust); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+        <span class="chip chip-rust">RS</span> Rust
+        <span style="font-size: 0.75rem; color: var(--warning); font-style: italic;">🦀 Heavily Alpha - Under active migration</span>
+      </h3>
+      <div class="grid grid-3 mb-xl">
+        <div class="card">
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap;">
+            <span class="chip chip-rust">RS</span>
+            <span class="chip chip-alpha">Alpha</span>
+            <span class="chip chip-outlined" style="color: var(--text-disabled);">Private</span>
+          </div>
+          <h3 style="font-family: var(--font-mono); font-size: 1.125rem; margin-bottom: 0.75rem;">Vintage Game Generator</h3>
+          <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.7;">
+            AI-powered retro RPG generator with multi-provider AI integration. Built with Bevy engine.
+          </p>
+          <p style="font-size: 0.75rem; color: var(--warning); font-style: italic; margin-bottom: 1rem;">
+            🦀 Rust ecosystem under active migration
+          </p>
+          <a href="https://github.com/jbcom/rust-vintage-game-generator" class="btn btn-outlined" target="_blank" rel="noopener noreferrer">View Source</a>
+        </div>
+
+        <div class="card">
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap;">
+            <span class="chip chip-rust">RS</span>
+            <span class="chip chip-alpha">Alpha</span>
+            <span class="chip chip-outlined" style="color: var(--text-disabled);">Private</span>
+          </div>
+          <h3 style="font-family: var(--font-mono); font-size: 1.125rem; margin-bottom: 0.75rem;">Cosmic Cults</h3>
+          <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.7;">
+            Lovecraftian 4X RTS game built with Bevy engine. WASM/WebGL compatible for browser play.
+          </p>
+          <p style="font-size: 0.75rem; color: var(--warning); font-style: italic; margin-bottom: 1rem;">
+            🦀 Rust ecosystem under active migration
+          </p>
+          <a href="https://github.com/jbcom/rust-cosmic-cults" class="btn btn-outlined" target="_blank" rel="noopener noreferrer">View Source</a>
+        </div>
+      </div>
+
+      <!-- TypeScript Games (Alpha) -->
+      <h3 style="font-size: 1rem; color: var(--lang-typescript); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+        <span class="chip chip-typescript">TS</span> TypeScript Games
+        <span style="font-size: 0.75rem; color: var(--warning); font-style: italic;">In Development</span>
+      </h3>
+      <div class="grid grid-3 mb-xl">
+        <div class="card">
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap;">
+            <span class="chip chip-typescript">TS</span>
+            <span class="chip chip-alpha">Alpha</span>
+          </div>
+          <h3 style="font-family: var(--font-mono); font-size: 1.125rem; margin-bottom: 0.75rem;">Rivermarsh</h3>
+          <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.7;">
+            Mobile 3D exploration game built with strata and Capacitor. Explore procedurally generated marshlands.
+          </p>
+          <p style="font-size: 0.75rem; color: var(--warning); font-style: italic; margin-bottom: 1rem;">
+            Web demo coming Q1 2026
+          </p>
+          <a href="https://github.com/jbcom/nodejs-rivermarsh" class="btn btn-outlined" target="_blank" rel="noopener noreferrer">View Source</a>
+        </div>
+
+        <div class="card">
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap;">
+            <span class="chip chip-typescript">TS</span>
+            <span class="chip chip-alpha">Alpha</span>
+          </div>
+          <h3 style="font-family: var(--font-mono); font-size: 1.125rem; margin-bottom: 0.75rem;">Otterfall</h3>
+          <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.7;">
+            3D adventure with procedural terrain generation. Guide your otter through cascading waterfalls.
+          </p>
+          <p style="font-size: 0.75rem; color: var(--warning); font-style: italic; margin-bottom: 1rem;">
+            In development
+          </p>
+          <a href="https://github.com/jbcom/nodejs-otterfall" class="btn btn-outlined" target="_blank" rel="noopener noreferrer">View Source</a>
+        </div>
+
+        <div class="card">
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap;">
+            <span class="chip chip-typescript">TS</span>
+            <span class="chip chip-alpha">Alpha</span>
+          </div>
+          <h3 style="font-family: var(--font-mono); font-size: 1.125rem; margin-bottom: 0.75rem;">Otter River Rush</h3>
+          <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.7;">
+            Fast-paced river racing with procedurally generated levels. Dodge obstacles, collect power-ups.
+          </p>
+          <p style="font-size: 0.75rem; color: var(--warning); font-style: italic; margin-bottom: 1rem;">
+            In development
+          </p>
+          <a href="https://github.com/jbcom/nodejs-otter-river-rush" class="btn btn-outlined" target="_blank" rel="noopener noreferrer">View Source</a>
+        </div>
+
+        <div class="card">
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap;">
+            <span class="chip chip-typescript">TS</span>
+            <span class="chip chip-alpha">Alpha</span>
+          </div>
+          <h3 style="font-family: var(--font-mono); font-size: 1.125rem; margin-bottom: 0.75rem;">Pixel's Palace</h3>
+          <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.7;">
+            Professor Pixel's educational platform for learning game development. Interactive tutorials and coding challenges.
+          </p>
+          <p style="font-size: 0.75rem; color: var(--warning); font-style: italic; margin-bottom: 1rem;">
+            Coming 2026
+          </p>
+          <a href="https://github.com/jbcom/nodejs-pixels-pygame-palace" class="btn btn-outlined" target="_blank" rel="noopener noreferrer">View Source</a>
+        </div>
+      </div>
+
+      <!-- Python Games (Alpha) -->
+      <h3 style="font-size: 1rem; color: var(--lang-python); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+        <span class="chip chip-python">PY</span> Python Games & Tools
+      </h3>
+      <div class="grid grid-3">
+        <div class="card">
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap;">
+            <span class="chip chip-python">PY</span>
+            <span class="chip chip-alpha">Alpha</span>
+          </div>
+          <h3 style="font-family: var(--font-mono); font-size: 1.125rem; margin-bottom: 0.75rem;">AI Game Dev</h3>
+          <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.7;">
+            AI-powered game development assistant. Professor Pixel's Arcade Academy for learning game dev with AI.
+          </p>
+          <a href="https://github.com/jbcom/python-ai-game-dev" class="btn btn-outlined" target="_blank" rel="noopener noreferrer">View Source</a>
+        </div>
+
+        <div class="card">
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap;">
+            <span class="chip chip-python">PY</span>
+            <span class="chip chip-alpha">Alpha</span>
+          </div>
+          <h3 style="font-family: var(--font-mono); font-size: 1.125rem; margin-bottom: 0.75rem;">Rivers of Reckoning</h3>
+          <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.7;">
+            Narrative roguelike with procedural storytelling and dynamic world events.
+          </p>
+          <a href="https://github.com/jbcom/python-rivers-of-reckoning" class="btn btn-outlined" target="_blank" rel="noopener noreferrer">View Source</a>
+        </div>
       </div>
     </section>
 
