@@ -46,6 +46,11 @@ jobs:
           # Copy assets directory (CSS, images)
           cp -r assets dist/
           
+          # Copy public directory contents (includes .well-known/security.txt)
+          if [ -d "public" ]; then
+            cp -r public/* dist/
+          fi
+          
           # Note: ecosystem.html is already generated and committed
           # No need to regenerate it from YAML during CI
 
