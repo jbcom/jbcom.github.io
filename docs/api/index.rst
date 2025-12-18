@@ -4,7 +4,7 @@ API Reference
 .. TODO: Add your module documentation here
 
 .. This will auto-generate documentation from docstrings:
-.. .. automodule:: PACKAGE_NAME
+.. .. automodule:: jbcom.github.io
 ..    :members:
 ..    :undoc-members:
 ..    :show-inheritance:

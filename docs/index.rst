@@ -1,8 +1,8 @@
-.. PACKAGE_NAME documentation master file
+.. jbcom.github.io documentation master file
    Synced from jbcom-control-center - customize for your project
 
 =======================================
-PACKAGE_NAME Documentation
+jbcom.github.io Documentation
 =======================================
 
 .. TODO: Add your project description here

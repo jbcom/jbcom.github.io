@@ -1,15 +1,15 @@
 # Quickstart
 
-This guide will help you get started with PACKAGE_NAME.
+This guide will help you get started with jbcom.github.io.
 
 ## Basic Usage
 
 ```python
-# TODO: Add basic usage example
-from PACKAGE_NAME import example
-
-result = example.do_something()
-print(result)
+# jbcom.github.io is a TypeScript project.
+# Python usage is not applicable.
+# from jbcom.github.io import example
+# result = example.do_something()
+# print(result)
 ```
 
 ## Next Steps

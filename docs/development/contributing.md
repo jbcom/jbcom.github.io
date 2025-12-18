@@ -1,13 +1,13 @@
 # Contributing
 
-Thank you for your interest in contributing to PACKAGE_NAME!
+Thank you for your interest in contributing to jbcom.github.io!
 
 ## Development Setup
 
 ```bash
 # Clone the repository
-git clone https://github.com/jbcom/PACKAGE_NAME.git
-cd PACKAGE_NAME
+git clone https://github.com/jbcom/jbcom.github.io.git
+cd jbcom.github.io
 
 # Install with all development dependencies
 uv sync --all-extras
@@ -20,7 +20,7 @@ uv sync --all-extras
 uv run pytest
 
 # Run with coverage
-uv run pytest --cov=PACKAGE_NAME
+uv run pytest --cov=jbcom.github.io
 ```
 
 ## Code Style
