@@ -336,6 +336,18 @@ nav {
   line-height: 1.7;
 }
 
+.qr-code {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease;
+}
+
+.qr-code:hover {
+  transform: scale(1.02);
+}
+
 /* ═══════════════════════════════════════════════════════════════════════════
    BUTTONS
    ═══════════════════════════════════════════════════════════════════════════ */
