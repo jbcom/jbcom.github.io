@@ -29,6 +29,7 @@ import {
   languages,
   packages,
 } from '../data/ecosystem'
+import { useDebounce } from '../hooks/useDebounce'
 
 const PackageCard = memo(function PackageCard({ pkg }: { pkg: Package }) {
   const theme = useTheme()
@@ -205,14 +206,17 @@ export default function EcosystemPage() {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
 
   const [search, setSearch] = useState('')
+  // Debounce search term to avoid filtering on every keystroke
+  const debouncedSearch = useDebounce(search, 300)
+
   const [categoryFilter, setCategoryFilter] = useState<Category | 'all'>('all')
   const [languageFilter, setLanguageFilter] = useState<Language | 'all'>('all')
 
   const filteredPackages = useMemo(() => {
     return packages.filter((pkg) => {
       // Search filter
-      if (search) {
-        const searchLower = search.toLowerCase()
+      if (debouncedSearch) {
+        const searchLower = debouncedSearch.toLowerCase()
         const matchesSearch =
           pkg.displayName.toLowerCase().includes(searchLower) ||
           pkg.description.toLowerCase().includes(searchLower) ||
@@ -232,7 +236,7 @@ export default function EcosystemPage() {
 
       return true
     })
-  }, [search, categoryFilter, languageFilter])
+  }, [debouncedSearch, categoryFilter, languageFilter])
 
   return (
     <Box sx={{ py: { xs: 2, md: 4 } }}>
