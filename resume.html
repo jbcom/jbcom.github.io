@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' https://img.shields.io; font-src 'self' https://fonts.gstatic.com; connect-src 'self'; object-src 'none'; base-uri 'self';">
   <title>Resume - Jon Bogaty | jbcom</title>
   <meta name="description" content="Jon Bogaty's professional resume - Head of Information Technology and Security with 15+ years of experience.">
   
@@ -229,9 +230,7 @@
       <div style="display: flex; justify-content: center;">
         <a href="https://t.me/jbpersonaldev" target="_blank" rel="noopener noreferrer" style="display: block; max-width: 600px;">
           <img src="/assets/images/telegram-qr.png" alt="Telegram QR Code - @jbpersonaldev" 
-               style="width: 100%; height: auto; border-radius: var(--radius-lg); box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); transition: transform 0.2s ease;"
-               onmouseover="this.style.transform='scale(1.02)'"
-               onmouseout="this.style.transform='scale(1)'">
+               class="qr-code">
         </a>
       </div>
       <div class="card mt-lg" style="text-align: center;">
