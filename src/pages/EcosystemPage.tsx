@@ -2,7 +2,7 @@
  * EcosystemPage - Full catalog of jbcom packages
  */
 
-import { FilterList, OpenInNew, Search } from '@mui/icons-material'
+import { Clear, FilterList, OpenInNew, Search } from '@mui/icons-material'
 import {
   Box,
   Button,
@@ -10,6 +10,7 @@ import {
   CardContent,
   Chip,
   Grid,
+  IconButton,
   InputAdornment,
   Stack,
   TextField,
@@ -156,6 +157,7 @@ const PackageCard = memo(function PackageCard({ pkg }: { pkg: Package }) {
           href={pkg.repo}
           target="_blank"
           rel="noopener noreferrer"
+          aria-label={`GitHub repository for ${pkg.displayName}`}
           sx={{ textTransform: 'none', fontSize: '0.8rem' }}
         >
           GitHub
@@ -276,6 +278,21 @@ export default function EcosystemPage() {
                   <Search color="action" />
                 </InputAdornment>
               ),
+              endAdornment: search ? (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="Clear search"
+                    onClick={() => setSearch('')}
+                    edge="end"
+                    size="small"
+                  >
+                    <Clear />
+                  </IconButton>
+                </InputAdornment>
+              ) : null,
+            }}
+            inputProps={{
+              'aria-label': 'Search packages',
             }}
             size="small"
           />
