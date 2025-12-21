@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' https://img.shields.io data:; base-uri 'self'; form-action 'none'; frame-ancestors 'none';">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>Resume - Jon Bogaty | jbcom</title>
   <meta name="description" content="Jon Bogaty's professional resume - Head of Information Technology and Security with 15+ years of experience.">
@@ -13,15 +14,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="/assets/css/style.css">
-  <style>
-    .resume-section { margin-bottom: 2rem; }
-    .job-entry { margin-bottom: 1.5rem; }
-    .job-title { font-size: 1.125rem; font-weight: 600; margin-bottom: 0.25rem; }
-    .company { color: var(--primary); font-weight: 600; margin-bottom: 0.25rem; }
-    .period { font-size: 0.875rem; color: var(--text-disabled); margin-bottom: 0.75rem; }
-    .job-description { margin: 0; padding-left: 1.25rem; }
-    .job-description li { margin-bottom: 0.5rem; color: var(--text-secondary); font-size: 0.875rem; line-height: 1.7; }
-  </style>
 </head>
 <body>
   <!-- Header -->
@@ -228,10 +220,7 @@
       <h2 class="mb-md">Let's Connect</h2>
       <div style="display: flex; justify-content: center;">
         <a href="https://t.me/jbpersonaldev" target="_blank" rel="noopener noreferrer" style="display: block; max-width: 600px;">
-          <img src="/assets/images/telegram-qr.png" alt="Telegram QR Code - @jbpersonaldev" 
-               style="width: 100%; height: auto; border-radius: var(--radius-lg); box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); transition: transform 0.2s ease;"
-               onmouseover="this.style.transform='scale(1.02)'"
-               onmouseout="this.style.transform='scale(1)'">
+          <img src="/assets/images/telegram-qr.png" alt="Telegram QR Code - @jbpersonaldev" class="qr-code-image">
         </a>
       </div>
       <div class="card mt-lg" style="text-align: center;">
