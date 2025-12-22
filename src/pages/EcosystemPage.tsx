@@ -2,7 +2,7 @@
  * EcosystemPage - Full catalog of jbcom packages
  */
 
-import { FilterList, OpenInNew, Search } from '@mui/icons-material'
+import { Close, FilterList, OpenInNew, Search } from '@mui/icons-material'
 import {
   Box,
   Button,
@@ -10,6 +10,7 @@ import {
   CardContent,
   Chip,
   Grid,
+  IconButton,
   InputAdornment,
   Stack,
   TextField,
@@ -157,6 +158,7 @@ const PackageCard = memo(function PackageCard({ pkg }: { pkg: Package }) {
           target="_blank"
           rel="noopener noreferrer"
           sx={{ textTransform: 'none', fontSize: '0.8rem' }}
+          aria-label={`GitHub repository for ${pkg.displayName}`}
         >
           GitHub
         </Button>
@@ -167,6 +169,7 @@ const PackageCard = memo(function PackageCard({ pkg }: { pkg: Package }) {
             target="_blank"
             rel="noopener noreferrer"
             sx={{ textTransform: 'none', fontSize: '0.8rem' }}
+            aria-label={`View ${pkg.displayName} on npm`}
           >
             npm
           </Button>
@@ -178,6 +181,7 @@ const PackageCard = memo(function PackageCard({ pkg }: { pkg: Package }) {
             target="_blank"
             rel="noopener noreferrer"
             sx={{ textTransform: 'none', fontSize: '0.8rem' }}
+            aria-label={`View ${pkg.displayName} on PyPI`}
           >
             PyPI
           </Button>
@@ -191,6 +195,7 @@ const PackageCard = memo(function PackageCard({ pkg }: { pkg: Package }) {
             target="_blank"
             rel="noopener noreferrer"
             sx={{ textTransform: 'none', fontSize: '0.8rem' }}
+            aria-label={`View demo for ${pkg.displayName}`}
           >
             Demo
           </Button>
@@ -276,6 +281,18 @@ export default function EcosystemPage() {
                   <Search color="action" />
                 </InputAdornment>
               ),
+              endAdornment: search ? (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="Clear search"
+                    onClick={() => setSearch('')}
+                    edge="end"
+                    size="small"
+                  >
+                    <Close fontSize="small" />
+                  </IconButton>
+                </InputAdornment>
+              ) : null,
             }}
             size="small"
           />
