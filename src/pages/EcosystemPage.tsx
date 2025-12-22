@@ -208,15 +208,26 @@ export default function EcosystemPage() {
   const [categoryFilter, setCategoryFilter] = useState<Category | 'all'>('all')
   const [languageFilter, setLanguageFilter] = useState<Language | 'all'>('all')
 
+  // Optimize search by pre-computing lowercase values
+  const searchablePackages = useMemo(() => {
+    return packages.map((pkg) => ({
+      ...pkg,
+      displayNameLower: pkg.displayName.toLowerCase(),
+      descriptionLower: pkg.description.toLowerCase(),
+      tagsLower: pkg.tags.map((tag) => tag.toLowerCase()),
+    }))
+  }, [])
+
   const filteredPackages = useMemo(() => {
-    return packages.filter((pkg) => {
+    const searchLower = search.toLowerCase()
+
+    return searchablePackages.filter((pkg) => {
       // Search filter
       if (search) {
-        const searchLower = search.toLowerCase()
         const matchesSearch =
-          pkg.displayName.toLowerCase().includes(searchLower) ||
-          pkg.description.toLowerCase().includes(searchLower) ||
-          pkg.tags.some((tag) => tag.toLowerCase().includes(searchLower))
+          pkg.displayNameLower.includes(searchLower) ||
+          pkg.descriptionLower.includes(searchLower) ||
+          pkg.tagsLower.some((tag) => tag.includes(searchLower))
         if (!matchesSearch) return false
       }
 
@@ -232,7 +243,7 @@ export default function EcosystemPage() {
 
       return true
     })
-  }, [search, categoryFilter, languageFilter])
+  }, [search, categoryFilter, languageFilter, searchablePackages])
 
   return (
     <Box sx={{ py: { xs: 2, md: 4 } }}>
