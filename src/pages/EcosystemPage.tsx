@@ -2,7 +2,7 @@
  * EcosystemPage - Full catalog of jbcom packages
  */
 
-import { FilterList, OpenInNew, Search } from '@mui/icons-material'
+import { Close, FilterList, OpenInNew, Search } from '@mui/icons-material'
 import {
   Box,
   Button,
@@ -10,6 +10,7 @@ import {
   CardContent,
   Chip,
   Grid,
+  IconButton,
   InputAdornment,
   Stack,
   TextField,
@@ -274,6 +275,18 @@ export default function EcosystemPage() {
               startAdornment: (
                 <InputAdornment position="start">
                   <Search color="action" />
+                </InputAdornment>
+              ),
+              endAdornment: search && (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="Clear search"
+                    onClick={() => setSearch('')}
+                    edge="end"
+                    size="small"
+                  >
+                    <Close fontSize="small" />
+                  </IconButton>
                 </InputAdornment>
               ),
             }}
