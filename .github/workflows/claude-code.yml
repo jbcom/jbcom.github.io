@@ -46,7 +46,7 @@ jobs:
     steps:
       # actions/checkout v6.0.1
       - name: Checkout repository
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         with:
           fetch-depth: 1
 
@@ -71,13 +71,13 @@ jobs:
     steps:
       # actions/checkout v6.0.1
       - name: Checkout repository
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         with:
           fetch-depth: 1
 
       # anthropics/claude-code-action v1
       - name: Run Claude Code Review
-        uses: anthropics/claude-code-action@928c84b37e02abd33f08826a2200058c68633a85
+        uses: anthropics/claude-code-action@7145c3e0510bcdbdd29f67cc4a8c1958f1acfa2f # v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           prompt: |
