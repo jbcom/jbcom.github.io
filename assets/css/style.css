@@ -667,3 +667,19 @@ footer {
     font-size: 0.875rem;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   QR CODE HOVER EFFECT
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.qr-code-image {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease;
+}
+
+.qr-code-image:hover {
+  transform: scale(1.02);
+}
