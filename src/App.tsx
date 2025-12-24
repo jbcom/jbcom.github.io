@@ -9,6 +9,7 @@ import { CssBaseline, ThemeProvider } from '@mui/material'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Layout from './components/Layout'
 import AboutPage from './pages/AboutPage'
+import DependencyFlowPage from './pages/DependencyFlowPage'
 import DemosPage from './pages/DemosPage'
 import EcosystemPage from './pages/EcosystemPage'
 import HomePage from './pages/HomePage'
@@ -28,6 +29,7 @@ export default function App() {
             <Route path="resume" element={<ResumePage />} />
             <Route path="ecosystem" element={<EcosystemPage />} />
             <Route path="ecosystem/:projectId" element={<ProjectPage />} />
+            <Route path="dependency-flow" element={<DependencyFlowPage />} />
             <Route path="demos" element={<DemosPage />} />
           </Route>
         </Routes>

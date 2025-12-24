@@ -38,6 +38,7 @@ const navItems = [
   { label: 'About', path: '/about', icon: <PersonIcon /> },
   { label: 'Resume', path: '/resume', icon: <ResumeIcon /> },
   { label: 'Ecosystem', path: '/ecosystem', icon: <EcosystemIcon /> },
+  { label: 'Dependency Flow', path: '/dependency-flow', icon: <EcosystemIcon /> },
   { label: 'Demos', path: '/demos', icon: <DemoIcon /> },
 ]
 
