@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react'
+import { fireEvent, render, screen, within } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { describe, expect, it } from 'vitest'
 import DependencyFlowPage from './DependencyFlowPage'
@@ -44,18 +44,21 @@ describe('DependencyFlowPage', () => {
     // Select agentic-crew which depends on vendor-connectors
     fireEvent.click(screen.getByText('agentic-crew'))
     
-    // Find vendor-connectors in the "Depends On" list and click it
-    const dependencyItem = screen.getAllByText('vendor-connectors').find(el => 
-      el.closest('div')?.parentElement?.querySelector('h6')?.textContent?.toLowerCase().includes('depends on')
-    )
+    // Find the "Depends On" section
+    const dependsOnHeading = screen.getByRole('heading', { name: /depends on/i })
+    const dependsOnSection = dependsOnHeading.closest('.MuiGrid-item')
     
-    if (dependencyItem) {
+    if (dependsOnSection) {
+      const dependencyItem = within(dependsOnSection as HTMLElement).getByText('vendor-connectors')
       fireEvent.click(dependencyItem)
+      
       // Now agentic-crew should be in the "Used By" list of vendor-connectors
-      const usedByItem = screen.getAllByText('agentic-crew').find(el => 
-        el.closest('div')?.parentElement?.querySelector('h6')?.textContent?.toLowerCase().includes('used by')
-      )
-      expect(usedByItem).toBeInTheDocument()
+      const usedByHeading = screen.getByRole('heading', { name: /used by/i })
+      const usedBySection = usedByHeading.closest('.MuiGrid-item')
+      
+      if (usedBySection) {
+        expect(within(usedBySection as HTMLElement).getByText('agentic-crew')).toBeInTheDocument()
+      }
     }
   })
 })

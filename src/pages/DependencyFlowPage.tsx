@@ -23,7 +23,7 @@ export default function DependencyFlowPage() {
       ...pkg,
       dependents: packages.filter((p) => p.dependsOn?.includes(pkg.id)).map((p) => p.id),
     }))
-  }, [])
+  }, [packages])
 
   const selectedPkg = useMemo(
     () => dependencyGraph.find((p) => p.id === selectedPkgId),
