@@ -30,6 +30,7 @@ import {
   languages,
   packages,
 } from '../data/ecosystem'
+import { useDebounce } from '../hooks/useDebounce'
 
 // Pre-compute lowercase values for search to avoid repeated calculations
 const searchablePackages = packages.map((pkg) => ({
@@ -220,6 +221,7 @@ export default function EcosystemPage() {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
 
   const [search, setSearch] = useState('')
+  const debouncedSearch = useDebounce(search, 300)
   const [categoryFilter, setCategoryFilter] = useState<Category | 'all'>('all')
   const [languageFilter, setLanguageFilter] = useState<Language | 'all'>('all')
 
@@ -227,8 +229,8 @@ export default function EcosystemPage() {
     let result = searchablePackages
 
     // Search filter
-    if (search) {
-      const searchLower = search.toLowerCase()
+    if (debouncedSearch) {
+      const searchLower = debouncedSearch.toLowerCase()
       result = result.filter(
         (pkg) =>
           pkg.searchData.displayName.includes(searchLower) ||
@@ -248,7 +250,7 @@ export default function EcosystemPage() {
     }
 
     return result
-  }, [search, categoryFilter, languageFilter])
+  }, [debouncedSearch, categoryFilter, languageFilter])
 
   return (
     <Box sx={{ py: { xs: 2, md: 4 } }}>
