@@ -39,7 +39,7 @@ describe('AboutPage', () => {
     renderAboutPage()
     const resumeLinks = screen.getAllByRole('link', { name: /resume/i })
     expect(resumeLinks.length).toBeGreaterThan(0)
-    
+
     const downloadPdfLink = screen.getByRole('link', { name: /download pdf/i })
     expect(downloadPdfLink).toBeInTheDocument()
     expect(downloadPdfLink).toHaveAttribute('href', '/Jon_Bogaty_Resume_2025.pdf')

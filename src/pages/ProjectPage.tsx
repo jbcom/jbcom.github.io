@@ -4,6 +4,7 @@
 
 import { ArrowBack, GitHub, OpenInNew } from '@mui/icons-material'
 import {
+  alpha,
   Box,
   Breadcrumbs,
   Button,
@@ -14,7 +15,6 @@ import {
   Link,
   Stack,
   Typography,
-  alpha,
   useTheme,
 } from '@mui/material'
 import { Navigate, Link as RouterLink, useParams } from 'react-router-dom'

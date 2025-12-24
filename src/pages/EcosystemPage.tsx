@@ -4,6 +4,7 @@
 
 import { Close, FilterList, OpenInNew, Search } from '@mui/icons-material'
 import {
+  alpha,
   Box,
   Button,
   Card,
@@ -17,17 +18,16 @@ import {
   ToggleButton,
   ToggleButtonGroup,
   Typography,
-  alpha,
   useMediaQuery,
   useTheme,
 } from '@mui/material'
 import { memo, useMemo, useState } from 'react'
 import {
   type Category,
-  type Language,
-  type Package,
   categories,
+  type Language,
   languages,
+  type Package,
   packages,
 } from '../data/ecosystem'
 import { useDebounce } from '../hooks/useDebounce'
@@ -309,6 +309,7 @@ export default function EcosystemPage() {
             }}
             inputProps={{
               'aria-label': 'Search packages',
+              maxLength: 100,
             }}
             size="small"
           />

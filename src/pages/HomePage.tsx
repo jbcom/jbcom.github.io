@@ -4,6 +4,7 @@
 
 import { ArrowForward, GitHub, PlayCircle } from '@mui/icons-material'
 import {
+  alpha,
   Box,
   Button,
   Card,
@@ -13,7 +14,6 @@ import {
   Paper,
   Stack,
   Typography,
-  alpha,
 } from '@mui/material'
 import { useMemo } from 'react'
 import { Link } from 'react-router-dom'
