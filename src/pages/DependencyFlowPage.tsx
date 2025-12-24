@@ -1,4 +1,5 @@
 import {
+  alpha,
   Box,
   Card,
   CardContent,
@@ -8,7 +9,6 @@ import {
   Grid,
   Stack,
   Typography,
-  alpha,
   useTheme,
 } from '@mui/material'
 import { useMemo, useState } from 'react'
@@ -23,7 +23,7 @@ export default function DependencyFlowPage() {
       ...pkg,
       dependents: packages.filter((p) => p.dependsOn?.includes(pkg.id)).map((p) => p.id),
     }))
-  }, [packages])
+  }, [])
 
   const selectedPkg = useMemo(
     () => dependencyGraph.find((p) => p.id === selectedPkgId),
@@ -42,7 +42,10 @@ export default function DependencyFlowPage() {
 
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>
-      <Typography variant="h3" sx={{ mb: 1, fontWeight: 700, fontFamily: '"Space Grotesk", sans-serif' }}>
+      <Typography
+        variant="h3"
+        sx={{ mb: 1, fontWeight: 700, fontFamily: '"Space Grotesk", sans-serif' }}
+      >
         Dependency Flow
       </Typography>
       <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
@@ -76,15 +79,28 @@ export default function DependencyFlowPage() {
                 }}
               >
                 <CardContent sx={{ py: 1.5, '&:last-child': { pb: 1.5 } }}>
-                  <Typography variant="subtitle2" sx={{ fontFamily: '"JetBrains Mono", monospace' }}>
+                  <Typography
+                    variant="subtitle2"
+                    sx={{ fontFamily: '"JetBrains Mono", monospace' }}
+                  >
                     {pkg.displayName}
                   </Typography>
                   <Stack direction="row" spacing={0.5} sx={{ mt: 0.5 }}>
                     {pkg.dependsOn && pkg.dependsOn.length > 0 && (
-                      <Chip label={`${pkg.dependsOn.length} deps`} size="small" variant="outlined" sx={{ height: 18, fontSize: '0.65rem' }} />
+                      <Chip
+                        label={`${pkg.dependsOn.length} deps`}
+                        size="small"
+                        variant="outlined"
+                        sx={{ height: 18, fontSize: '0.65rem' }}
+                      />
                     )}
                     {pkg.dependents.length > 0 && (
-                      <Chip label={`${pkg.dependents.length} used by`} size="small" variant="outlined" sx={{ height: 18, fontSize: '0.65rem' }} />
+                      <Chip
+                        label={`${pkg.dependents.length} used by`}
+                        size="small"
+                        variant="outlined"
+                        sx={{ height: 18, fontSize: '0.65rem' }}
+                      />
                     )}
                   </Stack>
                 </CardContent>
@@ -98,7 +114,10 @@ export default function DependencyFlowPage() {
           {selectedPkg ? (
             <Card sx={{ height: '100%', minHeight: 400 }}>
               <CardContent sx={{ p: 4 }}>
-                <Typography variant="h5" sx={{ mb: 1, fontWeight: 600, fontFamily: '"JetBrains Mono", monospace' }}>
+                <Typography
+                  variant="h5"
+                  sx={{ mb: 1, fontWeight: 600, fontFamily: '"JetBrains Mono", monospace' }}
+                >
                   {selectedPkg.displayName}
                 </Typography>
                 <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
@@ -110,66 +129,86 @@ export default function DependencyFlowPage() {
                 <Grid container spacing={3}>
                   {/* Dependencies */}
                   <Grid item xs={12} sm={6}>
-                    <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 2, textTransform: 'uppercase', letterSpacing: 1 }}>
+                    <Typography
+                      variant="subtitle2"
+                      color="text.secondary"
+                      sx={{ mb: 2, textTransform: 'uppercase', letterSpacing: 1 }}
+                    >
                       Depends On
                     </Typography>
                     {dependencies.length > 0 ? (
                       <Stack spacing={1}>
-                        {dependencies.map(dep => (
-                          <Card 
-                            key={dep.id} 
+                        {dependencies.map((dep) => (
+                          <Card
+                            key={dep.id}
                             onClick={() => setSelectedPkgId(dep.id)}
                             sx={{ cursor: 'pointer', '&:hover': { borderColor: 'primary.main' } }}
                           >
                             <CardContent sx={{ py: 1, '&:last-child': { pb: 1 } }}>
-                              <Typography variant="body2" fontWeight={500}>{dep.displayName}</Typography>
+                              <Typography variant="body2" fontWeight={500}>
+                                {dep.displayName}
+                              </Typography>
                             </CardContent>
                           </Card>
                         ))}
                       </Stack>
                     ) : (
-                      <Typography variant="body2" color="text.disabled">No internal dependencies</Typography>
+                      <Typography variant="body2" color="text.disabled">
+                        No internal dependencies
+                      </Typography>
                     )}
                   </Grid>
 
                   {/* Dependents */}
                   <Grid item xs={12} sm={6}>
-                    <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 2, textTransform: 'uppercase', letterSpacing: 1 }}>
+                    <Typography
+                      variant="subtitle2"
+                      color="text.secondary"
+                      sx={{ mb: 2, textTransform: 'uppercase', letterSpacing: 1 }}
+                    >
                       Used By
                     </Typography>
                     {dependents.length > 0 ? (
                       <Stack spacing={1}>
-                        {dependents.map(dep => (
-                          <Card 
-                            key={dep.id} 
+                        {dependents.map((dep) => (
+                          <Card
+                            key={dep.id}
                             onClick={() => setSelectedPkgId(dep.id)}
                             sx={{ cursor: 'pointer', '&:hover': { borderColor: 'primary.main' } }}
                           >
                             <CardContent sx={{ py: 1, '&:last-child': { pb: 1 } }}>
-                              <Typography variant="body2" fontWeight={500}>{dep.displayName}</Typography>
+                              <Typography variant="body2" fontWeight={500}>
+                                {dep.displayName}
+                              </Typography>
                             </CardContent>
                           </Card>
                         ))}
                       </Stack>
                     ) : (
-                      <Typography variant="body2" color="text.disabled">Not used by other internal packages</Typography>
+                      <Typography variant="body2" color="text.disabled">
+                        Not used by other internal packages
+                      </Typography>
                     )}
                   </Grid>
                 </Grid>
               </CardContent>
             </Card>
           ) : (
-            <Box sx={{ 
-              height: '100%', 
-              minHeight: 400, 
-              display: 'flex', 
-              alignItems: 'center', 
-              justifyContent: 'center',
-              border: '2px dashed',
-              borderColor: 'divider',
-              borderRadius: 2
-            }}>
-              <Typography color="text.disabled">Select a package to view its dependency flow</Typography>
+            <Box
+              sx={{
+                height: '100%',
+                minHeight: 400,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                border: '2px dashed',
+                borderColor: 'divider',
+                borderRadius: 2,
+              }}
+            >
+              <Typography color="text.disabled">
+                Select a package to view its dependency flow
+              </Typography>
             </Box>
           )}
         </Grid>

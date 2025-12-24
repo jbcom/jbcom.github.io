@@ -33,7 +33,7 @@ describe('DependencyFlowPage', () => {
 
     // Should show description
     expect(screen.getByText(/Define crews once, deploy anywhere/i)).toBeInTheDocument()
-    
+
     // Should show "Depends On" and "Used By" sections
     expect(screen.getByRole('heading', { name: /depends on/i })).toBeInTheDocument()
     expect(screen.getByRole('heading', { name: /used by/i })).toBeInTheDocument()
@@ -43,19 +43,19 @@ describe('DependencyFlowPage', () => {
     renderPage()
     // Select agentic-crew which depends on vendor-connectors
     fireEvent.click(screen.getByText('agentic-crew'))
-    
+
     // Find the "Depends On" section
     const dependsOnHeading = screen.getByRole('heading', { name: /depends on/i })
     const dependsOnSection = dependsOnHeading.parentElement
-    
+
     if (dependsOnSection) {
       const dependencyItem = within(dependsOnSection).getByText('vendor-connectors')
       fireEvent.click(dependencyItem)
-      
+
       // Now agentic-crew should be in the "Used By" list of vendor-connectors
       const usedByHeading = screen.getByRole('heading', { name: /used by/i })
       const usedBySection = usedByHeading.parentElement
-      
+
       if (usedBySection) {
         expect(within(usedBySection).getByText('agentic-crew')).toBeInTheDocument()
       }

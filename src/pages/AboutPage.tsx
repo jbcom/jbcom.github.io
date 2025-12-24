@@ -8,6 +8,7 @@ import { ArrowForward, Email, GitHub, LinkedIn, School, Work } from '@mui/icons-
 import type { SxProps, Theme } from '@mui/material'
 import {
   Avatar,
+  alpha,
   Box,
   Button,
   Card,
@@ -19,7 +20,6 @@ import {
   Paper,
   Stack,
   Typography,
-  alpha,
   useTheme,
 } from '@mui/material'
 import { Link } from 'react-router-dom'

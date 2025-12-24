@@ -1,4 +1,4 @@
-import { ThemeProvider, createTheme, useMediaQuery } from '@mui/material'
+import { createTheme, ThemeProvider, useMediaQuery } from '@mui/material'
 /**
  * Layout component tests
  */

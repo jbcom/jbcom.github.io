@@ -20,7 +20,9 @@ describe('ResumePage', () => {
   it('renders correctly', () => {
     renderResumePage()
     expect(screen.getByText('Jon Bogaty')).toBeInTheDocument()
-    expect(screen.getAllByText('Head of Information Technology and Security').length).toBeGreaterThan(0)
+    expect(
+      screen.getAllByText('Head of Information Technology and Security').length
+    ).toBeGreaterThan(0)
     expect(screen.getByText('Professional Summary')).toBeInTheDocument()
     expect(screen.getByText('Skills')).toBeInTheDocument()
     expect(screen.getByText('Education')).toBeInTheDocument()
@@ -34,10 +36,10 @@ describe('ResumePage', () => {
 
     expect(linkedInLink).toHaveAttribute('href')
     expect(linkedInLink.getAttribute('href')).toContain('linkedin.com/sharing/share-offsite')
-    
+
     expect(twitterLink).toHaveAttribute('href')
     expect(twitterLink.getAttribute('href')).toContain('twitter.com/intent/tweet')
-    
+
     expect(emailLink).toHaveAttribute('href')
     expect(emailLink.getAttribute('href')).toContain('mailto:')
   })

@@ -315,7 +315,9 @@ nav {
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   padding: var(--space-lg);
-  transition: border-color 0.2s ease, transform 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    transform 0.2s ease;
 }
 
 .card:hover {
@@ -572,13 +574,13 @@ footer {
   *,
   *::before,
   *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms;
+    animation-iteration-count: 1;
+    transition-duration: 0.01ms;
   }
 
   html {
-    scroll-behavior: auto !important;
+    scroll-behavior: auto;
   }
 }
 
@@ -704,7 +706,9 @@ footer {
 .skip-link:focus {
   top: 16px;
   outline: none;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -748,4 +752,3 @@ footer {
   font-size: 0.875rem;
   line-height: 1.7;
 }
-
