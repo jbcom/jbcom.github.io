@@ -157,6 +157,7 @@ const PackageCard = memo(function PackageCard({ pkg }: { pkg: Package }) {
           target="_blank"
           rel="noopener noreferrer"
           sx={{ textTransform: 'none', fontSize: '0.8rem' }}
+          aria-label={`View ${pkg.displayName} source on GitHub`}
         >
           GitHub
         </Button>
@@ -167,6 +168,7 @@ const PackageCard = memo(function PackageCard({ pkg }: { pkg: Package }) {
             target="_blank"
             rel="noopener noreferrer"
             sx={{ textTransform: 'none', fontSize: '0.8rem' }}
+            aria-label={`View ${pkg.displayName} on npm`}
           >
             npm
           </Button>
@@ -178,6 +180,7 @@ const PackageCard = memo(function PackageCard({ pkg }: { pkg: Package }) {
             target="_blank"
             rel="noopener noreferrer"
             sx={{ textTransform: 'none', fontSize: '0.8rem' }}
+            aria-label={`View ${pkg.displayName} on PyPI`}
           >
             PyPI
           </Button>
@@ -191,6 +194,7 @@ const PackageCard = memo(function PackageCard({ pkg }: { pkg: Package }) {
             target="_blank"
             rel="noopener noreferrer"
             sx={{ textTransform: 'none', fontSize: '0.8rem' }}
+            aria-label={`View ${pkg.displayName} demo`}
           >
             Demo
           </Button>
@@ -277,6 +281,9 @@ export default function EcosystemPage() {
                 </InputAdornment>
               ),
             }}
+            inputProps={{
+              'aria-label': 'Search packages',
+            }}
             size="small"
           />
 
@@ -293,6 +300,7 @@ export default function EcosystemPage() {
               exclusive
               onChange={(_, value) => value && setCategoryFilter(value)}
               size="small"
+              aria-label="Filter by category"
               sx={{
                 flexWrap: 'wrap',
                 '& .MuiToggleButton-root': {
@@ -327,6 +335,7 @@ export default function EcosystemPage() {
               exclusive
               onChange={(_, value) => value && setLanguageFilter(value)}
               size="small"
+              aria-label="Filter by language"
               sx={{
                 flexWrap: 'wrap',
                 '& .MuiToggleButton-root': {

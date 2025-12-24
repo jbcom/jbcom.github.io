@@ -283,6 +283,7 @@ export default function HomePage() {
                   rel="noopener noreferrer"
                   size="small"
                   endIcon={<GitHub />}
+                  aria-label={`View ${pkg.displayName} source code`}
                 >
                   Source
                 </Button>
