@@ -57,7 +57,7 @@ jobs:
           fi
 
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         with:
           fetch-depth: 0
           ref: ${{ github.event.pull_request.head.sha }}
@@ -193,7 +193,7 @@ jobs:
 
       - name: Commit fixes
         if: steps.review.outputs.auto_apply == 'true'
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: stefanzweifel/git-auto-commit-action@04702edda442b2e678b25b537cec683a1493fcb9 # v7.1.0
         with:
           commit_message: "fix: auto-apply safe improvements (Ollama)"
           branch: ${{ github.head_ref }}
@@ -231,7 +231,7 @@ jobs:
             -f body="$BODY" -f event="$EVENT" || gh pr comment ${{ github.event.pull_request.number }} --body "$BODY"
 
       - name: Upload review artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         with:
           name: ollama-review
           path: /tmp/review.json
@@ -249,7 +249,7 @@ jobs:
     
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         with:
           fetch-depth: 0
           ref: ${{ github.event.pull_request.head.sha }}
@@ -262,7 +262,7 @@ jobs:
         run: git checkout "$HEAD_REF"
 
       - name: Download review artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
         with:
           name: ollama-review
           path: /tmp
