@@ -707,3 +707,45 @@ footer {
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
+/* ═══════════════════════════════════════════════════════════════════════════
+   RESUME PAGE
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.resume-section {
+  margin-bottom: 2rem;
+}
+
+.job-entry {
+  margin-bottom: 1.5rem;
+}
+
+.job-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.company {
+  color: var(--primary);
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.period {
+  font-size: 0.875rem;
+  color: var(--text-disabled);
+  margin-bottom: 0.75rem;
+}
+
+.job-description {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.job-description li {
+  margin-bottom: 0.5rem;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  line-height: 1.7;
+}
+
