@@ -1,9 +1,24 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
-import { describe, expect, it, vi } from 'vitest'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 import ResumePage from './ResumePage'
 
 describe('ResumePage', () => {
+  const originalShare = global.navigator.share
+
+  afterEach(() => {
+    vi.restoreAllMocks()
+    if (originalShare) {
+      Object.defineProperty(global.navigator, 'share', {
+        value: originalShare,
+        configurable: true,
+      })
+    } else {
+      // @ts-expect-error - deleting from navigator
+      delete global.navigator.share
+    }
+  })
+
   const renderResumePage = () => {
     return render(
       <MemoryRouter>
@@ -52,16 +67,14 @@ describe('ResumePage', () => {
 
       fireEvent.click(shareButton)
       expect(shareMock).toHaveBeenCalled()
-      
-      // Cleanup
-      // @ts-expect-error - deleting from navigator
-      delete global.navigator.share
     })
 
     it('hides the general share button when navigator.share is not available', () => {
       // Ensure navigator.share is not present
-      // @ts-expect-error - deleting from navigator
-      delete global.navigator.share
+      if ('share' in global.navigator) {
+        // @ts-expect-error - deleting from navigator
+        delete global.navigator.share
+      }
 
       renderResumePage()
       const shareButton = screen.queryByLabelText('Share this page')
