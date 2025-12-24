@@ -31,6 +31,16 @@ import {
   packages,
 } from '../data/ecosystem'
 
+// Pre-compute lowercase values for search to avoid repeated calculations
+const searchablePackages = packages.map((pkg) => ({
+  ...pkg,
+  searchData: {
+    displayName: pkg.displayName.toLowerCase(),
+    description: pkg.description.toLowerCase(),
+    tags: pkg.tags.map((t) => t.toLowerCase()),
+  },
+}))
+
 const PackageCard = memo(function PackageCard({ pkg }: { pkg: Package }) {
   const theme = useTheme()
   const lang = languages[pkg.language]
@@ -214,29 +224,30 @@ export default function EcosystemPage() {
   const [languageFilter, setLanguageFilter] = useState<Language | 'all'>('all')
 
   const filteredPackages = useMemo(() => {
-    return packages.filter((pkg) => {
-      // Search filter
-      if (search) {
-        const searchLower = search.toLowerCase()
-        const matchesSearch =
-          pkg.displayName.toLowerCase().includes(searchLower) ||
-          pkg.description.toLowerCase().includes(searchLower) ||
-          pkg.tags.some((tag) => tag.toLowerCase().includes(searchLower))
-        if (!matchesSearch) return false
-      }
+    let result = searchablePackages
 
-      // Category filter
-      if (categoryFilter !== 'all' && pkg.category !== categoryFilter) {
-        return false
-      }
+    // Search filter
+    if (search) {
+      const searchLower = search.toLowerCase()
+      result = result.filter(
+        (pkg) =>
+          pkg.searchData.displayName.includes(searchLower) ||
+          pkg.searchData.description.includes(searchLower) ||
+          pkg.searchData.tags.some((tag) => tag.includes(searchLower))
+      )
+    }
 
-      // Language filter
-      if (languageFilter !== 'all' && pkg.language !== languageFilter) {
-        return false
-      }
+    // Category filter
+    if (categoryFilter !== 'all') {
+      result = result.filter((pkg) => pkg.category === categoryFilter)
+    }
 
-      return true
-    })
+    // Language filter
+    if (languageFilter !== 'all') {
+      result = result.filter((pkg) => pkg.language === languageFilter)
+    }
+
+    return result
   }, [search, categoryFilter, languageFilter])
 
   return (
