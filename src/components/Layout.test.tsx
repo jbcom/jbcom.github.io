@@ -194,4 +194,26 @@ describe('Layout', () => {
       expect(homeLink).not.toHaveClass('Mui-selected')
     })
   })
+
+  describe('Accessibility Features', () => {
+    it('renders a skip to content link', () => {
+      render(<TestWrapper />)
+      const skipLink = screen.getByText(/skip to content/i)
+      expect(skipLink).toBeInTheDocument()
+      expect(skipLink).toHaveAttribute('href', '#main-content')
+    })
+
+    it('skip link is initially hidden off-screen', () => {
+      render(<TestWrapper />)
+      const skipLink = screen.getByText(/skip to content/i)
+      expect(skipLink).toHaveStyle({ position: 'absolute', top: '-9999px' })
+    })
+
+    it('main content area has correct id and tabindex', () => {
+      render(<TestWrapper />)
+      const mainContent = document.getElementById('main-content')
+      expect(mainContent).toBeInTheDocument()
+      expect(mainContent).toHaveAttribute('tabIndex', '-1')
+    })
+  })
 })
