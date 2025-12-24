@@ -46,18 +46,18 @@ describe('DependencyFlowPage', () => {
     
     // Find the "Depends On" section
     const dependsOnHeading = screen.getByRole('heading', { name: /depends on/i })
-    const dependsOnSection = dependsOnHeading.closest('.MuiGrid-item')
+    const dependsOnSection = dependsOnHeading.parentElement
     
     if (dependsOnSection) {
-      const dependencyItem = within(dependsOnSection as HTMLElement).getByText('vendor-connectors')
+      const dependencyItem = within(dependsOnSection).getByText('vendor-connectors')
       fireEvent.click(dependencyItem)
       
       // Now agentic-crew should be in the "Used By" list of vendor-connectors
       const usedByHeading = screen.getByRole('heading', { name: /used by/i })
-      const usedBySection = usedByHeading.closest('.MuiGrid-item')
+      const usedBySection = usedByHeading.parentElement
       
       if (usedBySection) {
-        expect(within(usedBySection as HTMLElement).getByText('agentic-crew')).toBeInTheDocument()
+        expect(within(usedBySection).getByText('agentic-crew')).toBeInTheDocument()
       }
     }
   })

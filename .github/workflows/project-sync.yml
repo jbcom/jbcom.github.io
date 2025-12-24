@@ -25,13 +25,15 @@ jobs:
     steps:
       - name: Get issue details
         id: issue
+        env:
+          ISSUE_TITLE: ${{ github.event.issue.title }}
         run: |
           echo "number=${{ github.event.issue.number }}" >> $GITHUB_OUTPUT
-          echo "title=${{ github.event.issue.title }}" >> $GITHUB_OUTPUT
+          echo "title=$ISSUE_TITLE" >> $GITHUB_OUTPUT
           
           # Determine project based on labels and title
           LABELS="${{ join(github.event.issue.labels.*.name, ',') }}"
-          TITLE="${{ github.event.issue.title }}"
+          TITLE="$ISSUE_TITLE"
           
           ADD_INTEGRATION=false
           ADD_ROADMAP=false
@@ -75,7 +77,7 @@ jobs:
       # actions/add-to-project v1.0.2
       - name: Add to Roadmap Project
         if: steps.issue.outputs.add_roadmap == 'true'
-        uses: actions/add-to-project@244f685bbc3b7adfa8466e08b698b5577571133e
+        uses: actions/add-to-project@244f685bbc3b7adfa8466e08b698b5577571133e # v1.0.2
         with:
           project-url: https://github.com/orgs/jbcom/projects/8
           github-token: ${{ secrets.CI_GITHUB_TOKEN }}

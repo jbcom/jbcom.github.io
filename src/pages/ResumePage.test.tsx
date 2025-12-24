@@ -4,19 +4,9 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 import ResumePage from './ResumePage'
 
 describe('ResumePage', () => {
-  const originalShare = global.navigator.share
-
   afterEach(() => {
     vi.restoreAllMocks()
-    if (originalShare) {
-      Object.defineProperty(global.navigator, 'share', {
-        value: originalShare,
-        configurable: true,
-      })
-    } else {
-      // @ts-expect-error - deleting from navigator
-      delete global.navigator.share
-    }
+    vi.unstubAllGlobals()
   })
 
   const renderResumePage = () => {
@@ -56,9 +46,9 @@ describe('ResumePage', () => {
     it('shows the general share button when navigator.share is available', () => {
       // Mock navigator.share
       const shareMock = vi.fn().mockResolvedValue(undefined)
-      Object.defineProperty(global.navigator, 'share', {
-        value: shareMock,
-        configurable: true,
+      vi.stubGlobal('navigator', {
+        ...global.navigator,
+        share: shareMock,
       })
 
       renderResumePage()
@@ -71,10 +61,8 @@ describe('ResumePage', () => {
 
     it('hides the general share button when navigator.share is not available', () => {
       // Ensure navigator.share is not present
-      if ('share' in global.navigator) {
-        // @ts-expect-error - deleting from navigator
-        delete global.navigator.share
-      }
+      const { share: _, ...navigatorWithoutShare } = global.navigator
+      vi.stubGlobal('navigator', navigatorWithoutShare)
 
       renderResumePage()
       const shareButton = screen.queryByLabelText('Share this page')
