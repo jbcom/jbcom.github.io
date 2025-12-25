@@ -35,11 +35,7 @@ import { useDebounce } from '../hooks/useDebounce'
 // Pre-compute lowercase values for search to avoid repeated calculations
 const searchablePackages = packages.map((pkg) => ({
   ...pkg,
-  searchData: {
-    displayName: pkg.displayName.toLowerCase(),
-    description: pkg.description.toLowerCase(),
-    tags: pkg.tags.map((t) => t.toLowerCase()),
-  },
+  searchText: `${pkg.displayName} ${pkg.description} ${pkg.tags.join(' ')}`.toLowerCase(),
 }))
 
 const PackageCard = memo(function PackageCard({ pkg }: { pkg: Package }) {
@@ -231,12 +227,7 @@ export default function EcosystemPage() {
     // Search filter
     if (debouncedSearch) {
       const searchLower = debouncedSearch.toLowerCase()
-      result = result.filter(
-        (pkg) =>
-          pkg.searchData.displayName.includes(searchLower) ||
-          pkg.searchData.description.includes(searchLower) ||
-          pkg.searchData.tags.some((tag) => tag.includes(searchLower))
-      )
+      result = result.filter((pkg) => pkg.searchText.includes(searchLower))
     }
 
     // Category filter
