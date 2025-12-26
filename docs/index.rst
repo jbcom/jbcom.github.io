@@ -2,10 +2,10 @@
    Synced from jbcom-control-center - customize for your project
 
 =======================================
-PACKAGE_NAME Documentation
+jbcom.github.io Documentation
 =======================================
 
-.. TODO: Add your project description here
+Jon Bogaty's professional portfolio and jbcom ecosystem showcase. This project serves as a comprehensive directory and demonstration platform for the jbcom package ecosystem, built with a static-first architecture using React and TypeScript.
 
 .. toctree::
    :maxdepth: 2
