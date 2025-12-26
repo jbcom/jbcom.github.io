@@ -17,6 +17,7 @@ import {
   TextField,
   ToggleButton,
   ToggleButtonGroup,
+  Tooltip,
   Typography,
   useMediaQuery,
   useTheme,
@@ -159,68 +160,78 @@ const PackageCard = memo(function PackageCard({ pkg }: { pkg: Package }) {
           flexWrap: 'wrap',
         }}
       >
-        <Button
-          size="small"
-          endIcon={<OpenInNew sx={{ fontSize: '0.875rem' }} />}
-          href={pkg.repo}
-          target="_blank"
-          rel="noopener noreferrer"
-          sx={{ textTransform: 'none', fontSize: '0.8rem' }}
-          aria-label={`View ${pkg.displayName} source on GitHub`}
-        >
-          GitHub
-        </Button>
-        {pkg.npm && (
+        <Tooltip title={`View ${pkg.displayName} source on GitHub`}>
           <Button
             size="small"
-            href={`https://npmjs.com/package/${pkg.npm}`}
+            endIcon={<OpenInNew sx={{ fontSize: '0.875rem' }} />}
+            href={pkg.repo}
             target="_blank"
             rel="noopener noreferrer"
             sx={{ textTransform: 'none', fontSize: '0.8rem' }}
-            aria-label={`View ${pkg.displayName} on npm`}
+            aria-label={`View ${pkg.displayName} source on GitHub`}
           >
-            npm
+            GitHub
           </Button>
+        </Tooltip>
+        {pkg.npm && (
+          <Tooltip title={`View ${pkg.displayName} on npm`}>
+            <Button
+              size="small"
+              href={`https://npmjs.com/package/${pkg.npm}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              sx={{ textTransform: 'none', fontSize: '0.8rem' }}
+              aria-label={`View ${pkg.displayName} on npm`}
+            >
+              npm
+            </Button>
+          </Tooltip>
         )}
         {pkg.pypi && (
-          <Button
-            size="small"
-            href={`https://pypi.org/project/${pkg.pypi}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            sx={{ textTransform: 'none', fontSize: '0.8rem' }}
-            aria-label={`View ${pkg.displayName} on PyPI`}
-          >
-            PyPI
-          </Button>
+          <Tooltip title={`View ${pkg.displayName} on PyPI`}>
+            <Button
+              size="small"
+              href={`https://pypi.org/project/${pkg.pypi}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              sx={{ textTransform: 'none', fontSize: '0.8rem' }}
+              aria-label={`View ${pkg.displayName} on PyPI`}
+            >
+              PyPI
+            </Button>
+          </Tooltip>
         )}
         {pkg.demo && (
-          <Button
-            size="small"
-            color="primary"
-            variant="outlined"
-            href={pkg.demo}
-            target="_blank"
-            rel="noopener noreferrer"
-            sx={{ textTransform: 'none', fontSize: '0.8rem' }}
-            aria-label={`View ${pkg.displayName} demo`}
-          >
-            Demo
-          </Button>
+          <Tooltip title={`View ${pkg.displayName} demo`}>
+            <Button
+              size="small"
+              color="primary"
+              variant="outlined"
+              href={pkg.demo}
+              target="_blank"
+              rel="noopener noreferrer"
+              sx={{ textTransform: 'none', fontSize: '0.8rem' }}
+              aria-label={`View ${pkg.displayName} demo`}
+            >
+              Demo
+            </Button>
+          </Tooltip>
         )}
         {cat.docsUrl && (
-          <Button
-            size="small"
-            color="secondary"
-            variant="outlined"
-            href={cat.docsUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            sx={{ textTransform: 'none', fontSize: '0.8rem' }}
-            aria-label={`View ${cat.division} documentation`}
-          >
-            Docs
-          </Button>
+          <Tooltip title={`View ${cat.division} documentation`}>
+            <Button
+              size="small"
+              color="secondary"
+              variant="outlined"
+              href={cat.docsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              sx={{ textTransform: 'none', fontSize: '0.8rem' }}
+              aria-label={`View ${cat.division} documentation`}
+            >
+              Docs
+            </Button>
+          </Tooltip>
         )}
       </Box>
     </Card>
@@ -331,14 +342,16 @@ export default function EcosystemPage() {
               ),
               endAdornment: search && (
                 <InputAdornment position="end">
-                  <IconButton
-                    aria-label="Clear search"
-                    onClick={() => setSearch('')}
-                    edge="end"
-                    size="small"
-                  >
-                    <Close fontSize="small" />
-                  </IconButton>
+                  <Tooltip title="Clear search">
+                    <IconButton
+                      aria-label="Clear search"
+                      onClick={() => setSearch('')}
+                      edge="end"
+                      size="small"
+                    >
+                      <Close fontSize="small" />
+                    </IconButton>
+                  </Tooltip>
                 </InputAdornment>
               ),
             }}
