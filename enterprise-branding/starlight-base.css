@@ -26,12 +26,12 @@
 }
 
 /* Headings Weight */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+body h1,
+body h2,
+body h3,
+body h4,
+body h5,
+body h6 {
   font-weight: 700;
   letter-spacing: -0.01em;
 }
