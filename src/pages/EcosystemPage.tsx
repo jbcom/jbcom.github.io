@@ -21,7 +21,8 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material'
-import { memo, useMemo, useState } from 'react'
+import { memo, useEffect, useMemo, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import {
   type Category,
   categories,
@@ -215,11 +216,40 @@ const PackageCard = memo(function PackageCard({ pkg }: { pkg: Package }) {
 export default function EcosystemPage() {
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
+  const [searchParams, setSearchParams] = useSearchParams()
 
   const [search, setSearch] = useState('')
   const debouncedSearch = useDebounce(search, 300)
-  const [categoryFilter, setCategoryFilter] = useState<Category | 'all'>('all')
-  const [languageFilter, setLanguageFilter] = useState<Language | 'all'>('all')
+
+  // Initialize filters from search params or default to 'all'
+  const [categoryFilter, setCategoryFilter] = useState<Category | 'all'>(
+    (searchParams.get('category') as Category) || 'all'
+  )
+  const [languageFilter, setLanguageFilter] = useState<Language | 'all'>(
+    (searchParams.get('language') as Language) || 'all'
+  )
+
+  // Update URL when filters change
+  useEffect(() => {
+    const newParams = new URLSearchParams(searchParams)
+
+    if (categoryFilter !== 'all') {
+      newParams.set('category', categoryFilter)
+    } else {
+      newParams.delete('category')
+    }
+
+    if (languageFilter !== 'all') {
+      newParams.set('language', languageFilter)
+    } else {
+      newParams.delete('language')
+    }
+
+    // Only update if params actually changed to avoid infinite loops
+    if (newParams.toString() !== searchParams.toString()) {
+      setSearchParams(newParams, { replace: true })
+    }
+  }, [categoryFilter, languageFilter, searchParams, setSearchParams])
 
   const filteredPackages = useMemo(() => {
     let result = searchablePackages

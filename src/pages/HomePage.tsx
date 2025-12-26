@@ -191,7 +191,13 @@ export default function HomePage() {
                 sx={{ height: '100%' }}
               >
                 <CardContent>
-                  <Typography variant="h6" fontWeight={600}>
+                  <Typography
+                    variant="overline"
+                    sx={{ color: cat.color, fontWeight: 700, mb: 0.5, display: 'block' }}
+                  >
+                    {cat.division}
+                  </Typography>
+                  <Typography variant="h6" fontWeight={600} sx={{ mb: 1 }}>
                     {cat.name}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">

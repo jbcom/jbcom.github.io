@@ -1,0 +1,12 @@
+/* 
+  Strata Division - Branding Override
+  Org: strata-game-library
+*/
+
+:root {
+  /* Teal/Cyan Theme */
+  --sl-color-accent-low: #042f2e;
+  --sl-color-accent: #06b6d4;
+  --sl-color-accent-high: #99f6e4;
+  --sl-color-text-accent: #06b6d4;
+}

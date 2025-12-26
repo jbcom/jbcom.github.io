@@ -1,0 +1,54 @@
+/* 
+  jbcom Enterprise - Starlight Base Theme
+  Derived from jbcom Design System
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+:root {
+  /* Fonts */
+  --sl-font-heading: 'Space Grotesk', sans-serif;
+  --sl-font-body: 'Inter', sans-serif;
+  --sl-font-mono: 'JetBrains Mono', monospace;
+
+  /* Colors - Default jbcom Cyan */
+  --sl-color-accent-low: #082f49;
+  --sl-color-accent: #06b6d4;
+  --sl-color-accent-high: #bae6fd;
+  
+  /* Backgrounds */
+  --sl-color-bg: #0a0f1a;
+  --sl-color-bg-nav: #111827;
+  
+  /* Text */
+  --sl-color-text: #f1f5f9;
+  --sl-color-text-accent: #06b6d4;
+}
+
+/* Headings Weight */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700 !important;
+  letter-spacing: -0.01em;
+}
+
+/* Interconnection Header Styles */
+.enterprise-header {
+  background: var(--sl-color-bg-nav);
+  border-bottom: 1px solid #1e293b;
+  padding: 0.5rem 1rem;
+  display: flex;
+  gap: 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #94a3b8;
+}
+
+.enterprise-header a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.enterprise-header a:hover {
+  color: var(--sl-color-accent);
+}

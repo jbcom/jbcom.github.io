@@ -1,0 +1,12 @@
+/* 
+  Extended Data Division - Branding Override
+  Org: extended-data-library
+*/
+
+:root {
+  /* Amber Theme */
+  --sl-color-accent-low: #451a03;
+  --sl-color-accent: #f59e0b;
+  --sl-color-accent-high: #fef3c7;
+  --sl-color-text-accent: #f59e0b;
+}
