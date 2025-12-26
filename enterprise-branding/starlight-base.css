@@ -3,13 +3,13 @@
   Derived from jbcom Design System
 */
 
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap');
 
 :root {
   /* Fonts */
-  --sl-font-heading: "Space Grotesk", sans-serif;
-  --sl-font-body: "Inter", sans-serif;
-  --sl-font-mono: "JetBrains Mono", monospace;
+  --sl-font-heading: 'Space Grotesk', sans-serif;
+  --sl-font-body: 'Inter', sans-serif;
+  --sl-font-mono: 'JetBrains Mono', monospace;
 
   /* Colors - Default jbcom Cyan */
   --sl-color-accent-low: #082f49;
@@ -26,13 +26,8 @@
 }
 
 /* Headings Weight */
-body h1,
-body h2,
-body h3,
-body h4,
-body h5,
-body h6 {
-  font-weight: 700;
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700 !important;
   letter-spacing: -0.01em;
 }
 

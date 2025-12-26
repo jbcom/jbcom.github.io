@@ -1,3 +1,4 @@
+import { resolve } from 'node:path'
 import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 
@@ -14,6 +15,12 @@ export default defineConfig({
 
     // Optimize for production
     rollupOptions: {
+      input: {
+        main: resolve(__dirname, 'index.html'),
+        about: resolve(__dirname, 'about.html'),
+        ecosystem: resolve(__dirname, 'ecosystem.html'),
+        resume: resolve(__dirname, 'resume.html'),
+      },
       output: {
         manualChunks: {
           // Vendor chunks for better caching
