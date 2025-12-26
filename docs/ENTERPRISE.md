@@ -83,7 +83,8 @@ docs/
    - [x] Create interconnection metadata JSON.
 
 3. **Division Site Triage**:
-   - [ ] Apply shared assets to `agentic-dev-library.github.io`.
-   - [ ] Apply shared assets to `strata-game-library.github.io`.
-   - [ ] Apply shared assets to `extended-data-library.github.io`.
+   - [x] Apply shared assets to `agentic-dev-library.github.io`.
+   - [x] Apply shared assets to `strata-game-library.github.io`.
+   - [x] Apply shared assets to `extended-data-library.github.io`.
+
 
