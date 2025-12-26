@@ -10,6 +10,14 @@ export type Category = 'ai' | 'games' | 'infra' | 'libs'
 export type Status = 'stable' | 'beta' | 'alpha' | 'wip'
 export type PackageTier = 'primitive' | 'core' | 'application'
 
+export interface CategoryInfo {
+  name: string
+  description: string
+  color: string
+  division: string
+  docsUrl?: string
+}
+
 export interface Package {
   id: string
   name: string
@@ -356,26 +364,34 @@ export const packages: Package[] = [
 // METADATA
 // ═══════════════════════════════════════════════════════════════════════════
 
-export const categories: Record<Category, { name: string; description: string; color: string }> = {
+export const categories: Record<Category, CategoryInfo> = {
   ai: {
     name: 'AI & Agents',
     description: 'Orchestration, fleet management, and intelligent automation',
     color: '#8b5cf6',
+    division: 'Agentic',
+    docsUrl: 'https://agentic.dev',
   },
   games: {
     name: 'Game Development',
     description: 'Procedural graphics, game engines, and interactive experiences',
     color: '#06b6d4',
+    division: 'Strata',
+    docsUrl: 'https://strata.game',
   },
   infra: {
     name: 'Infrastructure',
     description: 'Enterprise connectors, secrets, and DevOps tooling',
     color: '#10b981',
+    division: 'Extended Data',
+    docsUrl: 'https://extendeddata.dev',
   },
   libs: {
     name: 'Libraries',
     description: 'Utilities, data types, and developer tools',
     color: '#f59e0b',
+    division: 'Extended Data',
+    docsUrl: 'https://extendeddata.dev',
   },
 }
 

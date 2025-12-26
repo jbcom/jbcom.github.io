@@ -22,9 +22,9 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  styled,
   Toolbar,
   Typography,
-  styled,
   useMediaQuery,
   useTheme,
 } from '@mui/material'
@@ -38,6 +38,7 @@ const navItems = [
   { label: 'About', path: '/about', icon: <PersonIcon /> },
   { label: 'Resume', path: '/resume', icon: <ResumeIcon /> },
   { label: 'Ecosystem', path: '/ecosystem', icon: <EcosystemIcon /> },
+  { label: 'Dependency Flow', path: '/dependency-flow', icon: <EcosystemIcon /> },
   { label: 'Demos', path: '/demos', icon: <DemoIcon /> },
 ]
 
@@ -45,6 +46,26 @@ const Root = styled('div')({
   display: 'flex',
   minHeight: '100vh',
 })
+
+const SkipLink = styled('a')(({ theme }) => ({
+  position: 'absolute',
+  top: -9999,
+  left: theme.spacing(2),
+  zIndex: 9999,
+  padding: theme.spacing(2),
+  backgroundColor: theme.palette.background.paper,
+  color: theme.palette.primary.main,
+  textDecoration: 'none',
+  fontWeight: 700,
+  borderRadius: theme.shape.borderRadius,
+  border: `1px solid ${theme.palette.primary.main}`,
+  transition: 'top 0.3s ease-in-out',
+  '&:focus': {
+    top: theme.spacing(2),
+    outline: 'none',
+    boxShadow: theme.shadows[4],
+  },
+}))
 
 const DrawerContent = styled('div')(({ theme }) => ({
   padding: theme.spacing(2),
@@ -161,6 +182,7 @@ export default function Layout() {
 
   return (
     <Root>
+      <SkipLink href="#main-content">Skip to content</SkipLink>
       {isMobile && (
         <AppBar position="fixed" elevation={0}>
           <Toolbar>
@@ -200,7 +222,12 @@ export default function Layout() {
         </Drawer>
       </NavBox>
 
-      <Main drawerWidth={DRAWER_WIDTH} sx={{ mt: { xs: 8, md: 0 } }}>
+      <Main
+        id="main-content"
+        tabIndex={-1}
+        drawerWidth={DRAWER_WIDTH}
+        sx={{ mt: { xs: 8, md: 0 }, outline: 'none' }}
+      >
         <Container maxWidth="lg" sx={{ py: 4 }}>
           <Outlet />
         </Container>

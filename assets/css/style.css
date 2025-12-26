@@ -62,6 +62,7 @@
   --lang-python: #3776ab;
   --lang-go: #00add8;
   --lang-terraform: #7b42bc;
+  --lang-rust: #dea584;
 
   /* ═══════════════════════════════════════════════════════════════════════
      TYPOGRAPHY
@@ -314,7 +315,9 @@ nav {
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   padding: var(--space-lg);
-  transition: border-color 0.2s ease, transform 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    transform 0.2s ease;
 }
 
 .card:hover {
@@ -425,6 +428,27 @@ nav {
 .chip-terraform {
   background: rgba(123, 66, 188, 0.15);
   color: var(--lang-terraform);
+}
+
+.chip-rust {
+  background: rgba(222, 165, 132, 0.15);
+  color: var(--lang-rust);
+}
+
+/* Release status chips */
+.chip-production {
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--success);
+}
+
+.chip-beta {
+  background: rgba(59, 130, 246, 0.15);
+  color: var(--secondary);
+}
+
+.chip-alpha {
+  background: rgba(245, 158, 11, 0.15);
+  color: var(--warning);
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -550,13 +574,13 @@ footer {
   *,
   *::before,
   *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms;
+    animation-iteration-count: 1;
+    transition-duration: 0.01ms;
   }
 
   html {
-    scroll-behavior: auto !important;
+    scroll-behavior: auto;
   }
 }
 
@@ -644,4 +668,87 @@ footer {
     gap: var(--space-sm);
     font-size: 0.875rem;
   }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   QR CODE HOVER EFFECT
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.qr-code-image {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease;
+}
+
+.qr-code-image:hover {
+  transform: scale(1.02);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SKIP LINK
+   ═══════════════════════════════════════════════════════════════════════════ */
+.skip-link {
+  position: absolute;
+  top: -9999px;
+  left: 16px;
+  background: var(--bg-paper);
+  color: var(--primary);
+  padding: var(--space-md);
+  z-index: 9999;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--primary);
+  font-weight: 700;
+  transition: top 0.3s ease-in-out;
+}
+
+.skip-link:focus {
+  top: 16px;
+  outline: none;
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   RESUME PAGE
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.resume-section {
+  margin-bottom: 2rem;
+}
+
+.job-entry {
+  margin-bottom: 1.5rem;
+}
+
+.job-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.company {
+  color: var(--primary);
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.period {
+  font-size: 0.875rem;
+  color: var(--text-disabled);
+  margin-bottom: 0.75rem;
+}
+
+.job-description {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.job-description li {
+  margin-bottom: 0.5rem;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  line-height: 1.7;
 }

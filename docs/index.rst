@@ -1,11 +1,15 @@
-.. PACKAGE_NAME documentation master file
+.. jbcom.github.io documentation master file
    Synced from jbcom-control-center - customize for your project
 
 =======================================
-PACKAGE_NAME Documentation
+jbcom.github.io Documentation
 =======================================
 
-.. TODO: Add your project description here
+Jon Bogaty's professional portfolio and jbcom ecosystem showcase.
+Built with React, Material UI, TypeScript, and Vite.
+
+This project serves as a comprehensive directory and demonstration platform
+for the jbcom package ecosystem, using a static-first architecture.
 
 .. toctree::
    :maxdepth: 2
@@ -15,21 +19,20 @@ PACKAGE_NAME Documentation
    getting-started/quickstart
 
 .. toctree::
-   :maxdepth: 2
-   :caption: API Reference
-
-   api/index
-
-.. toctree::
    :maxdepth: 1
    :caption: Development
 
    development/contributing
 
 
+.. toctree::
+   :maxdepth: 1
+   :caption: Enterprise
+
+   ENTERPRISE
+
 Indices and tables
 ==================
 
 * :ref:`genindex`
-* :ref:`modindex`
 * :ref:`search`

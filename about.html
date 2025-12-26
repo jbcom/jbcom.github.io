@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://img.shields.io/ data:; connect-src 'none'; base-uri 'self'; form-action 'self';">
   <title>About Jon Bogaty | jbcom</title>
   <meta name="description" content="Senior IT, Security, and Platform leader with 15+ years of experience spanning DevOps, cloud infrastructure, and enterprise security.">
   
@@ -14,6 +16,7 @@
   <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to content</a>
   <!-- Header -->
   <header>
     <div class="header-content">
@@ -32,7 +35,7 @@
   </header>
 
   <!-- Main Content -->
-  <main class="container section">
+  <main id="main-content" tabindex="-1" class="container section" style="outline: none;">
     <!-- Header Section -->
     <div style="display: flex; gap: 2rem; align-items: center; margin-bottom: 3rem; flex-wrap: wrap;">
       <div style="width: 120px; height: 120px; border-radius: var(--radius-md); background: linear-gradient(135deg, #06b6d4, #3b82f6); display: flex; align-items: center; justify-content: center; font-family: var(--font-heading); font-weight: 700; font-size: 3rem; color: white;">

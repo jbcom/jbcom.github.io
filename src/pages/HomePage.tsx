@@ -4,16 +4,17 @@
 
 import { ArrowForward, GitHub, PlayCircle } from '@mui/icons-material'
 import {
+  alpha,
   Box,
   Button,
   Card,
+  CardActionArea,
   CardContent,
   Chip,
   Grid,
   Paper,
   Stack,
   Typography,
-  alpha,
 } from '@mui/material'
 import { useMemo } from 'react'
 import { Link } from 'react-router-dom'
@@ -184,14 +185,26 @@ export default function HomePage() {
                 borderLeft: `3px solid ${cat.color}`,
               }}
             >
-              <CardContent>
-                <Typography variant="h6" fontWeight={600}>
-                  {cat.name}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {cat.description}
-                </Typography>
-              </CardContent>
+              <CardActionArea
+                component={Link}
+                to={`/ecosystem?category=${key}`}
+                sx={{ height: '100%' }}
+              >
+                <CardContent>
+                  <Typography
+                    variant="overline"
+                    sx={{ color: cat.color, fontWeight: 700, mb: 0.5, display: 'block' }}
+                  >
+                    {cat.division}
+                  </Typography>
+                  <Typography variant="h6" fontWeight={600} sx={{ mb: 1 }}>
+                    {cat.name}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {cat.description}
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
             </Card>
           </Grid>
         ))}
@@ -283,6 +296,7 @@ export default function HomePage() {
                   rel="noopener noreferrer"
                   size="small"
                   endIcon={<GitHub />}
+                  aria-label={`View ${pkg.displayName} source code`}
                 >
                   Source
                 </Button>

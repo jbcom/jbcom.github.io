@@ -2,35 +2,44 @@
  * EcosystemPage - Full catalog of jbcom packages
  */
 
-import { FilterList, OpenInNew, Search } from '@mui/icons-material'
+import { Close, FilterList, OpenInNew, Search } from '@mui/icons-material'
 import {
+  alpha,
   Box,
   Button,
   Card,
   CardContent,
   Chip,
   Grid,
+  IconButton,
   InputAdornment,
   Stack,
   TextField,
   ToggleButton,
   ToggleButtonGroup,
   Typography,
-  alpha,
   useMediaQuery,
   useTheme,
 } from '@mui/material'
-import { useMemo, useState } from 'react'
+import { memo, useEffect, useMemo, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import {
   type Category,
-  type Language,
-  type Package,
   categories,
+  type Language,
   languages,
+  type Package,
   packages,
 } from '../data/ecosystem'
+import { useDebounce } from '../hooks/useDebounce'
 
-function PackageCard({ pkg }: { pkg: Package }) {
+// Pre-compute lowercase values for search to avoid repeated calculations
+const searchablePackages = packages.map((pkg) => ({
+  ...pkg,
+  searchText: `${pkg.displayName} ${pkg.description} ${pkg.tags.join(' ')}`.toLowerCase(),
+}))
+
+const PackageCard = memo(function PackageCard({ pkg }: { pkg: Package }) {
   const theme = useTheme()
   const lang = languages[pkg.language]
   const cat = categories[pkg.category]
@@ -157,6 +166,7 @@ function PackageCard({ pkg }: { pkg: Package }) {
           target="_blank"
           rel="noopener noreferrer"
           sx={{ textTransform: 'none', fontSize: '0.8rem' }}
+          aria-label={`View ${pkg.displayName} source on GitHub`}
         >
           GitHub
         </Button>
@@ -167,6 +177,7 @@ function PackageCard({ pkg }: { pkg: Package }) {
             target="_blank"
             rel="noopener noreferrer"
             sx={{ textTransform: 'none', fontSize: '0.8rem' }}
+            aria-label={`View ${pkg.displayName} on npm`}
           >
             npm
           </Button>
@@ -178,6 +189,7 @@ function PackageCard({ pkg }: { pkg: Package }) {
             target="_blank"
             rel="noopener noreferrer"
             sx={{ textTransform: 'none', fontSize: '0.8rem' }}
+            aria-label={`View ${pkg.displayName} on PyPI`}
           >
             PyPI
           </Button>
@@ -191,48 +203,89 @@ function PackageCard({ pkg }: { pkg: Package }) {
             target="_blank"
             rel="noopener noreferrer"
             sx={{ textTransform: 'none', fontSize: '0.8rem' }}
+            aria-label={`View ${pkg.displayName} demo`}
           >
             Demo
+          </Button>
+        )}
+        {cat.docsUrl && (
+          <Button
+            size="small"
+            color="secondary"
+            variant="outlined"
+            href={cat.docsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            sx={{ textTransform: 'none', fontSize: '0.8rem' }}
+            aria-label={`View ${cat.division} documentation`}
+          >
+            Docs
           </Button>
         )}
       </Box>
     </Card>
   )
-}
+})
 
 export default function EcosystemPage() {
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
+  const [searchParams, setSearchParams] = useSearchParams()
 
   const [search, setSearch] = useState('')
-  const [categoryFilter, setCategoryFilter] = useState<Category | 'all'>('all')
-  const [languageFilter, setLanguageFilter] = useState<Language | 'all'>('all')
+  const debouncedSearch = useDebounce(search, 300)
+
+  // Initialize filters from search params or default to 'all'
+  const [categoryFilter, setCategoryFilter] = useState<Category | 'all'>(
+    (searchParams.get('category') as Category) || 'all'
+  )
+  const [languageFilter, setLanguageFilter] = useState<Language | 'all'>(
+    (searchParams.get('language') as Language) || 'all'
+  )
+
+  // Update URL when filters change
+  useEffect(() => {
+    const newParams = new URLSearchParams(searchParams)
+
+    if (categoryFilter !== 'all') {
+      newParams.set('category', categoryFilter)
+    } else {
+      newParams.delete('category')
+    }
+
+    if (languageFilter !== 'all') {
+      newParams.set('language', languageFilter)
+    } else {
+      newParams.delete('language')
+    }
+
+    // Only update if params actually changed to avoid infinite loops
+    if (newParams.toString() !== searchParams.toString()) {
+      setSearchParams(newParams, { replace: true })
+    }
+  }, [categoryFilter, languageFilter, searchParams, setSearchParams])
 
   const filteredPackages = useMemo(() => {
-    return packages.filter((pkg) => {
-      // Search filter
-      if (search) {
-        const searchLower = search.toLowerCase()
-        const matchesSearch =
-          pkg.displayName.toLowerCase().includes(searchLower) ||
-          pkg.description.toLowerCase().includes(searchLower) ||
-          pkg.tags.some((tag) => tag.toLowerCase().includes(searchLower))
-        if (!matchesSearch) return false
-      }
+    let result = searchablePackages
 
-      // Category filter
-      if (categoryFilter !== 'all' && pkg.category !== categoryFilter) {
-        return false
-      }
+    // Search filter
+    if (debouncedSearch) {
+      const searchLower = debouncedSearch.toLowerCase()
+      result = result.filter((pkg) => pkg.searchText.includes(searchLower))
+    }
 
-      // Language filter
-      if (languageFilter !== 'all' && pkg.language !== languageFilter) {
-        return false
-      }
+    // Category filter
+    if (categoryFilter !== 'all') {
+      result = result.filter((pkg) => pkg.category === categoryFilter)
+    }
 
-      return true
-    })
-  }, [search, categoryFilter, languageFilter])
+    // Language filter
+    if (languageFilter !== 'all') {
+      result = result.filter((pkg) => pkg.language === languageFilter)
+    }
+
+    return result
+  }, [debouncedSearch, categoryFilter, languageFilter])
 
   return (
     <Box sx={{ py: { xs: 2, md: 4 } }}>
@@ -276,6 +329,22 @@ export default function EcosystemPage() {
                   <Search color="action" />
                 </InputAdornment>
               ),
+              endAdornment: search && (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="Clear search"
+                    onClick={() => setSearch('')}
+                    edge="end"
+                    size="small"
+                  >
+                    <Close fontSize="small" />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+            inputProps={{
+              'aria-label': 'Search packages',
+              maxLength: 100,
             }}
             size="small"
           />
@@ -293,6 +362,7 @@ export default function EcosystemPage() {
               exclusive
               onChange={(_, value) => value && setCategoryFilter(value)}
               size="small"
+              aria-label="Filter by category"
               sx={{
                 flexWrap: 'wrap',
                 '& .MuiToggleButton-root': {
@@ -327,6 +397,7 @@ export default function EcosystemPage() {
               exclusive
               onChange={(_, value) => value && setLanguageFilter(value)}
               size="small"
+              aria-label="Filter by language"
               sx={{
                 flexWrap: 'wrap',
                 '& .MuiToggleButton-root': {

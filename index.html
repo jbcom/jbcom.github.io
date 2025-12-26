@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://img.shields.io/ data:; connect-src 'none'; base-uri 'self'; form-action 'self';">
   <title>Jon Bogaty | jbcom - Production-grade tools for serious builders</title>
   <meta name="description" content="Open source ecosystem of 20+ production-grade packages for AI orchestration, procedural graphics, and enterprise infrastructure by Jon Bogaty.">
   <meta name="keywords" content="Jon Bogaty, jbcom, open source, AI orchestration, procedural graphics, enterprise infrastructure, TypeScript, Python, Go">
@@ -21,6 +23,7 @@
   <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to content</a>
   <!-- Header -->
   <header>
     <div class="header-content">
@@ -39,7 +42,7 @@
   </header>
 
   <!-- Main Content -->
-  <main class="container section-lg">
+  <main id="main-content" tabindex="-1" class="container section-lg" style="outline: none;">
     <!-- Hero -->
     <section style="margin-bottom: 4rem;">
       <p class="overline">Open Source Ecosystem</p>

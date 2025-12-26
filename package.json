@@ -10,6 +10,9 @@
     "build": "vite build",
     "typecheck": "tsc --noEmit",
     "preview": "vite preview",
+    "test": "vitest",
+    "test:coverage": "vitest --coverage",
+    "test:watch": "vitest --watch",
     "lint": "biome check .",
     "lint:fix": "biome check --write .",
     "format": "biome format --write .",
@@ -25,18 +28,24 @@
     "@react-three/fiber": "^8.18.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^6.23.1",
-    "three": "^0.168.0"
+    "react-router-dom": "^7.11.0",
+    "three": "^0.182.0"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.9.4",
-    "@types/node": "^20.14.2",
+    "@biomejs/biome": "^2.3.10",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.1",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/node": "^25.0.3",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
-    "@vitejs/plugin-react": "^4.3.1",
+    "@vitejs/plugin-react": "^5.1.2",
+    "@vitest/coverage-v8": "^4.0.16",
     "gh-pages": "^6.1.1",
+    "jsdom": "^27.3.0",
     "typescript": "^5.4.5",
-    "vite": "^5.3.1"
+    "vite": "^5.3.1",
+    "vitest": "^4.0.16"
   },
   "homepage": "https://jbcom.github.io",
   "repository": {
@@ -45,5 +54,11 @@
   },
   "author": "Jon Bogaty <jon@jonbogaty.com>",
   "license": "MIT",
-  "keywords": ["portfolio", "jbcom", "material-ui", "github-pages", "responsive"]
+  "keywords": [
+    "portfolio",
+    "jbcom",
+    "material-ui",
+    "github-pages",
+    "responsive"
+  ]
 }

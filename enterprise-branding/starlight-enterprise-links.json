@@ -1,0 +1,11 @@
+{
+  "social": {
+    "github": "https://github.com/jbcom"
+  },
+  "nav": [
+    { "label": "jbcom Hub", "link": "https://jbcom.github.io" },
+    { "label": "Agentic", "link": "https://agentic.dev" },
+    { "label": "Strata", "link": "https://strata.game" },
+    { "label": "Extended Data", "link": "https://extendeddata.dev" }
+  ]
+}
