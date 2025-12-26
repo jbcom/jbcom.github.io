@@ -21,6 +21,21 @@ jobs:
       - name: Checkout
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda # v4.1.0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build React SPA
+        run: pnpm build
+
       - name: Install pandoc and weasyprint
         run: |
           sudo apt-get update
@@ -34,25 +49,6 @@ jobs:
 
       - name: Install PyYAML
         run: pip3 install pyyaml
-
-      - name: Build static site
-        run: |
-          # Create dist directory
-          mkdir -p dist
-          
-          # Copy all static HTML files
-          cp *.html dist/
-          
-          # Copy assets directory (CSS, images)
-          cp -r assets dist/
-          
-          # Copy public directory contents (includes .well-known/security.txt)
-          if [ -d "public" ]; then
-            cp -r public/* dist/
-          fi
-          
-          # Note: ecosystem.html is already generated and committed
-          # No need to regenerate it from YAML during CI
 
       - name: Generate resume PDF and DOCX
         run: |
