@@ -8,6 +8,7 @@ import {
   Box,
   Button,
   Card,
+  CardActionArea,
   CardContent,
   Chip,
   Grid,
@@ -184,14 +185,20 @@ export default function HomePage() {
                 borderLeft: `3px solid ${cat.color}`,
               }}
             >
-              <CardContent>
-                <Typography variant="h6" fontWeight={600}>
-                  {cat.name}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {cat.description}
-                </Typography>
-              </CardContent>
+              <CardActionArea
+                component={Link}
+                to={`/ecosystem?category=${key}`}
+                sx={{ height: '100%' }}
+              >
+                <CardContent>
+                  <Typography variant="h6" fontWeight={600}>
+                    {cat.name}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {cat.description}
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
             </Card>
           </Grid>
         ))}
