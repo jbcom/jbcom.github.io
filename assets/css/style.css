@@ -317,12 +317,29 @@ nav {
   padding: var(--space-lg);
   transition:
     border-color 0.2s ease,
-    transform 0.2s ease;
+    transform 0.2s ease,
+    background-color 0.2s ease;
 }
 
 .card:hover {
   border-color: var(--primary);
   transform: translateY(-2px);
+}
+
+.card.interactive:hover {
+  background-color: var(--bg-elevated);
+  cursor: pointer;
+}
+
+.card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  height: 100%;
+}
+
+.card-link:hover {
+  color: inherit;
 }
 
 .card-title {

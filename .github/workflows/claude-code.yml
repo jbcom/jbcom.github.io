@@ -95,4 +95,3 @@ jobs:
             Use `gh pr review` with line-specific comments for detailed feedback on specific code changes.
             For general summary feedback, use `gh pr comment`.
 
-          claude_args: '--allowed-tools "Bash(gh pr:*)"'
