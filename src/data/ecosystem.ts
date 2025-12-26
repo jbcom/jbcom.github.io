@@ -15,6 +15,7 @@ export interface CategoryInfo {
   description: string
   color: string
   division: string
+  docsUrl?: string
 }
 
 export interface Package {
@@ -369,24 +370,28 @@ export const categories: Record<Category, CategoryInfo> = {
     description: 'Orchestration, fleet management, and intelligent automation',
     color: '#8b5cf6',
     division: 'Agentic',
+    docsUrl: 'https://agentic.dev',
   },
   games: {
     name: 'Game Development',
     description: 'Procedural graphics, game engines, and interactive experiences',
     color: '#06b6d4',
     division: 'Strata',
+    docsUrl: 'https://strata.game',
   },
   infra: {
     name: 'Infrastructure',
     description: 'Enterprise connectors, secrets, and DevOps tooling',
     color: '#10b981',
     division: 'Extended Data',
+    docsUrl: 'https://extendeddata.dev',
   },
   libs: {
     name: 'Libraries',
     description: 'Utilities, data types, and developer tools',
     color: '#f59e0b',
     division: 'Extended Data',
+    docsUrl: 'https://extendeddata.dev',
   },
 }
 

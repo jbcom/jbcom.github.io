@@ -208,6 +208,20 @@ const PackageCard = memo(function PackageCard({ pkg }: { pkg: Package }) {
             Demo
           </Button>
         )}
+        {cat.docsUrl && (
+          <Button
+            size="small"
+            color="secondary"
+            variant="outlined"
+            href={cat.docsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            sx={{ textTransform: 'none', fontSize: '0.8rem' }}
+            aria-label={`View ${cat.division} documentation`}
+          >
+            Docs
+          </Button>
+        )}
       </Box>
     </Card>
   )

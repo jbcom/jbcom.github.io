@@ -145,6 +145,18 @@ export default function ProjectPage() {
             Live Demo
           </Button>
         )}
+        {cat.docsUrl && (
+          <Button
+            variant="outlined"
+            color="info"
+            href={cat.docsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            endIcon={<OpenInNew />}
+          >
+            {cat.division} Docs
+          </Button>
+        )}
       </Stack>
 
       <Grid container spacing={3}>

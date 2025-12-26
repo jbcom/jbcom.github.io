@@ -64,7 +64,26 @@ docs/
 
 | Org | Doc Repo | Status | Action Needed |
 |-----|----------|--------|---------------|
-| jbcom | `jbcom.github.io` | ✅ Progenitor | Establish central hub links |
+| jbcom | `jbcom.github.io` | ✅ Progenitor | Establish central hub links (Completed) |
 | agentic | `agentic-dev-library.github.io` | 🟠 Astro/Starlight | Apply Purple theme overrides |
 | strata | `strata-game-library.github.io` | 🟠 Astro/Starlight | Apply Teal theme overrides |
 | extended | `extended-data-library.github.io` | 🟠 Astro/Starlight | Apply Amber theme overrides |
+
+## 🚀 Execution Steps
+
+1. **Main Hub Updates**:
+   - [x] Add `division` and `docsUrl` metadata to ecosystem data.
+   - [x] Add division labels to home page category cards.
+   - [x] Add "Docs" links to package cards and project pages.
+   - [x] Support deep linking via query parameters.
+
+2. **Shared Assets**:
+   - [x] Create `enterprise-branding/starlight-base.css`.
+   - [x] Create division-specific theme overrides.
+   - [x] Create interconnection metadata JSON.
+
+3. **Division Site Triage**:
+   - [ ] Apply shared assets to `agentic-dev-library.github.io`.
+   - [ ] Apply shared assets to `strata-game-library.github.io`.
+   - [ ] Apply shared assets to `extended-data-library.github.io`.
+
