@@ -6,16 +6,18 @@
  */
 
 import { CssBaseline, ThemeProvider } from '@mui/material'
+import { lazy } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Layout from './components/Layout'
-import AboutPage from './pages/AboutPage'
-import DemosPage from './pages/DemosPage'
-import DependencyFlowPage from './pages/DependencyFlowPage'
-import EcosystemPage from './pages/EcosystemPage'
 import HomePage from './pages/HomePage'
-import ProjectPage from './pages/ProjectPage'
-import ResumePage from './pages/ResumePage'
 import theme from './theme'
+
+const AboutPage = lazy(() => import('./pages/AboutPage'))
+const DemosPage = lazy(() => import('./pages/DemosPage'))
+const DependencyFlowPage = lazy(() => import('./pages/DependencyFlowPage'))
+const EcosystemPage = lazy(() => import('./pages/EcosystemPage'))
+const ProjectPage = lazy(() => import('./pages/ProjectPage'))
+const ResumePage = lazy(() => import('./pages/ResumePage'))
 
 export default function App() {
   return (

@@ -14,6 +14,8 @@ import {
 } from '@mui/icons-material'
 import {
   AppBar,
+  Box,
+  CircularProgress,
   Container,
   Drawer,
   IconButton,
@@ -28,7 +30,7 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material'
-import { useState } from 'react'
+import { Suspense, useState } from 'react'
 import { Link, Outlet, useLocation } from 'react-router-dom'
 
 const DRAWER_WIDTH = 240
@@ -229,7 +231,22 @@ export default function Layout() {
         sx={{ mt: { xs: 8, md: 0 }, outline: 'none' }}
       >
         <Container maxWidth="lg" sx={{ py: 4 }}>
-          <Outlet />
+          <Suspense
+            fallback={
+              <Box
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  minHeight: '50vh',
+                }}
+              >
+                <CircularProgress />
+              </Box>
+            }
+          >
+            <Outlet />
+          </Suspense>
         </Container>
       </Main>
     </Root>
