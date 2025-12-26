@@ -25,6 +25,12 @@ for the jbcom package ecosystem, using a static-first architecture.
    development/contributing
 
 
+.. toctree::
+   :maxdepth: 1
+   :caption: Enterprise
+
+   ENTERPRISE
+
 Indices and tables
 ==================
 
