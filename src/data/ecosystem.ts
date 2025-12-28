@@ -406,8 +406,11 @@ export const languages: Record<Language, { name: string; color: string; icon: st
 // HELPERS
 // ═══════════════════════════════════════════════════════════════════════════
 
+// Optimize O(N) lookups to O(1)
+const packageMap = new Map(packages.map((p) => [p.id, p] as [string, Package]))
+
 export const getFeaturedPackages = () => packages.filter((p) => p.featured)
 export const getPackagesByCategory = (cat: Category) => packages.filter((p) => p.category === cat)
 export const getPackagesByLanguage = (lang: Language) => packages.filter((p) => p.language === lang)
-export const getPackageById = (id: string) => packages.find((p) => p.id === id)
+export const getPackageById = (id: string) => packageMap.get(id)
 export const getPackageCount = () => packages.length
