@@ -1,0 +1,298 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+
+const orgs = [
+  {
+    id: 'strata',
+    name: 'Strata 3D',
+    description: 'Procedural terrain, water, sky, and volumetrics for React Three Fiber',
+    color: '#14b8a6',
+    domain: 'strata.game',
+    packages: 9,
+    status: 'production',
+  },
+  {
+    id: 'agentic',
+    name: 'Agentic AI',
+    description: 'AI agent orchestration primitives and tools',
+    color: '#8b5cf6',
+    domain: 'agentic.dev',
+    packages: 6,
+    status: 'beta',
+  },
+  {
+    id: 'extended-data',
+    name: 'Extended Data',
+    description: 'Enterprise data utilities, validation, and connectors',
+    color: '#3b82f6',
+    domain: 'extended-data.dev',
+    packages: 6,
+    status: 'production',
+  },
+  {
+    id: 'arcade-cabinet',
+    name: 'Arcade Cabinet',
+    description: 'Retro game development platform',
+    color: '#ec4899',
+    domain: 'arcade-cabinet.github.io',
+    packages: 4,
+    status: 'alpha',
+  },
+]
+
+const stats = [
+  { label: 'Packages', value: '25+' },
+  { label: 'Organizations', value: '4' },
+  { label: 'Languages', value: 'TS/PY/Go/Rust' },
+]
+---
+
+<BaseLayout title="Jon Bogaty | jbcom - Production-grade tools for serious builders" activeNav="Home">
+  <div class="hero">
+    <p class="overline">Open Source Ecosystem</p>
+    <h1>Production-grade tools<br/>for serious builders</h1>
+    <p class="hero-text">
+      25+ open source packages for AI orchestration, procedural graphics, and enterprise infrastructure.
+      Battle-tested in production. Shared with the community.
+    </p>
+    
+    <div class="stats">
+      {stats.map((stat) => (
+        <div class="stat">
+          <span class="stat-value">{stat.value}</span>
+          <span class="stat-label">{stat.label}</span>
+        </div>
+      ))}
+    </div>
+    
+    <div class="hero-actions">
+      <a href="/ecosystem/" class="btn btn-primary">Explore Packages →</a>
+      <a href="/about/" class="btn btn-outlined">About Me</a>
+    </div>
+  </div>
+  
+  <section class="section">
+    <h2>Organizations</h2>
+    <p class="section-desc">
+      Each organization focuses on a specific domain, with its own packages, documentation, and release cycle.
+    </p>
+    
+    <div class="org-grid">
+      {orgs.map((org) => (
+        <a href={`/docs/${org.id}/`} class="org-card" style={`--org-color: ${org.color}`}>
+          <div class="org-header">
+            <span class="org-icon">{org.name.charAt(0)}</span>
+            <span class="org-status">{org.status}</span>
+          </div>
+          <h3>{org.name}</h3>
+          <p>{org.description}</p>
+          <div class="org-meta">
+            <span>{org.packages} packages</span>
+            <span>{org.domain}</span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+  
+  <section class="section">
+    <h2>Philosophy</h2>
+    <div class="principles">
+      <div class="principle">
+        <h3>Production-First</h3>
+        <p>No toy examples. Every package solves problems encountered in real systems.</p>
+      </div>
+      <div class="principle">
+        <h3>Composable</h3>
+        <p>Small, focused packages that work together. Use what you need.</p>
+      </div>
+      <div class="principle">
+        <h3>Well-Documented</h3>
+        <p>Clear APIs, comprehensive examples, and honest limitations.</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    padding: 2rem 0 4rem;
+  }
+  
+  .overline {
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--primary);
+    margin-bottom: 1rem;
+  }
+  
+  h1 {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.1;
+  }
+  
+  .hero-text {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin-bottom: 2rem;
+  }
+  
+  .stats {
+    display: flex;
+    gap: 3rem;
+    margin-bottom: 2rem;
+  }
+  
+  .stat {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .stat-value {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+  }
+  
+  .stat-label {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+  }
+  
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+  
+  .btn-primary {
+    background: var(--primary);
+    color: var(--bg-default);
+  }
+  
+  .btn-primary:hover {
+    background: var(--primary-light);
+    color: var(--bg-default);
+  }
+  
+  .btn-outlined {
+    border: 1px solid var(--divider);
+    color: var(--text-primary);
+  }
+  
+  .btn-outlined:hover {
+    background: var(--bg-elevated);
+  }
+  
+  .section {
+    padding: 3rem 0;
+    border-top: 1px solid var(--divider);
+  }
+  
+  .section h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .section-desc {
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    max-width: 600px;
+  }
+  
+  .org-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .org-card {
+    background: var(--bg-paper);
+    border: 1px solid var(--divider);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: all 0.2s;
+    color: var(--text-primary);
+  }
+  
+  .org-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    border-color: var(--org-color);
+  }
+  
+  .org-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .org-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--org-color);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: white;
+  }
+  
+  .org-status {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    background: var(--bg-elevated);
+    color: var(--text-secondary);
+    text-transform: uppercase;
+  }
+  
+  .org-card h3 {
+    font-size: 1.125rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .org-card p {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+  }
+  
+  .org-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: var(--text-disabled);
+  }
+  
+  .principles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+  }
+  
+  .principle h3 {
+    font-size: 1rem;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+  }
+  
+  .principle p {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+  }
+</style>

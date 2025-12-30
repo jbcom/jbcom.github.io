@@ -1,0 +1,81 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+---
+
+<BaseLayout title="About | Jon Bogaty" activeNav="About">
+  <div class="content">
+    <h1>About</h1>
+    <p class="lead">
+      I'm Jon Bogaty, a software engineer focused on building production-grade tools 
+      that solve real problems.
+    </p>
+    
+    <section>
+      <h2>What I Do</h2>
+      <p>
+        I build and maintain the jbcom ecosystem - 25+ open source packages across 4 organizations,
+        covering AI orchestration, procedural graphics, and enterprise infrastructure.
+      </p>
+    </section>
+    
+    <section>
+      <h2>Philosophy</h2>
+      <p>
+        Every package in this ecosystem is extracted from production systems. 
+        I don't build toy examples - I share code that works, documented honestly 
+        with its limitations.
+      </p>
+    </section>
+    
+    <section>
+      <h2>Connect</h2>
+      <ul class="links">
+        <li><a href="https://github.com/jbcom" target="_blank">GitHub</a></li>
+        <li><a href="https://linkedin.com/in/jonbogaty" target="_blank">LinkedIn</a></li>
+        <li><a href="https://t.me/jbpersonaldev" target="_blank">Telegram</a></li>
+        <li><a href="mailto:jon@jonbogaty.com">Email</a></li>
+      </ul>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .content {
+    max-width: 700px;
+  }
+  
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .lead {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    margin-bottom: 3rem;
+  }
+  
+  section {
+    margin-bottom: 2.5rem;
+  }
+  
+  h2 {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  p {
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+  
+  .links {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+  }
+  
+  .links a {
+    color: var(--primary);
+  }
+</style>

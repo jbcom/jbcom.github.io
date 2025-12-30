@@ -1,0 +1,204 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+
+const packages = [
+  // Strata
+  { name: 'strata-core', org: 'strata', lang: 'ts', status: 'production', desc: 'Core procedural generation engine' },
+  { name: 'strata-terrain', org: 'strata', lang: 'ts', status: 'production', desc: 'Terrain generation and rendering' },
+  { name: 'strata-water', org: 'strata', lang: 'ts', status: 'beta', desc: 'Water simulation and rendering' },
+  { name: 'strata-sky', org: 'strata', lang: 'ts', status: 'production', desc: 'Atmospheric sky rendering' },
+  // Agentic  
+  { name: '@agentic/triage', org: 'agentic', lang: 'ts', status: 'beta', desc: 'AI task routing primitives' },
+  { name: '@agentic/control', org: 'agentic', lang: 'ts', status: 'beta', desc: 'Agent orchestration layer' },
+  // Extended Data
+  { name: 'vendor-connectors', org: 'extended-data', lang: 'py', status: 'production', desc: 'Unified API connectors' },
+  { name: 'extended-data-types', org: 'extended-data', lang: 'py', status: 'production', desc: 'Enterprise data types' },
+  { name: 'directed-inputs-class', org: 'extended-data', lang: 'py', status: 'production', desc: 'Input validation framework' },
+  { name: 'lifecyclelogging', org: 'extended-data', lang: 'py', status: 'production', desc: 'Structured logging' },
+  // Arcade
+  { name: 'protocol-silent-night', org: 'arcade', lang: 'ts', status: 'alpha', desc: 'Retro game framework' },
+]
+
+const langColors: Record<string, string> = {
+  ts: '#3178c6',
+  py: '#3776ab',
+  go: '#00add8',
+  rust: '#dea584',
+}
+
+const orgColors: Record<string, string> = {
+  strata: '#14b8a6',
+  agentic: '#8b5cf6',
+  'extended-data': '#3b82f6',
+  arcade: '#ec4899',
+}
+---
+
+<BaseLayout title="Ecosystem | jbcom" activeNav="Ecosystem">
+  <div class="header">
+    <h1>Ecosystem</h1>
+    <p>
+      25+ production-grade packages across AI orchestration, procedural graphics, 
+      and enterprise infrastructure.
+    </p>
+  </div>
+  
+  <div class="filters">
+    <span class="filter-label">Filter:</span>
+    <button class="filter active" data-filter="all">All</button>
+    <button class="filter" data-filter="production">Production</button>
+    <button class="filter" data-filter="ts">TypeScript</button>
+    <button class="filter" data-filter="py">Python</button>
+  </div>
+  
+  <div class="packages">
+    {packages.map((pkg) => (
+      <div class="package" data-org={pkg.org} data-lang={pkg.lang} data-status={pkg.status}>
+        <div class="package-header">
+          <span class="package-lang" style={`background: ${langColors[pkg.lang]}`}>
+            {pkg.lang.toUpperCase()}
+          </span>
+          <span class="package-org" style={`color: ${orgColors[pkg.org]}`}>
+            {pkg.org}
+          </span>
+        </div>
+        <h3>{pkg.name}</h3>
+        <p>{pkg.desc}</p>
+        <div class="package-footer">
+          <span class={`status status-${pkg.status}`}>{pkg.status}</span>
+        </div>
+      </div>
+    ))}
+  </div>
+</BaseLayout>
+
+<style>
+  .header {
+    margin-bottom: 2rem;
+  }
+  
+  .header h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .header p {
+    color: var(--text-secondary);
+    max-width: 600px;
+  }
+  
+  .filters {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+  
+  .filter-label {
+    font-size: 0.875rem;
+    color: var(--text-disabled);
+    margin-right: 0.5rem;
+  }
+  
+  .filter {
+    padding: 0.5rem 1rem;
+    background: var(--bg-paper);
+    border: 1px solid var(--divider);
+    border-radius: 6px;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .filter:hover {
+    background: var(--bg-elevated);
+  }
+  
+  .filter.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: var(--bg-default);
+  }
+  
+  .packages {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .package {
+    background: var(--bg-paper);
+    border: 1px solid var(--divider);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: all 0.2s;
+  }
+  
+  .package:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  .package-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+  }
+  
+  .package-lang {
+    font-size: 0.625rem;
+    font-weight: 700;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    color: white;
+  }
+  
+  .package-org {
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+  
+  .package h3 {
+    font-size: 1rem;
+    font-family: var(--font-mono);
+    margin-bottom: 0.5rem;
+  }
+  
+  .package p {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    line-height: 1.5;
+  }
+  
+  .package-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .status {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    text-transform: uppercase;
+  }
+  
+  .status-production {
+    background: rgba(16, 185, 129, 0.2);
+    color: var(--success);
+  }
+  
+  .status-beta {
+    background: rgba(245, 158, 11, 0.2);
+    color: var(--warning);
+  }
+  
+  .status-alpha {
+    background: rgba(239, 68, 68, 0.2);
+    color: var(--error);
+  }
+</style>

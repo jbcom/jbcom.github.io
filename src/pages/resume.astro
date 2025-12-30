@@ -1,0 +1,143 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+---
+
+<BaseLayout title="Resume | Jon Bogaty" activeNav="Resume">
+  <div class="content">
+    <div class="header">
+      <h1>Jon Bogaty</h1>
+      <p class="title">Software Engineer</p>
+      <div class="downloads">
+        <a href="/Jon_Bogaty_Resume_2025.pdf" class="btn">Download PDF</a>
+        <a href="/Jon_Bogaty_Resume_2025.docx" class="btn btn-outlined">Download DOCX</a>
+      </div>
+    </div>
+    
+    <section>
+      <h2>Summary</h2>
+      <p>
+        Software engineer with expertise in AI orchestration, procedural graphics, 
+        and enterprise infrastructure. Creator of the jbcom ecosystem - 25+ production-grade 
+        open source packages.
+      </p>
+    </section>
+    
+    <section>
+      <h2>Open Source</h2>
+      <div class="project">
+        <h3>jbcom Ecosystem</h3>
+        <p>
+          Creator and maintainer of 25+ packages across TypeScript, Python, Go, and Rust.
+          Focus areas: AI agent orchestration, procedural 3D graphics, enterprise data utilities.
+        </p>
+      </div>
+    </section>
+    
+    <section>
+      <h2>Skills</h2>
+      <div class="skills">
+        <div class="skill-group">
+          <h3>Languages</h3>
+          <p>TypeScript, Python, Go, Rust</p>
+        </div>
+        <div class="skill-group">
+          <h3>Domains</h3>
+          <p>AI/ML, 3D Graphics, Infrastructure, DevOps</p>
+        </div>
+        <div class="skill-group">
+          <h3>Tools</h3>
+          <p>React, Three.js, Terraform, GitHub Actions</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .content {
+    max-width: 700px;
+  }
+  
+  .header {
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--divider);
+  }
+  
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.25rem;
+  }
+  
+  .title {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+  }
+  
+  .downloads {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 500;
+    background: var(--primary);
+    color: var(--bg-default);
+  }
+  
+  .btn:hover {
+    background: var(--primary-light);
+    color: var(--bg-default);
+  }
+  
+  .btn-outlined {
+    background: transparent;
+    border: 1px solid var(--divider);
+    color: var(--text-primary);
+  }
+  
+  .btn-outlined:hover {
+    background: var(--bg-elevated);
+  }
+  
+  section {
+    margin-bottom: 2.5rem;
+  }
+  
+  h2 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: var(--primary);
+  }
+  
+  p {
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+  
+  .project h3 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .skills {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .skill-group h3 {
+    font-size: 0.875rem;
+    color: var(--text-disabled);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.25rem;
+  }
+  
+  .skill-group p {
+    font-size: 0.9375rem;
+  }
+</style>

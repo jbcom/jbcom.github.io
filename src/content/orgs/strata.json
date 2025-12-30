@@ -1,0 +1,19 @@
+{
+  "org": "strata-game-library",
+  "name": "Strata 3D",
+  "domain": "strata.game",
+  "accent": "#14b8a6",
+  "description": "Procedural 3D graphics for React Three Fiber",
+  "packages": [
+    { "name": "core", "version": "1.3.1", "status": "production", "description": "Core procedural generation engine" },
+    { "name": "terrain", "version": "1.2.0", "status": "production", "description": "Terrain generation and rendering" },
+    { "name": "water", "version": "0.9.0", "status": "beta", "description": "Water simulation and rendering" },
+    { "name": "sky", "version": "1.0.0", "status": "production", "description": "Atmospheric sky rendering" }
+  ],
+  "navigation": [
+    { "label": "Getting Started", "path": "/getting-started" },
+    { "label": "Packages", "path": "/packages" },
+    { "label": "Examples", "path": "/examples" }
+  ],
+  "lastSync": "2025-12-30T19:00:00Z"
+}

@@ -1,0 +1,316 @@
+---
+interface Props {
+  title: string
+  description?: string
+  activeNav?: string
+}
+
+const { title, description = "Production-grade tools for serious builders", activeNav } = Astro.props
+
+const navItems = [
+  { label: 'Home', path: '/' },
+  { label: 'About', path: '/about/' },
+  { label: 'Resume', path: '/resume/' },
+  { label: 'Ecosystem', path: '/ecosystem/' },
+  { label: 'Docs', path: '/docs/' },
+]
+
+const orgs = [
+  { name: 'Strata', path: '/docs/strata/', color: '#14b8a6' },
+  { name: 'Agentic', path: '/docs/agentic/', color: '#8b5cf6' },
+  { name: 'Extended Data', path: '/docs/extended-data/', color: '#3b82f6' },
+  { name: 'Arcade Cabinet', path: '/docs/arcade-cabinet/', color: '#ec4899' },
+]
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="author" content="Jon Bogaty" />
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="jbcom Enterprise" />
+    
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+    
+    <title>{title}</title>
+  </head>
+  <body>
+    <div class="layout">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <a href="/" class="logo">
+          <div class="logo-mark">jb</div>
+          <span class="logo-text">jbcom</span>
+        </a>
+        
+        <nav class="nav">
+          {navItems.map((item) => (
+            <a 
+              href={item.path} 
+              class:list={['nav-link', { active: activeNav === item.label }]}
+            >
+              {item.label}
+            </a>
+          ))}
+        </nav>
+        
+        <div class="org-links">
+          <span class="org-label">Organizations</span>
+          {orgs.map((org) => (
+            <a href={org.path} class="org-link">
+              <span class="org-dot" style={`background: ${org.color}`}></span>
+              {org.name}
+            </a>
+          ))}
+        </div>
+        
+        <div class="sidebar-footer">
+          <a href="https://github.com/jbcom" target="_blank" rel="noopener noreferrer" class="social-link">
+            GitHub
+          </a>
+          <a href="https://linkedin.com/in/jonbogaty" target="_blank" rel="noopener noreferrer" class="social-link">
+            LinkedIn
+          </a>
+        </div>
+      </aside>
+      
+      <!-- Main Content -->
+      <main class="main">
+        <slot />
+      </main>
+    </div>
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    /* Backgrounds */
+    --bg-default: #0a0f1a;
+    --bg-paper: #111827;
+    --bg-elevated: #1e293b;
+    
+    /* Primary (Cyan) */
+    --primary: #06b6d4;
+    --primary-light: #22d3ee;
+    --primary-dark: #0891b2;
+    
+    /* Text */
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --text-disabled: #475569;
+    
+    /* Dividers */
+    --divider: #1e293b;
+    
+    /* Semantic */
+    --success: #10b981;
+    --warning: #f59e0b;
+    --error: #ef4444;
+    
+    /* Typography */
+    --font-heading: "Space Grotesk", sans-serif;
+    --font-body: "Inter", sans-serif;
+    --font-mono: "JetBrains Mono", monospace;
+    
+    /* Spacing */
+    --sidebar-width: 240px;
+  }
+  
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  html {
+    font-family: var(--font-body);
+    background: var(--bg-default);
+    color: var(--text-primary);
+    line-height: 1.6;
+  }
+  
+  body {
+    min-height: 100vh;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    line-height: 1.3;
+  }
+  
+  a {
+    color: var(--primary);
+    text-decoration: none;
+  }
+  
+  a:hover {
+    color: var(--primary-light);
+  }
+  
+  code {
+    font-family: var(--font-mono);
+    background: var(--bg-elevated);
+    padding: 0.2em 0.4em;
+    border-radius: 4px;
+    font-size: 0.9em;
+  }
+</style>
+
+<style>
+  .layout {
+    display: flex;
+    min-height: 100vh;
+  }
+  
+  .sidebar {
+    width: var(--sidebar-width);
+    background: var(--bg-paper);
+    border-right: 1px solid var(--divider);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    height: 100vh;
+    overflow-y: auto;
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+    color: var(--text-primary);
+  }
+  
+  .logo-mark {
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, var(--primary), #3b82f6);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.875rem;
+    color: white;
+  }
+  
+  .logo-text {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.25rem;
+  }
+  
+  .nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin-bottom: 2rem;
+  }
+  
+  .nav-link {
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    color: var(--text-secondary);
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+  
+  .nav-link:hover {
+    background: var(--bg-elevated);
+    color: var(--text-primary);
+  }
+  
+  .nav-link.active {
+    background: var(--bg-elevated);
+    color: var(--primary);
+  }
+  
+  .org-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid var(--divider);
+  }
+  
+  .org-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-disabled);
+    padding: 0.5rem 1rem;
+  }
+  
+  .org-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    transition: all 0.2s;
+  }
+  
+  .org-link:hover {
+    background: var(--bg-elevated);
+    color: var(--text-primary);
+  }
+  
+  .org-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+  
+  .sidebar-footer {
+    display: flex;
+    gap: 1rem;
+    padding-top: 1rem;
+    margin-top: 1rem;
+    border-top: 1px solid var(--divider);
+  }
+  
+  .social-link {
+    font-size: 0.875rem;
+    color: var(--text-disabled);
+  }
+  
+  .social-link:hover {
+    color: var(--text-secondary);
+  }
+  
+  .main {
+    flex: 1;
+    margin-left: var(--sidebar-width);
+    padding: 2rem;
+    max-width: calc(100% - var(--sidebar-width));
+  }
+  
+  @media (max-width: 768px) {
+    .sidebar {
+      display: none; /* TODO: Mobile menu */
+    }
+    
+    .main {
+      margin-left: 0;
+      max-width: 100%;
+    }
+  }
+</style>

@@ -1,0 +1,226 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+
+const orgs = [
+  {
+    id: 'strata',
+    name: 'Strata 3D',
+    description: 'Procedural terrain, water, sky, and volumetrics for React Three Fiber',
+    color: '#14b8a6',
+    portal: 'https://strata.game',
+    packages: ['core', 'terrain', 'water', 'sky', 'vegetation', 'atmosphere', 'weather', 'utils'],
+  },
+  {
+    id: 'agentic',
+    name: 'Agentic AI',
+    description: 'AI agent orchestration primitives and tools',
+    color: '#8b5cf6',
+    portal: 'https://agentic-dev-library.github.io',
+    packages: ['triage', 'control', 'primitives', 'tools'],
+  },
+  {
+    id: 'extended-data',
+    name: 'Extended Data',
+    description: 'Enterprise data utilities, validation, and connectors',
+    color: '#3b82f6',
+    portal: 'https://extended-data.dev',
+    packages: ['vendor-connectors', 'extended-data-types', 'directed-inputs-class', 'lifecyclelogging'],
+  },
+  {
+    id: 'arcade-cabinet',
+    name: 'Arcade Cabinet',
+    description: 'Retro game development platform',
+    color: '#ec4899',
+    portal: 'https://arcade-cabinet.github.io',
+    packages: ['protocol-silent-night', 'pixels-pygame-palace'],
+  },
+]
+---
+
+<BaseLayout title="Documentation Hub | jbcom" activeNav="Docs">
+  <div class="header">
+    <h1>Documentation Hub</h1>
+    <p>
+      Unified documentation for all jbcom organizations. Each org builds and syncs its docs
+      to this central hub - no iframes, just static content you control.
+    </p>
+  </div>
+  
+  <div class="note">
+    <strong>📦 Cascade Architecture</strong>
+    <p>
+      Documentation flows upward: code repos → org sites → enterprise hub.
+      Each level adds narrative value while maintaining consistent branding.
+    </p>
+  </div>
+  
+  <div class="org-grid">
+    {orgs.map((org) => (
+      <div class="org-section" style={`--org-color: ${org.color}`}>
+        <div class="org-header">
+          <div class="org-title">
+            <span class="org-icon">{org.name.charAt(0)}</span>
+            <h2>{org.name}</h2>
+          </div>
+          <a href={org.portal} target="_blank" rel="noopener noreferrer" class="portal-link">
+            View Portal ↗
+          </a>
+        </div>
+        <p class="org-desc">{org.description}</p>
+        
+        <div class="packages">
+          <h3>Packages</h3>
+          <div class="package-list">
+            {org.packages.map((pkg) => (
+              <a href={`/docs/${org.id}/${pkg}/`} class="package-link">
+                {pkg}
+              </a>
+            ))}
+          </div>
+        </div>
+        
+        <div class="placeholder">
+          <p>📥 Awaiting sync from {org.name} portal</p>
+          <span>Docs will appear here when synced via the cascade workflow</span>
+        </div>
+      </div>
+    ))}
+  </div>
+</BaseLayout>
+
+<style>
+  .header {
+    margin-bottom: 2rem;
+  }
+  
+  .header h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .header p {
+    color: var(--text-secondary);
+    max-width: 600px;
+  }
+  
+  .note {
+    background: var(--bg-paper);
+    border: 1px solid var(--divider);
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .note strong {
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+  
+  .note p {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    margin: 0;
+  }
+  
+  .org-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  .org-section {
+    background: var(--bg-paper);
+    border: 1px solid var(--divider);
+    border-radius: 12px;
+    padding: 1.5rem;
+  }
+  
+  .org-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+  
+  .org-title {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  
+  .org-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--org-color);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: white;
+    font-size: 1rem;
+  }
+  
+  .org-section h2 {
+    font-size: 1.25rem;
+    margin: 0;
+  }
+  
+  .portal-link {
+    font-size: 0.875rem;
+    color: var(--org-color);
+  }
+  
+  .org-desc {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+  }
+  
+  .packages h3 {
+    font-size: 0.875rem;
+    color: var(--text-disabled);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+  }
+  
+  .package-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .package-link {
+    padding: 0.5rem 0.75rem;
+    background: var(--bg-elevated);
+    border-radius: 6px;
+    font-size: 0.875rem;
+    font-family: var(--font-mono);
+    color: var(--text-secondary);
+    transition: all 0.2s;
+  }
+  
+  .package-link:hover {
+    background: var(--org-color);
+    color: white;
+  }
+  
+  .placeholder {
+    background: var(--bg-default);
+    border: 1px dashed var(--divider);
+    border-radius: 8px;
+    padding: 2rem;
+    text-align: center;
+  }
+  
+  .placeholder p {
+    margin: 0 0 0.25rem;
+    color: var(--text-secondary);
+  }
+  
+  .placeholder span {
+    font-size: 0.75rem;
+    color: var(--text-disabled);
+  }
+</style>

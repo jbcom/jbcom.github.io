@@ -42,3 +42,6 @@ yarn-error.log*
 
 # Testing
 coverage
+
+# Astro
+.astro/
