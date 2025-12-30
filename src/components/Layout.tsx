@@ -5,6 +5,7 @@
 import {
   Close as CloseIcon,
   PlayCircle as DemoIcon,
+  MenuBook as DocsIcon,
   Widgets as EcosystemIcon,
   GitHub as GitHubIcon,
   Home as HomeIcon,
@@ -38,6 +39,7 @@ const navItems = [
   { label: 'About', path: '/about', icon: <PersonIcon /> },
   { label: 'Resume', path: '/resume', icon: <ResumeIcon /> },
   { label: 'Ecosystem', path: '/ecosystem', icon: <EcosystemIcon /> },
+  { label: 'Docs', path: '/docs', icon: <DocsIcon /> },
   { label: 'Dependency Flow', path: '/dependency-flow', icon: <EcosystemIcon /> },
   { label: 'Demos', path: '/demos', icon: <DemoIcon /> },
 ]

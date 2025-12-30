@@ -19,51 +19,56 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
-      - name: Install pandoc and weasyprint
+      - name: Setup pnpm
+        uses: pnpm/action-setup@fe02b34f77f8bc703788d5817da081398fad5dd2 # v4.0.0
+        with:
+          version: 9
+
+      - name: Setup Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 22
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Type check
+        run: pnpm typecheck
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Test
+        run: pnpm test -- --run
+
+      - name: Build
+        run: pnpm build
+
+      # Generate resume PDF/DOCX from markdown
+      - name: Install pandoc
         run: |
           sudo apt-get update
-          sudo apt-get install -y pandoc wkhtmltopdf python3-pip
-          pip3 install weasyprint
+          sudo apt-get install -y pandoc wkhtmltopdf
 
-      - name: Setup Python
-        uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548 # v6.1.0
-        with:
-          python-version: '3.x'
-
-      - name: Install PyYAML
-        run: pip3 install pyyaml
-
-      - name: Build static site
+      - name: Generate resume files
         run: |
-          # Create dist directory
-          mkdir -p dist
-
-          # Copy all static HTML files
-          cp *.html dist/
-
-          # Copy assets directory (CSS, images)
-          cp -r assets dist/
-
-          # Copy public directory contents (includes .well-known/security.txt)
-          if [ -d "public" ]; then
-            cp -r public/* dist/
-          fi
-
-          # Note: ecosystem.html is already generated and committed
-          # No need to regenerate it from YAML during CI
-
-      - name: Generate resume PDF and DOCX
-        run: |
-          # Generate PDF from markdown
           pandoc content/resume.md -o dist/Jon_Bogaty_Resume_2025.pdf \
             --pdf-engine=wkhtmltopdf \
             --template=templates/resume-pdf.html \
             -V geometry:margin=1in
-          
-          # Generate DOCX from markdown
           pandoc content/resume.md -o dist/Jon_Bogaty_Resume_2025.docx
+
+      # Copy public assets
+      - name: Copy public assets
+        run: |
+          cp -r public/* dist/ 2>/dev/null || true
+
+      # SPA fallback - copy index.html for all routes
+      - name: Create SPA fallback
+        run: cp dist/index.html dist/404.html
 
       - name: Setup Pages
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5.0.0

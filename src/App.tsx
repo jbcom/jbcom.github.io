@@ -11,6 +11,7 @@ import Layout from './components/Layout'
 import AboutPage from './pages/AboutPage'
 import DemosPage from './pages/DemosPage'
 import DependencyFlowPage from './pages/DependencyFlowPage'
+import DocsHubPage from './pages/DocsHubPage'
 import EcosystemPage from './pages/EcosystemPage'
 import HomePage from './pages/HomePage'
 import ProjectPage from './pages/ProjectPage'
@@ -31,6 +32,7 @@ export default function App() {
             <Route path="ecosystem/:projectId" element={<ProjectPage />} />
             <Route path="dependency-flow" element={<DependencyFlowPage />} />
             <Route path="demos" element={<DemosPage />} />
+            <Route path="docs" element={<DocsHubPage />} />
           </Route>
         </Routes>
       </BrowserRouter>
