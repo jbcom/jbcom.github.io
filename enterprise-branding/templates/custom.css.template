@@ -1,0 +1,35 @@
+/* 
+  [ORG_NAME] Documentation Portal
+  
+  BRANDING INHERITANCE:
+  1. Enterprise base (jbcom) - fonts, core colors, layout
+  2. Org theme override - accent colors
+  3. Org-specific customizations - unique to this org
+  
+  DO NOT duplicate enterprise styles - import them!
+*/
+
+/* ===== LAYER 1: Enterprise Base ===== */
+@import url('https://raw.githubusercontent.com/jbcom/jbcom.github.io/main/enterprise-branding/starlight-base.css');
+
+/* ===== LAYER 2: Org Theme Override ===== */
+@import url('https://raw.githubusercontent.com/jbcom/jbcom.github.io/main/enterprise-branding/org-themes/[ORG_THEME].css');
+
+/* ===== LAYER 3: Org-Specific Customizations ===== */
+/* Add ONLY styles unique to this org below */
+/* Do NOT override enterprise base styles unless absolutely necessary */
+
+/* Example: Org-specific feature colors */
+/*
+:root {
+  --org-feature-primary: #your-color;
+  --org-feature-secondary: #your-color;
+}
+*/
+
+/* Example: Org-specific components */
+/*
+.org-specific-component {
+  // styles
+}
+*/
