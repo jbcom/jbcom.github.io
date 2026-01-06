@@ -181,7 +181,7 @@ jobs:
           path: /tmp
 
       - name: Run Claude Haiku Agent
-        uses: anthropics/claude-code-action@154d0de144ff82240e1c3deedff56280381fd122 # v1
+        uses: anthropics/claude-code-action@c9ec2b02b40ac0444c6716e51d5e19ef2e0b8d00 # v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           model: ${{ env.CLAUDE_MODEL }}
