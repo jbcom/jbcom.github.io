@@ -118,7 +118,7 @@ jobs:
           echo "failure_log=/tmp/failure.log" >> $GITHUB_OUTPUT
 
       - name: Upload failure log
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: failure-log
           path: /tmp/failure.log

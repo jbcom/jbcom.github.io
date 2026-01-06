@@ -118,7 +118,7 @@ jobs:
           git push -u origin "${{ steps.branch.outputs.name }}"
 
       - name: Upload reports artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: assessment-reports
           path: reports/
