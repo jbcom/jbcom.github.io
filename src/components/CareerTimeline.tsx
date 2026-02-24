@@ -113,7 +113,7 @@ function TimelineCard({ entry, isActive }: { entry: CareerEntry; isActive: boole
         {entry.roles ? (
           <div className="space-y-1.5 mt-1">
             {entry.roles.map((r, i) => (
-              <div key={r.title} className="flex items-center gap-2">
+              <div key={`${r.title}-${r.period}`} className="flex items-center gap-2">
                 {i > 0 && <span className="text-primary/50 text-[0.6rem]">&#8594;</span>}
                 <div>
                   <span className="text-primary font-semibold text-sm">{r.title}</span>
@@ -229,7 +229,8 @@ export function CareerTimeline({
     if (!el) return 400
     const firstCard = el.querySelector(':scope > *') as HTMLElement | null
     if (!firstCard) return 400
-    return firstCard.offsetWidth + 24 // card width + gap
+    const gap = parseInt(getComputedStyle(el).gap, 10) || 24
+    return firstCard.offsetWidth + gap
   }, [])
 
   const updateScrollState = useCallback(() => {
