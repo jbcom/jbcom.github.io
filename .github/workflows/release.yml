@@ -35,6 +35,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Install Playwright (for resume PDF generation)
+        run: npx playwright install chromium --with-deps
+
       - name: Build site
         run: pnpm build
 
@@ -56,4 +59,7 @@ jobs:
           TAG_NAME: ${{ github.event.release.tag_name }}
         run: |
           cd dist && tar czf "../site-${TAG_NAME}.tar.gz" . && cd ..
-          gh release upload "$TAG_NAME" "site-${TAG_NAME}.tar.gz"
+          gh release upload "$TAG_NAME" \
+            "site-${TAG_NAME}.tar.gz" \
+            "dist/Jon_Bogaty_Resume.pdf" \
+            "dist/Jon_Bogaty_Resume.docx"

@@ -202,13 +202,14 @@ export function CareerTimeline({
   const dragStartX = useRef(0)
   const dragScrollLeft = useRef(0)
   const hasDragged = useRef(false)
+  const rafId = useRef(0)
 
   // Measure actual card width dynamically
   const getCardWidth = useCallback(() => {
     const el = scrollRef.current
-    if (!el) return 404
+    if (!el) return 400
     const firstCard = el.querySelector(':scope > *') as HTMLElement | null
-    if (!firstCard) return 404
+    if (!firstCard) return 400
     return firstCard.offsetWidth + 24 // card width + gap
   }, [])
 
@@ -222,13 +223,22 @@ export function CareerTimeline({
     setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 20)
   }, [entries.length, getCardWidth])
 
+  // Throttle scroll handler to one update per animation frame
+  const throttledScrollUpdate = useCallback(() => {
+    cancelAnimationFrame(rafId.current)
+    rafId.current = requestAnimationFrame(updateScrollState)
+  }, [updateScrollState])
+
   useEffect(() => {
     const el = scrollRef.current
     if (!el) return
-    el.addEventListener('scroll', updateScrollState, { passive: true })
+    el.addEventListener('scroll', throttledScrollUpdate, { passive: true })
     updateScrollState()
-    return () => el.removeEventListener('scroll', updateScrollState)
-  }, [updateScrollState])
+    return () => {
+      el.removeEventListener('scroll', throttledScrollUpdate)
+      cancelAnimationFrame(rafId.current)
+    }
+  }, [throttledScrollUpdate, updateScrollState])
 
   // Recalculate on window resize
   useEffect(() => {
@@ -409,8 +419,9 @@ export function CareerTimeline({
             )}
           />
 
-          <div
+          <section
             ref={scrollRef}
+            aria-label="Career timeline cards"
             className="flex gap-4 sm:gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-6 cursor-grab active:cursor-grabbing px-[max(1rem,calc((100vw-380px)/2))] sm:px-[max(1.5rem,calc((100vw-380px)/2))]"
             onMouseDown={handleMouseDown}
             onMouseMove={handleMouseMove}
@@ -425,7 +436,7 @@ export function CareerTimeline({
                 isActive={i === activeIndex}
               />
             ))}
-          </div>
+          </section>
 
           {/* Swipe hint on mobile — only shown initially */}
           <SwipeHint />

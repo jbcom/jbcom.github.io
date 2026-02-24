@@ -72,6 +72,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Install Playwright (for resume PDF generation)
+        run: npx playwright install chromium --with-deps
+
       - name: Build
         run: pnpm build
 
@@ -102,4 +105,4 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Test
-        run: pnpm test --passWithNoTests || true
+        run: pnpm test

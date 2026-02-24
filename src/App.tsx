@@ -9,8 +9,21 @@ import { formatDateRange } from '@/lib/dates'
 
 const { work, earlierCareer, skills } = resume
 
+function findWork(name: string) {
+  const entry = work.find((w) => w.name === name)
+  if (!entry) throw new Error(`Work entry "${name}" not found in resume.json`)
+  return entry
+}
+
 // Build career timeline entries from resume data, newest first
 // Split Flipside Crypto into three phases per actual career trajectory
+const gohealth = findWork('GoHealth')
+const symbiont = findWork('Symbiont')
+const jumpRamp = findWork('Jump Ramp')
+const qualia = findWork('Qualia Media')
+const classpass = findWork('ClassPass')
+const magnetic = findWork('Magnetic')
+
 const timelineEntries: CareerEntry[] = [
   {
     company: 'Flipside Crypto',
@@ -64,54 +77,54 @@ const timelineEntries: CareerEntry[] = [
     ],
   },
   {
-    company: work[1].name,
-    role: work[1].position,
-    period: formatDateRange(work[1].startDate, work[1].endDate),
+    company: gohealth.name,
+    role: gohealth.position,
+    period: formatDateRange(gohealth.startDate, gohealth.endDate),
     description:
       'Spearheaded SRE initiatives for a high-traffic health insurance marketplace during peak enrollment periods.',
     skills: ['SRE', 'Monitoring', 'Alerting', 'MTTR', 'Scalability'],
-    highlights: work[1].highlights?.slice(0, 2),
+    highlights: gohealth.highlights?.slice(0, 2),
   },
   {
-    company: work[2].name,
-    role: work[2].position,
-    period: formatDateRange(work[2].startDate, work[2].endDate),
+    company: symbiont.name,
+    role: symbiont.position,
+    period: formatDateRange(symbiont.startDate, symbiont.endDate),
     description:
       'Owned enterprise CI/CD platform. Designed multi-cloud deployment architecture across AWS, GCP, and Azure for blockchain product engineering.',
     skills: ['AWS', 'GCP', 'Azure', 'Terraform', 'Ansible', 'Packer'],
-    highlights: work[2].highlights?.slice(0, 2),
+    highlights: symbiont.highlights?.slice(0, 2),
     milestone: 'Multi-Cloud IaC Pioneer',
   },
   {
-    company: work[3].name,
-    role: work[3].position,
-    period: formatDateRange(work[3].startDate, work[3].endDate),
+    company: jumpRamp.name,
+    role: jumpRamp.position,
+    period: formatDateRange(jumpRamp.startDate, jumpRamp.endDate),
     description:
       'Modernized deployment with Docker containerization, restructured CI/CD, and overhauled network security with automated VPN bridging.',
     skills: ['Docker', 'CI/CD', 'VPN', 'Network Security'],
   },
   {
-    company: work[4].name,
-    role: work[4].position,
-    period: formatDateRange(work[4].startDate, work[4].endDate),
+    company: qualia.name,
+    role: qualia.position,
+    period: formatDateRange(qualia.startDate, qualia.endDate),
     description:
       'Automated cloud infrastructure with Terraform and custom Ruby tooling. Built CI/CD systems and a metrics-based auto-scaler for Google Cloud.',
     skills: ['Terraform', 'Ruby', 'GCP', 'Pub/Sub', 'Auto-Scaling'],
   },
   {
-    company: work[5].name,
-    role: work[5].position,
-    period: formatDateRange(work[5].startDate, work[5].endDate),
+    company: classpass.name,
+    role: classpass.position,
+    period: formatDateRange(classpass.startDate, classpass.endDate),
     description:
       'Early Docker and Terraform champion — containerized production services and built IaC pipelines before mainstream adoption.',
     skills: ['Docker', 'Terraform', 'Packer', 'Vagrant', 'AWS'],
-    highlights: work[5].highlights?.slice(0, 2),
+    highlights: classpass.highlights?.slice(0, 2),
     milestone: 'Early Docker & Terraform Adopter',
   },
   {
-    company: work[6].name,
-    role: work[6].position,
-    period: formatDateRange(work[6].startDate, work[6].endDate),
+    company: magnetic.name,
+    role: magnetic.position,
+    period: formatDateRange(magnetic.startDate, magnetic.endDate),
     description:
       'Managed 300+ machine infrastructure for a multinational ad-tech firm. Designed Chef cookbook overhauls and integrated Rundeck with PAM.',
     skills: ['Chef', 'Rundeck', 'Linux', '300+ Servers'],

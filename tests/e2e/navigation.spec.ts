@@ -1,32 +1,47 @@
 import { expect, test } from '@playwright/test'
 
 test.describe('Site navigation', () => {
-  test('home page loads at /', async ({ page }) => {
+  test('home page loads at / with correct title', async ({ page }) => {
     await page.goto('/')
-    await expect(page).toHaveTitle(/jbcom/)
+    await expect(page).toHaveTitle(/Jon Bogaty/)
   })
 
-  test('navigate to /resume/ and verify resume content visible', async ({ page }) => {
-    await page.goto('/resume/')
-    await expect(page.locator('h1')).toContainText('Jon Bogaty')
-    await expect(page.getByText('Professional Experience')).toBeVisible()
+  test('Career Timeline tab is active by default', async ({ page }) => {
+    await page.goto('/')
+    const careerTab = page.getByRole('tab', { name: /Career/i })
+    await expect(careerTab).toHaveAttribute('data-state', 'active')
   })
 
-  test('all nav links are present and correct', async ({ page }) => {
+  test('can switch to Open-Source Projects tab', async ({ page }) => {
     await page.goto('/')
-    const nav = page.locator('nav[aria-label="Main navigation"]')
-
-    await expect(nav.locator('a[href="/"]')).toBeVisible()
-    await expect(nav.locator('a[href="/about/"]')).toBeVisible()
-    await expect(nav.locator('a[href="/resume/"]')).toBeVisible()
-    await expect(nav.locator('a[href="/ecosystem/"]')).toBeVisible()
-    await expect(nav.locator('a[href="https://github.com/jbcom"]')).toBeVisible()
+    const projectsTab = page.getByRole('tab', { name: /Projects/i })
+    await projectsTab.click()
+    await expect(projectsTab).toHaveAttribute('data-state', 'active')
+    await expect(page.getByText('Agentic')).toBeVisible()
   })
 
-  test('external GitHub link opens in new tab', async ({ page }) => {
+  test('can switch back to Career Timeline tab', async ({ page }) => {
     await page.goto('/')
-    const githubLink = page.locator('nav a[href="https://github.com/jbcom"]')
+    const projectsTab = page.getByRole('tab', { name: /Projects/i })
+    const careerTab = page.getByRole('tab', { name: /Career/i })
+    await projectsTab.click()
+    await careerTab.click()
+    await expect(careerTab).toHaveAttribute('data-state', 'active')
+    await expect(page.getByText('Flipside Crypto').first()).toBeVisible()
+  })
+
+  test('GitHub link opens in new tab', async ({ page }) => {
+    await page.goto('/')
+    const githubLink = page.getByRole('link', { name: 'GitHub' }).first()
     await expect(githubLink).toHaveAttribute('target', '_blank')
     await expect(githubLink).toHaveAttribute('rel', /noopener/)
+  })
+
+  test('footer is visible with contact info', async ({ page }) => {
+    await page.goto('/')
+    const footer = page.getByRole('contentinfo')
+    await expect(footer).toBeVisible()
+    await expect(footer.getByText('Jon Bogaty')).toBeVisible()
+    await expect(footer.getByText('Lincoln, NE')).toBeVisible()
   })
 })
