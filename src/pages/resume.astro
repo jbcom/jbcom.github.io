@@ -1,0 +1,40 @@
+---
+import Competencies from '../components/resume/Competencies.astro'
+import DownloadBar from '../components/resume/DownloadBar.astro'
+import EarlierCareer from '../components/resume/EarlierCareer.astro'
+import Education from '../components/resume/Education.astro'
+import Experience from '../components/resume/Experience.astro'
+import Header from '../components/resume/Header.astro'
+import Innovation from '../components/resume/Innovation.astro'
+import Projects from '../components/resume/Projects.astro'
+import Skills from '../components/resume/Skills.astro'
+import Summary from '../components/resume/Summary.astro'
+import resume from '../content/resume.json'
+import BaseLayout from '../layouts/BaseLayout.astro'
+---
+
+<BaseLayout title="Resume" description="Jon Bogaty — DevOps & Platform Engineering Leader | Principal SRE | Resume">
+  <DownloadBar />
+  <Header basics={resume.basics} />
+  <Summary summary={resume.basics.summary} />
+  <Competencies competencies={resume.competencies} />
+  <Experience work={resume.work} />
+  <EarlierCareer earlierCareer={resume.earlierCareer} />
+  <Innovation items={resume.innovation} />
+  <Projects projects={resume.projects} />
+  <Skills skills={resume.skills} />
+  <Education education={resume.education} />
+</BaseLayout>
+
+<style>
+  :global(:root) {
+    --resume-bg: #0a0a0f;
+    --resume-surface: #12121a;
+    --resume-border: #1e1e2e;
+    --resume-text: #e0e0e8;
+    --resume-text-muted: #9090a0;
+    --resume-accent: #06b6d4;
+    --resume-accent-dim: rgba(6, 182, 212, 0.15);
+    --resume-heading: #f0f0f8;
+  }
+</style>

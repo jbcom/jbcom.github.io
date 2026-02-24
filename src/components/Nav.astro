@@ -1,0 +1,80 @@
+---
+const pathname = Astro.url.pathname
+
+const navLinks = [
+  { label: 'Home', href: '/' },
+  { label: 'About', href: '/about/' },
+  { label: 'Resume', href: '/resume/' },
+  { label: 'Ecosystem', href: '/ecosystem/' },
+  { label: 'GitHub', href: 'https://github.com/jbcom', external: true },
+]
+
+function isActive(href: string): boolean {
+  if (href === '/') {
+    return pathname === '/'
+  }
+  return pathname.startsWith(href)
+}
+---
+
+<header>
+  <div class="header-content">
+    <a href="/" class="logo" aria-label="jbcom home">
+      <span class="logo-mark" aria-hidden="true">jb</span>
+      <span class="wordmark">jbcom</span>
+    </a>
+
+    <input
+      type="checkbox"
+      id="hamburger-toggle"
+      class="hamburger-toggle"
+      aria-hidden="true"
+    />
+    <label
+      for="hamburger-toggle"
+      class="hamburger-label"
+      aria-label="Toggle navigation menu"
+    >
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </label>
+
+    <label for="hamburger-toggle" class="nav-overlay" aria-hidden="true"
+    ></label>
+
+    <nav aria-label="Main navigation">
+      {
+        navLinks.map((link) => (
+          <a
+            href={link.href}
+            class:list={["nav-link", { active: isActive(link.href) }]}
+            {...(link.external
+              ? { target: "_blank", rel: "noopener noreferrer" }
+              : {})}
+          >
+            {link.label}
+            {link.external && (
+              <span class="sr-only"> (opens in new tab)</span>
+            )}
+          </a>
+        ))
+      }
+    </nav>
+  </div>
+</header>
+
+<style>
+  /* Screen-reader only helper (scoped to this component) */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+</style>

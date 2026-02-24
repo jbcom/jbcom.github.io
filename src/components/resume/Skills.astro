@@ -1,0 +1,83 @@
+---
+interface SkillCategory {
+  name: string
+  keywords: string[]
+}
+
+interface Props {
+  skills: SkillCategory[]
+}
+
+const { skills } = Astro.props
+---
+
+<section class="skills-section" aria-labelledby="skills-heading">
+  <h2 id="skills-heading" class="section-title">Technical Skills</h2>
+  <div class="card">
+    <dl class="skills-grid">
+      {skills.map((category) => (
+        <div class="skill-entry">
+          <dt class="skill-name">{category.name}</dt>
+          <dd class="skill-keywords">{category.keywords.join(", ")}</dd>
+        </div>
+      ))}
+    </dl>
+  </div>
+</section>
+
+<style>
+  .skills-section {
+    margin-bottom: 2rem;
+  }
+
+  .section-title {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--primary);
+  }
+
+  .card {
+    background: var(--bg-paper);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 0;
+  }
+
+  .skill-entry {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .skill-name {
+    font-family: var(--font-heading);
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .skill-keywords {
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  @media (max-width: 700px) {
+    .skills-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

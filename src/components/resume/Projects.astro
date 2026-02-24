@@ -1,0 +1,123 @@
+---
+interface Project {
+  name: string
+  description: string
+  url: string
+}
+
+interface Props {
+  projects: Project[]
+}
+
+const { projects } = Astro.props
+---
+
+<section class="projects-section" aria-labelledby="projects-heading">
+  <h2 id="projects-heading" class="section-title">Open Source & AI Projects</h2>
+  <div class="card">
+    <p class="intro">Author of 20+ open-source packages. Selected highlights:</p>
+
+    <ul class="project-list">
+      {projects.map((project) => (
+        <li class="project-item">
+          <a href={project.url} class="project-name" target="_blank" rel="noopener noreferrer">
+            {project.name}
+          </a>
+          <span class="project-description"> &mdash; {project.description}</span>
+        </li>
+      ))}
+    </ul>
+
+    <p class="footer-link">
+      Full portfolio:
+      <a href="https://github.com/jbcom" target="_blank" rel="noopener noreferrer">
+        github.com/jbcom
+      </a>
+    </p>
+  </div>
+</section>
+
+<style>
+  .projects-section {
+    margin-bottom: 2rem;
+  }
+
+  .section-title {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--primary);
+  }
+
+  .card {
+    background: var(--bg-paper);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+  }
+
+  .intro {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin: 0 0 1rem;
+  }
+
+  .project-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .project-item {
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .project-name {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--primary);
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+
+  .project-name:hover {
+    color: var(--secondary);
+    text-decoration: underline;
+  }
+
+  .project-description {
+    color: var(--text-secondary);
+  }
+
+  .footer-link {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    color: var(--text-disabled);
+    margin: 0;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .footer-link a {
+    font-family: var(--font-mono);
+    color: var(--primary);
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+
+  .footer-link a:hover {
+    color: var(--secondary);
+    text-decoration: underline;
+  }
+</style>

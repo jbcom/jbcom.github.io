@@ -1,0 +1,74 @@
+---
+interface Props {
+  competencies: string[]
+}
+
+const { competencies } = Astro.props
+---
+
+<section class="competencies-section" aria-labelledby="competencies-heading">
+  <h2 id="competencies-heading" class="section-title">Core Competencies</h2>
+  <div class="card">
+    <div class="competencies-grid">
+      {competencies.map((item, index) => (
+        <>
+          {index > 0 && <span class="separator" aria-hidden="true">&middot;</span>}
+          <span class="competency-item">{item}</span>
+        </>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .competencies-section {
+    margin-bottom: 2rem;
+  }
+
+  .section-title {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--primary);
+  }
+
+  .card {
+    background: var(--bg-paper);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+  }
+
+  .competencies-grid {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem 0.5rem;
+    text-align: center;
+  }
+
+  .competency-item {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    white-space: nowrap;
+  }
+
+  .separator {
+    color: var(--primary);
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  @media (max-width: 600px) {
+    .competency-item {
+      font-size: 0.8rem;
+      white-space: normal;
+    }
+  }
+</style>

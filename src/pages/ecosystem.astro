@@ -1,0 +1,482 @@
+---
+import type { Category } from '../data/ecosystem'
+import { categories, getPackageCount, getPackagesByCategory, languages } from '../data/ecosystem'
+import BaseLayout from '../layouts/BaseLayout.astro'
+
+const packageCount = getPackageCount()
+
+const categoryKeys = Object.keys(categories) as Category[]
+
+const categoryData = categoryKeys.map((key) => ({
+  key,
+  info: categories[key],
+  packages: getPackagesByCategory(key),
+}))
+---
+
+<BaseLayout
+  title="Ecosystem - jbcom Open Source Packages"
+  description="Browse the full catalog of jbcom open source packages across AI, game development, infrastructure, and developer libraries."
+>
+  <!-- Page Header -->
+  <header class="page-header" aria-labelledby="ecosystem-heading">
+    <h1 id="ecosystem-heading" class="page-title">jbcom Ecosystem</h1>
+    <p class="page-subtitle">
+      {packageCount} production-grade packages across {categoryKeys.length} categories
+    </p>
+  </header>
+
+  <!-- Category Filter Chips -->
+  <nav class="filter-nav" aria-label="Jump to category">
+    {categoryData.map(({ key, info }) => (
+      <a
+        href={`#cat-${key}`}
+        class="filter-chip"
+        style={`--chip-bg: ${info.color}`}
+      >
+        {info.name}
+        <span class="filter-count">{getPackagesByCategory(key).length}</span>
+      </a>
+    ))}
+  </nav>
+
+  <!-- Category Sections -->
+  {categoryData.map(({ key, info, packages: pkgs }) => (
+    <section
+      class="category-section"
+      id={`cat-${key}`}
+      aria-labelledby={`heading-${key}`}
+    >
+      <div class="category-header">
+        <h2 id={`heading-${key}`} class="category-title" style={`--cat-color: ${info.color}`}>
+          {info.name}
+        </h2>
+        <p class="category-description">{info.description}</p>
+        {info.docsUrl && (
+          <a
+            href={info.docsUrl}
+            class="docs-link"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {info.division} Docs
+          </a>
+        )}
+      </div>
+
+      <div class="package-grid">
+        {pkgs.map((pkg) => {
+          const lang = languages[pkg.language];
+          return (
+            <article class="package-card">
+              <div class="package-top">
+                <span class="lang-chip" style={`--chip-color: ${lang.color}`}>
+                  {lang.icon} {lang.name}
+                </span>
+                <span class="status-badge" data-status={pkg.status}>
+                  {pkg.status}
+                </span>
+              </div>
+
+              <h3 class="package-name">{pkg.displayName}</h3>
+              <p class="package-description">{pkg.description}</p>
+
+              {pkg.comingSoon && pkg.comingSoonText && (
+                <p class="coming-soon">{pkg.comingSoonText}</p>
+              )}
+
+              {pkg.tags.length > 0 && (
+                <div class="tag-list">
+                  {pkg.tags.map((tag) => (
+                    <span class="tag">{tag}</span>
+                  ))}
+                </div>
+              )}
+
+              <div class="package-links">
+                <a
+                  href={pkg.repo}
+                  class="repo-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  GitHub
+                </a>
+                {pkg.npm && (
+                  <a
+                    href={`https://www.npmjs.com/package/${pkg.npm}`}
+                    class="registry-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    npm
+                  </a>
+                )}
+                {pkg.pypi && (
+                  <a
+                    href={`https://pypi.org/project/${pkg.pypi}`}
+                    class="registry-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    PyPI
+                  </a>
+                )}
+                {pkg.demo && (
+                  <a
+                    href={pkg.demo}
+                    class="demo-link"
+                  >
+                    Live Demo
+                  </a>
+                )}
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    </section>
+  ))}
+
+  <!-- Footer Note -->
+  <footer class="ecosystem-footer">
+    <p class="footer-text">
+      View all repositories at
+      <a
+        href="https://github.com/jbcom"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="footer-link"
+      >
+        github.com/jbcom
+      </a>
+    </p>
+  </footer>
+</BaseLayout>
+
+<style>
+  /* ── Page Header ────────────────────────────────────────────────────── */
+  .page-header {
+    text-align: center;
+    padding: 3rem 0 2rem;
+  }
+
+  .page-title {
+    font-family: var(--font-heading);
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 800;
+    color: var(--text-primary);
+    margin: 0 0 0.5rem;
+    letter-spacing: -0.02em;
+  }
+
+  .page-subtitle {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin: 0;
+  }
+
+  /* ── Filter Chips ───────────────────────────────────────────────────── */
+  .filter-nav {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .filter-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    background: color-mix(in srgb, var(--chip-bg) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--chip-bg) 30%, transparent);
+    border-radius: 9999px;
+    padding: 0.45rem 1rem;
+    text-decoration: none;
+    transition: background 0.2s ease, border-color 0.2s ease;
+  }
+
+  .filter-chip:hover {
+    background: color-mix(in srgb, var(--chip-bg) 22%, transparent);
+    border-color: var(--chip-bg);
+  }
+
+  .filter-count {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--chip-bg);
+    background: color-mix(in srgb, var(--chip-bg) 20%, transparent);
+    border-radius: 9999px;
+    padding: 0.1rem 0.45rem;
+    min-width: 1.4rem;
+    text-align: center;
+  }
+
+  /* ── Category Section ───────────────────────────────────────────────── */
+  .category-section {
+    margin-bottom: 3.5rem;
+    scroll-margin-top: 2rem;
+  }
+
+  .category-header {
+    margin-bottom: 1.5rem;
+  }
+
+  .category-title {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 0.4rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 3px solid var(--cat-color);
+    display: inline-block;
+  }
+
+  .category-description {
+    font-family: var(--font-body);
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+    margin: 0.5rem 0 0;
+    line-height: 1.5;
+  }
+
+  .docs-link {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--primary);
+    text-decoration: none;
+    margin-top: 0.4rem;
+    transition: color 0.15s ease;
+  }
+
+  .docs-link:hover {
+    color: color-mix(in srgb, var(--primary) 75%, white);
+    text-decoration: underline;
+  }
+
+  /* ── Package Grid ───────────────────────────────────────────────────── */
+  .package-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+  }
+
+  .package-card {
+    background: var(--bg-paper);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.2s ease;
+  }
+
+  .package-card:hover {
+    border-color: color-mix(in srgb, var(--primary) 40%, transparent);
+  }
+
+  .package-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+  }
+
+  .lang-chip {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: white;
+    background: var(--chip-color);
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    letter-spacing: 0.02em;
+  }
+
+  .status-badge {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 0.2rem 0.6rem;
+    border-radius: 9999px;
+  }
+
+  .status-badge[data-status="stable"] {
+    color: var(--success);
+    background: color-mix(in srgb, var(--success) 12%, transparent);
+  }
+
+  .status-badge[data-status="beta"] {
+    color: var(--warning);
+    background: color-mix(in srgb, var(--warning) 12%, transparent);
+  }
+
+  .status-badge[data-status="alpha"] {
+    color: var(--secondary);
+    background: color-mix(in srgb, var(--secondary) 12%, transparent);
+  }
+
+  .status-badge[data-status="wip"] {
+    color: var(--text-disabled);
+    background: color-mix(in srgb, var(--text-disabled) 12%, transparent);
+  }
+
+  .package-name {
+    font-family: var(--font-mono);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 0.5rem;
+  }
+
+  .package-description {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0 0 0.75rem;
+    flex-grow: 1;
+  }
+
+  .coming-soon {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--warning);
+    background: color-mix(in srgb, var(--warning) 8%, transparent);
+    border: 1px solid color-mix(in srgb, var(--warning) 20%, transparent);
+    border-radius: 6px;
+    padding: 0.4rem 0.7rem;
+    margin: 0 0 0.75rem;
+  }
+
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-bottom: 1rem;
+  }
+
+  .tag {
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: var(--text-disabled);
+    background: color-mix(in srgb, var(--text-disabled) 10%, transparent);
+    border-radius: 4px;
+    padding: 0.15rem 0.5rem;
+  }
+
+  .package-links {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .repo-link,
+  .registry-link,
+  .demo-link {
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+
+  .repo-link {
+    color: var(--text-primary);
+  }
+
+  .repo-link:hover {
+    color: var(--primary);
+  }
+
+  .registry-link {
+    color: var(--text-secondary);
+  }
+
+  .registry-link:hover {
+    color: var(--primary);
+  }
+
+  .demo-link {
+    color: var(--primary);
+    margin-left: auto;
+  }
+
+  .demo-link:hover {
+    color: color-mix(in srgb, var(--primary) 75%, white);
+    text-decoration: underline;
+  }
+
+  /* ── Footer ─────────────────────────────────────────────────────────── */
+  .ecosystem-footer {
+    text-align: center;
+    padding: 2rem 0;
+    border-top: 1px solid var(--border);
+    margin-top: 1rem;
+  }
+
+  .footer-text {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin: 0;
+  }
+
+  .footer-link {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .footer-link:hover {
+    text-decoration: underline;
+  }
+
+  /* ── Responsive ─────────────────────────────────────────────────────── */
+  @media (max-width: 768px) {
+    .page-header {
+      padding: 2rem 0 1.5rem;
+    }
+
+    .package-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .filter-nav {
+      gap: 0.5rem;
+    }
+
+    .filter-chip {
+      font-size: 0.82rem;
+      padding: 0.4rem 0.85rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .package-links {
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .demo-link {
+      margin-left: 0;
+    }
+  }
+</style>

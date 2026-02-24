@@ -8,18 +8,18 @@ module.exports = {
       2,
       'always',
       [
-        'feat',     // New feature
-        'fix',      // Bug fix
-        'docs',     // Documentation only
-        'style',    // Formatting, no code change
+        'feat', // New feature
+        'fix', // Bug fix
+        'docs', // Documentation only
+        'style', // Formatting, no code change
         'refactor', // Code change without feat/fix
-        'perf',     // Performance improvement
-        'test',     // Adding/fixing tests
-        'build',    // Build system or dependencies
-        'ci',       // CI/CD configuration
-        'chore',    // Maintenance tasks
-        'revert',   // Revert previous commit
-        'deps',     // Dependency updates
+        'perf', // Performance improvement
+        'test', // Adding/fixing tests
+        'build', // Build system or dependencies
+        'ci', // CI/CD configuration
+        'chore', // Maintenance tasks
+        'revert', // Revert previous commit
+        'deps', // Dependency updates
       ],
     ],
     // Require scope for certain types
@@ -37,4 +37,4 @@ module.exports = {
   },
   // Custom scopes for this repo
   helpUrl: 'https://www.conventionalcommits.org/',
-};
+}

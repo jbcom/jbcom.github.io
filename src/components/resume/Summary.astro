@@ -1,0 +1,45 @@
+---
+interface Props {
+  summary: string
+}
+
+const { summary } = Astro.props
+---
+
+<section class="summary-section" aria-labelledby="summary-heading">
+  <h2 id="summary-heading" class="section-title">Professional Summary</h2>
+  <div class="card">
+    <p class="summary-text">{summary}</p>
+  </div>
+</section>
+
+<style>
+  .summary-section {
+    margin-bottom: 2rem;
+  }
+
+  .section-title {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--primary);
+  }
+
+  .card {
+    background: var(--bg-paper);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+  }
+
+  .summary-text {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin: 0;
+  }
+</style>

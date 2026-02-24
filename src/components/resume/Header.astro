@@ -1,0 +1,134 @@
+---
+interface Profile {
+  network: string
+  username: string
+  url: string
+}
+
+interface Location {
+  city: string
+  region: string
+}
+
+interface Props {
+  basics: {
+    name: string
+    label: string
+    email: string
+    url: string
+    location: Location
+    profiles: Profile[]
+    yearsExperience: string
+  }
+}
+
+const { basics } = Astro.props
+
+const contactLinks = [
+  { label: 'Email', href: `mailto:${basics.email}`, text: basics.email },
+  ...basics.profiles.map((p) => ({
+    label: p.network,
+    href: p.url,
+    text: `${p.network}: ${p.username}`,
+  })),
+]
+---
+
+<header class="resume-header">
+  <h1 class="name">{basics.name}</h1>
+  <p class="label">{basics.label}</p>
+
+  <div class="chips">
+    <span class="chip">{basics.location.city}, {basics.location.region}</span>
+    <span class="chip">{basics.yearsExperience} Years Experience</span>
+  </div>
+
+  <nav class="contact-links" aria-label="Contact information">
+    {contactLinks.map((link) => (
+      <a href={link.href} class="contact-link" target="_blank" rel="noopener noreferrer">
+        {link.text}
+      </a>
+    ))}
+  </nav>
+</header>
+
+<style>
+  .resume-header {
+    text-align: center;
+    padding: 2rem 0 1.5rem;
+  }
+
+  .name {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 0.5rem;
+    letter-spacing: -0.02em;
+  }
+
+  .label {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    margin: 0 0 1.25rem;
+    line-height: 1.5;
+  }
+
+  .chips {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.25rem;
+  }
+
+  .chip {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--primary);
+    background: color-mix(in srgb, var(--primary) 10%, transparent);
+    border: 1px solid color-mix(in srgb, var(--primary) 25%, transparent);
+    border-radius: 9999px;
+    padding: 0.3rem 0.85rem;
+    white-space: nowrap;
+  }
+
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+  }
+
+  .contact-link {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    color: var(--primary);
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+
+  .contact-link:hover {
+    color: var(--secondary);
+    text-decoration: underline;
+  }
+
+  @media (max-width: 600px) {
+    .name {
+      font-size: 1.8rem;
+    }
+
+    .label {
+      font-size: 0.95rem;
+    }
+
+    .contact-links {
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+  }
+</style>

@@ -1,0 +1,158 @@
+---
+import { formatDateRange } from '../../lib/dates'
+
+interface WorkItem {
+  name: string
+  position: string
+  startDate: string
+  endDate?: string | null
+  summary?: string | null
+  highlights: string[]
+}
+
+interface Props {
+  work: WorkItem[]
+}
+
+const { work } = Astro.props
+---
+
+<section class="experience-section" aria-labelledby="experience-heading">
+  <h2 id="experience-heading" class="section-title">Professional Experience</h2>
+
+  {work.map((job) => (
+    <article class="card job-card">
+      <div class="job-header">
+        <div>
+          <h3 class="job-title">{job.position}</h3>
+          <p class="company-name">{job.name}</p>
+        </div>
+        <span class="date-range">{formatDateRange(job.startDate, job.endDate)}</span>
+      </div>
+
+      {job.summary && (
+        <p class="job-summary">{job.summary}</p>
+      )}
+
+      {job.highlights.length > 0 && (
+        <ul class="highlights">
+          {job.highlights.map((highlight) => (
+            <li class="highlight-item">{highlight}</li>
+          ))}
+        </ul>
+      )}
+    </article>
+  ))}
+</section>
+
+<style>
+  .experience-section {
+    margin-bottom: 2rem;
+  }
+
+  .section-title {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--primary);
+  }
+
+  .card {
+    background: var(--bg-paper);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+  }
+
+  .job-card {
+    margin-bottom: 1rem;
+  }
+
+  .job-card:last-child {
+    margin-bottom: 0;
+  }
+
+  .job-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .job-title {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 0.2rem;
+  }
+
+  .company-name {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--primary);
+    margin: 0;
+  }
+
+  .date-range {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-disabled);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .job-summary {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-style: italic;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0 0 0.75rem;
+  }
+
+  .highlights {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .highlight-item {
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    padding-left: 1.25rem;
+    position: relative;
+    margin-bottom: 0.4rem;
+  }
+
+  .highlight-item::before {
+    content: "\25B8";
+    position: absolute;
+    left: 0;
+    color: var(--primary);
+    font-size: 0.75rem;
+    top: 0.2em;
+  }
+
+  .highlight-item:last-child {
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 600px) {
+    .job-header {
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .date-range {
+      order: -1;
+    }
+  }
+</style>

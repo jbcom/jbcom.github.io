@@ -1,0 +1,339 @@
+---
+import resume from '../content/resume.json'
+import PrintLayout from '../layouts/PrintLayout.astro'
+import { formatDateRange } from '../lib/dates'
+
+const { basics, competencies, work, earlierCareer, skills, innovation, projects, education } =
+  resume
+
+const contactParts = [
+  basics.email,
+  `${basics.location.city}, ${basics.location.region}`,
+  basics.url.replace('https://', ''),
+  ...basics.profiles.map((p) => `${p.network}: ${p.username}`),
+]
+---
+
+<PrintLayout title="Resume — Jon Bogaty">
+  <div class="resume-print">
+
+    <!-- Header -->
+    <header class="header">
+      <h1 class="name">{basics.name}</h1>
+      <p class="label">{basics.label}</p>
+      <p class="contact">{contactParts.join(' | ')}</p>
+    </header>
+
+    <!-- Professional Summary -->
+    <section class="section">
+      <h2 class="section-title">Professional Summary</h2>
+      <p class="summary">{basics.summary}</p>
+    </section>
+
+    <!-- Core Competencies -->
+    <section class="section">
+      <h2 class="section-title">Core Competencies</h2>
+      <div class="competencies">
+        {competencies.map((c, i) => (
+          <span class="competency">
+            {c}{i < competencies.length - 1 && <span class="dot">&middot;</span>}
+          </span>
+        ))}
+      </div>
+    </section>
+
+    <!-- Professional Experience -->
+    <section class="section">
+      <h2 class="section-title">Professional Experience</h2>
+      {work.map((job) => (
+        <div class="job">
+          <div class="job-header">
+            <div class="job-title">
+              <span class="company">{job.name}</span>
+              <span class="separator"> &mdash; </span>
+              <span class="position">{job.position}</span>
+            </div>
+            <span class="dates">{formatDateRange(job.startDate, job.endDate)}</span>
+          </div>
+          {job.summary && <p class="job-summary">{job.summary}</p>}
+          {job.highlights && job.highlights.length > 0 && (
+            <ul class="highlights">
+              {job.highlights.map((h) => (
+                <li>{h}</li>
+              ))}
+            </ul>
+          )}
+        </div>
+      ))}
+    </section>
+
+    <!-- Earlier Career -->
+    <section class="section">
+      <h2 class="section-title">Earlier Career</h2>
+      <p class="earlier-positions">
+        {earlierCareer.positions.map((p, i) => (
+          <span>
+            <strong>{p.name}</strong> — {p.position} ({p.year}){i < earlierCareer.positions.length - 1 && ' | '}
+          </span>
+        ))}
+      </p>
+      <p class="earlier-summary">{earlierCareer.summary}</p>
+    </section>
+
+    <!-- Innovation & Technology Leadership -->
+    <section class="section">
+      <h2 class="section-title">Innovation & Technology Leadership</h2>
+      {innovation.map((item) => (
+        <p class="innovation-item">
+          <strong>{item.year}:</strong> <em>{item.title}</em> &mdash; {item.description}
+        </p>
+      ))}
+    </section>
+
+    <!-- Open Source & AI Projects -->
+    <section class="section">
+      <h2 class="section-title">Open Source & AI Projects</h2>
+      {projects.map((proj) => (
+        <p class="project-item">
+          <strong>{proj.name}:</strong> {proj.description}
+        </p>
+      ))}
+    </section>
+
+    <!-- Technical Skills -->
+    <section class="section">
+      <h2 class="section-title">Technical Skills</h2>
+      {skills.map((skill) => (
+        <p class="skill-row">
+          <strong>{skill.name}:</strong> {skill.keywords.join(', ')}
+        </p>
+      ))}
+    </section>
+
+    <!-- Education -->
+    <section class="section">
+      <h2 class="section-title">Education</h2>
+      {education.map((edu) => (
+        <div class="education-item">
+          <div class="edu-header">
+            <span>
+              <strong>{edu.institution}</strong> &mdash; {edu.studyType}, {edu.area}
+            </span>
+            <span class="dates">{formatDateRange(edu.startDate, edu.endDate)}</span>
+          </div>
+          {edu.honors && edu.honors.length > 0 && (
+            <p class="honors">{edu.honors.join(' | ')}</p>
+          )}
+        </div>
+      ))}
+    </section>
+
+  </div>
+</PrintLayout>
+
+<style>
+  /* Base print typography */
+  .resume-print {
+    font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 10pt;
+    line-height: 1.35;
+    color: #1a1a1a;
+    max-width: 100%;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 10pt;
+    padding-bottom: 8pt;
+    border-bottom: 1.5pt solid #06b6d4;
+  }
+
+  .name {
+    font-size: 20pt;
+    font-weight: 700;
+    margin: 0 0 2pt;
+    color: #0a0a0a;
+    letter-spacing: 0.5pt;
+  }
+
+  .label {
+    font-size: 10pt;
+    font-weight: 500;
+    color: #333;
+    margin: 0 0 4pt;
+  }
+
+  .contact {
+    font-size: 8.5pt;
+    color: #555;
+    margin: 0;
+  }
+
+  /* Section titles */
+  .section {
+    margin-bottom: 8pt;
+  }
+
+  .section-title {
+    font-size: 11pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8pt;
+    color: #0a0a0a;
+    border-bottom: 1.5pt solid #06b6d4;
+    padding-bottom: 2pt;
+    margin: 0 0 5pt;
+  }
+
+  /* Summary */
+  .summary {
+    margin: 0;
+    text-align: justify;
+    color: #222;
+  }
+
+  /* Competencies */
+  .competencies {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    align-items: center;
+    line-height: 1.6;
+  }
+
+  .competency {
+    white-space: nowrap;
+    font-size: 9.5pt;
+    color: #222;
+  }
+
+  .dot {
+    margin: 0 5pt;
+    color: #06b6d4;
+    font-weight: 700;
+  }
+
+  /* Job entries */
+  .job {
+    margin-bottom: 7pt;
+  }
+
+  .job-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+  .job-title {
+    flex: 1;
+  }
+
+  .company {
+    font-weight: 700;
+    color: #06b6d4;
+  }
+
+  .separator {
+    color: #555;
+  }
+
+  .position {
+    font-weight: 600;
+    color: #1a1a1a;
+  }
+
+  .dates {
+    font-size: 9pt;
+    color: #555;
+    white-space: nowrap;
+    margin-left: 8pt;
+    flex-shrink: 0;
+  }
+
+  .job-summary {
+    margin: 2pt 0 3pt;
+    font-style: italic;
+    color: #333;
+    font-size: 9.5pt;
+  }
+
+  .highlights {
+    margin: 2pt 0 0;
+    padding-left: 14pt;
+    list-style-type: disc;
+  }
+
+  .highlights li {
+    margin-bottom: 1.5pt;
+    font-size: 9.5pt;
+    color: #222;
+  }
+
+  /* Earlier Career */
+  .earlier-positions {
+    margin: 0 0 3pt;
+    font-size: 9.5pt;
+    line-height: 1.5;
+  }
+
+  .earlier-summary {
+    margin: 0;
+    font-size: 9.5pt;
+    font-style: italic;
+    color: #333;
+  }
+
+  /* Innovation */
+  .innovation-item {
+    margin: 0 0 2pt;
+    font-size: 9.5pt;
+  }
+
+  /* Projects */
+  .project-item {
+    margin: 0 0 2pt;
+    font-size: 9.5pt;
+  }
+
+  /* Skills */
+  .skill-row {
+    margin: 0 0 2pt;
+    font-size: 9.5pt;
+  }
+
+  /* Education */
+  .education-item {
+    margin-bottom: 3pt;
+  }
+
+  .edu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+  .honors {
+    margin: 1pt 0 0;
+    font-size: 9pt;
+    font-style: italic;
+    color: #444;
+  }
+
+  /* Print overrides */
+  @media print {
+    .resume-print {
+      margin: 0;
+      padding: 0;
+    }
+  }
+
+  /* Page break control */
+  .section {
+    break-inside: avoid;
+  }
+
+  .job {
+    break-inside: avoid;
+  }
+</style>

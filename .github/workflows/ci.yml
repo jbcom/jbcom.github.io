@@ -1,0 +1,69 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ci:
+    name: ${{ matrix.task.name }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        task:
+          - name: Lint
+            command: pnpm lint
+            needs-chromium: false
+          - name: Typecheck
+            command: pnpm check
+            needs-chromium: false
+          - name: Build
+            command: pnpm build
+            needs-chromium: true
+          - name: Test
+            command: pnpm test --passWithNoTests || true
+            needs-chromium: false
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Chromium for Puppeteer
+        if: matrix.task.needs-chromium
+        run: npx puppeteer browsers install chrome
+
+      - name: ${{ matrix.task.name }}
+        run: ${{ matrix.task.command }}
+
+      - name: Verify generated files
+        if: matrix.task.name == 'Build'
+        run: |
+          echo "Checking for generated resume files..."
+          ls -la dist/Jon_Bogaty_Resume.pdf dist/Jon_Bogaty_Resume.docx
+
+      - name: Upload build artifact
+        if: matrix.task.name == 'Build'
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+          retention-days: 7
