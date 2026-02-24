@@ -5,11 +5,12 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 const { basics, projects } = resume
 const featuredProjects = projects.slice(0, 3)
 
+const totalCompanies = resume.work.length + resume.earlierCareer.positions.length
 const stats = [
   { value: '15+', label: 'Years' },
-  { value: '40+', label: 'Packages' },
-  { value: '$100K+/mo', label: 'Savings' },
-  { value: '3', label: 'Cloud Platforms' },
+  { value: `${totalCompanies}`, label: 'Companies' },
+  { value: '3', label: 'Clouds' },
+  { value: `${resume.projects.length}`, label: 'OSS Projects' },
 ]
 
 const expertiseCards = [

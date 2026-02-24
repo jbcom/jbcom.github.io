@@ -1,3 +1,4 @@
+import react from '@astrojs/react'
 import { defineConfig } from 'astro/config'
 import pdf from 'astro-pdf'
 
@@ -5,6 +6,7 @@ export default defineConfig({
   site: 'https://jbcom.github.io',
   outDir: 'dist',
   integrations: [
+    react(),
     pdf({
       pages: {
         '/resume-print/': {
