@@ -10,10 +10,10 @@ interface Props {
 
 const {
   title,
-  description = 'Personal site and portfolio of Jon Bogaty - software engineer, infrastructure architect, and open-source contributor.',
+  description = 'Jon Bogaty — DevOps & Platform Engineering Leader, AI Innovation Architect, and Open Source Author with 15+ years of experience.',
 } = Astro.props
 
-const fullTitle = title ? `${title} | jbcom` : 'jbcom'
+const fullTitle = title ? `${title} | Jon Bogaty` : 'Jon Bogaty'
 ---
 
 <!doctype html>
@@ -22,6 +22,11 @@ const fullTitle = title ? `${title} | jbcom` : 'jbcom'
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url.href} />
+    <meta name="theme-color" content="#E8A849" />
     <title>{fullTitle}</title>
 
     <!-- Favicon -->
@@ -31,7 +36,7 @@ const fullTitle = title ? `${title} | jbcom` : 'jbcom'
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
   </head>

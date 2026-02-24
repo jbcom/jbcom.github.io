@@ -1,0 +1,253 @@
+---
+import resume from '../content/resume.json'
+import BaseLayout from '../layouts/BaseLayout.astro'
+
+const { projects } = resume
+
+interface CategoryInfo {
+  label: string
+  color: string
+}
+
+const categoryMap: Record<string, CategoryInfo> = {
+  'Agentic-Control': { label: 'AI & Agents', color: 'var(--brand)' },
+  'Agentic-Crew': { label: 'AI & Agents', color: 'var(--brand)' },
+  'Terraform Python Bridge': { label: 'Infrastructure', color: 'var(--success)' },
+  SecretsSync: { label: 'Security', color: 'var(--error)' },
+  'Extended-Data-Types': { label: 'Libraries', color: 'var(--accent-tech)' },
+  LifecycleLogging: { label: 'Libraries', color: 'var(--accent-tech)' },
+}
+---
+
+<BaseLayout
+  title="Projects"
+  description="Production-grade open source tools by Jon Bogaty spanning AI orchestration, infrastructure automation, security, and developer libraries."
+>
+  <!-- Page Header -->
+  <section class="page-header" aria-labelledby="projects-heading">
+    <div class="container">
+      <p class="overline">Open Source</p>
+      <h1 id="projects-heading" class="page-title">Projects</h1>
+      <p class="page-subtitle">
+        Production-grade tools built to solve real problems. Each project is
+        designed to work standalone or compose into larger systems.
+      </p>
+    </div>
+  </section>
+
+  <!-- Project Grid -->
+  <section class="section-grid" aria-labelledby="grid-heading">
+    <div class="container">
+      <h2 id="grid-heading" class="sr-only">All Projects</h2>
+      <div class="project-grid">
+        {projects.map((project) => {
+          const category = categoryMap[project.name] || { label: 'General', color: 'var(--text-disabled)' }
+          return (
+            <article class="project-card" style={`--card-color: ${category.color}`}>
+              <span class="category-chip">{category.label}</span>
+              <h3 class="project-name">{project.name}</h3>
+              <p class="project-description">{project.description}</p>
+              <a
+                href={project.url}
+                class="project-link"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View on GitHub &rarr;
+              </a>
+            </article>
+          )
+        })}
+      </div>
+    </div>
+  </section>
+
+  <!-- GitHub CTA -->
+  <section class="section-cta" aria-labelledby="cta-heading">
+    <div class="container cta-container">
+      <h2 id="cta-heading" class="sr-only">GitHub Profile</h2>
+      <p class="cta-text">See all repositories and contributions</p>
+      <a
+        href="https://github.com/jbcom"
+        class="cta-link"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        github.com/jbcom &rarr;
+      </a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* ── Page Header ─────────────────────────────────────────────────────── */
+  .page-header {
+    text-align: center;
+    padding: var(--space-3xl) 0 var(--space-2xl);
+  }
+
+  .page-header .overline {
+    margin-bottom: var(--space-sm);
+  }
+
+  .page-title {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 400;
+    color: var(--text-primary);
+    margin: 0 0 var(--space-md);
+    letter-spacing: -0.02em;
+  }
+
+  .page-subtitle {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  /* ── Project Grid ────────────────────────────────────────────────────── */
+  .section-grid {
+    padding: 0 0 var(--space-3xl);
+  }
+
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+  }
+
+  /* ── Project Card ────────────────────────────────────────────────────── */
+  .project-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    transition:
+      border-color 0.2s ease,
+      transform 0.2s ease;
+  }
+
+  .project-card:hover {
+    border-color: var(--brand);
+    transform: translateY(-2px);
+  }
+
+  /* ── Category Chip ───────────────────────────────────────────────────── */
+  .category-chip {
+    display: inline-flex;
+    align-items: center;
+    align-self: flex-start;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--card-color);
+    background: color-mix(in srgb, var(--card-color) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--card-color) 25%, transparent);
+    border-radius: var(--radius-full);
+    padding: 0.2rem 0.7rem;
+    margin-bottom: var(--space-md);
+  }
+
+  /* ── Card Content ────────────────────────────────────────────────────── */
+  .project-name {
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    font-weight: 400;
+    color: var(--text-primary);
+    margin: 0 0 var(--space-sm);
+  }
+
+  .project-description {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin: 0;
+    flex-grow: 1;
+    padding-bottom: var(--space-lg);
+  }
+
+  .project-link {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--brand);
+    text-decoration: none;
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--border);
+    transition: color 0.15s ease;
+    margin-top: auto;
+  }
+
+  .project-link:hover {
+    color: var(--brand-light);
+  }
+
+  /* ── GitHub CTA ──────────────────────────────────────────────────────── */
+  .section-cta {
+    padding: var(--space-2xl) 0 var(--space-3xl);
+    border-top: 1px solid var(--border);
+  }
+
+  .cta-container {
+    text-align: center;
+  }
+
+  .cta-text {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin: 0 0 var(--space-sm);
+  }
+
+  .cta-link {
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--brand);
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+
+  .cta-link:hover {
+    color: var(--brand-light);
+    text-decoration: underline;
+  }
+
+  /* ── Screen-reader only ──────────────────────────────────────────────── */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
+  /* ── Responsive ──────────────────────────────────────────────────────── */
+  @media (max-width: 900px) {
+    .project-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .page-header {
+      padding: var(--space-2xl) 0 var(--space-xl);
+    }
+
+    .project-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

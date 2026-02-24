@@ -3,10 +3,10 @@ const pathname = Astro.url.pathname
 
 const navLinks = [
   { label: 'Home', href: '/' },
-  { label: 'About', href: '/about/' },
+  { label: 'Journey', href: '/journey/' },
   { label: 'Resume', href: '/resume/' },
-  { label: 'Ecosystem', href: '/ecosystem/' },
-  { label: 'GitHub', href: 'https://github.com/jbcom', external: true },
+  { label: 'Projects', href: '/projects/' },
+  { label: 'Contact', href: '/contact/' },
 ]
 
 function isActive(href: string): boolean {
@@ -19,9 +19,9 @@ function isActive(href: string): boolean {
 
 <header>
   <div class="header-content">
-    <a href="/" class="logo" aria-label="jbcom home">
-      <span class="logo-mark" aria-hidden="true">jb</span>
-      <span class="wordmark">jbcom</span>
+    <a href="/" class="logo" aria-label="Jon Bogaty — Home">
+      <span class="logo-mark" aria-hidden="true">JB</span>
+      <span class="wordmark">Jon Bogaty</span>
     </a>
 
     <input
@@ -49,14 +49,8 @@ function isActive(href: string): boolean {
           <a
             href={link.href}
             class:list={["nav-link", { active: isActive(link.href) }]}
-            {...(link.external
-              ? { target: "_blank", rel: "noopener noreferrer" }
-              : {})}
           >
             {link.label}
-            {link.external && (
-              <span class="sr-only"> (opens in new tab)</span>
-            )}
           </a>
         ))
       }

@@ -1,0 +1,918 @@
+---
+import resume from '../content/resume.json'
+import BaseLayout from '../layouts/BaseLayout.astro'
+import { formatDateRange } from '../lib/dates'
+
+const { basics, work, earlierCareer, innovation, skills, projects } = resume
+
+// Career phase groupings
+const earlyCareerWork = work.filter((job) =>
+  ['Magnetic', 'ClassPass', 'Qualia Media'].includes(job.name)
+)
+
+const multiCloudWork = work.filter((job) => ['Jump Ramp', 'Symbiont'].includes(job.name))
+
+const leadershipWork = work.filter((job) => ['GoHealth', 'Flipside Crypto'].includes(job.name))
+
+// Skills for expandable sections
+const cloudSkills = skills.find((s) => s.name === 'Cloud Platforms')
+const iacSkills = skills.find((s) => s.name === 'Infrastructure as Code')
+const containerSkills = skills.find((s) => s.name === 'Containers & Orchestration')
+const aiSkills = skills.find((s) => s.name === 'AI & Automation')
+const securitySkills = skills.find((s) => s.name === 'Security & Compliance')
+
+// OSS projects for the tab
+const ossProjects = projects.slice(0, 4)
+const ossInnovation = innovation[3]
+---
+
+<BaseLayout
+  title="Journey"
+  description="The career story of Jon Bogaty -- 15+ years of DevOps, SRE, Security, and AI innovation."
+>
+  <!-- Page Header -->
+  <section class="page-header" aria-labelledby="journey-heading">
+    <div class="container">
+      <p class="overline">The Story So Far</p>
+      <h1 id="journey-heading" class="page-title">The Journey</h1>
+      <p class="page-intro">
+        Senior technology leader with 15+ years driving innovation across DevOps, SRE,
+        Security Operations, and Cloud Platform Architecture. An early adopter who championed
+        Docker and Terraform before mainstream adoption, and pioneered AI-driven operations
+        by building a fully autonomous AI engineering team two years before agentic frameworks
+        were formalized.
+      </p>
+    </div>
+  </section>
+
+  <!-- Innovation Timeline -->
+  <section class="section-timeline" aria-labelledby="timeline-heading">
+    <div class="container">
+      <h2 id="timeline-heading" class="section-title">Innovation Milestones</h2>
+      <div class="timeline" role="list">
+        {innovation.map((item, i) => (
+          <div class="timeline-item" role="listitem">
+            <div class="timeline-track" aria-hidden="true">
+              <span class="timeline-dot"></span>
+              {i < innovation.length - 1 && <span class="timeline-connector"></span>}
+            </div>
+            <div class="timeline-card">
+              <span class="timeline-year">{item.year}</span>
+              <h3 class="timeline-title">{item.title}</h3>
+              <p class="timeline-desc">{item.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Career Phases Tabs (CSS-only radio buttons) -->
+  <section class="section-career" aria-labelledby="career-heading">
+    <div class="container">
+      <h2 id="career-heading" class="section-title">Career Phases</h2>
+
+      <div class="tabs-wrapper">
+        <input type="radio" name="career-tab" id="tab-early" class="tab-input" checked />
+        <input type="radio" name="career-tab" id="tab-multi" class="tab-input" />
+        <input type="radio" name="career-tab" id="tab-lead" class="tab-input" />
+        <input type="radio" name="career-tab" id="tab-oss" class="tab-input" />
+
+        <div class="tab-labels" role="tablist" aria-label="Career phases">
+          <label for="tab-early" class="tab-label" role="tab">Early Career (2005-2016)</label>
+          <label for="tab-multi" class="tab-label" role="tab">Multi-Cloud (2017-2020)</label>
+          <label for="tab-lead" class="tab-label" role="tab">Leadership (2021-2025)</label>
+          <label for="tab-oss" class="tab-label" role="tab">OSS Author (2025+)</label>
+        </div>
+
+        <div class="tab-panels">
+          <!-- Early Career Panel -->
+          <div class="tab-panel panel-early" role="tabpanel">
+            <p class="panel-intro">{earlierCareer.summary}</p>
+
+            <div class="earlier-positions">
+              <h4 class="panel-subhead">Foundation Roles (2005-2014)</h4>
+              <div class="positions-grid">
+                {earlierCareer.positions.map((pos) => (
+                  <div class="position-chip">
+                    <span class="position-name">{pos.name}</span>
+                    <span class="position-role">{pos.position}</span>
+                    <span class="position-year">{pos.year}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {earlyCareerWork.map((job) => (
+              <div class="job-entry">
+                <div class="job-header">
+                  <h4 class="job-title">{job.position}</h4>
+                  <p class="job-company">{job.name}</p>
+                  <span class="job-period">{formatDateRange(job.startDate, job.endDate)}</span>
+                </div>
+                {job.highlights && job.highlights.length > 0 && (
+                  <ul class="job-highlights">
+                    {job.highlights.map((h) => (
+                      <li>{h}</li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            ))}
+          </div>
+
+          <!-- Multi-Cloud Panel -->
+          <div class="tab-panel panel-multi" role="tabpanel">
+            <p class="panel-intro">
+              Designed cross-cloud infrastructure spanning AWS, GCP, and Azure. Built
+              reproducible, version-controlled deployment architectures and enterprise
+              CI/CD platforms supporting blockchain and ad-tech product engineering.
+            </p>
+
+            {multiCloudWork.map((job) => (
+              <div class="job-entry">
+                <div class="job-header">
+                  <h4 class="job-title">{job.position}</h4>
+                  <p class="job-company">{job.name}</p>
+                  <span class="job-period">{formatDateRange(job.startDate, job.endDate)}</span>
+                </div>
+                {job.highlights && job.highlights.length > 0 && (
+                  <ul class="job-highlights">
+                    {job.highlights.map((h) => (
+                      <li>{h}</li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            ))}
+          </div>
+
+          <!-- Leadership Panel -->
+          <div class="tab-panel panel-lead" role="tabpanel">
+            <p class="panel-intro">
+              Stepped into senior leadership overseeing IT infrastructure, security
+              operations, and data architecture. Managed globally distributed teams
+              and drove transformative cost optimizations and AI-driven operational
+              workflows.
+            </p>
+
+            {leadershipWork.map((job) => (
+              <div class="job-entry">
+                <div class="job-header">
+                  <h4 class="job-title">{job.position}</h4>
+                  <p class="job-company">{job.name}</p>
+                  <span class="job-period">{formatDateRange(job.startDate, job.endDate)}</span>
+                </div>
+                {job.summary && <p class="job-summary">{job.summary}</p>}
+                {job.highlights && job.highlights.length > 0 && (
+                  <ul class="job-highlights">
+                    {job.highlights.map((h) => (
+                      <li>{h}</li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            ))}
+          </div>
+
+          <!-- OSS Author Panel -->
+          <div class="tab-panel panel-oss" role="tabpanel">
+            <p class="panel-intro">
+              {ossInnovation.description}. Focused on publishing production-grade
+              open source packages spanning AI orchestration, infrastructure automation,
+              and developer tools.
+            </p>
+
+            <div class="oss-grid">
+              {ossProjects.map((project) => (
+                <article class="oss-card">
+                  <h4 class="oss-name">{project.name}</h4>
+                  <p class="oss-desc">{project.description}</p>
+                  <a
+                    href={project.url}
+                    class="oss-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    View on GitHub
+                  </a>
+                </article>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Summary Bio Section -->
+  <section class="section-bio" aria-labelledby="bio-heading">
+    <div class="container">
+      <h2 id="bio-heading" class="section-title">The Full Picture</h2>
+      <div class="bio-block">
+        <p class="bio-text">{basics.summary}</p>
+
+        <details class="expandable">
+          <summary class="expandable-trigger">
+            Read more about Cloud Architecture Expertise
+          </summary>
+          <div class="expandable-content">
+            <p>
+              Deep expertise across all major cloud platforms, with hands-on
+              architecture experience spanning:
+            </p>
+            <div class="expertise-tags">
+              {cloudSkills && cloudSkills.keywords.map((kw) => (
+                <span class="expertise-tag">{kw}</span>
+              ))}
+              {iacSkills && iacSkills.keywords.map((kw) => (
+                <span class="expertise-tag">{kw}</span>
+              ))}
+              {containerSkills && containerSkills.keywords.map((kw) => (
+                <span class="expertise-tag">{kw}</span>
+              ))}
+            </div>
+            <p>
+              From managing 300+ machine infrastructure at Magnetic to architecting
+              99% serverless AWS deployments at Flipside Crypto, the trajectory has
+              consistently pushed toward more automated, resilient, and cost-effective
+              cloud architectures. Notable achievements include driving AWS costs from
+              ~$150K/month to ~$40-50K/month and designing multi-cloud Terraform
+              architectures spanning three providers.
+            </p>
+          </div>
+        </details>
+
+        <details class="expandable">
+          <summary class="expandable-trigger">
+            Read more about AI and Automation Innovation
+          </summary>
+          <div class="expandable-content">
+            <p>
+              Pioneered AI-driven IT operations at Flipside Crypto more than two years
+              before agentic AI frameworks like CrewAI, AutoGen, or LangGraph existed.
+              Built and directed a fully autonomous AI team executing data architecture,
+              IT, and security tasks using custom prompt-scripted workflows -- inventing
+              agentic orchestration patterns and human-in-the-loop review cycles from
+              scratch.
+            </p>
+            <div class="expertise-tags">
+              {aiSkills && aiSkills.keywords.map((kw) => (
+                <span class="expertise-tag">{kw}</span>
+              ))}
+              {securitySkills && securitySkills.keywords.slice(0, 4).map((kw) => (
+                <span class="expertise-tag">{kw}</span>
+              ))}
+            </div>
+            <p>
+              This hands-on experience now directly informs a growing ecosystem of
+              open source packages -- Agentic-Control for fleet orchestration,
+              Agentic-Crew for generic CrewAI engines, and Agentic-Interfaces for
+              standardized agent communication. Every package is production-tested
+              in demanding environments before release.
+            </p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section-cta" aria-labelledby="cta-heading">
+    <div class="container cta-container">
+      <h2 id="cta-heading">Want the complete picture?</h2>
+      <p class="cta-text">
+        Explore the full resume with detailed project highlights, or browse the open source ecosystem.
+      </p>
+      <div class="cta-actions">
+        <a href="/resume/" class="btn btn-primary btn-lg">Full Resume</a>
+        <a href="/projects/" class="btn btn-outlined btn-lg">Explore Projects</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* ── Page Header ──────────────────────────────────────────────────────── */
+  .page-header {
+    padding: var(--space-4xl) 0 var(--space-2xl);
+    text-align: center;
+  }
+
+  .page-header .overline {
+    margin-bottom: var(--space-sm);
+  }
+
+  .page-title {
+    font-family: var(--font-heading);
+    font-size: clamp(2.5rem, 7vw, 4.5rem);
+    font-weight: 400;
+    line-height: 1.1;
+    margin-bottom: var(--space-lg);
+    background: linear-gradient(135deg, var(--brand), var(--brand-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .page-intro {
+    font-family: var(--font-body);
+    font-size: clamp(0.95rem, 2vw, 1.1rem);
+    color: var(--text-secondary);
+    line-height: 1.75;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  /* ── Section Titles ───────────────────────────────────────────────────── */
+  .section-title {
+    font-family: var(--font-heading);
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 400;
+    color: var(--text-primary);
+    margin-bottom: var(--space-xl);
+  }
+
+  /* ── Innovation Timeline ──────────────────────────────────────────────── */
+  .section-timeline {
+    padding: var(--space-3xl) 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    max-width: 760px;
+  }
+
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: var(--space-lg);
+    min-height: 0;
+  }
+
+  .timeline-track {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    padding-top: 6px;
+  }
+
+  .timeline-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--brand);
+    border: 3px solid var(--bg-default);
+    box-shadow: 0 0 0 2px var(--brand);
+    flex-shrink: 0;
+    z-index: 1;
+  }
+
+  .timeline-connector {
+    width: 2px;
+    flex-grow: 1;
+    background: linear-gradient(
+      180deg,
+      var(--brand) 0%,
+      rgba(232, 168, 73, 0.25) 100%
+    );
+    margin-top: var(--space-xs);
+  }
+
+  .timeline-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    margin-bottom: var(--space-lg);
+    transition:
+      border-color 0.2s ease,
+      background 0.2s ease;
+  }
+
+  .timeline-card:hover {
+    border-color: var(--brand);
+    background: var(--bg-elevated);
+  }
+
+  .timeline-year {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--brand);
+    background: var(--brand-dim);
+    padding: 2px 10px;
+    border-radius: var(--radius-full);
+    margin-bottom: var(--space-sm);
+  }
+
+  .timeline-title {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: var(--text-primary);
+    margin-bottom: var(--space-xs);
+  }
+
+  .timeline-desc {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  /* ── Career Phases Tabs ───────────────────────────────────────────────── */
+  .section-career {
+    padding: var(--space-3xl) 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .tabs-wrapper {
+    position: relative;
+  }
+
+  .tab-input {
+    display: none;
+  }
+
+  .tab-labels {
+    display: flex;
+    gap: 0;
+    border-bottom: 2px solid var(--border);
+    margin-bottom: var(--space-xl);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .tab-labels::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tab-label {
+    cursor: pointer;
+    padding: 0.75rem 1.5rem;
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    transition:
+      color 0.2s ease,
+      border-color 0.2s ease;
+    user-select: none;
+  }
+
+  .tab-label:hover {
+    color: var(--text-primary);
+  }
+
+  /* Active tab indicator via checked radio */
+  #tab-early:checked ~ .tab-labels label[for="tab-early"],
+  #tab-multi:checked ~ .tab-labels label[for="tab-multi"],
+  #tab-lead:checked ~ .tab-labels label[for="tab-lead"],
+  #tab-oss:checked ~ .tab-labels label[for="tab-oss"] {
+    color: var(--brand);
+    border-bottom-color: var(--brand);
+  }
+
+  /* Tab panel visibility */
+  .tab-panel {
+    display: none;
+  }
+
+  #tab-early:checked ~ .tab-panels .panel-early,
+  #tab-multi:checked ~ .tab-panels .panel-multi,
+  #tab-lead:checked ~ .tab-panels .panel-lead,
+  #tab-oss:checked ~ .tab-panels .panel-oss {
+    display: block;
+  }
+
+  /* Panel content styles */
+  .panel-intro {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.75;
+    margin-bottom: var(--space-xl);
+    max-width: 800px;
+  }
+
+  .panel-subhead {
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    font-weight: 400;
+    color: var(--text-primary);
+    margin-bottom: var(--space-md);
+  }
+
+  /* Earlier career positions grid */
+  .earlier-positions {
+    margin-bottom: var(--space-xl);
+    padding-bottom: var(--space-xl);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .positions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: var(--space-md);
+  }
+
+  .position-chip {
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    transition: border-color 0.2s ease;
+  }
+
+  .position-chip:hover {
+    border-color: var(--brand-dark);
+  }
+
+  .position-name {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .position-role {
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+  }
+
+  .position-year {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-disabled);
+  }
+
+  /* Job entries in tab panels */
+  .job-entry {
+    margin-bottom: var(--space-xl);
+    padding-bottom: var(--space-xl);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .job-entry:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
+
+  .job-header {
+    margin-bottom: var(--space-md);
+  }
+
+  .job-title {
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    font-weight: 400;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+  }
+
+  .job-company {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--brand);
+    margin-bottom: var(--space-xs);
+  }
+
+  .job-period {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--text-disabled);
+    display: block;
+  }
+
+  .job-summary {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: var(--space-md);
+  }
+
+  .job-highlights {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .job-highlights li {
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    padding-left: var(--space-lg);
+    position: relative;
+  }
+
+  .job-highlights li::before {
+    content: "";
+    position: absolute;
+    left: 8px;
+    top: 9px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--brand-dim);
+    border: 1px solid var(--brand-dark);
+  }
+
+  /* OSS panel grid */
+  .oss-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .oss-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    transition:
+      border-color 0.2s ease,
+      background 0.2s ease,
+      transform 0.2s ease;
+  }
+
+  .oss-card:hover {
+    background: var(--bg-elevated);
+    border-color: var(--accent-tech);
+    transform: translateY(-2px);
+  }
+
+  .oss-name {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: var(--space-sm);
+  }
+
+  .oss-desc {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin: 0 0 var(--space-md);
+    flex-grow: 1;
+  }
+
+  .oss-link {
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--accent-tech);
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+
+  .oss-link:hover {
+    color: var(--brand-light);
+    text-decoration: underline;
+  }
+
+  /* ── Summary Bio Section ──────────────────────────────────────────────── */
+  .section-bio {
+    padding: var(--space-3xl) 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .bio-block {
+    max-width: 800px;
+  }
+
+  .bio-text {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: var(--space-xl);
+  }
+
+  /* Expandable details/summary */
+  .expandable {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-md);
+    overflow: hidden;
+    transition: border-color 0.2s ease;
+  }
+
+  .expandable[open] {
+    border-color: var(--brand-dark);
+  }
+
+  .expandable-trigger {
+    cursor: pointer;
+    padding: var(--space-md) var(--space-lg);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    background: var(--bg-surface);
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    transition: background 0.2s ease;
+  }
+
+  .expandable-trigger:hover {
+    background: var(--bg-elevated);
+  }
+
+  /* Custom arrow marker */
+  .expandable-trigger::before {
+    content: "";
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-left: 6px solid var(--brand);
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+  }
+
+  .expandable[open] > .expandable-trigger::before {
+    transform: rotate(90deg);
+  }
+
+  /* Remove default marker in Safari/Chrome */
+  .expandable-trigger::-webkit-details-marker {
+    display: none;
+  }
+
+  .expandable-content {
+    padding: var(--space-md) var(--space-lg) var(--space-lg);
+    background: var(--bg-surface);
+    border-top: 1px solid var(--border);
+  }
+
+  .expandable-content p {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.75;
+    margin-bottom: var(--space-md);
+  }
+
+  .expandable-content p:last-child {
+    margin-bottom: 0;
+  }
+
+  .expertise-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-md);
+  }
+
+  .expertise-tag {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--brand);
+    background: var(--brand-dim);
+    border: 1px solid rgba(232, 168, 73, 0.25);
+    border-radius: var(--radius-full);
+    padding: 2px 10px;
+    white-space: nowrap;
+  }
+
+  /* ── CTA Section ──────────────────────────────────────────────────────── */
+  .section-cta {
+    padding: var(--space-4xl) 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .cta-container {
+    text-align: center;
+  }
+
+  .section-cta h2 {
+    font-family: var(--font-heading);
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 400;
+    color: var(--text-primary);
+    margin-bottom: var(--space-md);
+  }
+
+  .cta-text {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    max-width: 520px;
+    margin: 0 auto var(--space-xl);
+  }
+
+  .cta-actions {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+  }
+
+  /* ── Responsive ───────────────────────────────────────────────────────── */
+  @media (max-width: 768px) {
+    .page-header {
+      padding: var(--space-3xl) 0 var(--space-xl);
+    }
+
+    .tab-labels {
+      gap: 0;
+    }
+
+    .tab-label {
+      padding: 0.6rem 1rem;
+      font-size: 0.78rem;
+    }
+
+    .positions-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .oss-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .timeline {
+      max-width: 100%;
+    }
+
+    .timeline-item {
+      grid-template-columns: 20px 1fr;
+      gap: var(--space-md);
+    }
+
+    .timeline-dot {
+      width: 12px;
+      height: 12px;
+      border-width: 2px;
+    }
+
+    .timeline-card {
+      padding: var(--space-md);
+    }
+
+    .cta-actions {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .cta-actions .btn {
+      width: 100%;
+      max-width: 280px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .page-title {
+      font-size: 2.25rem;
+    }
+
+    .tab-labels {
+      flex-wrap: nowrap;
+    }
+
+    .tab-label {
+      padding: 0.5rem 0.75rem;
+      font-size: 0.72rem;
+    }
+
+    .expandable-trigger {
+      font-size: 0.85rem;
+      padding: var(--space-sm) var(--space-md);
+    }
+
+    .expandable-content {
+      padding: var(--space-sm) var(--space-md) var(--space-md);
+    }
+  }
+</style>

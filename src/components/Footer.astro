@@ -1,7 +1,7 @@
 ---
 const currentYear = new Date().getFullYear()
 
-const footerLinks = [
+const socialLinks = [
   {
     label: 'GitHub',
     href: 'https://github.com/jbcom',
@@ -27,13 +27,17 @@ const footerLinks = [
 
 <footer>
   <div class="footer-content">
+    <div class="footer-brand">
+      <span class="footer-name">Jon Bogaty</span>
+      <span class="footer-tagline">DevOps · SRE · Platform Engineering · AI</span>
+    </div>
     <div class="footer-links">
       {
-        footerLinks.map((link) => (
+        socialLinks.map((link) => (
           <a
             href={link.href}
             aria-label={link.ariaLabel}
-            {...(link.href.startsWith("http") || link.href.startsWith("https")
+            {...(link.href.startsWith("http")
               ? { target: "_blank", rel: "noopener noreferrer" }
               : {})}
           >
@@ -43,7 +47,30 @@ const footerLinks = [
       }
     </div>
     <p class="footer-copyright">
-      &copy; {currentYear} jbcom. All rights reserved.
+      &copy; {currentYear} Jon Bogaty. All rights reserved.
     </p>
   </div>
 </footer>
+
+<style>
+  .footer-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .footer-name {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    color: var(--text-primary);
+  }
+
+  .footer-tagline {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-disabled);
+    letter-spacing: 0.05em;
+  }
+</style>

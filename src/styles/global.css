@@ -1,79 +1,46 @@
 /* =====================================================================
    jbcom Design System - Global Stylesheet (Astro)
+   Brand Overhaul: Warm Amber + Instrument Serif
    ===================================================================== */
 
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap");
 
 :root {
-  /* =====================================================================
-     BACKGROUNDS
-     ===================================================================== */
-  --bg-default: #0a0f1a; /* Page background - deep navy */
-  --bg-paper: #111827; /* Cards, elevated surfaces */
-  --bg-elevated: #1e293b; /* Hover states, highlighted areas */
+  /* ── Backgrounds ─────────────────────────────────────────── */
+  --bg-default: #0b0d14;
+  --bg-surface: #14161f;
+  --bg-elevated: #1e2030;
 
-  /* =====================================================================
-     PRIMARY - CYAN
-     ===================================================================== */
-  --primary: #06b6d4; /* Primary actions, links, accents */
-  --primary-light: #22d3ee; /* Hover states */
-  --primary-dark: #0891b2; /* Active/pressed states */
+  /* ── Brand (Warm Amber) ──────────────────────────────────── */
+  --brand: #e8a849;
+  --brand-light: #f0b866;
+  --brand-dark: #c4882e;
+  --brand-dim: rgba(232, 168, 73, 0.15);
 
-  /* =====================================================================
-     SECONDARY - BLUE
-     ===================================================================== */
-  --secondary: #3b82f6; /* Secondary actions */
-  --secondary-light: #60a5fa; /* Hover states */
-  --secondary-dark: #2563eb; /* Active states */
+  /* ── Text ────────────────────────────────────────────────── */
+  --text-primary: #f0ede8;
+  --text-secondary: #9a9690;
+  --text-disabled: #5a5750;
 
-  /* =====================================================================
-     TEXT
-     ===================================================================== */
-  --text-primary: #f1f5f9; /* Headings, primary text - near white */
-  --text-secondary: #94a3b8; /* Body text, descriptions - gray */
-  --text-disabled: #475569; /* Disabled elements - dark gray */
+  /* ── Technical Accent (Steel Blue) ───────────────────────── */
+  --accent-tech: #6b8bad;
+  --accent-tech-dim: rgba(107, 139, 173, 0.15);
 
-  /* =====================================================================
-     DIVIDERS & BORDERS
-     ===================================================================== */
-  --divider: #1e293b;
-  --border: #1e293b;
+  /* ── Borders ─────────────────────────────────────────────── */
+  --border: #1e2030;
+  --border-hover: #2a2d3a;
 
-  /* =====================================================================
-     SEMANTIC COLORS
-     ===================================================================== */
-  --success: #10b981; /* Success states - green */
-  --warning: #f59e0b; /* Warnings - amber */
-  --error: #ef4444; /* Errors - red */
-  --info: #06b6d4; /* Info - cyan (same as primary) */
+  /* ── Semantic ────────────────────────────────────────────── */
+  --success: #4ade80;
+  --warning: #f59e0b;
+  --error: #ef4444;
 
-  /* =====================================================================
-     CATEGORY COLORS (for ecosystem)
-     ===================================================================== */
-  --cat-ai: #8b5cf6; /* AI & Agents - purple */
-  --cat-games: #06b6d4; /* Game Development - cyan */
-  --cat-infra: #10b981; /* Infrastructure - green */
-  --cat-libs: #f59e0b; /* Libraries - amber */
-
-  /* =====================================================================
-     LANGUAGE COLORS (for ecosystem)
-     ===================================================================== */
-  --lang-typescript: #3178c6;
-  --lang-python: #3776ab;
-  --lang-go: #00add8;
-  --lang-terraform: #7b42bc;
-  --lang-rust: #dea584;
-
-  /* =====================================================================
-     TYPOGRAPHY
-     ===================================================================== */
-  --font-heading: "Space Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  /* ── Typography ──────────────────────────────────────────── */
+  --font-heading: "Instrument Serif", Georgia, "Times New Roman", serif;
   --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-mono: "JetBrains Mono", "Fira Code", "Consolas", monospace;
 
-  /* =====================================================================
-     SPACING
-     ===================================================================== */
+  /* ── Spacing ─────────────────────────────────────────────── */
   --space-xs: 4px;
   --space-sm: 8px;
   --space-md: 16px;
@@ -81,13 +48,13 @@
   --space-xl: 32px;
   --space-2xl: 48px;
   --space-3xl: 64px;
+  --space-4xl: 96px;
 
-  /* =====================================================================
-     BORDER RADIUS
-     ===================================================================== */
+  /* ── Radii ───────────────────────────────────────────────── */
   --radius-sm: 4px;
   --radius-md: 8px;
   --radius-lg: 12px;
+  --radius-xl: 16px;
   --radius-full: 9999px;
 }
 
@@ -138,34 +105,34 @@ h6 {
 
 h1 {
   font-size: 2.5rem;
-  font-weight: 700;
+  font-weight: 400;
   letter-spacing: -0.02em;
 }
 
 h2 {
   font-size: 2rem;
-  font-weight: 700;
+  font-weight: 400;
   letter-spacing: -0.01em;
 }
 
 h3 {
   font-size: 1.5rem;
-  font-weight: 600;
+  font-weight: 400;
 }
 
 h4 {
   font-size: 1.25rem;
-  font-weight: 600;
+  font-weight: 400;
 }
 
 h5 {
   font-size: 1.125rem;
-  font-weight: 600;
+  font-weight: 400;
 }
 
 h6 {
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 400;
 }
 
 p {
@@ -173,13 +140,13 @@ p {
 }
 
 a {
-  color: var(--primary);
+  color: var(--brand);
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
 a:hover {
-  color: var(--primary-light);
+  color: var(--brand-light);
 }
 
 code,
@@ -189,13 +156,14 @@ pre {
 }
 
 code {
-  background: var(--bg-paper);
+  background: var(--bg-surface);
   padding: 2px 6px;
   border-radius: var(--radius-sm);
+  color: var(--accent-tech);
 }
 
 pre {
-  background: var(--bg-paper);
+  background: var(--bg-surface);
   padding: var(--space-md);
   border-radius: var(--radius-md);
   overflow-x: auto;
@@ -212,7 +180,7 @@ pre code {
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--primary);
+  color: var(--brand);
 }
 
 /* =========================================================================
@@ -248,7 +216,7 @@ main {
    ========================================================================= */
 
 header {
-  background: var(--bg-paper);
+  background: var(--bg-surface);
   border-bottom: 1px solid var(--border);
   position: sticky;
   top: 0;
@@ -279,12 +247,12 @@ header {
   width: 36px;
   height: 36px;
   border-radius: var(--radius-md);
-  background: linear-gradient(135deg, #06b6d4, #3b82f6);
+  background: linear-gradient(135deg, #e8a849, #c4882e);
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: var(--font-heading);
-  font-weight: 700;
+  font-weight: 400;
   font-size: 0.875rem;
   color: #fff;
   flex-shrink: 0;
@@ -292,9 +260,11 @@ header {
 
 .wordmark {
   font-family: var(--font-heading);
-  font-weight: 700;
+  font-style: italic;
+  font-weight: 400;
   font-size: 1.25rem;
   color: var(--text-primary);
+  letter-spacing: -0.01em;
 }
 
 nav {
@@ -314,7 +284,7 @@ nav {
 }
 
 .nav-link.active {
-  color: var(--primary);
+  color: var(--brand);
 }
 
 /* ---- Mobile hamburger menu (pure CSS checkbox hack) ---- */
@@ -358,7 +328,7 @@ nav {
     width: 260px;
     height: 100vh;
     flex-direction: column;
-    background: var(--bg-paper);
+    background: var(--bg-surface);
     border-left: 1px solid var(--border);
     padding: 80px var(--space-lg) var(--space-lg);
     gap: var(--space-md);
@@ -401,7 +371,7 @@ nav {
    ========================================================================= */
 
 .card {
-  background: var(--bg-paper);
+  background: var(--bg-surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   padding: var(--space-lg);
@@ -411,14 +381,14 @@ nav {
 }
 
 .card:hover {
-  border-color: var(--primary);
+  border-color: var(--brand);
   transform: translateY(-2px);
 }
 
 .card-title {
   font-family: var(--font-heading);
   font-size: 1.25rem;
-  font-weight: 600;
+  font-weight: 400;
   color: var(--text-primary);
   margin-bottom: var(--space-sm);
 }
@@ -449,24 +419,24 @@ nav {
 }
 
 .btn-primary {
-  background: var(--primary);
-  color: #fff;
+  background: var(--brand);
+  color: var(--bg-default);
 }
 
 .btn-primary:hover {
-  background: var(--primary-light);
-  color: #fff;
+  background: var(--brand-light);
+  color: var(--bg-default);
 }
 
 .btn-outlined {
   background: transparent;
-  color: var(--primary);
-  border: 1px solid var(--primary);
+  color: var(--brand);
+  border: 1px solid var(--brand);
 }
 
 .btn-outlined:hover {
-  background: rgba(6, 182, 212, 0.1);
-  color: var(--primary-light);
+  background: var(--brand-dim);
+  color: var(--brand-light);
 }
 
 .btn-lg {
@@ -494,46 +464,46 @@ nav {
 }
 
 .chip-filled {
-  background: rgba(6, 182, 212, 0.15);
-  color: var(--primary);
+  background: var(--brand-dim);
+  color: var(--brand);
   border: none;
 }
 
 /* Language chips */
 .chip-typescript {
   background: rgba(49, 120, 198, 0.15);
-  color: var(--lang-typescript);
+  color: #3178c6;
 }
 
 .chip-python {
   background: rgba(55, 118, 171, 0.15);
-  color: var(--lang-python);
+  color: #3776ab;
 }
 
 .chip-go {
   background: rgba(0, 173, 216, 0.15);
-  color: var(--lang-go);
+  color: #00add8;
 }
 
 .chip-terraform {
   background: rgba(123, 66, 188, 0.15);
-  color: var(--lang-terraform);
+  color: #7b42bc;
 }
 
 .chip-rust {
   background: rgba(222, 165, 132, 0.15);
-  color: var(--lang-rust);
+  color: #dea584;
 }
 
 /* Release status chips */
 .chip-production {
-  background: rgba(16, 185, 129, 0.15);
+  background: rgba(74, 222, 128, 0.15);
   color: var(--success);
 }
 
 .chip-beta {
-  background: rgba(59, 130, 246, 0.15);
-  color: var(--secondary);
+  background: var(--accent-tech-dim);
+  color: var(--accent-tech);
 }
 
 .chip-alpha {
@@ -589,6 +559,9 @@ nav {
 }
 .text-disabled {
   color: var(--text-disabled);
+}
+.text-brand {
+  color: var(--brand);
 }
 .text-center {
   text-align: center;
@@ -656,7 +629,7 @@ nav {
    ========================================================================= */
 
 footer {
-  background: var(--bg-paper);
+  background: var(--bg-surface);
   border-top: 1px solid var(--border);
   padding: var(--space-2xl) 0;
   margin-top: auto;
@@ -684,7 +657,7 @@ footer {
 }
 
 .footer-links a:hover {
-  color: var(--primary);
+  color: var(--brand);
 }
 
 .footer-copyright {
@@ -697,7 +670,7 @@ footer {
    ========================================================================= */
 
 *:focus-visible {
-  outline: 2px solid var(--primary);
+  outline: 2px solid var(--brand);
   outline-offset: 2px;
 }
 
@@ -723,12 +696,12 @@ footer {
   position: absolute;
   top: -9999px;
   left: 16px;
-  background: var(--bg-paper);
-  color: var(--primary);
+  background: var(--bg-surface);
+  color: var(--brand);
   padding: var(--space-md);
   z-index: 9999;
   border-radius: var(--radius-md);
-  border: 1px solid var(--primary);
+  border: 1px solid var(--brand);
   font-weight: 700;
   transition: top 0.3s ease-in-out;
 }
@@ -750,7 +723,7 @@ footer {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--bg-paper);
+  background: var(--bg-surface);
 }
 
 ::-webkit-scrollbar-thumb {
@@ -764,23 +737,7 @@ footer {
 
 * {
   scrollbar-width: thin;
-  scrollbar-color: var(--text-disabled) var(--bg-paper);
-}
-
-/* =========================================================================
-   QR CODE HOVER EFFECT
-   ========================================================================= */
-
-.qr-code-image {
-  width: 100%;
-  height: auto;
-  border-radius: var(--radius-lg);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-  transition: transform 0.2s ease;
-}
-
-.qr-code-image:hover {
-  transform: scale(1.02);
+  scrollbar-color: var(--text-disabled) var(--bg-surface);
 }
 
 /* =========================================================================
@@ -802,7 +759,7 @@ footer {
 }
 
 .company {
-  color: var(--primary);
+  color: var(--brand);
   font-weight: 600;
   margin-bottom: 0.25rem;
 }
