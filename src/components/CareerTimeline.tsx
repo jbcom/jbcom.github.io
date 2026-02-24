@@ -22,6 +22,8 @@ export interface CareerEntry {
   milestone?: string
   highlights?: string[]
   skills?: string[]
+  /** Show career advancement within one company (e.g., DevOps → IT & Security) */
+  roles?: { title: string; period: string }[]
 }
 
 interface FoundationRole {
@@ -108,9 +110,25 @@ function TimelineCard({ entry, isActive }: { entry: CareerEntry; isActive: boole
             {entry.phase}
           </span>
         )}
-        <CardDescription className="text-primary font-semibold text-sm">
-          {entry.role}
-        </CardDescription>
+        {entry.roles ? (
+          <div className="space-y-1.5 mt-1">
+            {entry.roles.map((r, i) => (
+              <div key={r.title} className="flex items-center gap-2">
+                {i > 0 && <span className="text-primary/50 text-[0.6rem]">&#8594;</span>}
+                <div>
+                  <span className="text-primary font-semibold text-sm">{r.title}</span>
+                  <span className="font-mono text-[0.6rem] text-muted-foreground ml-2">
+                    {r.period}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <CardDescription className="text-primary font-semibold text-sm">
+            {entry.role}
+          </CardDescription>
+        )}
       </CardHeader>
 
       <CardContent className="space-y-3 pt-0">
@@ -193,9 +211,10 @@ export function CareerTimeline({
   innovation,
 }: Props) {
   const scrollRef = useRef<HTMLDivElement>(null)
-  const [activeIndex, setActiveIndex] = useState(0)
-  const [canScrollLeft, setCanScrollLeft] = useState(false)
-  const [canScrollRight, setCanScrollRight] = useState(true)
+  const [activeIndex, setActiveIndex] = useState(entries.length - 1)
+  const [canScrollLeft, setCanScrollLeft] = useState(true)
+  const [canScrollRight, setCanScrollRight] = useState(false)
+  const hasInitiallyScrolled = useRef(false)
 
   // Mouse drag state
   const isDragging = useRef(false)
@@ -233,12 +252,18 @@ export function CareerTimeline({
     const el = scrollRef.current
     if (!el) return
     el.addEventListener('scroll', throttledScrollUpdate, { passive: true })
+    // Scroll to the last entry (most recent) on mount — instant, no animation
+    if (!hasInitiallyScrolled.current) {
+      hasInitiallyScrolled.current = true
+      const cw = getCardWidth()
+      el.scrollTo({ left: (entries.length - 1) * cw, behavior: 'instant' })
+    }
     updateScrollState()
     return () => {
       el.removeEventListener('scroll', throttledScrollUpdate)
       cancelAnimationFrame(rafId.current)
     }
-  }, [throttledScrollUpdate, updateScrollState])
+  }, [throttledScrollUpdate, updateScrollState, entries.length, getCardWidth])
 
   // Recalculate on window resize
   useEffect(() => {

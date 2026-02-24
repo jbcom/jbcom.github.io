@@ -26,7 +26,7 @@ import resume from '../src/content/resume.json' with { type: 'json' }
 import { formatDateRange } from '../src/lib/dates.ts'
 
 const PRIMARY_COLOR = '0B0D14'
-const ACCENT_COLOR = 'E8A849'
+const ACCENT_COLOR = '996B1D'
 const LINK_COLOR = '6B8BAD'
 
 // --- Header ---
