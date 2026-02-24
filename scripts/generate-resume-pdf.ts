@@ -1,10 +1,10 @@
 /**
- * Generate Jon_Bogaty_Resume.pdf from the built site
+ * Generate Jon_Bogaty_Resume.pdf from resume.json
  *
- * Uses Playwright to render a print-optimized version of the resume
- * data and print it to PDF. Runs AFTER `vite build` so the site
- * assets are available.
+ * Uses Playwright to render a print-optimized HTML page built from
+ * the canonical resume data, then prints it to PDF.
  *
+ * Requires: npx playwright install chromium
  * Usage: npx tsx scripts/generate-resume-pdf.ts
  * Output: public/Jon_Bogaty_Resume.pdf
  */
@@ -14,30 +14,7 @@ import { resolve } from 'node:path'
 import { chromium } from 'playwright'
 
 import resume from '../src/content/resume.json' with { type: 'json' }
-
-function formatDate(dateStr: string | undefined): string {
-  if (!dateStr) return 'Present'
-  const [year, month] = dateStr.split('-')
-  const months = [
-    'Jan',
-    'Feb',
-    'Mar',
-    'Apr',
-    'May',
-    'Jun',
-    'Jul',
-    'Aug',
-    'Sep',
-    'Oct',
-    'Nov',
-    'Dec',
-  ]
-  return month ? `${months[Number.parseInt(month, 10) - 1]} ${year}` : year
-}
-
-function dateRange(start: string, end?: string): string {
-  return `${formatDate(start)} – ${formatDate(end)}`
-}
+import { formatDateRange } from '../src/lib/dates.ts'
 
 function escapeHtml(text: string): string {
   return text
@@ -45,6 +22,7 @@ function escapeHtml(text: string): string {
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
 }
 
 // Build a print-optimized HTML page from resume data
@@ -52,14 +30,12 @@ const html = `<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>${resume.basics.name} - Resume</title>
+<title>${escapeHtml(resume.basics.name)} - Resume</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
-    font-family: 'Inter', -apple-system, sans-serif;
+    font-family: 'Inter', -apple-system, 'Segoe UI', sans-serif;
     font-size: 9.5pt;
     line-height: 1.4;
     color: #1a1a1a;
@@ -93,7 +69,7 @@ const html = `<!DOCTYPE html>
     font-size: 8.5pt;
     margin-bottom: 4pt;
   }
-  .competencies span::before { content: "•  "; color: #E8A849; }
+  .competencies span::before { content: "\\2022  "; color: #E8A849; }
 
   .job { margin-bottom: 8pt; }
   .job-header { display: flex; justify-content: space-between; align-items: baseline; }
@@ -129,10 +105,10 @@ const html = `<!DOCTYPE html>
   <h1>${escapeHtml(resume.basics.name)}</h1>
   <div class="label">${escapeHtml(resume.basics.label)}</div>
   <div class="contact">
-    ${resume.basics.location.city}, ${resume.basics.location.region} &nbsp;|&nbsp;
-    <a href="mailto:${resume.basics.email}">${resume.basics.email}</a> &nbsp;|&nbsp;
-    <a href="${resume.basics.url}">${resume.basics.url}</a>
-    ${resume.basics.profiles.map((p) => `&nbsp;|&nbsp; <a href="${p.url}">${p.url}</a>`).join('')}
+    ${escapeHtml(resume.basics.location.city)}, ${escapeHtml(resume.basics.location.region)} &nbsp;|&nbsp;
+    <a href="mailto:${escapeHtml(resume.basics.email)}">${escapeHtml(resume.basics.email)}</a> &nbsp;|&nbsp;
+    <a href="${escapeHtml(resume.basics.url)}">${escapeHtml(resume.basics.url)}</a>
+    ${resume.basics.profiles.map((p) => `&nbsp;|&nbsp; <a href="${escapeHtml(p.url)}">${escapeHtml(p.url)}</a>`).join('')}
   </div>
 </div>
 
@@ -151,7 +127,7 @@ ${resume.work
 <div class="job">
   <div class="job-header">
     <span class="job-title">${escapeHtml(job.position)}</span>
-    <span class="job-dates">${dateRange(job.startDate, job.endDate ?? undefined)}</span>
+    <span class="job-dates">${escapeHtml(formatDateRange(job.startDate, job.endDate))}</span>
   </div>
   <div class="job-company">${escapeHtml(job.name)}</div>
   ${job.summary ? `<div class="job-summary">${escapeHtml(job.summary)}</div>` : ''}
@@ -170,8 +146,8 @@ ${resume.earlierCareer.positions
   .map(
     (pos) => `
 <div class="earlier-pos">
-  <span><span class="role">${escapeHtml(pos.position)}</span> — ${escapeHtml(pos.name)}</span>
-  <span class="year">${pos.year}</span>
+  <span><span class="role">${escapeHtml(pos.position)}</span> &#8212; ${escapeHtml(pos.name)}</span>
+  <span class="year">${escapeHtml(pos.year)}</span>
 </div>`
   )
   .join('')}
@@ -189,9 +165,9 @@ ${resume.education
   .map(
     (edu) => `
 <div class="education">
-  <div class="degree">${escapeHtml(edu.studyType)} — ${escapeHtml(edu.area)}</div>
-  <div class="school">${escapeHtml(edu.institution)} | ${edu.startDate}–${edu.endDate}</div>
-  ${edu.honors ? `<div class="honors">${edu.honors.join(' • ')}</div>` : ''}
+  <div class="degree">${escapeHtml(edu.studyType)} &#8212; ${escapeHtml(edu.area)}</div>
+  <div class="school">${escapeHtml(edu.institution)} | ${escapeHtml(edu.startDate)}&#8211;${escapeHtml(edu.endDate)}</div>
+  ${edu.honors ? `<div class="honors">${edu.honors.map((h) => escapeHtml(h)).join(' &#8226; ')}</div>` : ''}
 </div>`
   )
   .join('')}
@@ -201,17 +177,19 @@ ${resume.education
 
 // Render to PDF with Playwright
 const browser = await chromium.launch()
-const page = await browser.newPage()
-await page.setContent(html, { waitUntil: 'networkidle' })
+try {
+  const page = await browser.newPage()
+  await page.setContent(html, { waitUntil: 'load', timeout: 15000 })
 
-const pdfBuffer = await page.pdf({
-  format: 'Letter',
-  margin: { top: '0.5in', right: '0.5in', bottom: '0.5in', left: '0.5in' },
-  printBackground: true,
-})
+  const pdfBuffer = await page.pdf({
+    format: 'Letter',
+    margin: { top: '0.5in', right: '0.5in', bottom: '0.5in', left: '0.5in' },
+    printBackground: true,
+  })
 
-await browser.close()
-
-const outPath = resolve(import.meta.dirname!, '../public/Jon_Bogaty_Resume.pdf')
-writeFileSync(outPath, pdfBuffer)
-console.log(`PDF generated: ${outPath} (${(pdfBuffer.length / 1024).toFixed(1)} KB)`)
+  const outPath = resolve(import.meta.dirname!, '../public/Jon_Bogaty_Resume.pdf')
+  writeFileSync(outPath, pdfBuffer)
+  console.log(`PDF generated: ${outPath} (${(pdfBuffer.length / 1024).toFixed(1)} KB)`)
+} finally {
+  await browser.close()
+}

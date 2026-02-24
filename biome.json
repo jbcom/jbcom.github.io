@@ -33,6 +33,7 @@
   "files": {
     "includes": [
       "src/**",
+      "scripts/**",
       "tests/**",
       "*.config.*",
       "*.json",

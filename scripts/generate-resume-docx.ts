@@ -23,34 +23,11 @@ import {
 
 // Import resume data
 import resume from '../src/content/resume.json' with { type: 'json' }
+import { formatDateRange } from '../src/lib/dates.ts'
 
 const PRIMARY_COLOR = '0B0D14'
 const ACCENT_COLOR = 'E8A849'
 const LINK_COLOR = '6B8BAD'
-
-function formatDate(dateStr: string | undefined): string {
-  if (!dateStr) return 'Present'
-  const [year, month] = dateStr.split('-')
-  const months = [
-    'Jan',
-    'Feb',
-    'Mar',
-    'Apr',
-    'May',
-    'Jun',
-    'Jul',
-    'Aug',
-    'Sep',
-    'Oct',
-    'Nov',
-    'Dec',
-  ]
-  return month ? `${months[Number.parseInt(month, 10) - 1]} ${year}` : year
-}
-
-function dateRange(start: string, end?: string): string {
-  return `${formatDate(start)} – ${formatDate(end)}`
-}
 
 // --- Header ---
 const headerParagraphs: Paragraph[] = [
@@ -191,7 +168,7 @@ const experienceParagraphs: Paragraph[] = [
         }),
         new TextRun({ text: '\t', font: 'Calibri' }),
         new TextRun({
-          text: dateRange(job.startDate, job.endDate ?? undefined),
+          text: formatDateRange(job.startDate, job.endDate),
           size: 19,
           font: 'Calibri',
           color: ACCENT_COLOR,
