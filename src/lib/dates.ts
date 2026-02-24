@@ -1,9 +1,10 @@
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
-function formatDate(dateStr: string): string {
+export function formatDate(dateStr: string | undefined): string {
+  if (!dateStr) return 'Present'
   const parts = dateStr.split('-')
   if (parts.length === 1) return parts[0]
-  const month = months[parseInt(parts[1], 10) - 1]
+  const month = months[Number.parseInt(parts[1], 10) - 1]
   return `${month} ${parts[0]}`
 }
 

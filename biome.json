@@ -30,39 +30,17 @@
       "trailingCommas": "es5"
     }
   },
-  "overrides": [
-    {
-      "includes": ["**/*.astro"],
-      "linter": {
-        "rules": {
-          "correctness": {
-            "noUnusedVariables": "off",
-            "noUnusedImports": "off"
-          }
-        }
-      }
-    },
-    {
-      "includes": ["**/print.css"],
-      "linter": {
-        "rules": {
-          "complexity": {
-            "noImportantStyles": "off"
-          }
-        }
-      }
-    }
-  ],
   "files": {
     "includes": [
       "src/**",
+      "scripts/**",
       "tests/**",
       "*.config.*",
       "*.json",
       "!node_modules",
       "!dist",
-      "!.astro",
-      "!coverage"
+      "!coverage",
+      "!**/*.css"
     ]
   }
 }

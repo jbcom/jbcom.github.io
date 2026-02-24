@@ -1,0 +1,71 @@
+name: Release
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@9fd676a19091d4595eefd76e4bd31c97133911f1 # v4.2.0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Playwright (for resume PDF generation)
+        run: npx playwright install chromium --with-deps
+
+      - name: Build site
+        run: pnpm build
+
+      - name: Configure Pages
+        uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5.0.0
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4.0.0
+        with:
+          path: dist/
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4.0.5
+
+      - name: Verify generated resume files
+        run: |
+          ls -la dist/Jon_Bogaty_Resume.pdf dist/Jon_Bogaty_Resume.docx
+          test -s dist/Jon_Bogaty_Resume.pdf || { echo "PDF is empty"; exit 1; }
+          test -s dist/Jon_Bogaty_Resume.docx || { echo "DOCX is empty"; exit 1; }
+
+      - name: Upload release assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG_NAME: ${{ github.event.release.tag_name }}
+        run: |
+          cd dist && tar czf "../site-${TAG_NAME}.tar.gz" . && cd ..
+          gh release upload "$TAG_NAME" \
+            "site-${TAG_NAME}.tar.gz" \
+            "dist/Jon_Bogaty_Resume.pdf" \
+            "dist/Jon_Bogaty_Resume.docx"

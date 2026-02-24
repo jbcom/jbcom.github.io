@@ -5,8 +5,9 @@ node_modules
 # Build output
 dist
 
-# Astro
-.astro
+# Generated resume artifacts (built via scripts/generate-resume-*.ts)
+public/Jon_Bogaty_Resume.pdf
+public/Jon_Bogaty_Resume.docx
 
 # Editor directories
 .vscode/*

@@ -64,10 +64,10 @@ docs/
 
 | Org | Doc Repo | Status | Action Needed |
 |-----|----------|--------|---------------|
-| jbcom | `jbcom.github.io` | ✅ Progenitor | Establish central hub links (Completed) |
-| agentic | `agentic-dev-library.github.io` | 🟠 Astro/Starlight | Apply Purple theme overrides |
-| strata | `strata-game-library.github.io` | 🟠 Astro/Starlight | Apply Teal theme overrides |
-| extended | `extended-data-library.github.io` | 🟠 Astro/Starlight | Apply Amber theme overrides |
+| jbcom | `jbcom.github.io` | ✅ Vite + React | Central hub (Completed) |
+| agentic | `agentic-dev-library.github.io` | 🟠 Pending | Apply Purple theme overrides |
+| strata | `strata-game-library.github.io` | 🟠 Pending | Apply Teal theme overrides |
+| extended | `extended-data-library.github.io` | 🟠 Pending | Apply Amber theme overrides |
 
 ## 🚀 Execution Steps
 
@@ -78,9 +78,9 @@ docs/
    - [x] Support deep linking via query parameters.
 
 2. **Shared Assets**:
-   - [x] Create `enterprise-branding/starlight-base.css`.
-   - [x] Create division-specific theme overrides.
-   - [x] Create interconnection metadata JSON.
+   - [ ] Create shared branding assets (moved to dedicated repo).
+   - [ ] Create division-specific theme overrides.
+   - [ ] Create interconnection metadata JSON.
 
 3. **Division Site Triage**:
    - [x] Apply shared assets to `agentic-dev-library.github.io`.
