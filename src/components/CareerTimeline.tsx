@@ -56,7 +56,6 @@ interface Props {
   entries: CareerEntry[]
   foundationRoles: FoundationRole[]
   skills: SkillCategory[]
-  summary: string
   education: Education[]
   innovation: Innovation[]
 }
@@ -78,7 +77,7 @@ function TimelineCard({ entry, isActive }: { entry: CareerEntry; isActive: boole
       className={cn(
         'shrink-0 w-[calc(100vw-3rem)] sm:w-[380px] snap-center transition-all duration-300 relative overflow-hidden select-none',
         isActive
-          ? 'border-primary/40 shadow-lg shadow-primary/5'
+          ? 'border-primary/40 shadow-[0_0_30px_rgba(232,168,73,0.12)] ring-1 ring-primary/20'
           : 'border-border hover:border-primary/20'
       )}
     >
@@ -202,14 +201,7 @@ function TimelineCard({ entry, isActive }: { entry: CareerEntry; isActive: boole
   )
 }
 
-export function CareerTimeline({
-  entries,
-  foundationRoles,
-  skills,
-  summary,
-  education,
-  innovation,
-}: Props) {
+export function CareerTimeline({ entries, foundationRoles, skills, education, innovation }: Props) {
   const scrollRef = useRef<HTMLDivElement>(null)
   const [activeIndex, setActiveIndex] = useState(entries.length - 1)
   const [canScrollLeft, setCanScrollLeft] = useState(true)
@@ -329,13 +321,8 @@ export function CareerTimeline({
 
   return (
     <div className="space-y-0">
-      {/* Summary Section */}
-      <section className="mx-auto max-w-4xl px-4 sm:px-6 pt-8 sm:pt-10 pb-6 sm:pb-8">
-        <p className="text-muted-foreground text-sm leading-relaxed">{summary}</p>
-      </section>
-
       {/* Innovation Milestones */}
-      <section className="mx-auto max-w-5xl px-4 sm:px-6 pb-6 sm:pb-8">
+      <section className="mx-auto max-w-5xl px-4 sm:px-6 pt-8 sm:pt-10 pb-6 sm:pb-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           {innovation.map((item) => (
             <div

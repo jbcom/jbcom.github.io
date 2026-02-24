@@ -1,6 +1,7 @@
 import { Briefcase, Code, Github, Linkedin, MessageCircle } from 'lucide-react'
 import type { CareerEntry } from '@/components/CareerTimeline'
 import { CareerTimeline } from '@/components/CareerTimeline'
+import { HeroSection } from '@/components/HeroSection'
 import { ProjectsPanel } from '@/components/ProjectsPanel'
 import { SiteFooter } from '@/components/SiteFooter'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
@@ -183,6 +184,13 @@ export default function App() {
         </div>
       </header>
 
+      {/* Hero */}
+      <HeroSection
+        name={resume.basics.name}
+        label={resume.basics.label}
+        summary={resume.basics.summary}
+      />
+
       {/* Tab Content */}
       <main className="flex-1">
         <TabsContent value="career" className="mt-0">
@@ -190,7 +198,6 @@ export default function App() {
             entries={timelineEntries}
             foundationRoles={foundationRoles}
             skills={skills}
-            summary={resume.basics.summary}
             education={resume.education}
             innovation={resume.innovation}
           />
