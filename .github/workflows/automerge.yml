@@ -16,6 +16,7 @@ jobs:
       github.actor == 'release-please[bot]'
     steps:
       - name: Wait for CI
+        if: github.actor == 'dependabot[bot]'
         uses: lewagon/wait-on-check-action@a499964d3917700d29a2a8baf3f16b078d609410 # v1.5.0
         with:
           ref: ${{ github.event.pull_request.head.sha }}
