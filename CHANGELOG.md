@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.1](https://github.com/jbcom/jbcom.github.io/compare/v1.0.0...v1.0.1) (2026-02-25)
+
+
+### Bug Fixes
+
+* **ci:** move deploy into CD pipeline, fix GITHUB_TOKEN workflow trigger limitation ([9bee841](https://github.com/jbcom/jbcom.github.io/commit/9bee8413e694c0fbda1d9bdaad26f99d3d6dae08))
+* timeline order, FSC consolidation, resume print colors ([#95](https://github.com/jbcom/jbcom.github.io/issues/95)) ([fd4c63d](https://github.com/jbcom/jbcom.github.io/commit/fd4c63dc7562be454805330ba56c2d42bb0ae4e5))
+
 ## 1.0.0 (2026-02-24)
 
 
