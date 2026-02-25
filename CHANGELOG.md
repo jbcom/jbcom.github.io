@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.1.0](https://github.com/jbcom/jbcom.github.io/compare/v1.0.1...v1.1.0) (2026-02-25)
+
+
+### Features
+
+* auto-generate site from resume.json ([55b098a](https://github.com/jbcom/jbcom.github.io/commit/55b098a9f88242012603ad5e996ae6ad0e4dcf1c))
+* bento grid layout for About section ([5680b94](https://github.com/jbcom/jbcom.github.io/commit/5680b94a83ce80858f6b8540fb13cf79204a41f5))
+* redesign layout with About/Career/Projects tabs ([11b1641](https://github.com/jbcom/jbcom.github.io/commit/11b16419adbc47850ba6e634d70326860678463b))
+* restructure resume.json — basics→about, remove expertise ([e0a39b4](https://github.com/jbcom/jbcom.github.io/commit/e0a39b4684e5cd00c64a927e766a10a309b7b520))
+
+
+### Bug Fixes
+
+* **ci:** automerge release-please PRs created by PAT ([8a7c5d3](https://github.com/jbcom/jbcom.github.io/commit/8a7c5d39c195905d79fa7d33198fc50f920c2f7f))
+* remove innovation section from resume.json ([b370e67](https://github.com/jbcom/jbcom.github.io/commit/b370e67d5073c8c1abffcd133de9c9a75b4a9988))
+* rename competencies → expertise ([39d8088](https://github.com/jbcom/jbcom.github.io/commit/39d8088bec026844b21f357a0027344e3c683dc0))
+
 ## [1.0.1](https://github.com/jbcom/jbcom.github.io/compare/v1.0.0...v1.0.1) (2026-02-25)
 
 
