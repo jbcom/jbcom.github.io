@@ -13,7 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     if: >-
       github.actor == 'dependabot[bot]' ||
-      github.actor == 'release-please[bot]'
+      github.actor == 'release-please[bot]' ||
+      contains(github.event.pull_request.labels.*.name, 'autorelease: pending')
     steps:
       - name: Wait for CI
         if: github.actor == 'dependabot[bot]'
