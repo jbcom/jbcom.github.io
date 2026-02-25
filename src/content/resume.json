@@ -1,5 +1,5 @@
 {
-  "basics": {
+  "about": {
     "name": "Jon Bogaty",
     "label": "DevOps & Platform Engineering Leader | AI Innovation Architect | Security & SRE Strategist",
     "email": "jon@jonbogaty.com",
@@ -18,29 +18,12 @@
       { "network": "GitHub", "username": "jbcom", "url": "https://github.com/jbcom" },
       { "network": "Telegram", "username": "jbpersonaldev", "url": "https://t.me/jbpersonaldev" }
     ],
-    "about": "Senior technology leader with 15+ years driving innovation across DevOps, Site Reliability Engineering (SRE), Security Operations (SecOps), and Cloud Platform Architecture. Early adopter and evangelist of transformative technologies — championed Docker containerization and Terraform Infrastructure as Code (IaC) before industry-wide adoption, and pioneered AI-driven operations by building and managing a fully autonomous AI engineering team two years before agentic AI frameworks were formalized. Proven record of architecting globally distributed systems, eliminating toil through automation, and leading security-first infrastructure strategies.",
+    "summary": [
+      "Senior technology leader with 15+ years driving innovation across DevOps, Site Reliability Engineering (SRE), Security Operations (SecOps), and Cloud Platform Architecture. Early adopter and evangelist of transformative technologies — championed Docker containerization and Terraform Infrastructure as Code (IaC) before industry-wide adoption, and pioneered AI-driven operations by building and managing a fully autonomous AI engineering team two years before agentic AI frameworks were formalized. Proven record of architecting globally distributed systems, eliminating toil through automation, and leading security-first infrastructure strategies.",
+      "Active open-source contributor and framework author. Publishing the Agentic ecosystem (polyglot AI agent orchestration across TypeScript, Python, and Rust), Extended Data Library (production Python data toolkit with 5 PyPI packages), and Strata Game Library (React Three Fiber game framework). Building tools that bridge the gap between AI research and production engineering."
+    ],
     "yearsExperience": "15+"
   },
-  "expertise": [
-    "DevOps Strategy & Automation",
-    "Site Reliability Engineering (SRE)",
-    "Security Operations (SecOps)",
-    "Cloud Architecture (AWS, GCP, Azure)",
-    "Infrastructure as Code (IaC) — Terraform, Ansible",
-    "Container Orchestration — Docker, Kubernetes",
-    "CI/CD Pipeline Design",
-    "AI/ML Operations & Agentic AI",
-    "Platform Engineering",
-    "Data Architecture & Pipelines",
-    "IAM & Zero-Trust Security",
-    "Compliance & Risk Management",
-    "Incident Response & MTTR Optimization",
-    "Team Leadership & Mentoring",
-    "Open Source Development",
-    "GitOps & ChatOps",
-    "Cost Optimization & FinOps",
-    "Observability & Monitoring"
-  ],
   "work": [
     {
       "name": "Flipside Crypto",

@@ -36,7 +36,7 @@ const headerParagraphs: Paragraph[] = [
     spacing: { after: 40 },
     children: [
       new TextRun({
-        text: resume.basics.name,
+        text: resume.about.name,
         bold: true,
         size: 36,
         color: PRIMARY_COLOR,
@@ -49,7 +49,7 @@ const headerParagraphs: Paragraph[] = [
     spacing: { after: 80 },
     children: [
       new TextRun({
-        text: resume.basics.label,
+        text: resume.about.label,
         size: 20,
         color: ACCENT_COLOR,
         font: 'Calibri',
@@ -61,15 +61,15 @@ const headerParagraphs: Paragraph[] = [
     spacing: { after: 200 },
     children: [
       new TextRun({
-        text: `${resume.basics.location.city}, ${resume.basics.location.region}`,
+        text: `${resume.about.location.city}, ${resume.about.location.region}`,
         size: 18,
         font: 'Calibri',
       }),
       new TextRun({ text: '  |  ', size: 18, font: 'Calibri' }),
-      new TextRun({ text: resume.basics.email, size: 18, font: 'Calibri', color: LINK_COLOR }),
+      new TextRun({ text: resume.about.email, size: 18, font: 'Calibri', color: LINK_COLOR }),
       new TextRun({ text: '  |  ', size: 18, font: 'Calibri' }),
-      new TextRun({ text: resume.basics.url, size: 18, font: 'Calibri', color: LINK_COLOR }),
-      ...resume.basics.profiles.flatMap((p) => [
+      new TextRun({ text: resume.about.url, size: 18, font: 'Calibri', color: LINK_COLOR }),
+      ...resume.about.profiles.flatMap((p) => [
         new TextRun({ text: '  |  ', size: 18, font: 'Calibri' }),
         new TextRun({ text: p.url, size: 18, font: 'Calibri', color: LINK_COLOR }),
       ]),
@@ -93,47 +93,17 @@ const summaryParagraphs: Paragraph[] = [
       }),
     ],
   }),
-  new Paragraph({
-    spacing: { after: 120 },
-    children: [
-      new TextRun({
-        text: resume.basics.about,
-        size: 19,
-        font: 'Calibri',
-      }),
-    ],
-  }),
-]
-
-// --- Competencies ---
-const competencyParagraphs: Paragraph[] = [
-  new Paragraph({
-    heading: HeadingLevel.HEADING_2,
-    spacing: { before: 200, after: 100 },
-    border: { bottom: { color: ACCENT_COLOR, size: 6, space: 4, style: 'single' as const } },
-    children: [
-      new TextRun({
-        text: 'CORE COMPETENCIES',
-        bold: true,
-        size: 22,
-        color: PRIMARY_COLOR,
-        font: 'Calibri',
-      }),
-    ],
-  }),
-  // Three-column layout via tab stops
-  ...chunkArray(resume.expertise, 3).map(
-    (row) =>
+  ...(Array.isArray(resume.about.summary) ? resume.about.summary : [resume.about.summary]).map(
+    (text) =>
       new Paragraph({
-        spacing: { after: 40 },
-        tabStops: [
-          { type: TabStopType.LEFT, position: TabStopPosition.MAX / 3 },
-          { type: TabStopType.LEFT, position: (TabStopPosition.MAX * 2) / 3 },
+        spacing: { after: 120 },
+        children: [
+          new TextRun({
+            text,
+            size: 19,
+            font: 'Calibri',
+          }),
         ],
-        children: row.flatMap((item, i) => [
-          ...(i > 0 ? [new TextRun({ text: '\t', size: 18, font: 'Calibri' })] : []),
-          new TextRun({ text: `• ${item}`, size: 18, font: 'Calibri' }),
-        ]),
       })
   ),
 ]
@@ -344,7 +314,7 @@ const educationParagraphs: Paragraph[] = [
 const doc = new Document({
   creator: 'Jon Bogaty',
   title: 'Jon Bogaty - Resume',
-  description: resume.basics.label,
+  description: resume.about.label,
   sections: [
     {
       properties: {
@@ -355,7 +325,6 @@ const doc = new Document({
       children: [
         ...headerParagraphs,
         ...summaryParagraphs,
-        ...competencyParagraphs,
         ...experienceParagraphs,
         ...earlierParagraphs,
         ...skillsParagraphs,
@@ -370,12 +339,3 @@ const outPath = resolve(import.meta.dirname!, '../public/Jon_Bogaty_Resume.docx'
 const buffer = await Packer.toBuffer(doc)
 writeFileSync(outPath, buffer)
 console.log(`DOCX generated: ${outPath} (${(buffer.length / 1024).toFixed(1)} KB)`)
-
-// --- Utility ---
-function chunkArray<T>(arr: T[], size: number): T[][] {
-  const chunks: T[][] = []
-  for (let i = 0; i < arr.length; i += size) {
-    chunks.push(arr.slice(i, i + size))
-  }
-  return chunks
-}

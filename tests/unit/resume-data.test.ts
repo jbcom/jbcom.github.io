@@ -3,7 +3,7 @@ import resume from '../../src/content/resume.json'
 
 describe('resume.json data integrity', () => {
   it('has the correct name', () => {
-    expect(resume.basics.name).toBe('Jon Bogaty')
+    expect(resume.about.name).toBe('Jon Bogaty')
   })
 
   it('all work entries have non-empty highlights arrays', () => {
@@ -40,7 +40,9 @@ describe('resume.json data integrity', () => {
     }
   })
 
-  it('expertise has at least 10 items', () => {
-    expect(resume.expertise.length).toBeGreaterThanOrEqual(10)
+  it('all skill categories have keywords', () => {
+    for (const cat of resume.skills) {
+      expect(cat.keywords.length, `${cat.name} should have keywords`).toBeGreaterThan(0)
+    }
   })
 })

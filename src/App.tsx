@@ -10,8 +10,8 @@ import resume from '@/content/resume.json'
 import { formatDateRange } from '@/lib/dates'
 import { cn } from '@/lib/utils'
 
-// Derive tabs automatically from resume.json top-level keys (skip "basics" — that's the hero)
-const sectionKeys = Object.keys(resume).filter((k) => k !== 'basics')
+// Every top-level key in resume.json is a tab. "about" goes first.
+const sectionKeys = Object.keys(resume).sort((a, b) => (a === 'about' ? -1 : b === 'about' ? 1 : 0))
 
 // camelCase → Title Case
 function labelFromKey(key: string): string {
@@ -25,6 +25,11 @@ const PROJECT_ACCENTS = ['#E8A849', '#6B8BAD', '#4ADE80']
 
 // Generic renderer — inspects the shape of each resume.json section and renders it
 function SectionRenderer({ data }: { data: unknown }) {
+  // Plain string → paragraph (e.g. basics.about)
+  if (typeof data === 'string') {
+    return <p className="text-sm text-muted-foreground leading-relaxed max-w-3xl">{data}</p>
+  }
+
   // Array of strings → bullet grid
   if (Array.isArray(data) && data.length > 0 && typeof data[0] === 'string') {
     return (
@@ -78,6 +83,51 @@ function SectionRenderer({ data }: { data: unknown }) {
             </CardContent>
           </Card>
         ))}
+      </div>
+    )
+  }
+
+  // About object: has name, summary, email, location, profiles
+  if (
+    typeof data === 'object' &&
+    data !== null &&
+    'summary' in (data as Record<string, unknown>) &&
+    'email' in (data as Record<string, unknown>) &&
+    'profiles' in (data as Record<string, unknown>)
+  ) {
+    const info = data as typeof resume.about
+    return (
+      <div className="space-y-6 max-w-3xl">
+        {(Array.isArray(info.summary) ? info.summary : [info.summary]).map((p) => (
+          <p key={p} className="text-sm text-muted-foreground leading-relaxed">
+            {p}
+          </p>
+        ))}
+        <div className="flex items-center gap-4 text-sm text-muted-foreground">
+          <span>
+            {info.location.city}, {info.location.region}
+          </span>
+          <span>·</span>
+          <a
+            href={`mailto:${info.email}`}
+            className="text-primary hover:text-primary/80 transition-colors"
+          >
+            {info.email}
+          </a>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          {info.profiles.map((p) => (
+            <a
+              key={p.network}
+              href={p.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-primary hover:text-primary/80 transition-colors"
+            >
+              {p.network}
+            </a>
+          ))}
+        </div>
       </div>
     )
   }
@@ -323,9 +373,11 @@ export default function App() {
       </header>
 
       <HeroSection
-        name={resume.basics.name}
-        label={resume.basics.label}
-        summary={resume.basics.about}
+        name={resume.about.name}
+        label={resume.about.label}
+        summary={
+          Array.isArray(resume.about.summary) ? resume.about.summary[0] : resume.about.summary
+        }
       />
 
       <main className="flex-1">

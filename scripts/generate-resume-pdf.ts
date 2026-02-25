@@ -30,7 +30,7 @@ const html = `<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>${escapeHtml(resume.basics.name)} - Resume</title>
+<title>${escapeHtml(resume.about.name)} - Resume</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -61,15 +61,6 @@ const html = `<!DOCTYPE html>
   }
 
   .summary { font-size: 9pt; line-height: 1.45; margin-bottom: 4pt; }
-
-  .competencies {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 1pt 8pt;
-    font-size: 8.5pt;
-    margin-bottom: 4pt;
-  }
-  .competencies span::before { content: "\\2022  "; color: #996B1D; }
 
   .job { margin-bottom: 8pt; }
   .job-header { display: flex; justify-content: space-between; align-items: baseline; }
@@ -102,23 +93,18 @@ const html = `<!DOCTYPE html>
 <body>
 
 <div class="header">
-  <h1>${escapeHtml(resume.basics.name)}</h1>
-  <div class="label">${escapeHtml(resume.basics.label)}</div>
+  <h1>${escapeHtml(resume.about.name)}</h1>
+  <div class="label">${escapeHtml(resume.about.label)}</div>
   <div class="contact">
-    ${escapeHtml(resume.basics.location.city)}, ${escapeHtml(resume.basics.location.region)} &nbsp;|&nbsp;
-    <a href="mailto:${escapeHtml(resume.basics.email)}">${escapeHtml(resume.basics.email)}</a> &nbsp;|&nbsp;
-    <a href="${escapeHtml(resume.basics.url)}">${escapeHtml(resume.basics.url)}</a>
-    ${resume.basics.profiles.map((p) => `&nbsp;|&nbsp; <a href="${escapeHtml(p.url)}">${escapeHtml(p.url)}</a>`).join('')}
+    ${escapeHtml(resume.about.location.city)}, ${escapeHtml(resume.about.location.region)} &nbsp;|&nbsp;
+    <a href="mailto:${escapeHtml(resume.about.email)}">${escapeHtml(resume.about.email)}</a> &nbsp;|&nbsp;
+    <a href="${escapeHtml(resume.about.url)}">${escapeHtml(resume.about.url)}</a>
+    ${resume.about.profiles.map((p) => `&nbsp;|&nbsp; <a href="${escapeHtml(p.url)}">${escapeHtml(p.url)}</a>`).join('')}
   </div>
 </div>
 
 <h2>Professional Summary</h2>
-<p class="summary">${escapeHtml(resume.basics.about)}</p>
-
-<h2>Core Competencies</h2>
-<div class="competencies">
-${resume.expertise.map((c) => `  <span>${escapeHtml(c)}</span>`).join('\n')}
-</div>
+${(Array.isArray(resume.about.summary) ? resume.about.summary : [resume.about.summary]).map((p) => `<p class="summary">${escapeHtml(p)}</p>`).join('\n')}
 
 <h2>Professional Experience</h2>
 ${resume.work
