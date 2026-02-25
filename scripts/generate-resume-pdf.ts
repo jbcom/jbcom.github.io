@@ -117,7 +117,7 @@ const html = `<!DOCTYPE html>
 
 <h2>Core Competencies</h2>
 <div class="competencies">
-${resume.competencies.map((c) => `  <span>${escapeHtml(c)}</span>`).join('\n')}
+${resume.expertise.map((c) => `  <span>${escapeHtml(c)}</span>`).join('\n')}
 </div>
 
 <h2>Professional Experience</h2>

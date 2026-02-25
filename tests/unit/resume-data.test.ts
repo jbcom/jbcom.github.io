@@ -40,7 +40,7 @@ describe('resume.json data integrity', () => {
     }
   })
 
-  it('competencies has at least 10 items', () => {
-    expect(resume.competencies.length).toBeGreaterThanOrEqual(10)
+  it('expertise has at least 10 items', () => {
+    expect(resume.expertise.length).toBeGreaterThanOrEqual(10)
   })
 })

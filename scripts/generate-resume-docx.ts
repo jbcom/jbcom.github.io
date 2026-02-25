@@ -122,7 +122,7 @@ const competencyParagraphs: Paragraph[] = [
     ],
   }),
   // Three-column layout via tab stops
-  ...chunkArray(resume.competencies, 3).map(
+  ...chunkArray(resume.expertise, 3).map(
     (row) =>
       new Paragraph({
         spacing: { after: 40 },
