@@ -1,6 +1,7 @@
 import { Briefcase, Code, Github, Linkedin, MessageCircle } from 'lucide-react'
 import type { CareerEntry } from '@/components/CareerTimeline'
 import { CareerTimeline } from '@/components/CareerTimeline'
+import { HeroSection } from '@/components/HeroSection'
 import { ProjectsPanel } from '@/components/ProjectsPanel'
 import { SiteFooter } from '@/components/SiteFooter'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
@@ -15,8 +16,8 @@ function findWork(name: string) {
   return entry
 }
 
-// Build career timeline entries from resume data, newest first
-// Split Flipside Crypto into three phases per actual career trajectory
+// Build career timeline entries from resume data, oldest first
+// User scrolls right = forward in time, defaulting to the most recent (FSC)
 const gohealth = findWork('GoHealth')
 const symbiont = findWork('Symbiont')
 const jumpRamp = findWork('Jump Ramp')
@@ -26,90 +27,12 @@ const magnetic = findWork('Magnetic')
 
 const timelineEntries: CareerEntry[] = [
   {
-    company: 'Flipside Crypto',
-    role: 'Head of IT & Security',
-    period: '2025 – 2026',
-    phase: 'IT & Security Leadership',
+    company: magnetic.name,
+    role: magnetic.position,
+    period: formatDateRange(magnetic.startDate, magnetic.endDate),
     description:
-      'Full transition to IT and Security leadership while continuing to support data engineering teams. Directed enterprise security posture, compliance frameworks, and incident response.',
-    skills: [
-      'Zero-Trust',
-      'Fireblocks',
-      'Google Workspace',
-      'Cloudflare',
-      'Compliance',
-      'Incident Response',
-    ],
-    highlights: [
-      'Managed Fireblocks co-signer architecture in AWS secure enclaves; led migration to Fireblocks-native solution on GCP',
-      'Directed Google Workspace, Cloudflare/Route53 DNS, compliance frameworks for insurance audits',
-      'Continued supporting data platform teams throughout IT/Security transition',
-    ],
-  },
-  {
-    company: 'Flipside Crypto',
-    role: 'Head of DevOps & AI Operations',
-    period: '2023 – 2025',
-    phase: 'AI Operations Pioneer',
-    description:
-      'Pioneered AI-driven IT operations 2+ years before agentic AI frameworks existed. Built and directed a fully autonomous AI engineering team.',
-    skills: ['Agentic AI', 'Prompt Engineering', 'AWS Lambda', 'Serverless', 'Cost Optimization'],
-    highlights: [
-      'Invented agentic orchestration patterns and human-in-the-loop review cycles before CrewAI, AutoGen, or LangGraph existed',
-      'Drove AWS costs from ~$150K/month to ~$40-50K/month — over $100K/month in sustained savings',
-      'Oversaw evolution to 99% serverless AWS (Lambda, managed services)',
-    ],
-    milestone: 'AI Operations Inventor',
-  },
-  {
-    company: 'Flipside Crypto',
-    role: 'Head of DevOps',
-    period: '2021 – 2023',
-    phase: 'Building DevOps Culture',
-    description:
-      'First DevOps hire. Spent two years building DevOps as a culture. Identified the need for orthogonal SRE placements within product and data teams.',
-    skills: ['Terraform', 'Terragrunt', 'Kubernetes', 'Docker', 'CI/CD', 'Mentoring'],
-    highlights: [
-      'Built DevOps culture from the ground up at a blockchain analytics company',
-      'Identified need for and placed orthogonal SRE engineers within product and data teams',
-      'Built self-maintaining pipeline of Terraform/Terragrunt repository factories',
-      'Mentored DC infrastructure SRE through multi-datacenter Kubernetes deployment',
-    ],
-  },
-  {
-    company: gohealth.name,
-    role: gohealth.position,
-    period: formatDateRange(gohealth.startDate, gohealth.endDate),
-    description:
-      'Spearheaded SRE initiatives for a high-traffic health insurance marketplace during peak enrollment periods.',
-    skills: ['SRE', 'Monitoring', 'Alerting', 'MTTR', 'Scalability'],
-    highlights: gohealth.highlights?.slice(0, 2),
-  },
-  {
-    company: symbiont.name,
-    role: symbiont.position,
-    period: formatDateRange(symbiont.startDate, symbiont.endDate),
-    description:
-      'Owned enterprise CI/CD platform. Designed multi-cloud deployment architecture across AWS, GCP, and Azure for blockchain product engineering.',
-    skills: ['AWS', 'GCP', 'Azure', 'Terraform', 'Ansible', 'Packer'],
-    highlights: symbiont.highlights?.slice(0, 2),
-    milestone: 'Multi-Cloud IaC Pioneer',
-  },
-  {
-    company: jumpRamp.name,
-    role: jumpRamp.position,
-    period: formatDateRange(jumpRamp.startDate, jumpRamp.endDate),
-    description:
-      'Modernized deployment with Docker containerization, restructured CI/CD, and overhauled network security with automated VPN bridging.',
-    skills: ['Docker', 'CI/CD', 'VPN', 'Network Security'],
-  },
-  {
-    company: qualia.name,
-    role: qualia.position,
-    period: formatDateRange(qualia.startDate, qualia.endDate),
-    description:
-      'Automated cloud infrastructure with Terraform and custom Ruby tooling. Built CI/CD systems and a metrics-based auto-scaler for Google Cloud.',
-    skills: ['Terraform', 'Ruby', 'GCP', 'Pub/Sub', 'Auto-Scaling'],
+      'Managed 300+ machine infrastructure for a multinational ad-tech firm. Designed Chef cookbook overhauls and integrated Rundeck with PAM.',
+    skills: ['Chef', 'Rundeck', 'Linux', '300+ Servers'],
   },
   {
     company: classpass.name,
@@ -122,12 +45,69 @@ const timelineEntries: CareerEntry[] = [
     milestone: 'Early Docker & Terraform Adopter',
   },
   {
-    company: magnetic.name,
-    role: magnetic.position,
-    period: formatDateRange(magnetic.startDate, magnetic.endDate),
+    company: qualia.name,
+    role: qualia.position,
+    period: formatDateRange(qualia.startDate, qualia.endDate),
     description:
-      'Managed 300+ machine infrastructure for a multinational ad-tech firm. Designed Chef cookbook overhauls and integrated Rundeck with PAM.',
-    skills: ['Chef', 'Rundeck', 'Linux', '300+ Servers'],
+      'Automated cloud infrastructure with Terraform and custom Ruby tooling. Built CI/CD systems and a metrics-based auto-scaler for Google Cloud.',
+    skills: ['Terraform', 'Ruby', 'GCP', 'Pub/Sub', 'Auto-Scaling'],
+  },
+  {
+    company: jumpRamp.name,
+    role: jumpRamp.position,
+    period: formatDateRange(jumpRamp.startDate, jumpRamp.endDate),
+    description:
+      'Modernized deployment with Docker containerization, restructured CI/CD, and overhauled network security with automated VPN bridging.',
+    skills: ['Docker', 'CI/CD', 'VPN', 'Network Security'],
+  },
+  {
+    company: symbiont.name,
+    role: symbiont.position,
+    period: formatDateRange(symbiont.startDate, symbiont.endDate),
+    description:
+      'Owned enterprise CI/CD platform. Designed multi-cloud deployment architecture across AWS, GCP, and Azure for blockchain product engineering.',
+    skills: ['AWS', 'GCP', 'Azure', 'Terraform', 'Ansible', 'Packer'],
+    highlights: symbiont.highlights?.slice(0, 2),
+    milestone: 'Multi-Cloud IaC Pioneer',
+  },
+  {
+    company: gohealth.name,
+    role: gohealth.position,
+    period: formatDateRange(gohealth.startDate, gohealth.endDate),
+    description:
+      'Spearheaded SRE initiatives for a high-traffic health insurance marketplace during peak enrollment periods.',
+    skills: ['SRE', 'Monitoring', 'Alerting', 'MTTR', 'Scalability'],
+    highlights: gohealth.highlights?.slice(0, 2),
+  },
+  {
+    company: 'Flipside Crypto',
+    role: 'Head of DevOps → Head of IT & Security',
+    period: '2021 – 2026',
+    phase: 'DevOps to IT & Security Leadership',
+    description:
+      'First DevOps hire at a blockchain analytics company. Built DevOps as a culture, pioneered AI-driven operations, drove $100K+/month AWS savings, then transitioned to lead IT and enterprise security.',
+    roles: [
+      { title: 'Head of DevOps', period: '2021 – 2023' },
+      { title: 'Head of IT & Security', period: '2023 – 2026' },
+    ],
+    skills: [
+      'Terraform',
+      'Kubernetes',
+      'AWS',
+      'Agentic AI',
+      'Zero-Trust',
+      'Fireblocks',
+      'Cost Optimization',
+    ],
+    highlights: [
+      'Built DevOps culture from the ground up; placed orthogonal SRE engineers within product and data teams',
+      'Built self-maintaining pipeline of Terraform/Terragrunt repository factories',
+      'Pioneered agentic AI orchestration patterns before CrewAI, AutoGen, or LangGraph existed',
+      'Drove AWS costs from ~$150K/month to ~$40-50K/month — over $100K/month in sustained savings',
+      'Managed Fireblocks co-signer architecture in AWS secure enclaves; led migration to Fireblocks-native solution on GCP',
+      'Directed Google Workspace, Cloudflare/Route53 DNS, compliance frameworks for insurance audits',
+    ],
+    milestone: 'AI Operations Inventor',
   },
 ]
 
@@ -204,6 +184,13 @@ export default function App() {
         </div>
       </header>
 
+      {/* Hero */}
+      <HeroSection
+        name={resume.basics.name}
+        label={resume.basics.label}
+        summary={resume.basics.summary}
+      />
+
       {/* Tab Content */}
       <main className="flex-1">
         <TabsContent value="career" className="mt-0">
@@ -211,7 +198,6 @@ export default function App() {
             entries={timelineEntries}
             foundationRoles={foundationRoles}
             skills={skills}
-            summary={resume.basics.summary}
             education={resume.education}
             innovation={resume.innovation}
           />

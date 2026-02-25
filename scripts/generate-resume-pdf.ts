@@ -44,7 +44,7 @@ const html = `<!DOCTYPE html>
 
   .header { text-align: center; margin-bottom: 12pt; }
   .header h1 { font-size: 20pt; font-weight: 700; color: #0B0D14; margin-bottom: 2pt; }
-  .header .label { font-size: 9pt; color: #E8A849; margin-bottom: 4pt; }
+  .header .label { font-size: 9pt; color: #996B1D; margin-bottom: 4pt; }
   .header .contact { font-size: 8pt; color: #555; }
   .header .contact a { color: #6B8BAD; text-decoration: none; }
 
@@ -54,7 +54,7 @@ const html = `<!DOCTYPE html>
     color: #0B0D14;
     text-transform: uppercase;
     letter-spacing: 0.5pt;
-    border-bottom: 1.5pt solid #E8A849;
+    border-bottom: 1.5pt solid #996B1D;
     padding-bottom: 3pt;
     margin-top: 12pt;
     margin-bottom: 6pt;
@@ -69,29 +69,29 @@ const html = `<!DOCTYPE html>
     font-size: 8.5pt;
     margin-bottom: 4pt;
   }
-  .competencies span::before { content: "\\2022  "; color: #E8A849; }
+  .competencies span::before { content: "\\2022  "; color: #996B1D; }
 
   .job { margin-bottom: 8pt; }
   .job-header { display: flex; justify-content: space-between; align-items: baseline; }
   .job-title { font-weight: 700; font-size: 10pt; color: #0B0D14; }
-  .job-dates { font-size: 8.5pt; color: #E8A849; white-space: nowrap; }
+  .job-dates { font-size: 8.5pt; color: #996B1D; white-space: nowrap; }
   .job-company { font-style: italic; font-size: 9pt; color: #444; margin-bottom: 3pt; }
   .job-summary { font-size: 8.5pt; color: #333; margin-bottom: 3pt; }
 
   ul { padding-left: 14pt; margin-bottom: 2pt; }
   li { font-size: 8.5pt; line-height: 1.35; margin-bottom: 2pt; }
-  li::marker { color: #E8A849; }
+  li::marker { color: #996B1D; }
 
   .earlier-pos { display: flex; justify-content: space-between; font-size: 8.5pt; margin-bottom: 1pt; }
   .earlier-pos .role { font-weight: 600; }
-  .earlier-pos .year { color: #E8A849; }
+  .earlier-pos .year { color: #996B1D; }
 
   .skills-cat { margin-bottom: 3pt; font-size: 8.5pt; }
   .skills-cat strong { color: #0B0D14; }
 
   .education .degree { font-weight: 700; font-size: 9.5pt; }
   .education .school { font-size: 8.5pt; color: #444; }
-  .education .honors { font-style: italic; font-size: 8.5pt; color: #E8A849; }
+  .education .honors { font-style: italic; font-size: 8.5pt; color: #996B1D; }
 
   @media print {
     body { padding: 0; }

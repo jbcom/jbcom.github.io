@@ -7,7 +7,7 @@ import {
   Sparkles,
 } from 'lucide-react'
 import { AnimatePresence, motion } from 'motion/react'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
@@ -22,6 +22,8 @@ export interface CareerEntry {
   milestone?: string
   highlights?: string[]
   skills?: string[]
+  /** Show career advancement within one company (e.g., DevOps → IT & Security) */
+  roles?: { title: string; period: string }[]
 }
 
 interface FoundationRole {
@@ -54,7 +56,6 @@ interface Props {
   entries: CareerEntry[]
   foundationRoles: FoundationRole[]
   skills: SkillCategory[]
-  summary: string
   education: Education[]
   innovation: Innovation[]
 }
@@ -76,7 +77,7 @@ function TimelineCard({ entry, isActive }: { entry: CareerEntry; isActive: boole
       className={cn(
         'shrink-0 w-[calc(100vw-3rem)] sm:w-[380px] snap-center transition-all duration-300 relative overflow-hidden select-none',
         isActive
-          ? 'border-primary/40 shadow-lg shadow-primary/5'
+          ? 'border-primary/40 shadow-[0_0_30px_rgba(232,168,73,0.12)] ring-1 ring-primary/20'
           : 'border-border hover:border-primary/20'
       )}
     >
@@ -108,9 +109,25 @@ function TimelineCard({ entry, isActive }: { entry: CareerEntry; isActive: boole
             {entry.phase}
           </span>
         )}
-        <CardDescription className="text-primary font-semibold text-sm">
-          {entry.role}
-        </CardDescription>
+        {entry.roles ? (
+          <div className="space-y-1.5 mt-1">
+            {entry.roles.map((r, i) => (
+              <div key={`${r.title}-${r.period}`} className="flex items-center gap-2">
+                {i > 0 && <span className="text-primary/50 text-[0.6rem]">&#8594;</span>}
+                <div>
+                  <span className="text-primary font-semibold text-sm">{r.title}</span>
+                  <span className="font-mono text-[0.6rem] text-muted-foreground ml-2">
+                    {r.period}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <CardDescription className="text-primary font-semibold text-sm">
+            {entry.role}
+          </CardDescription>
+        )}
       </CardHeader>
 
       <CardContent className="space-y-3 pt-0">
@@ -184,18 +201,12 @@ function TimelineCard({ entry, isActive }: { entry: CareerEntry; isActive: boole
   )
 }
 
-export function CareerTimeline({
-  entries,
-  foundationRoles,
-  skills,
-  summary,
-  education,
-  innovation,
-}: Props) {
+export function CareerTimeline({ entries, foundationRoles, skills, education, innovation }: Props) {
   const scrollRef = useRef<HTMLDivElement>(null)
-  const [activeIndex, setActiveIndex] = useState(0)
-  const [canScrollLeft, setCanScrollLeft] = useState(false)
-  const [canScrollRight, setCanScrollRight] = useState(true)
+  const [activeIndex, setActiveIndex] = useState(entries.length - 1)
+  const [canScrollLeft, setCanScrollLeft] = useState(true)
+  const [canScrollRight, setCanScrollRight] = useState(false)
+  const hasInitiallyScrolled = useRef(false)
 
   // Mouse drag state
   const isDragging = useRef(false)
@@ -210,7 +221,8 @@ export function CareerTimeline({
     if (!el) return 400
     const firstCard = el.querySelector(':scope > *') as HTMLElement | null
     if (!firstCard) return 400
-    return firstCard.offsetWidth + 24 // card width + gap
+    const gap = parseInt(getComputedStyle(el).gap, 10) || 24
+    return firstCard.offsetWidth + gap
   }, [])
 
   const updateScrollState = useCallback(() => {
@@ -228,6 +240,15 @@ export function CareerTimeline({
     cancelAnimationFrame(rafId.current)
     rafId.current = requestAnimationFrame(updateScrollState)
   }, [updateScrollState])
+
+  // Scroll to the last entry (most recent) before first paint — prevents flash at position 0
+  useLayoutEffect(() => {
+    const el = scrollRef.current
+    if (!el || hasInitiallyScrolled.current) return
+    hasInitiallyScrolled.current = true
+    const cw = getCardWidth()
+    el.scrollTo({ left: (entries.length - 1) * cw, behavior: 'instant' })
+  }, [entries.length, getCardWidth])
 
   useEffect(() => {
     const el = scrollRef.current
@@ -303,13 +324,8 @@ export function CareerTimeline({
 
   return (
     <div className="space-y-0">
-      {/* Summary Section */}
-      <section className="mx-auto max-w-4xl px-4 sm:px-6 pt-8 sm:pt-10 pb-6 sm:pb-8">
-        <p className="text-muted-foreground text-sm leading-relaxed">{summary}</p>
-      </section>
-
       {/* Innovation Milestones */}
-      <section className="mx-auto max-w-5xl px-4 sm:px-6 pb-6 sm:pb-8">
+      <section className="mx-auto max-w-5xl px-4 sm:px-6 pt-8 sm:pt-10 pb-6 sm:pb-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           {innovation.map((item) => (
             <div
