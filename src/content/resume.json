@@ -220,28 +220,6 @@
       ]
     }
   ],
-  "innovation": [
-    {
-      "year": "2015-2016",
-      "title": "Early Docker & Terraform Adopter",
-      "description": "Containerized production infrastructure at ClassPass and built IaC pipelines before mainstream adoption"
-    },
-    {
-      "year": "2017-2020",
-      "title": "Multi-Cloud IaC Pioneer",
-      "description": "Designed cross-cloud Terraform architectures spanning AWS, GCP, and Azure at Symbiont"
-    },
-    {
-      "year": "2023-2025",
-      "title": "AI Operations Inventor",
-      "description": "Built a fully AI-powered team at Flipside Crypto 2+ years before agentic AI frameworks existed"
-    },
-    {
-      "year": "2025-Present",
-      "title": "Open-Source AI Framework Author",
-      "description": "Publishing Agentic-Control, Agentic-Crew, and Agentic-Interfaces to the OSS community"
-    }
-  ],
   "projects": [
     {
       "name": "Agentic",

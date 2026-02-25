@@ -53,11 +53,6 @@ function SectionRenderer({ data }: { data: unknown }) {
       return <SkillGrid categories={data as typeof resume.skills} />
     }
 
-    // Innovation: has year + title + description
-    if ('year' in sample && 'title' in sample && 'description' in sample) {
-      return <TimelineGrid items={data as typeof resume.innovation} />
-    }
-
     // Projects: has name + description + url + tech
     if ('url' in sample && 'tech' in sample) {
       return <ProjectGrid items={data as typeof resume.projects} />
@@ -189,22 +184,6 @@ function SkillGrid({ categories }: { categories: typeof resume.skills }) {
                 </Badge>
               ))}
             </div>
-          </CardContent>
-        </Card>
-      ))}
-    </div>
-  )
-}
-
-function TimelineGrid({ items }: { items: typeof resume.innovation }) {
-  return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-      {items.map((item) => (
-        <Card key={item.title} className="border-border">
-          <CardContent className="p-4">
-            <p className="font-mono text-xs text-primary mb-1">{item.year}</p>
-            <p className="text-sm font-medium text-foreground mb-1">{item.title}</p>
-            <p className="text-xs text-muted-foreground leading-relaxed">{item.description}</p>
           </CardContent>
         </Card>
       ))}
