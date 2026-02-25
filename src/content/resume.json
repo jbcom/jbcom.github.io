@@ -18,7 +18,7 @@
       { "network": "GitHub", "username": "jbcom", "url": "https://github.com/jbcom" },
       { "network": "Telegram", "username": "jbpersonaldev", "url": "https://t.me/jbpersonaldev" }
     ],
-    "summary": "Senior technology leader with 15+ years driving innovation across DevOps, Site Reliability Engineering (SRE), Security Operations (SecOps), and Cloud Platform Architecture. Early adopter and evangelist of transformative technologies — championed Docker containerization and Terraform Infrastructure as Code (IaC) before industry-wide adoption, and pioneered AI-driven operations by building and managing a fully autonomous AI engineering team two years before agentic AI frameworks were formalized. Proven record of architecting globally distributed systems, eliminating toil through automation, and leading security-first infrastructure strategies.",
+    "about": "Senior technology leader with 15+ years driving innovation across DevOps, Site Reliability Engineering (SRE), Security Operations (SecOps), and Cloud Platform Architecture. Early adopter and evangelist of transformative technologies — championed Docker containerization and Terraform Infrastructure as Code (IaC) before industry-wide adoption, and pioneered AI-driven operations by building and managing a fully autonomous AI engineering team two years before agentic AI frameworks were formalized. Proven record of architecting globally distributed systems, eliminating toil through automation, and leading security-first infrastructure strategies.",
     "yearsExperience": "15+"
   },
   "competencies": [
@@ -244,34 +244,73 @@
   ],
   "projects": [
     {
-      "name": "Agentic-Control",
-      "description": "AI agent fleet orchestration with token-aware GitHub integration and coordinated multi-agent execution",
-      "url": "https://github.com/jbcom/agentic-control"
+      "name": "Agentic",
+      "tagline": "Polyglot AI Agent Orchestration",
+      "description": "Production-ready framework for building intelligent agent fleets across TypeScript, Python, and Rust. Fleet management, AI-powered triage, framework-agnostic crew orchestration, sandbox execution, and 4 GitHub Marketplace Actions.",
+      "url": "https://github.com/jbcom/agentic-control",
+      "domain": "agentic.coach",
+      "tech": [
+        "TypeScript",
+        "Python",
+        "Rust",
+        "Vercel AI SDK",
+        "CrewAI",
+        "LangGraph",
+        "Bevy",
+        "Docker"
+      ],
+      "packages": [
+        { "name": "@jbcom/agentic", "description": "Fleet management & multi-agent routing" },
+        { "name": "@jbcom/agentic-triage", "description": "AI-powered issue triage & PR review" },
+        { "name": "agentic-crew", "description": "Framework-agnostic crew orchestration" },
+        {
+          "name": "game-generator",
+          "description": "Visual-first vintage game generator (Rust/Bevy)"
+        }
+      ]
     },
     {
-      "name": "Agentic-Crew",
-      "description": "Generic CrewAI engine supporting agent discovery, runtime orchestration, and extensible patterns",
-      "url": "https://github.com/jbcom/agentic-crew"
+      "name": "Extended Data Library",
+      "tagline": "Production Python Data Toolkit",
+      "description": "Battle-tested Python monorepo for data serialization, configuration management, structured logging, and cloud integrations. 5 independently-installable PyPI packages with strict typing, 75%+ test coverage, and MCP server support.",
+      "url": "https://github.com/jbcom/extended-data-types",
+      "domain": "extended-data.dev",
+      "tech": ["Python", "Go", "FastAPI", "Pydantic", "boto3", "Vault", "Anthropic SDK"],
+      "packages": [
+        {
+          "name": "extended-data-types",
+          "description": "Multi-format serialization (YAML, JSON, TOML, HCL)"
+        },
+        {
+          "name": "lifecyclelogging",
+          "description": "Lifecycle-aware structured logging with rich output"
+        },
+        { "name": "vendor-connectors", "description": "Universal cloud & AI service connectors" },
+        { "name": "secretssync", "description": "Enterprise secret sync pipeline (Go)" }
+      ]
     },
     {
-      "name": "Terraform Python Bridge",
-      "description": "Python-to-Terraform bridge for programmatic infrastructure composition",
-      "url": "https://github.com/jbcom/py-terraform-utils"
-    },
-    {
-      "name": "SecretsSync",
-      "description": "Deterministic secrets orchestration across multi-cloud CI/CD pipelines",
-      "url": "https://github.com/jbcom/secrets-sync"
-    },
-    {
-      "name": "Extended-Data-Types",
-      "description": "Advanced structured data types and validation primitives for automation tooling",
-      "url": "https://github.com/jbcom/extended-data-types"
-    },
-    {
-      "name": "LifecycleLogging",
-      "description": "Python logging framework for developer observability and structured diagnostics",
-      "url": "https://github.com/jbcom/lifecycle-logging"
+      "name": "Strata Game Library",
+      "tagline": "React Three Fiber Game Framework",
+      "description": "Complete game framework for building procedural 3D worlds. Terrain generation, advanced water, GPU vegetation, volumetric effects, ECS architecture, physics, AI pathfinding, and character animation — all in a declarative React API.",
+      "url": "https://github.com/jbcom/strata-game-library",
+      "domain": "strata.game",
+      "tech": ["React Three Fiber", "Three.js", "TypeScript", "GLSL", "Rapier", "Tone.js", "Nx"],
+      "packages": [
+        {
+          "name": "@strata-game-library/core",
+          "description": "R3F components, ECS, physics, AI, animation"
+        },
+        {
+          "name": "@strata-game-library/shaders",
+          "description": "Standalone GLSL shaders for Three.js"
+        },
+        { "name": "@strata-game-library/presets", "description": "30+ production configurations" },
+        {
+          "name": "@strata-game-library/audio-synth",
+          "description": "Procedural audio synthesis (Tone.js)"
+        }
+      ]
     }
   ],
   "education": [

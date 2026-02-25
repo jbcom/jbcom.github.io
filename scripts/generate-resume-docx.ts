@@ -97,7 +97,7 @@ const summaryParagraphs: Paragraph[] = [
     spacing: { after: 120 },
     children: [
       new TextRun({
-        text: resume.basics.summary,
+        text: resume.basics.about,
         size: 19,
         font: 'Calibri',
       }),

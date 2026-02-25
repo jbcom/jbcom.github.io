@@ -113,7 +113,7 @@ const html = `<!DOCTYPE html>
 </div>
 
 <h2>Professional Summary</h2>
-<p class="summary">${escapeHtml(resume.basics.summary)}</p>
+<p class="summary">${escapeHtml(resume.basics.about)}</p>
 
 <h2>Core Competencies</h2>
 <div class="competencies">
