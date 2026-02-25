@@ -7,7 +7,7 @@ import {
   Sparkles,
 } from 'lucide-react'
 import { AnimatePresence, motion } from 'motion/react'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
@@ -241,22 +241,25 @@ export function CareerTimeline({ entries, foundationRoles, skills, education, in
     rafId.current = requestAnimationFrame(updateScrollState)
   }, [updateScrollState])
 
+  // Scroll to the last entry (most recent) before first paint — prevents flash at position 0
+  useLayoutEffect(() => {
+    const el = scrollRef.current
+    if (!el || hasInitiallyScrolled.current) return
+    hasInitiallyScrolled.current = true
+    const cw = getCardWidth()
+    el.scrollTo({ left: (entries.length - 1) * cw, behavior: 'instant' })
+  }, [entries.length, getCardWidth])
+
   useEffect(() => {
     const el = scrollRef.current
     if (!el) return
     el.addEventListener('scroll', throttledScrollUpdate, { passive: true })
-    // Scroll to the last entry (most recent) on mount — instant, no animation
-    if (!hasInitiallyScrolled.current) {
-      hasInitiallyScrolled.current = true
-      const cw = getCardWidth()
-      el.scrollTo({ left: (entries.length - 1) * cw, behavior: 'instant' })
-    }
     updateScrollState()
     return () => {
       el.removeEventListener('scroll', throttledScrollUpdate)
       cancelAnimationFrame(rafId.current)
     }
-  }, [throttledScrollUpdate, updateScrollState, entries.length, getCardWidth])
+  }, [throttledScrollUpdate, updateScrollState])
 
   // Recalculate on window resize
   useEffect(() => {
