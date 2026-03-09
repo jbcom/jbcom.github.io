@@ -16,7 +16,6 @@ import {
   HeadingLevel,
   Packer,
   Paragraph,
-  TabStopPosition,
   TabStopType,
   TextRun,
 } from 'docx'
@@ -28,6 +27,9 @@ import { formatDateRange } from '../src/lib/dates.ts'
 const PRIMARY_COLOR = '0B0D14'
 const ACCENT_COLOR = '996B1D'
 const LINK_COLOR = '6B8BAD'
+
+// Letter page (12240 twips) minus 720 left + 720 right margins
+const RIGHT_TAB_POSITION = 10800
 
 // --- Header ---
 const headerParagraphs: Paragraph[] = [
@@ -96,7 +98,7 @@ const summaryParagraphs: Paragraph[] = [
   ...(Array.isArray(resume.about.summary) ? resume.about.summary : [resume.about.summary]).map(
     (text) =>
       new Paragraph({
-        spacing: { after: 120 },
+        spacing: { after: 200 },
         children: [
           new TextRun({
             text,
@@ -127,7 +129,7 @@ const experienceParagraphs: Paragraph[] = [
   ...resume.work.flatMap((job) => [
     new Paragraph({
       spacing: { before: 160, after: 40 },
-      tabStops: [{ type: TabStopType.RIGHT, position: TabStopPosition.MAX }],
+      tabStops: [{ type: TabStopType.RIGHT, position: RIGHT_TAB_POSITION }],
       children: [
         new TextRun({
           text: job.position,
@@ -159,7 +161,7 @@ const experienceParagraphs: Paragraph[] = [
     ...(job.summary
       ? [
           new Paragraph({
-            spacing: { after: 60 },
+            spacing: { after: 100 },
             children: [
               new TextRun({
                 text: job.summary,
@@ -212,7 +214,7 @@ const earlierParagraphs: Paragraph[] = [
     (pos) =>
       new Paragraph({
         spacing: { after: 30 },
-        tabStops: [{ type: TabStopType.RIGHT, position: TabStopPosition.MAX }],
+        tabStops: [{ type: TabStopType.RIGHT, position: RIGHT_TAB_POSITION }],
         children: [
           new TextRun({ text: `${pos.position}`, bold: true, size: 18, font: 'Calibri' }),
           new TextRun({ text: ` — ${pos.name}`, size: 18, font: 'Calibri' }),
