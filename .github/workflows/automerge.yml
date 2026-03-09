@@ -1,8 +1,9 @@
 name: Automerge
 
 on:
-  pull_request:
-    types: [opened, synchronize, reopened]
+  schedule:
+    - cron: '0 6 * * *' # Daily at 6 AM UTC
+  workflow_dispatch: # Manual trigger
 
 permissions:
   contents: write
@@ -11,28 +12,43 @@ permissions:
 jobs:
   automerge:
     runs-on: ubuntu-latest
-    if: >-
-      github.actor == 'dependabot[bot]' ||
-      github.actor == 'release-please[bot]' ||
-      contains(github.event.pull_request.labels.*.name, 'autorelease: pending')
     steps:
-      - name: Wait for CI
-        if: github.actor == 'dependabot[bot]'
-        uses: lewagon/wait-on-check-action@a499964d3917700d29a2a8baf3f16b078d609410 # v1.5.0
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          check-regexp: (Lint|Typecheck|Build|Test)
-          wait-interval: 15
-
-      - name: Approve PR
+      - name: Merge eligible PRs
         env:
           GH_TOKEN: ${{ secrets.CI_GITHUB_TOKEN }}
-          PR_URL: ${{ github.event.pull_request.html_url }}
-        run: gh pr review "$PR_URL" --approve
+        run: |
+          # Find open PRs from dependabot or release-please
+          prs=$(gh pr list --repo "$GITHUB_REPOSITORY" --state open --json number,author,labels \
+            --jq '[.[] | select(
+              .author.login == "dependabot[bot]" or
+              .author.login == "release-please[bot]" or
+              (.labels | map(.name) | index("autorelease: pending"))
+            ) | .number]') || {
+            echo "Failed to retrieve PR list"
+            exit 1
+          }
 
-      - name: Merge PR
-        env:
-          GH_TOKEN: ${{ secrets.CI_GITHUB_TOKEN }}
-          PR_URL: ${{ github.event.pull_request.html_url }}
-        run: gh pr merge "$PR_URL" --squash --auto
+          if [ "$prs" = "[]" ] || [ -z "$prs" ]; then
+            echo "No eligible PRs found"
+            exit 0
+          fi
+
+          for pr in $(echo "$prs" | jq -r '.[]'); do
+            echo "Processing PR #$pr"
+
+            # Check if all required CI checks passed
+            checks=$(gh pr checks "$pr" --repo "$GITHUB_REPOSITORY" --json state,name 2>&1)
+            if [ $? -ne 0 ]; then
+              echo "  Skipping #$pr — unable to retrieve CI status"
+              continue
+            fi
+            if echo "$checks" | jq -e '[.[] | select(.name | test("Lint|Typecheck|Build|Test")) | select(.state != "success")] | length > 0' > /dev/null; then
+              echo "  Skipping #$pr — CI checks not passing"
+              continue
+            fi
+
+            # Approve and merge
+            gh pr review "$pr" --repo "$GITHUB_REPOSITORY" --approve || true
+            gh pr merge "$pr" --repo "$GITHUB_REPOSITORY" --squash --auto
+            echo "  Queued #$pr for merge"
+          done
