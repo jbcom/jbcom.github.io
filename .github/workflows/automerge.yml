@@ -23,7 +23,10 @@ jobs:
               .author.login == "dependabot[bot]" or
               .author.login == "release-please[bot]" or
               (.labels | map(.name) | index("autorelease: pending"))
-            ) | .number]')
+            ) | .number]') || {
+            echo "Failed to retrieve PR list"
+            exit 1
+          }
 
           if [ "$prs" = "[]" ] || [ -z "$prs" ]; then
             echo "No eligible PRs found"
@@ -34,8 +37,12 @@ jobs:
             echo "Processing PR #$pr"
 
             # Check if all required CI checks passed
-            checks=$(gh pr checks "$pr" --repo "$GITHUB_REPOSITORY" 2>&1 || true)
-            if echo "$checks" | grep -qE "^(Lint|Typecheck|Build|Test)\s+fail"; then
+            checks=$(gh pr checks "$pr" --repo "$GITHUB_REPOSITORY" --json state,name 2>&1)
+            if [ $? -ne 0 ]; then
+              echo "  Skipping #$pr — unable to retrieve CI status"
+              continue
+            fi
+            if echo "$checks" | jq -e '[.[] | select(.name | test("Lint|Typecheck|Build|Test")) | select(.state != "success")] | length > 0' > /dev/null; then
               echo "  Skipping #$pr — CI checks not passing"
               continue
             fi
