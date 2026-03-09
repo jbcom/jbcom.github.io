@@ -42,7 +42,7 @@ jobs:
               echo "  Skipping #$pr — unable to retrieve CI status"
               continue
             fi
-            if echo "$checks" | jq -e '[.[] | select(.name | test("Lint|Typecheck|Build|Test")) | select(.state != "success")] | length > 0' > /dev/null; then
+            if echo "$checks" | jq -e '[.[] | select(.name | test("Lint|Typecheck|Build|Test")) | select(.state | ascii_downcase != "success")] | length > 0' > /dev/null; then
               echo "  Skipping #$pr — CI checks not passing"
               continue
             fi
