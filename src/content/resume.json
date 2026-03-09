@@ -1,7 +1,7 @@
 {
   "about": {
     "name": "Jon Bogaty",
-    "label": "DevOps & Platform Engineering Leader | AI Innovation Architect | Security & SRE Strategist",
+    "label": "Staff DevOps & Platform Engineer | Infrastructure Architect | Open-Source Builder",
     "email": "jon@jonbogaty.com",
     "url": "https://www.jonbogaty.com",
     "location": {
@@ -19,7 +19,7 @@
       { "network": "Telegram", "username": "jbpersonaldev", "url": "https://t.me/jbpersonaldev" }
     ],
     "summary": [
-      "Senior technology leader with 15+ years driving innovation across DevOps, Site Reliability Engineering (SRE), Security Operations (SecOps), and Cloud Platform Architecture. Early adopter and evangelist of transformative technologies — championed Docker containerization and Terraform Infrastructure as Code (IaC) before industry-wide adoption, and pioneered AI-driven operations by building and managing a fully autonomous AI engineering team two years before agentic AI frameworks were formalized. Proven record of architecting globally distributed systems, eliminating toil through automation, and leading security-first infrastructure strategies.",
+      "Senior infrastructure engineer with 15+ years of hands-on experience across DevOps, SRE, platform engineering, and cloud architecture. Early adopter of Docker and Terraform before industry-wide adoption, builder of large-scale internal automation platforms, and architect of production systems spanning AWS, GCP, and hybrid environments. Track record of modernizing infrastructure as the sole DevOps engineer, building comprehensive IaC tooling from scratch, and driving six-figure monthly cloud cost reductions through serverless migration and right-sizing.",
       "Active open-source contributor and framework author. Publishing the Agentic ecosystem (polyglot AI agent orchestration across TypeScript, Python, and Rust), Extended Data Library (production Python data toolkit with 5 PyPI packages), and Strata Game Library (React Three Fiber game framework). Building tools that bridge the gap between AI research and production engineering."
     ],
     "yearsExperience": "15+"
@@ -27,19 +27,19 @@
   "work": [
     {
       "name": "Flipside Crypto",
-      "position": "Head of Information Technology & Security",
+      "position": "Staff DevOps & Platform Engineer",
       "startDate": "2021-06",
       "endDate": "2026-01",
-      "summary": "Led all IT infrastructure, security, and data architecture for a leading blockchain analytics company. Managed globally distributed operations spanning DevOps, SecOps, SRE, and data engineering.",
+      "summary": "Founding DevOps hire at a blockchain analytics company. Spent 5 years as the sole DevOps engineer — hands-on modernizing AWS infrastructure with Terraform, building a comprehensive internal automation platform, and embedding SRE practices across product and data teams.",
       "highlights": [
-        "Pioneered AI-driven IT operations 2+ years before agentic AI was formalized: built and directed a fully autonomous AI team executing data architecture, IT, and security tasks using custom prompt-scripted workflows — inventing agentic orchestration patterns and human-in-the-loop review cycles before CrewAI, AutoGen, or LangGraph existed",
-        "Drove AWS cost reduction from ~$150K/month to ~$40-50K/month through migration to serverless architecture, right-sizing, and automated scaling policies — over $100K/month in sustained savings",
-        "Oversaw 5-year infrastructure evolution: single-DC AWS with multi-cluster Kubernetes to Fly.io container deployments for product/frontend to 99% serverless AWS (Lambda, managed services) with RStudio/Posit Connect as the sole exception",
-        "Architected deterministic secrets propagation system with automatic deep-merge and conflict resolution across HashiCorp Vault and AWS sources, serving hundreds of Lambda functions powering the data platform",
-        "Managed Fireblocks co-signer architecture in AWS secure enclaves; led migration from Anjuna to Fireblocks-native solution on GCP with dedicated MDM-managed devices for all parties",
-        "Built self-maintaining pipeline of Terraform/Terragrunt repository factories and comprehensive Python automation suite for all internal IT management processes",
-        "Mentored DC infrastructure SRE through multi-datacenter Kubernetes deployment; co-managed physical DC colo and data platform SRE teams",
-        "Directed enterprise security posture: managed Google Workspace directory, Cloudflare and Route53 DNS, designed compliance frameworks for yearly insurance audits, implemented third-party phishing/malware/spam vendor, and led incident response programs"
+        "Joined as the first and only DevOps engineer; overhauled legacy AWS infrastructure with Terraform and Terragrunt, driving a 5-year evolution from single-DC multi-cluster Kubernetes through container deployments to 99% serverless (Lambda, managed services)",
+        "Built a 10,000+ line Python CLI and library (tm_cli) that auto-generates 146+ Terraform modules across AWS, GCP, GitHub, Vault, Slack, and 8 other providers — converting annotated Python functions into consistent, documented Terraform interfaces via a custom code-generation system",
+        "Designed a Terraform pipeline factory (terraform-pipeline) for generating complete multi-workspace infrastructure configurations with multi-region provider support, recursive vendor parameter processing, and SOPS-encrypted secrets integration",
+        "Architected deterministic secrets propagation system with automatic deep-merge and conflict resolution across HashiCorp Vault and AWS Secrets Manager, serving hundreds of Lambda functions powering the data platform",
+        "Drove AWS spend from ~$150K/month to ~$40-50K/month through serverless migration, right-sizing, and automated scaling — $100K+/month in sustained savings",
+        "Identified, placed, and mentored SRE engineers into product and data departments; established company-wide CI/CD patterns, secure secrets-sharing workflows, and automation standards while remaining the singular DevOps IC",
+        "Managed Fireblocks co-signer deployments in AWS secure enclaves; led migration from Anjuna to Fireblocks-native on GCP with dedicated MDM-managed devices for cosigning approval",
+        "Administered all IT and security operations as a parallel responsibility: Google Workspace, 1Password, DNS (Route53 + Cloudflare), SSO/SCIM, Snowflake security, compliance audits, and incident response"
       ]
     },
     {
