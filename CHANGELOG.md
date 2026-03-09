@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/jbcom/jbcom.github.io/compare/v1.1.0...v1.2.0) (2026-03-09)
+
+
+### Features
+
+* reposition Flipside role for IC DevOps targeting ([#106](https://github.com/jbcom/jbcom.github.io/issues/106)) ([f5a0df0](https://github.com/jbcom/jbcom.github.io/commit/f5a0df077afb2ba87651299cf3feeabc7818b280))
+
 ## [1.1.0](https://github.com/jbcom/jbcom.github.io/compare/v1.0.1...v1.1.0) (2026-02-25)
 
 
