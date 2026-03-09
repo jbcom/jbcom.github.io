@@ -13,6 +13,7 @@
     "generate:resume": "pnpm generate:resume:docx && pnpm generate:resume:pdf",
     "generate:resume:docx": "tsx scripts/generate-resume-docx.ts",
     "generate:resume:pdf": "tsx scripts/generate-resume-pdf.ts",
+    "generate:resume:preview": "tsx scripts/generate-resume-screenshots.ts",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
