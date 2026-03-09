@@ -20,8 +20,8 @@ jobs:
           # Find open PRs from dependabot or release-please
           prs=$(gh pr list --repo "$GITHUB_REPOSITORY" --state open --json number,author,labels \
             --jq '[.[] | select(
-              .author.login == "dependabot[bot]" or
-              .author.login == "release-please[bot]" or
+              (.author.login | test("dependabot")) or
+              (.author.login | test("release-please")) or
               (.labels | map(.name) | index("autorelease: pending"))
             ) | .number]') || {
             echo "Failed to retrieve PR list"
