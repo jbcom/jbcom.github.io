@@ -35,14 +35,17 @@ jobs:
           node-version: 22
           cache: pnpm
 
+      - name: Setup pandoc
+        uses: pandoc/actions/setup@main
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Install Playwright (for resume PDF generation)
-        run: npx playwright install chromium --with-deps
-
       - name: Build site
         run: pnpm build
+
+      - name: Generate resume DOCX with pandoc
+        run: pandoc dist/resume/index.html -f html -t docx -o dist/Jon_Bogaty_Resume.docx
 
       - name: Verify generated resume files
         run: |
