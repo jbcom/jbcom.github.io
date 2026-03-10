@@ -35,3 +35,6 @@ yarn-error.log*
 coverage
 playwright-report
 test-results
+
+# Resume preview (dev-only visual verification)
+public/resume-preview.png

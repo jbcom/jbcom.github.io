@@ -1,8 +1,9 @@
 /**
  * Generate Jon_Bogaty_Resume.docx from resume.json
  *
- * Uses the `docx` npm package to produce a professional Word document
- * directly from the canonical resume data source.
+ * Uses the `docx` npm package with borderless fixed-layout tables
+ * for reliable two-column alignment (title | date) that renders
+ * correctly in Word, Apple Pages, and Google Docs.
  *
  * Usage: npx tsx scripts/generate-resume-docx.ts
  * Output: public/Jon_Bogaty_Resume.docx
@@ -12,297 +13,231 @@ import { writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import {
   AlignmentType,
+  BorderStyle,
   Document,
   HeadingLevel,
   Packer,
   Paragraph,
-  TabStopPosition,
-  TabStopType,
+  Table,
+  TableCell,
+  TableLayoutType,
+  TableRow,
   TextRun,
+  WidthType,
 } from 'docx'
 
-// Import resume data
 import resume from '../src/content/resume.json' with { type: 'json' }
 import { formatDateRange } from '../src/lib/dates.ts'
 
-const PRIMARY_COLOR = '0B0D14'
-const ACCENT_COLOR = '996B1D'
-const LINK_COLOR = '6B8BAD'
+const PRIMARY = '0B0D14'
+const ACCENT = '996B1D'
+const LINK = '6B8BAD'
+const FONT = 'Calibri'
+
+// Letter page (12240 twips) minus 720 left + 720 right margins = 10800
+const PAGE_WIDTH = 10800
+const TITLE_WIDTH = 8000
+const DATE_WIDTH = PAGE_WIDTH - TITLE_WIDTH
+
+const NONE_BORDER = { style: BorderStyle.NONE, size: 0, color: 'FFFFFF' }
+const NO_BORDERS = {
+  top: NONE_BORDER,
+  bottom: NONE_BORDER,
+  left: NONE_BORDER,
+  right: NONE_BORDER,
+}
+
+/** Borderless fixed-width two-column row: left content | right content */
+function twoColumnRow(left: TextRun[], right: TextRun[]): Table {
+  return new Table({
+    width: { size: PAGE_WIDTH, type: WidthType.DXA },
+    layout: TableLayoutType.FIXED,
+    columnWidths: [TITLE_WIDTH, DATE_WIDTH],
+    borders: {
+      ...NO_BORDERS,
+      insideHorizontal: NONE_BORDER,
+      insideVertical: NONE_BORDER,
+    },
+    rows: [
+      new TableRow({
+        children: [
+          new TableCell({
+            width: { size: TITLE_WIDTH, type: WidthType.DXA },
+            borders: NO_BORDERS,
+            children: [
+              new Paragraph({
+                spacing: { after: 0 },
+                children: left,
+              }),
+            ],
+          }),
+          new TableCell({
+            width: { size: DATE_WIDTH, type: WidthType.DXA },
+            borders: NO_BORDERS,
+            children: [
+              new Paragraph({
+                alignment: AlignmentType.RIGHT,
+                spacing: { after: 0 },
+                children: right,
+              }),
+            ],
+          }),
+        ],
+      }),
+    ],
+  })
+}
+
+function sectionHeading(text: string): Paragraph {
+  return new Paragraph({
+    heading: HeadingLevel.HEADING_2,
+    spacing: { before: 360, after: 200 },
+    border: {
+      bottom: { color: ACCENT, size: 6, space: 4, style: 'single' as const },
+    },
+    children: [
+      new TextRun({
+        text,
+        bold: true,
+        size: 22,
+        color: PRIMARY,
+        font: FONT,
+      }),
+    ],
+  })
+}
+
+function textRun(
+  text: string,
+  opts: { bold?: boolean; italics?: boolean; size?: number; color?: string } = {}
+): TextRun {
+  return new TextRun({
+    text,
+    font: FONT,
+    size: opts.size ?? 18,
+    bold: opts.bold,
+    italics: opts.italics,
+    color: opts.color,
+  })
+}
 
 // --- Header ---
 const headerParagraphs: Paragraph[] = [
   new Paragraph({
     alignment: AlignmentType.CENTER,
-    spacing: { after: 40 },
-    children: [
-      new TextRun({
-        text: resume.about.name,
-        bold: true,
-        size: 36,
-        color: PRIMARY_COLOR,
-        font: 'Calibri',
-      }),
-    ],
+    spacing: { after: 60 },
+    children: [textRun(resume.about.name, { bold: true, size: 36, color: PRIMARY })],
   }),
   new Paragraph({
     alignment: AlignmentType.CENTER,
-    spacing: { after: 80 },
-    children: [
-      new TextRun({
-        text: resume.about.label,
-        size: 20,
-        color: ACCENT_COLOR,
-        font: 'Calibri',
-      }),
-    ],
+    spacing: { after: 120 },
+    children: [textRun(resume.about.label, { size: 20, color: ACCENT })],
   }),
   new Paragraph({
     alignment: AlignmentType.CENTER,
-    spacing: { after: 200 },
+    spacing: { after: 300 },
     children: [
-      new TextRun({
-        text: `${resume.about.location.city}, ${resume.about.location.region}`,
-        size: 18,
-        font: 'Calibri',
-      }),
-      new TextRun({ text: '  |  ', size: 18, font: 'Calibri' }),
-      new TextRun({ text: resume.about.email, size: 18, font: 'Calibri', color: LINK_COLOR }),
-      new TextRun({ text: '  |  ', size: 18, font: 'Calibri' }),
-      new TextRun({ text: resume.about.url, size: 18, font: 'Calibri', color: LINK_COLOR }),
-      ...resume.about.profiles.flatMap((p) => [
-        new TextRun({ text: '  |  ', size: 18, font: 'Calibri' }),
-        new TextRun({ text: p.url, size: 18, font: 'Calibri', color: LINK_COLOR }),
-      ]),
+      textRun(`${resume.about.location.city}, ${resume.about.location.region}`),
+      textRun('  |  '),
+      textRun(resume.about.email, { color: LINK }),
+      textRun('  |  '),
+      textRun(resume.about.url, { color: LINK }),
+      ...resume.about.profiles.flatMap((p) => [textRun('  |  '), textRun(p.url, { color: LINK })]),
     ],
   }),
 ]
 
 // --- Summary ---
-const summaryParagraphs: Paragraph[] = [
-  new Paragraph({
-    heading: HeadingLevel.HEADING_2,
-    spacing: { before: 200, after: 100 },
-    border: { bottom: { color: ACCENT_COLOR, size: 6, space: 4, style: 'single' as const } },
-    children: [
-      new TextRun({
-        text: 'PROFESSIONAL SUMMARY',
-        bold: true,
-        size: 22,
-        color: PRIMARY_COLOR,
-        font: 'Calibri',
-      }),
-    ],
-  }),
+const summaryParagraphs = [
+  sectionHeading('PROFESSIONAL SUMMARY'),
   ...(Array.isArray(resume.about.summary) ? resume.about.summary : [resume.about.summary]).map(
     (text) =>
       new Paragraph({
-        spacing: { after: 120 },
-        children: [
-          new TextRun({
-            text,
-            size: 19,
-            font: 'Calibri',
-          }),
-        ],
+        spacing: { after: 200 },
+        children: [textRun(text, { size: 19 })],
       })
   ),
 ]
 
 // --- Work Experience ---
-const experienceParagraphs: Paragraph[] = [
-  new Paragraph({
-    heading: HeadingLevel.HEADING_2,
-    spacing: { before: 200, after: 100 },
-    border: { bottom: { color: ACCENT_COLOR, size: 6, space: 4, style: 'single' as const } },
-    children: [
-      new TextRun({
-        text: 'PROFESSIONAL EXPERIENCE',
-        bold: true,
-        size: 22,
-        color: PRIMARY_COLOR,
-        font: 'Calibri',
-      }),
-    ],
-  }),
-  ...resume.work.flatMap((job) => [
+const experienceChildren: (Paragraph | Table)[] = [sectionHeading('PROFESSIONAL EXPERIENCE')]
+for (const job of resume.work) {
+  experienceChildren.push(
+    twoColumnRow(
+      [textRun(job.position, { bold: true, size: 21, color: PRIMARY })],
+      [textRun(formatDateRange(job.startDate, job.endDate), { size: 19, color: ACCENT })]
+    )
+  )
+  experienceChildren.push(
     new Paragraph({
-      spacing: { before: 160, after: 40 },
-      tabStops: [{ type: TabStopType.RIGHT, position: TabStopPosition.MAX }],
-      children: [
-        new TextRun({
-          text: job.position,
-          bold: true,
-          size: 21,
-          font: 'Calibri',
-          color: PRIMARY_COLOR,
-        }),
-        new TextRun({ text: '\t', font: 'Calibri' }),
-        new TextRun({
-          text: formatDateRange(job.startDate, job.endDate),
-          size: 19,
-          font: 'Calibri',
-          color: ACCENT_COLOR,
-        }),
-      ],
-    }),
-    new Paragraph({
-      spacing: { after: 60 },
-      children: [
-        new TextRun({
-          text: job.name,
-          italics: true,
-          size: 19,
-          font: 'Calibri',
-        }),
-      ],
-    }),
-    ...(job.summary
-      ? [
-          new Paragraph({
-            spacing: { after: 60 },
-            children: [
-              new TextRun({
-                text: job.summary,
-                size: 18,
-                font: 'Calibri',
-              }),
-            ],
-          }),
-        ]
-      : []),
-    ...(job.highlights ?? []).map(
-      (h) =>
-        new Paragraph({
-          spacing: { after: 40 },
-          indent: { left: 360 },
-          bullet: { level: 0 },
-          children: [new TextRun({ text: h, size: 18, font: 'Calibri' })],
-        })
-    ),
-  ]),
-]
+      spacing: { after: 100 },
+      children: [textRun(job.name, { italics: true, size: 19 })],
+    })
+  )
+  if (job.summary) {
+    experienceChildren.push(
+      new Paragraph({
+        spacing: { after: 160 },
+        children: [textRun(job.summary)],
+      })
+    )
+  }
+  for (const h of job.highlights ?? []) {
+    experienceChildren.push(
+      new Paragraph({
+        spacing: { after: 60 },
+        indent: { left: 360 },
+        bullet: { level: 0 },
+        children: [textRun(h)],
+      })
+    )
+  }
+}
 
 // --- Earlier Career ---
-const earlierParagraphs: Paragraph[] = [
+const earlierChildren: (Paragraph | Table)[] = [
+  sectionHeading('EARLIER CAREER'),
   new Paragraph({
-    heading: HeadingLevel.HEADING_2,
-    spacing: { before: 200, after: 100 },
-    border: { bottom: { color: ACCENT_COLOR, size: 6, space: 4, style: 'single' as const } },
-    children: [
-      new TextRun({
-        text: 'EARLIER CAREER',
-        bold: true,
-        size: 22,
-        color: PRIMARY_COLOR,
-        font: 'Calibri',
-      }),
-    ],
+    spacing: { after: 160 },
+    children: [textRun(resume.earlierCareer.summary)],
   }),
-  new Paragraph({
-    spacing: { after: 80 },
-    children: [
-      new TextRun({
-        text: resume.earlierCareer.summary,
-        size: 18,
-        font: 'Calibri',
-      }),
-    ],
-  }),
-  ...resume.earlierCareer.positions.map(
-    (pos) =>
-      new Paragraph({
-        spacing: { after: 30 },
-        tabStops: [{ type: TabStopType.RIGHT, position: TabStopPosition.MAX }],
-        children: [
-          new TextRun({ text: `${pos.position}`, bold: true, size: 18, font: 'Calibri' }),
-          new TextRun({ text: ` — ${pos.name}`, size: 18, font: 'Calibri' }),
-          new TextRun({ text: '\t', font: 'Calibri' }),
-          new TextRun({ text: pos.year, size: 18, font: 'Calibri', color: ACCENT_COLOR }),
-        ],
-      })
-  ),
 ]
+for (const pos of resume.earlierCareer.positions) {
+  earlierChildren.push(
+    twoColumnRow(
+      [textRun(pos.position, { bold: true }), textRun(` — ${pos.name}`)],
+      [textRun(pos.year, { color: ACCENT })]
+    )
+  )
+}
 
 // --- Skills ---
-const skillsParagraphs: Paragraph[] = [
-  new Paragraph({
-    heading: HeadingLevel.HEADING_2,
-    spacing: { before: 200, after: 100 },
-    border: { bottom: { color: ACCENT_COLOR, size: 6, space: 4, style: 'single' as const } },
-    children: [
-      new TextRun({
-        text: 'TECHNICAL SKILLS',
-        bold: true,
-        size: 22,
-        color: PRIMARY_COLOR,
-        font: 'Calibri',
-      }),
-    ],
-  }),
+const skillsParagraphs = [
+  sectionHeading('TECHNICAL SKILLS'),
   ...resume.skills.map(
     (cat) =>
       new Paragraph({
-        spacing: { after: 60 },
-        children: [
-          new TextRun({
-            text: `${cat.name}: `,
-            bold: true,
-            size: 18,
-            font: 'Calibri',
-          }),
-          new TextRun({
-            text: cat.keywords.join(', '),
-            size: 18,
-            font: 'Calibri',
-          }),
-        ],
+        spacing: { after: 100 },
+        children: [textRun(`${cat.name}: `, { bold: true }), textRun(cat.keywords.join(', '))],
       })
   ),
 ]
 
 // --- Education ---
-const educationParagraphs: Paragraph[] = [
-  new Paragraph({
-    heading: HeadingLevel.HEADING_2,
-    spacing: { before: 200, after: 100 },
-    border: { bottom: { color: ACCENT_COLOR, size: 6, space: 4, style: 'single' as const } },
-    children: [
-      new TextRun({
-        text: 'EDUCATION',
-        bold: true,
-        size: 22,
-        color: PRIMARY_COLOR,
-        font: 'Calibri',
-      }),
-    ],
-  }),
+const educationParagraphs = [
+  sectionHeading('EDUCATION'),
   ...resume.education.map(
     (edu) =>
       new Paragraph({
-        spacing: { after: 60 },
+        spacing: { after: 100 },
         children: [
-          new TextRun({
-            text: `${edu.studyType} — ${edu.area}`,
-            bold: true,
-            size: 19,
-            font: 'Calibri',
-          }),
-          new TextRun({ text: '\n', font: 'Calibri' }),
-          new TextRun({
-            text: `${edu.institution} | ${edu.startDate}–${edu.endDate}`,
-            size: 18,
-            font: 'Calibri',
-          }),
+          textRun(`${edu.studyType} — ${edu.area}`, { bold: true, size: 19 }),
+          new TextRun({ text: '\n', font: FONT }),
+          textRun(`${edu.institution} | ${edu.startDate}–${edu.endDate}`),
           ...(edu.honors
             ? [
-                new TextRun({ text: '\n', font: 'Calibri' }),
-                new TextRun({
-                  text: edu.honors.join(' • '),
-                  italics: true,
-                  size: 18,
-                  font: 'Calibri',
-                  color: ACCENT_COLOR,
-                }),
+                new TextRun({ text: '\n', font: FONT }),
+                textRun(edu.honors.join(' • '), { italics: true, color: ACCENT }),
               ]
             : []),
         ],
@@ -310,7 +245,7 @@ const educationParagraphs: Paragraph[] = [
   ),
 ]
 
-// --- Assemble Document ---
+// --- Assemble ---
 const doc = new Document({
   creator: 'Jon Bogaty',
   title: 'Jon Bogaty - Resume',
@@ -318,15 +253,13 @@ const doc = new Document({
   sections: [
     {
       properties: {
-        page: {
-          margin: { top: 720, right: 720, bottom: 720, left: 720 },
-        },
+        page: { margin: { top: 720, right: 720, bottom: 720, left: 720 } },
       },
       children: [
         ...headerParagraphs,
         ...summaryParagraphs,
-        ...experienceParagraphs,
-        ...earlierParagraphs,
+        ...experienceChildren,
+        ...earlierChildren,
         ...skillsParagraphs,
         ...educationParagraphs,
       ],
@@ -334,7 +267,6 @@ const doc = new Document({
   ],
 })
 
-// Generate and write
 const outPath = resolve(import.meta.dirname!, '../public/Jon_Bogaty_Resume.docx')
 const buffer = await Packer.toBuffer(doc)
 writeFileSync(outPath, buffer)
