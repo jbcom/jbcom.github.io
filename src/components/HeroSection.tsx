@@ -67,7 +67,7 @@ export function HeroSection({ name, label, summary }: HeroProps) {
   const tagline = `${summary.split('. ').slice(0, 1).join('. ')}.`
 
   return (
-    <section className="relative overflow-hidden">
+    <section className="relative overflow-clip">
       {/* Shader / gradient background */}
       <ShaderBg />
 
@@ -81,7 +81,7 @@ export function HeroSection({ name, label, summary }: HeroProps) {
       />
 
       {/* Content */}
-      <div className="relative z-10 mx-auto max-w-4xl px-4 sm:px-6 py-16 sm:py-24">
+      <div className="relative z-10 mx-auto max-w-4xl px-4 sm:px-6 py-10 sm:py-14">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -90,7 +90,7 @@ export function HeroSection({ name, label, summary }: HeroProps) {
         >
           {/* Name with gradient */}
           <h1
-            className="font-heading text-5xl sm:text-6xl lg:text-7xl font-normal tracking-tight leading-none"
+            className="font-heading text-5xl sm:text-6xl lg:text-7xl font-normal tracking-tight leading-tight"
             style={{
               background:
                 'linear-gradient(135deg, #E8A849 0%, #F0EDE8 40%, #6B8BAD 80%, #E8A849 100%)',
