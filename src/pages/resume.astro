@@ -50,6 +50,7 @@ import { formatDateRange } from '@/lib/dates'
       .job-dates { font-size: 8.5pt; color: #996B1D; white-space: nowrap; }
       .job-company { font-style: italic; font-size: 9pt; color: #444; margin-bottom: 3pt; }
       .job-summary { font-size: 8.5pt; color: #333; margin-bottom: 3pt; }
+      .job-departure { font-size: 8pt; color: #555; font-style: italic; margin-top: 2pt; }
 
       ul { padding-left: 14pt; margin-bottom: 2pt; }
       li { font-size: 8.5pt; line-height: 1.35; margin-bottom: 2pt; }
@@ -109,6 +110,7 @@ import { formatDateRange } from '@/lib/dates'
             ))}
           </ul>
         ) : null}
+        {job.departureContext && <div class="job-departure">{job.departureContext}</div>}
       </div>
     ))}
 
