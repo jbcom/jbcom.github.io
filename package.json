@@ -22,7 +22,7 @@
   "dependencies": {
     "@astrojs/react": "^4.4.2",
     "@paper-design/shaders-react": "^0.0.71",
-    "astro": "^5.18.0",
+    "astro": "^5.18.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.575.0",
