@@ -1,14 +1,43 @@
 ---
 import '../index.css'
+import '@fontsource/instrument-serif/400.css'
+import '@fontsource/instrument-serif/400-italic.css'
+import '@fontsource/inter/400.css'
+import '@fontsource/inter/500.css'
+import '@fontsource/inter/600.css'
+import '@fontsource/inter/700.css'
+import '@fontsource/jetbrains-mono/400.css'
+import '@fontsource/jetbrains-mono/500.css'
 
 import resume from '@/content/resume.json'
 
 interface Props {
   title?: string
   description?: string
+  canonical?: string
 }
 
-const { title = resume.about.name, description = resume.about.label } = Astro.props
+const siteUrl = 'https://www.jonbogaty.com'
+const { title = resume.about.name, description = resume.about.tagline, canonical } = Astro.props
+const pageTitle = title === resume.about.name ? `${title} — ${resume.about.label.split(' | ')[0]}` : `${title} · ${resume.about.name}`
+const canonicalUrl = canonical || new URL(Astro.url.pathname, siteUrl).toString()
+
+const personJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: resume.about.name,
+  jobTitle: resume.about.label.split(' | ')[0],
+  email: resume.about.email,
+  url: siteUrl,
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: resume.about.location.city,
+    addressRegion: resume.about.location.region,
+    addressCountry: resume.about.location.countryCode,
+  },
+  sameAs: resume.about.profiles.map((p) => p.url),
+  knowsAbout: resume.skills.flatMap((s) => s.keywords),
+}
 ---
 
 <!doctype html>
@@ -17,18 +46,25 @@ const { title = resume.about.name, description = resume.about.label } = Astro.pr
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
     <meta name="theme-color" content="#E8A849" />
-    <title>{title}</title>
+    <title>{pageTitle}</title>
+
+    <link rel="canonical" href={canonicalUrl} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
-      rel="stylesheet"
-    />
+
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="profile" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:site_name" content={resume.about.name} />
+    <meta property="og:image" content={`${siteUrl}/og-image.png`} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`${siteUrl}/og-image.png`} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(personJsonLd)} />
   </head>
   <body>
     <slot />

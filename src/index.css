@@ -82,6 +82,14 @@
     --sidebar-accent-foreground: #F0EDE8;
     --sidebar-border: #1E2030;
     --sidebar-ring: #E8A849;
+
+    /* Brand tokens (semantic aliases for project-level use) */
+    --brand-amber: #E8A849;
+    --brand-steel: #6B8BAD;
+    --brand-success: #4ADE80;
+    --brand-purple: #A78BFA;
+    --brand-pink: #F472B6;
+    --brand-on-light: #996B1D;
 }
 
 @layer base {
@@ -137,4 +145,43 @@ body::after {
 }
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
+}
+
+/* Horizontal scroll affordance fade-mask */
+.scroll-fade-x {
+  mask-image: linear-gradient(to right, transparent 0, black 16px, black calc(100% - 16px), transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0, black 16px, black calc(100% - 16px), transparent 100%);
+}
+
+/* Hero name gradient */
+.hero-name {
+  background: linear-gradient(135deg, var(--brand-amber) 0%, var(--foreground) 40%, var(--brand-steel) 80%, var(--brand-amber) 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientShift 8s ease-in-out infinite;
+}
+
+/* Status pulse */
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.85); }
+}
+.pulse-dot {
+  animation: pulseDot 2s ease-in-out infinite;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .hero-name {
+    animation: none;
+    background: var(--foreground);
+    -webkit-text-fill-color: var(--foreground);
+  }
 }

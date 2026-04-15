@@ -2,6 +2,14 @@
   "about": {
     "name": "Jon Bogaty",
     "label": "Staff DevOps & Platform Engineer | Multi-Cloud Infrastructure Architect | Python/Go Open-Source Builder",
+    "tagline": "Founding-DevOps operator who ships OSS frameworks. Python + Go, multi-cloud, 15+ years.",
+    "status": { "label": "Available · Independent OSS", "pulse": true },
+    "stats": [
+      { "value": "15+", "label": "Years" },
+      { "value": "$100K+/mo", "label": "Cloud saved" },
+      { "value": "5", "label": "PyPI packages" },
+      { "value": "5", "label": "OSS frameworks" }
+    ],
     "email": "jon@jonbogaty.com",
     "url": "https://www.jonbogaty.com",
     "location": {
@@ -30,11 +38,22 @@
       "position": "Open-Source Infrastructure & Security Engineering",
       "startDate": "2026-01",
       "endDate": null,
+      "tech": [
+        "Go",
+        "C",
+        "WebAssembly",
+        "Python",
+        "TypeScript",
+        "Rust",
+        "Wolfi",
+        "SLSA",
+        "Sigstore"
+      ],
       "summary": "Full-time focus on production-grade open-source infrastructure tooling following departure from Flipside Crypto. Shipping Go, C/WASM, and Python projects with supply-chain security, reproducible builds, and autonomous agent orchestration at the core.",
       "highlights": [
-        "radioactive-ralph — autonomous continuous development orchestrator for Claude Code, written in Go with Unix socket IPC, SQLite event log, stream-json session control, launchd/systemd service integration, and GoReleaser-driven multi-platform distribution (Homebrew, curl | sh, Claude Code plugin marketplace)",
-        "paranoid-passwd — zero-trust cryptographic password generator built in C with WebAssembly (Zig cross-compilation), FIPS 180-4 SHA-256, Wolfi/melange/apko reproducible supply chain, SLSA Level 3 provenance, Sigstore/Cosign keyless signing, SBOM attestation, and Ken Thompson double-compilation defense",
-        "Continued maintenance of Agentic ecosystem (TS/Python/Rust polyglot AI agent orchestration), Extended Data Library (5 PyPI packages + Go secrets-sync pipeline), and Strata Game Library (React Three Fiber)"
+        "Shipping radioactive-ralph (Go autonomous dev orchestrator) and paranoid-passwd (C/WASM zero-trust password generator with SLSA L3 + Sigstore) — see Projects",
+        "Continued maintenance of Agentic ecosystem (TS/Python/Rust polyglot AI agent orchestration), Extended Data Library (5 PyPI packages + Go secrets-sync pipeline), and Strata Game Library (React Three Fiber)",
+        "Authoring case studies on multi-cloud migration patterns, enclave-based key custody, and sole-operator DevOps playbooks drawn from the Flipside Crypto build"
       ]
     },
     {
@@ -42,6 +61,7 @@
       "position": "Staff DevOps & Platform Engineer",
       "startDate": "2021-06",
       "endDate": "2026-01",
+      "tech": ["AWS", "GCP", "Python", "Terraform", "Lambda", "Vault", "Snowflake", "Fireblocks"],
       "departureContext": "Role eliminated January 2026 as part of a company-wide workforce reduction.",
       "summary": "Founding DevOps hire at a blockchain analytics company. Spent 5 years as the sole DevOps engineer — hands-on modernizing AWS infrastructure with Terraform, building a comprehensive internal automation platform, and embedding SRE practices across product and data teams.",
       "highlights": [
@@ -60,6 +80,7 @@
       "position": "Senior Site Reliability Engineer",
       "startDate": "2020-08",
       "endDate": "2021-06",
+      "tech": ["AWS", "Python", "Kubernetes", "Prometheus", "Grafana"],
       "summary": null,
       "highlights": [
         "Spearheaded SRE initiatives for a high-traffic health insurance marketplace: improved system scalability, availability, and operational visibility across production environments",
@@ -71,6 +92,17 @@
       "position": "Senior Development Operations Engineer",
       "startDate": "2017-11",
       "endDate": "2020-08",
+      "tech": [
+        "AWS",
+        "GCP",
+        "Azure",
+        "Kubernetes",
+        "Python",
+        "Go",
+        "Terraform",
+        "Packer",
+        "Ansible"
+      ],
       "summary": null,
       "highlights": [
         "Owned enterprise CI/CD platform for a blockchain DLT product: built automation and infrastructure tooling in Python, Go, Ansible, Terraform, and Packer across AWS, GCP, and Azure",
@@ -83,6 +115,7 @@
       "position": "Senior Development Operations Engineer",
       "startDate": "2017-05",
       "endDate": "2017-11",
+      "tech": ["Docker", "CI/CD", "VPN"],
       "summary": null,
       "highlights": [
         "Modernized deployment: introduced Docker containerization, restructured CI/CD, and built ready-to-roll dev environments cutting onboarding time significantly",
@@ -94,6 +127,7 @@
       "position": "Senior Development Operations Engineer",
       "startDate": "2016-06",
       "endDate": "2017-05",
+      "tech": ["GCP", "Terraform", "Ruby", "Pub/Sub"],
       "summary": null,
       "highlights": [
         "Automated cloud infrastructure with Terraform and custom Ruby tooling: built CI/CD systems and a metrics-based auto-scaler for Google Cloud workers using Pub/Sub"
@@ -104,6 +138,7 @@
       "position": "Senior Systems Operations Engineer",
       "startDate": "2015-04",
       "endDate": "2016-04",
+      "tech": ["AWS", "Docker", "Terraform", "Packer", "Vagrant"],
       "summary": null,
       "highlights": [
         "Early Docker & Terraform champion: containerized services using Docker, Terraform, Packer, Atlas, and Vagrant — pioneering IaC before industry-wide adoption",
@@ -116,6 +151,7 @@
       "position": "Senior DevOps Engineer",
       "startDate": "2014-03",
       "endDate": "2015-04",
+      "tech": ["Chef", "Rundeck", "PAM"],
       "summary": null,
       "highlights": [
         "Managed 300+ machine infrastructure for a multinational ad-tech firm: designed Chef 10 cookbook overhauls and integrated Rundeck with PAM for zero-downtime control"
@@ -218,6 +254,43 @@
     }
   ],
   "projects": [
+    {
+      "name": "radioactive-ralph",
+      "tagline": "Autonomous Continuous Development Orchestrator",
+      "description": "Drives Claude Code across a portfolio of git repos — continuously, with safety gates, and ten named variants (green, red, blue, immortal, savage, etc.). Go binary with Unix socket IPC, SQLite event log, stream-json session control, and brew/launchd/systemd service integration.",
+      "url": "https://github.com/jbcom/radioactive-ralph",
+      "domain": "jonbogaty.com/radioactive-ralph",
+      "tech": ["Go", "SQLite", "GoReleaser", "launchd", "systemd", "Homebrew", "Claude Code"],
+      "packages": [
+        { "name": "ralph (CLI)", "description": "ralph init / run / status / service install" },
+        { "name": "Claude Code plugin", "description": "Ten /ralph variants as slash commands" },
+        { "name": "Homebrew + Scoop", "description": "Cross-platform distribution via jbcom/tap" }
+      ]
+    },
+    {
+      "name": "paranoid-passwd",
+      "tagline": "Zero-Trust Cryptographic Password Generator",
+      "description": "A self-auditing password generator that treats the LLM that built it as an adversary. C core compiled to WebAssembly via Zig cross-compilation; FIPS 180-4 SHA-256 + WASI random_get replaces 1.5MB OpenSSL WASM. Wolfi/melange/apko supply chain, SLSA L3 provenance, Sigstore keyless signing, SBOM attestation, Ken Thompson double-compilation defense.",
+      "url": "https://github.com/jbcom/paranoid-passwd",
+      "domain": "paranoid-passwd.com",
+      "tech": [
+        "C",
+        "WebAssembly",
+        "Zig",
+        "CMake",
+        "Wolfi",
+        "melange",
+        "apko",
+        "SLSA L3",
+        "Sigstore",
+        "SBOM"
+      ],
+      "packages": [
+        { "name": "paranoid (CLI)", "description": "Native C binary, Wolfi-built" },
+        { "name": "paranoid.wasm", "description": "<100KB browser module, WASI random" },
+        { "name": "OCI image", "description": "Cosign-signed, SLSA-attested, reproducible" }
+      ]
+    },
     {
       "name": "Agentic",
       "tagline": "Polyglot AI Agent Orchestration",

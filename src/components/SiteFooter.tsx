@@ -1,4 +1,4 @@
-import { Download, Github, Linkedin, Mail, MapPin, MessageCircle } from 'lucide-react'
+import { Download, FileText, Github, Linkedin, Mail, MapPin, MessageCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 
@@ -16,7 +16,6 @@ export function SiteFooter() {
     <footer className="border-t border-border bg-card/50">
       <div className="mx-auto max-w-5xl px-4 sm:px-6 py-10">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
-          {/* Brand + Location */}
           <div className="space-y-3">
             <div>
               <span className="font-heading text-xl text-foreground">Jon Bogaty</span>
@@ -30,7 +29,6 @@ export function SiteFooter() {
             </div>
           </div>
 
-          {/* Connect */}
           <div className="space-y-3">
             <h3 className="font-mono text-xs font-medium text-muted-foreground uppercase tracking-wider">
               Connect
@@ -51,12 +49,17 @@ export function SiteFooter() {
             </div>
           </div>
 
-          {/* Resume Downloads */}
           <div className="space-y-3">
             <h3 className="font-mono text-xs font-medium text-muted-foreground uppercase tracking-wider">
               Resume
             </h3>
             <div className="flex flex-col gap-2">
+              <Button variant="outline" size="sm" className="w-fit gap-2" asChild>
+                <a href="/resume/">
+                  <FileText className="size-3.5" />
+                  View HTML
+                </a>
+              </Button>
               <Button variant="outline" size="sm" className="w-fit gap-2" asChild>
                 <a href="/Jon_Bogaty_Resume.pdf" download>
                   <Download className="size-3.5" />
@@ -74,6 +77,9 @@ export function SiteFooter() {
                   Download DOCX
                 </a>
               </Button>
+              <p className="font-mono text-[0.65rem] text-muted-foreground/70 mt-1">
+                v{__APP_VERSION__} · updated {__BUILD_DATE__}
+              </p>
             </div>
           </div>
         </div>

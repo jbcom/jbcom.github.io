@@ -10,6 +10,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "generate:resume": "tsx scripts/generate-resume.ts",
+    "generate:og": "tsx scripts/generate-og-image.ts",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
@@ -21,6 +22,10 @@
   },
   "dependencies": {
     "@astrojs/react": "^4.4.2",
+    "@astrojs/sitemap": "^3.7.2",
+    "@fontsource/instrument-serif": "^5.2.8",
+    "@fontsource/inter": "^5.2.8",
+    "@fontsource/jetbrains-mono": "^5.2.8",
     "@paper-design/shaders-react": "^0.0.71",
     "astro": "^5.18.0",
     "class-variance-authority": "^0.7.1",
@@ -33,6 +38,7 @@
     "tailwind-merge": "^3.5.0"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.8",
     "@biomejs/biome": "^2.4.5",
     "@playwright/test": "^1.58.2",
     "@tailwindcss/vite": "^4.2.1",
@@ -47,7 +53,7 @@
     "typescript": "^5.9.3",
     "vitest": "^4.0.18"
   },
-  "homepage": "https://jbcom.github.io",
+  "homepage": "https://www.jonbogaty.com",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jbcom/jbcom.github.io.git"
