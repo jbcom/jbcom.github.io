@@ -4,8 +4,9 @@ on:
   pull_request:
     paths:
       - 'src/content/resume.json'
-      - 'scripts/generate-resume-*.ts'
+      - 'scripts/generate-resume*.ts'
       - 'src/lib/dates.ts'
+      - 'src/pages/resume.astro'
 
 permissions:
   contents: write
@@ -37,14 +38,20 @@ jobs:
           node-version: 22
           cache: pnpm
 
+      - name: Setup pandoc
+        uses: pandoc/actions/setup@main
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Install Playwright (for resume PDF generation)
-        run: npx playwright install chromium --with-deps
+      - name: Build site (includes resume page)
+        run: pnpm build
 
-      - name: Generate resume files
-        run: pnpm generate:resume
+      - name: Generate DOCX with pandoc
+        run: pandoc dist/resume/index.html -f html -t docx -o public/Jon_Bogaty_Resume.docx
+
+      - name: Copy PDF from build output
+        run: cp dist/Jon_Bogaty_Resume.pdf public/Jon_Bogaty_Resume.pdf 2>/dev/null || true
 
       - name: Check for changes
         id: diff

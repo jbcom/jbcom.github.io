@@ -1,7 +1,7 @@
 {
   "about": {
     "name": "Jon Bogaty",
-    "label": "Staff DevOps & Platform Engineer | Infrastructure Architect | Open-Source Builder",
+    "label": "Staff DevOps & Platform Engineer | Multi-Cloud Infrastructure Architect | Python/Go Open-Source Builder",
     "email": "jon@jonbogaty.com",
     "url": "https://www.jonbogaty.com",
     "location": {
@@ -19,17 +19,30 @@
       { "network": "Telegram", "username": "jbpersonaldev", "url": "https://t.me/jbpersonaldev" }
     ],
     "summary": [
-      "Senior infrastructure engineer with 15+ years of hands-on experience across DevOps, SRE, platform engineering, and cloud architecture. Early adopter of Docker and Terraform before industry-wide adoption, builder of large-scale internal automation platforms, and architect of production systems spanning AWS, GCP, and hybrid environments. Track record of modernizing infrastructure as the sole DevOps engineer, building comprehensive IaC tooling from scratch, and driving six-figure monthly cloud cost reductions through serverless migration and right-sizing.",
-      "Active open-source contributor and framework author. Publishing the Agentic ecosystem (polyglot AI agent orchestration across TypeScript, Python, and Rust), Extended Data Library (production Python data toolkit with 5 PyPI packages), and Strata Game Library (React Three Fiber game framework). Building tools that bridge the gap between AI research and production engineering."
+      "Senior infrastructure engineer with 15+ years across DevOps, SRE, platform engineering, and cloud architecture spanning AWS, GCP, and Azure. Early adopter of Docker and Terraform before industry-wide adoption; builder of large-scale internal automation platforms in Python and Go; architect of multi-cloud production systems including Kubernetes across EKS, GKE, and AKS. Track record of modernizing infrastructure as the sole DevOps engineer, authoring 10,000+ line Python tooling from scratch, and driving six-figure monthly cloud cost reductions through serverless migration and right-sizing.",
+      "Active open-source contributor and framework author publishing across Python, Go, TypeScript, and Rust. Maintainer of the Agentic ecosystem (polyglot AI agent orchestration), Extended Data Library (production Python + Go data toolkit, 5 PyPI packages plus a Go secrets-sync pipeline), and Strata Game Library (React Three Fiber framework). Building tools that bridge AI research and production engineering."
     ],
     "yearsExperience": "15+"
   },
   "work": [
     {
+      "name": "Independent",
+      "position": "Open-Source Infrastructure & Security Engineering",
+      "startDate": "2026-01",
+      "endDate": null,
+      "summary": "Full-time focus on production-grade open-source infrastructure tooling following departure from Flipside Crypto. Shipping Go, C/WASM, and Python projects with supply-chain security, reproducible builds, and autonomous agent orchestration at the core.",
+      "highlights": [
+        "radioactive-ralph — autonomous continuous development orchestrator for Claude Code, written in Go with Unix socket IPC, SQLite event log, stream-json session control, launchd/systemd service integration, and GoReleaser-driven multi-platform distribution (Homebrew, curl | sh, Claude Code plugin marketplace)",
+        "paranoid-passwd — zero-trust cryptographic password generator built in C with WebAssembly (Zig cross-compilation), FIPS 180-4 SHA-256, Wolfi/melange/apko reproducible supply chain, SLSA Level 3 provenance, Sigstore/Cosign keyless signing, SBOM attestation, and Ken Thompson double-compilation defense",
+        "Continued maintenance of Agentic ecosystem (TS/Python/Rust polyglot AI agent orchestration), Extended Data Library (5 PyPI packages + Go secrets-sync pipeline), and Strata Game Library (React Three Fiber)"
+      ]
+    },
+    {
       "name": "Flipside Crypto",
       "position": "Staff DevOps & Platform Engineer",
       "startDate": "2021-06",
       "endDate": "2026-01",
+      "departureContext": "Role eliminated January 2026 as part of a company-wide workforce reduction.",
       "summary": "Founding DevOps hire at a blockchain analytics company. Spent 5 years as the sole DevOps engineer — hands-on modernizing AWS infrastructure with Terraform, building a comprehensive internal automation platform, and embedding SRE practices across product and data teams.",
       "highlights": [
         "Joined as the first and only DevOps engineer; overhauled legacy AWS infrastructure with Terraform and Terragrunt, driving a 5-year evolution from single-DC multi-cluster Kubernetes through container deployments to 99% serverless (Lambda, managed services)",
@@ -38,7 +51,7 @@
         "Architected deterministic secrets propagation system with automatic deep-merge and conflict resolution across HashiCorp Vault and AWS Secrets Manager, serving hundreds of Lambda functions powering the data platform",
         "Drove AWS spend from ~$150K/month to ~$40-50K/month through serverless migration, right-sizing, and automated scaling — $100K+/month in sustained savings",
         "Identified, placed, and mentored SRE engineers into product and data departments; established company-wide CI/CD patterns, secure secrets-sharing workflows, and automation standards while remaining the singular DevOps IC",
-        "Managed Fireblocks co-signer deployments in AWS secure enclaves; led migration from Anjuna to Fireblocks-native on GCP with dedicated MDM-managed devices for cosigning approval",
+        "Led cross-cloud Fireblocks co-signer migration from AWS Nitro Enclaves (Anjuna) to Fireblocks-native on GCP with dedicated MDM-managed cosigning devices — spanning enclave architecture, GCP workload identity, and secure device provisioning",
         "Administered all IT and security operations as a parallel responsibility: Google Workspace, 1Password, DNS (Route53 + Cloudflare), SSO/SCIM, Snowflake security, compliance audits, and incident response"
       ]
     },
@@ -60,8 +73,9 @@
       "endDate": "2020-08",
       "summary": null,
       "highlights": [
-        "Owned enterprise CI/CD platform: built automation and infrastructure tooling in Python, Ansible, Terraform, and Packer across AWS, GCP, and Azure supporting blockchain product engineering",
-        "Designed multi-cloud deployment architecture: enabled reproducible, version-controlled infrastructure across three cloud providers, reducing drift and accelerating onboarding"
+        "Owned enterprise CI/CD platform for a blockchain DLT product: built automation and infrastructure tooling in Python, Go, Ansible, Terraform, and Packer across AWS, GCP, and Azure",
+        "Designed and operated production Kubernetes across AWS EKS, GCP GKE, and Azure AKS — reproducible, version-controlled multi-cloud deployment architecture for enterprise customers",
+        "Built Terraform-based repeatable customer deployment workflows enabling secure install of DLT infrastructure into enterprise cloud environments across all three major providers"
       ]
     },
     {
@@ -123,9 +137,9 @@
     {
       "name": "Cloud Platforms",
       "keywords": [
-        "AWS (EC2, ECS, EKS, Lambda, S3, IAM, CloudWatch, VPC)",
-        "Google Cloud (GKE, Pub/Sub, BigQuery)",
-        "Azure"
+        "AWS (EC2, ECS, EKS, Lambda, S3, IAM, CloudWatch, VPC, Secrets Manager, Nitro Enclaves)",
+        "GCP (GKE, Pub/Sub, BigQuery, Cloud Run, Secret Manager)",
+        "Azure (AKS, ACR, Entra ID, Key Vault)"
       ]
     },
     {
@@ -177,7 +191,7 @@
     },
     {
       "name": "Programming",
-      "keywords": ["Python", "TypeScript", "Go", "Ruby", "JavaScript", "Bash", "SQL"]
+      "keywords": ["Python", "Go", "TypeScript", "Bash", "SQL", "Ruby", "JavaScript"]
     },
     {
       "name": "AI & Automation",
