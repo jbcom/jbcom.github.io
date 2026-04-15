@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.3.0](https://github.com/jbcom/jbcom.github.io/compare/v1.2.0...v1.3.0) (2026-04-15)
+
+
+### Features
+
+* migrate from Vite SPA to Astro with pandoc resume generation ([#113](https://github.com/jbcom/jbcom.github.io/issues/113)) ([21d5ebd](https://github.com/jbcom/jbcom.github.io/commit/21d5ebd417e02248f97ebddf59d2bb96f68aa54b))
+* scheduled automerge + resume generator workflow ([#109](https://github.com/jbcom/jbcom.github.io/issues/109)) ([9534bdc](https://github.com/jbcom/jbcom.github.io/commit/9534bdcb6a80103be334ae9492c9d3f194c8ef0b))
+
+
+### Bug Fixes
+
+* match dependabot author login format in automerge ([#110](https://github.com/jbcom/jbcom.github.io/issues/110)) ([181435c](https://github.com/jbcom/jbcom.github.io/commit/181435c087f29e04e57b4cc202ef011d7d8797c8))
+
 ## [1.2.0](https://github.com/jbcom/jbcom.github.io/compare/v1.1.0...v1.2.0) (2026-03-09)
 
 
