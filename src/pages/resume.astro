@@ -6,6 +6,12 @@
  */
 import resume from '@/content/resume.json'
 import { formatDateRange } from '@/lib/dates'
+
+const CLOUD_TECH = new Set(['AWS', 'GCP', 'Azure'])
+
+function slugify(s: string): string {
+  return s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
+}
 ---
 
 <!doctype html>
@@ -67,13 +73,64 @@ import { formatDateRange } from '@/lib/dates'
       .education .school { font-size: 8.5pt; color: #444; }
       .education .honors { font-style: italic; font-size: 8.5pt; color: #996B1D; }
 
+      .project { margin-bottom: 6pt; }
+      .project-name { font-weight: 700; font-size: 9.5pt; color: #0B0D14; }
+      .project-tagline { font-size: 8.5pt; color: #996B1D; font-style: italic; }
+      .project-desc { font-size: 8.5pt; line-height: 1.35; margin-top: 1pt; }
+
+      .sitenav {
+        position: sticky;
+        top: 0;
+        background: #fff;
+        border-bottom: 1px solid #ddd;
+        padding: 8pt 16pt;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 9pt;
+        margin-bottom: 12pt;
+      }
+      .sitenav a { color: #6B8BAD; text-decoration: none; font-weight: 500; }
+      .sitenav a:hover { color: #996B1D; }
+      .sitenav .downloads { display: flex; gap: 12pt; }
+
       @media print {
         body { padding: 0; }
         @page { margin: 0.5in; size: letter; }
+        .sitenav { display: none; }
+        .tech-chips { display: none; }
+      }
+
+      .tech-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4pt;
+        margin-top: 2pt;
+        margin-bottom: 3pt;
+      }
+      .tech-chip {
+        font-size: 7.5pt;
+        padding: 1pt 5pt;
+        border: 1px solid #ddd;
+        border-radius: 3pt;
+        color: #555;
+        background: #fafafa;
+      }
+      .tech-chip.cloud {
+        background: #fff7e6;
+        border-color: #996B1D;
+        color: #996B1D;
       }
     </style>
   </head>
   <body>
+    <nav class="sitenav">
+      <a href="/">&larr; jonbogaty.com</a>
+      <div class="downloads">
+        <a href="/Jon_Bogaty_Resume.pdf" download>Download PDF</a>
+        <a href="/Jon_Bogaty_Resume.docx" download>Download DOCX</a>
+      </div>
+    </nav>
     <div class="header">
       <h1>{resume.about.name}</h1>
       <div class="label">{resume.about.label}</div>
@@ -89,19 +146,41 @@ import { formatDateRange } from '@/lib/dates'
       </div>
     </div>
 
+    {resume.about.tagline && (
+      <p class="summary" style="text-align:center;font-style:italic;color:#996B1D;margin-bottom:8pt">
+        {resume.about.tagline}
+      </p>
+    )}
+
     <h2>Professional Summary</h2>
     {(Array.isArray(resume.about.summary) ? resume.about.summary : [resume.about.summary]).map(
       (text) => <p class="summary">{text}</p>
     )}
 
-    <h2>Professional Experience</h2>
+    <h2 id="projects">Featured Open-Source Projects</h2>
+    {resume.projects.slice(0, 5).map((project) => (
+      <div class="project" id={slugify(project.name)}>
+        <div class="project-name">{project.name}{project.domain && ` — ${project.domain}`}</div>
+        {project.tagline && <div class="project-tagline">{project.tagline}</div>}
+        <div class="project-desc">{project.description}</div>
+      </div>
+    ))}
+
+    <h2 id="experience">Professional Experience</h2>
     {resume.work.map((job) => (
-      <div class="job">
+      <div class="job" id={slugify(job.name)}>
         <div class="job-header">
           <span class="job-title">{job.position}</span>
           <span class="job-dates">{formatDateRange(job.startDate, job.endDate)}</span>
         </div>
         <div class="job-company">{job.name}</div>
+        {job.tech && job.tech.length > 0 && (
+          <div class="tech-chips">
+            {job.tech.map((t) => (
+              <span class={`tech-chip${CLOUD_TECH.has(t) ? ' cloud' : ''}`}>{t}</span>
+            ))}
+          </div>
+        )}
         {job.summary && <div class="job-summary">{job.summary}</div>}
         {job.highlights?.length ? (
           <ul>

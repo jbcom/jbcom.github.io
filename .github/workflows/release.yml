@@ -41,17 +41,27 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Install Playwright browsers
+        run: pnpm exec playwright install --with-deps chromium
+
       - name: Build site
         run: pnpm build
+
+      - name: Generate og-image
+        run: pnpm generate:og && cp public/og-image.png dist/og-image.png
 
       - name: Generate resume DOCX with pandoc
         run: pandoc dist/resume/index.html -f html -t docx -o dist/Jon_Bogaty_Resume.docx
 
-      - name: Verify generated resume files
+      - name: Generate resume PDF via Playwright
+        run: pnpm exec tsx scripts/generate-resume-pdf-only.ts
+
+      - name: Verify generated artifacts
         run: |
-          ls -la dist/Jon_Bogaty_Resume.pdf dist/Jon_Bogaty_Resume.docx
+          ls -la dist/Jon_Bogaty_Resume.pdf dist/Jon_Bogaty_Resume.docx dist/og-image.png
           test -s dist/Jon_Bogaty_Resume.pdf || { echo "PDF is empty"; exit 1; }
           test -s dist/Jon_Bogaty_Resume.docx || { echo "DOCX is empty"; exit 1; }
+          test -s dist/og-image.png || { echo "og-image is empty"; exit 1; }
 
       - name: Configure Pages
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5.0.0
