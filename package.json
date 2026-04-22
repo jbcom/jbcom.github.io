@@ -27,7 +27,7 @@
     "@fontsource/inter": "^5.2.8",
     "@fontsource/jetbrains-mono": "^5.2.8",
     "@paper-design/shaders-react": "^0.0.71",
-    "astro": "^6.1.6",
+    "astro": "^6.1.8",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.575.0",
