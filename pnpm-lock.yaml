@@ -23,9 +23,6 @@ importers:
       '@fontsource/jetbrains-mono':
         specifier: ^5.2.8
         version: 5.2.8
-      '@paper-design/shaders-react':
-        specifier: ^0.0.71
-        version: 0.0.71(@types/react@19.2.14)(react@19.2.4)
       astro:
         specifier: ^6.1.10
         version: 6.1.10(@types/node@25.0.3)(jiti@2.6.1)(lightningcss@1.31.1)(rollup@4.60.4)(terser@5.48.0)(tsx@4.21.0)(typescript@5.9.3)(yaml@2.9.0)
@@ -1177,18 +1174,6 @@ packages:
 
   '@oslojs/encoding@1.1.0':
     resolution: {integrity: sha512-70wQhgYmndg4GCPxPPxPGevRKqTIJ2Nh4OkiMWmDAVYsTQ+Ta7Sq+rPevXyXGdzr30/qZBnyOalCszoMxlyldQ==}
-
-  '@paper-design/shaders-react@0.0.71':
-    resolution: {integrity: sha512-kTqjIlyZcpkwqJie+3ldEDscTtx1oOi8eRBD5QgWKI21GaNn/SSg26092M5zzqr3e8dVANv0ktS2ICSjbMFKbw==}
-    peerDependencies:
-      '@types/react': ^18 || ^19
-      react: ^18 || ^19
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-
-  '@paper-design/shaders@0.0.71':
-    resolution: {integrity: sha512-brCt05YxxyjBrhnE3l1wJJHcFXsM8aE4lmpd9TMQp+p0dMU3F+OWkJZL9m/RC1Tt7om5xr0Wg7d0HYm+b9NYZA==}
 
   '@playwright/test@1.58.2':
     resolution: {integrity: sha512-akea+6bHYBBfA9uQqSYmlJXn61cTa+jbO87xVLCWbTqbWadRVmhxlXATaOjOgcBaWU4ePo0wB41KMFv3o35IXA==}
@@ -5806,15 +5791,6 @@ snapshots:
   '@open-draft/until@2.1.0': {}
 
   '@oslojs/encoding@1.1.0': {}
-
-  '@paper-design/shaders-react@0.0.71(@types/react@19.2.14)(react@19.2.4)':
-    dependencies:
-      '@paper-design/shaders': 0.0.71
-      react: 19.2.4
-    optionalDependencies:
-      '@types/react': 19.2.14
-
-  '@paper-design/shaders@0.0.71': {}
 
   '@playwright/test@1.58.2':
     dependencies:

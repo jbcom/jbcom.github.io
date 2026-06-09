@@ -72,10 +72,12 @@ describe('resume data integrity', () => {
     expect(corpus).not.toContain('role eliminated')
   })
 
-  it('at least one project is resume-worthy and Strata stays site-only', () => {
-    const onResume = resume.projects.filter((p) => p.onResume !== false)
-    expect(onResume.length).toBeGreaterThanOrEqual(3)
-    const strata = resume.projects.find((p) => p.name.includes('Strata'))
-    expect(strata?.onResume).toBe(false)
+  it('exactly the three flagship projects, all resume-worthy', () => {
+    expect(resume.projects.map((p) => p.name).sort()).toEqual([
+      'Extended Data Library',
+      'paranoid-passwd',
+      'radioactive-ralph',
+    ])
+    expect(resume.projects.every((p) => p.onResume !== false)).toBe(true)
   })
 })

@@ -48,6 +48,8 @@ export interface ProjectPackage {
   description: string
 }
 
+export type ProjectCategory = 'security' | 'agents' | 'data' | '3d'
+
 export interface Project {
   name: string
   tagline: string
@@ -57,6 +59,8 @@ export interface Project {
   resumeDescription?: string
   /** When false the project stays on the site but is cut from the DOCX. */
   onResume?: boolean
+  /** Drives the site accent color — color means category, never decoration. */
+  category: ProjectCategory
   url: string
   domain?: string
   tech?: string[]
@@ -77,6 +81,8 @@ export interface Resume {
     name: string
     label: string
     tagline: string
+    /** One-sentence proof for the site hero — assembled from summary facts. */
+    heroLine: string
     status?: { label: string; pulse?: boolean }
     stats?: Stat[]
     email: string
@@ -99,15 +105,16 @@ const resume: Resume = {
     // boolean-search a single title bucket; everything else dilutes it.
     label: 'Staff Platform & DevOps Engineer',
     tagline:
-      '15+ years in DevOps, SRE, and platform engineering. Five of them as the sole infrastructure engineer at Flipside Crypto. Now shipping open-source tooling in Go, C, and Python.',
+      '15+ years in DevOps, SRE, and platform engineering. Five of them as the sole infrastructure engineer at Flipside Crypto. Now consulting independently and shipping open-source tooling in Rust, Go, and Python.',
+    heroLine:
+      'The sole infrastructure engineer at Flipside Crypto for five years — modernized AWS to ~99% serverless, built a 10,000-line Python platform generating 146 Terraform modules, and cut cloud spend by ~$100K/month.',
     // No "Available" — reads as job-hunting, not working.
-    status: { label: 'Independent open-source · open to Staff platform roles', pulse: false },
+    status: { label: 'Independent consulting · open to Staff platform roles', pulse: false },
     // Each stat must be self-explanatory at a glance — a bare dollar figure
     // with no baseline reads as noise; the percentage carries its own context.
     stats: [
-      { value: '15+', label: 'Years in infrastructure' },
+      { value: '15', label: 'Years in infrastructure' },
       { value: '~70%', label: 'AWS cost reduction' },
-      { value: '5', label: 'OSS frameworks' },
       { value: '5', label: 'PyPI packages' },
     ],
     email: 'jon@jonbogaty.com',
@@ -122,26 +129,25 @@ const resume: Resume = {
     // facts up front; the 2015 date does the early-adopter bragging.
     summary: [
       'Infrastructure engineer with 15+ years across DevOps, SRE, and platform engineering on AWS, GCP, and Azure. As the sole DevOps engineer at Flipside Crypto for five years, modernized legacy AWS infrastructure to ~99% serverless, built a 10,000-line Python platform that generates 146+ Terraform modules across 13 providers, and cut cloud spend from ~$150K to ~$40–50K per month. Running Docker and Terraform in production since 2015.',
-      'Currently building open-source infrastructure tooling full time — supply-chain security (SLSA L3, Sigstore), reproducible builds, and AI-agent orchestration across Python, Go, TypeScript, and Rust. Five published frameworks at jonbogaty.com.',
+      'Now consulting independently in platform and DevOps engineering, and publishing open-source tooling. Three flagships: paranoid-passwd (Rust-native password manager), radioactive-ralph (Go autonomous development orchestrator), and the Extended Data Library (5 PyPI packages plus a Go secrets-sync pipeline).',
     ],
   },
 
   work: [
     {
-      // Site-only: on the DOCX the current OSS period lives in the summary
-      // and the Open Source section, not as a "position" — a self-titled role
-      // at the top of work history reads weaker than ending on Staff @ 5yr.
-      name: 'Independent',
-      position: 'Open-Source Infrastructure & Supply-Chain Security',
+      // The current period is consulting under the long-standing
+      // jonbogaty.com entity (freelance since 2005, see earlierCareer) — open
+      // source is a supporting mention here, never a "position." Specific
+      // engagements/outcomes: [needs real engagement details from Jon].
+      name: 'jonbogaty.com',
+      position: 'Independent Platform & DevOps Consultant',
       startDate: '2026-01',
       endDate: null,
-      onResume: false,
-      tech: ['Go', 'C', 'WebAssembly', 'Python', 'TypeScript', 'Rust', 'Wolfi', 'SLSA', 'Sigstore'],
+      tech: ['AWS', 'GCP', 'Terraform', 'Kubernetes', 'Python', 'Go', 'Rust'],
       summary:
-        'Deliberate full-time period building production open-source infrastructure tooling — supply-chain security, reproducible builds, and autonomous agent orchestration in Go, C/WASM, and Python.',
+        'Independent consulting in platform engineering, DevOps, and infrastructure automation — cloud architecture, Terraform, cost optimization, and security operations — drawing on the sole-operator playbook from Flipside.',
       highlights: [
-        'Shipped paranoid-passwd: C-core password generator compiled to <100KB WebAssembly (Zig cross-compilation, FIPS 180-4 SHA-256) with a Wolfi/melange/apko supply chain, SLSA L3 provenance, Sigstore keyless signing, and SBOM attestation',
-        'Shipped radioactive-ralph: Go autonomous development orchestrator that drives Claude Code across a portfolio of repositories with safety gates — Unix-socket IPC, SQLite event log, stream-json session control, and launchd/systemd service integration',
+        'Publishing production open-source tooling alongside client work: paranoid-passwd (Rust-native password manager), radioactive-ralph (Go autonomous development orchestrator), and the Extended Data Library (5 PyPI packages plus a Go secrets-sync pipeline)',
       ],
     },
     {
@@ -289,6 +295,7 @@ const resume: Resume = {
   projects: [
     {
       name: 'radioactive-ralph',
+      category: 'agents',
       tagline: 'Autonomous Continuous Development Orchestrator',
       description:
         'Drives Claude Code across a portfolio of git repos — continuously, with safety gates, and ten named variants (green, red, blue, immortal, savage, etc.). Go binary with Unix socket IPC, SQLite event log, stream-json session control, and brew/launchd/systemd service integration.',
@@ -304,58 +311,27 @@ const resume: Resume = {
       ],
     },
     {
+      // Copy sourced from the live repo README (../paranoid-passwd) —
+      // the earlier C/WASM/SLSA story is retired upstream.
       name: 'paranoid-passwd',
-      tagline: 'Zero-Trust Cryptographic Password Generator',
+      category: 'security',
+      tagline: 'Local Secrets. Verifiable Trust.',
       description:
-        'A self-auditing password generator that treats the LLM that built it as an adversary. C core compiled to WebAssembly via Zig cross-compilation; FIPS 180-4 SHA-256 + WASI random_get replaces 1.5MB OpenSSL WASM. Wolfi/melange/apko supply chain, SLSA L3 provenance, Sigstore keyless signing, SBOM attestation, Ken Thompson double-compilation defense.',
+        'Rust-native password manager and generator: scriptable CLI, full-screen terminal wizard, and Slint desktop GUI over an encrypted local vault (Argon2id + AES-256-GCM on SQLite). Recovery through mnemonic, device-bound, and certificate-wrapped keyslots; vendored locked dependencies and verifiable, attested releases.',
       resumeDescription:
-        'C-core password generator compiled to <100KB WebAssembly (Zig cross-compilation, FIPS 180-4 SHA-256), with a Wolfi/melange/apko supply chain, SLSA L3 provenance, Sigstore keyless signing, and SBOM attestation.',
+        'Rust-native password manager and generator — CLI, terminal wizard, and Slint desktop GUI over an Argon2id + AES-256-GCM encrypted vault with mnemonic, device-bound, and certificate-wrapped recovery keyslots; vendored locked dependencies and attested releases.',
       url: 'https://github.com/jbcom/paranoid-passwd',
       domain: 'paranoid-passwd.com',
-      tech: [
-        'C',
-        'WebAssembly',
-        'Zig',
-        'CMake',
-        'Wolfi',
-        'melange',
-        'apko',
-        'SLSA L3',
-        'Sigstore',
-        'SBOM',
-      ],
+      tech: ['Rust', 'Slint', 'OpenSSL', 'SQLite', 'Argon2id', 'AES-256-GCM'],
       packages: [
-        { name: 'paranoid (CLI)', description: 'Native C binary, Wolfi-built' },
-        { name: 'paranoid.wasm', description: '<100KB browser module, WASI random' },
-        { name: 'OCI image', description: 'Cosign-signed, SLSA-attested, reproducible' },
-      ],
-    },
-    {
-      name: 'Agentic',
-      tagline: 'Polyglot AI Agent Orchestration',
-      description:
-        'Framework for coordinating AI agent fleets across TypeScript, Python, and Rust: fleet management, AI-powered triage, framework-agnostic crew orchestration, sandbox execution, and 4 GitHub Marketplace Actions.',
-      url: 'https://github.com/jbcom/agentic-control',
-      domain: 'agentic.coach',
-      tech: [
-        'TypeScript',
-        'Python',
-        'Rust',
-        'Vercel AI SDK',
-        'CrewAI',
-        'LangGraph',
-        'Bevy',
-        'Docker',
-      ],
-      packages: [
-        { name: '@jbcom/agentic', description: 'Fleet management & multi-agent routing' },
-        { name: '@jbcom/agentic-triage', description: 'AI-powered issue triage & PR review' },
-        { name: 'agentic-crew', description: 'Framework-agnostic crew orchestration' },
-        { name: 'game-generator', description: 'Visual-first vintage game generator (Rust/Bevy)' },
+        { name: 'paranoid-passwd', description: 'CLI, generator wizard TUI, and native vault TUI' },
+        { name: 'paranoid-passwd-gui', description: 'Slint desktop app — macOS .dmg, Linux .deb' },
+        { name: '7-crate workspace', description: 'core · vault · seal · audit · ops · cli · gui' },
       ],
     },
     {
       name: 'Extended Data Library',
+      category: 'data',
       tagline: 'Python + Go Data Toolkit',
       description:
         'Python monorepo of 5 independently published PyPI packages — multi-format serialization, configuration management, structured logging, and cloud connectors — plus a Go secrets-sync pipeline. Strict typing, 75%+ test coverage, MCP server support.',
@@ -373,33 +349,6 @@ const resume: Resume = {
         },
         { name: 'vendor-connectors', description: 'Universal cloud & AI service connectors' },
         { name: 'secretssync', description: 'Enterprise secret sync pipeline (Go)' },
-      ],
-    },
-    {
-      // Off-thesis for Staff Platform/DevOps targets — stays on the site,
-      // cut from the DOCX.
-      name: 'Strata Game Library',
-      tagline: 'React Three Fiber Game Framework',
-      description:
-        'Game framework for procedural 3D worlds: terrain generation, water simulation, GPU vegetation, volumetric effects, ECS architecture, physics, AI pathfinding, and character animation in a declarative React API.',
-      onResume: false,
-      url: 'https://github.com/jbcom/strata-game-library',
-      domain: 'strata.game',
-      tech: ['React Three Fiber', 'Three.js', 'TypeScript', 'GLSL', 'Rapier', 'Tone.js', 'Nx'],
-      packages: [
-        {
-          name: '@strata-game-library/core',
-          description: 'R3F components, ECS, physics, AI, animation',
-        },
-        {
-          name: '@strata-game-library/shaders',
-          description: 'Standalone GLSL shaders for Three.js',
-        },
-        { name: '@strata-game-library/presets', description: '30+ production configurations' },
-        {
-          name: '@strata-game-library/audio-synth',
-          description: 'Procedural audio synthesis (Tone.js)',
-        },
       ],
     },
   ],

@@ -1,82 +1,65 @@
-import { Download, FileText, Github, Linkedin, Mail, MapPin, MessageCircle } from 'lucide-react'
+import { Download, FileText } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { Separator } from '@/components/ui/separator'
+import resume from '@/content/resume'
 
-const socialLinks = [
-  { label: 'GitHub', href: 'https://github.com/jbcom', icon: Github },
-  { label: 'LinkedIn', href: 'https://linkedin.com/in/jonbogaty', icon: Linkedin },
-  { label: 'Telegram', href: 'https://t.me/jbpersonaldev', icon: MessageCircle },
-  { label: 'Email', href: 'mailto:jon@jonbogaty.com', icon: Mail },
-]
+const edu = resume.education[0]
 
 export function SiteFooter() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="border-t border-border bg-card/50">
-      <div className="mx-auto max-w-5xl px-4 sm:px-6 py-10">
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
-          <div className="space-y-3">
-            <div>
-              <span className="font-heading text-xl text-foreground">Jon Bogaty</span>
-              <p className="font-mono text-[0.65rem] text-muted-foreground uppercase tracking-wider mt-1">
-                DevOps · SRE · Platform Engineering · AI
-              </p>
-            </div>
-            <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-              <MapPin className="size-3" />
-              Lincoln, NE · Open to remote worldwide
-            </div>
-          </div>
-
-          <div className="space-y-3">
-            <h3 className="font-mono text-xs font-medium text-muted-foreground uppercase tracking-wider">
-              Connect
-            </h3>
-            <div className="flex flex-col gap-2">
-              {socialLinks.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  target={link.href.startsWith('http') ? '_blank' : undefined}
-                  rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                  className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors w-fit"
-                >
-                  <link.icon className="size-3.5" />
-                  {link.label}
-                </a>
-              ))}
-            </div>
-          </div>
-
-          <div className="space-y-3">
-            <h3 className="font-mono text-xs font-medium text-muted-foreground uppercase tracking-wider">
-              Resume
-            </h3>
-            <div className="flex flex-col gap-2">
-              <Button variant="outline" size="sm" className="w-fit gap-2" asChild>
-                <a href="/resume/">
-                  <FileText className="size-3.5" />
-                  View HTML
-                </a>
-              </Button>
-              <Button variant="outline" size="sm" className="w-fit gap-2" asChild>
-                <a href="/Jon_Bogaty_Resume.docx" download>
-                  <Download className="size-3.5" />
-                  Download DOCX
-                </a>
-              </Button>
-              <p className="font-mono text-[0.65rem] text-muted-foreground/70 mt-1">
-                v{__APP_VERSION__} · updated {__BUILD_DATE__}
-              </p>
-            </div>
-          </div>
+    <footer id="contact" className="border-t border-border scroll-mt-14">
+      <div className="mx-auto max-w-5xl px-4 sm:px-6 py-12 space-y-8">
+        <div>
+          <h2 className="font-heading text-3xl text-foreground">Let's talk.</h2>
+          <a
+            href={`mailto:${resume.about.email}`}
+            className="inline-block text-lg text-primary hover:text-primary/80 transition-colors mt-2"
+          >
+            {resume.about.email}
+          </a>
         </div>
 
-        <Separator className="my-6" />
+        <div className="flex items-center gap-x-6 gap-y-3 flex-wrap">
+          {resume.about.profiles.map((p) => (
+            <a
+              key={p.network}
+              href={p.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-muted-foreground hover:text-primary transition-colors"
+            >
+              {p.network} ↗
+            </a>
+          ))}
+          <span className="flex items-center gap-2 ml-auto">
+            <Button variant="outline" size="sm" className="gap-2" asChild>
+              <a href="/Jon_Bogaty_Resume.docx" download>
+                <Download className="size-3.5" />
+                Download Résumé
+              </a>
+            </Button>
+            <Button variant="ghost" size="sm" className="gap-2 text-muted-foreground" asChild>
+              <a href="/resume/">
+                <FileText className="size-3.5" />
+                View
+              </a>
+            </Button>
+          </span>
+        </div>
 
-        <p className="text-xs text-muted-foreground text-center">
-          &copy; {currentYear} Jon Bogaty. All rights reserved.
+        <div className="flex justify-between gap-4 flex-wrap text-xs text-muted-foreground">
+          <span>
+            {resume.about.location.city}, {resume.about.location.region} · open to remote
+          </span>
+          <span>
+            {edu.studyType.replace(/ \(.*\)/, '')}, {edu.area} — {edu.institution} ({edu.endDate}
+            ), with honors
+          </span>
+        </div>
+
+        <p className="font-mono text-[0.65rem] text-muted-foreground/70">
+          © {currentYear} Jon Bogaty · v{__APP_VERSION__} · updated {__BUILD_DATE__}
         </p>
       </div>
     </footer>

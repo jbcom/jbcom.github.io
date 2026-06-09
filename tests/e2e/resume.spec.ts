@@ -5,27 +5,23 @@ test.describe('Resume content', () => {
     await page.goto('/')
   })
 
-  test('Flipside Crypto appears in the Work tab', async ({ page }) => {
-    const workTab = page.getByRole('tab', { name: /Work/i })
-    await workTab.click()
+  test('Flipside Crypto appears in the Work section', async ({ page }) => {
     await expect(page.getByText('Flipside Crypto').first()).toBeVisible()
   })
 
-  test('career summary is visible in About tab', async ({ page }) => {
-    await expect(page.getByText('Infrastructure engineer with 15+ years').first()).toBeVisible()
+  test('hero proof line is visible', async ({ page }) => {
+    await expect(
+      page.getByText(/sole infrastructure engineer at Flipside Crypto/).first()
+    ).toBeVisible()
   })
 
   test('skills section has multiple categories', async ({ page }) => {
-    const skillsTab = page.getByRole('tab', { name: /Skills/i })
-    await skillsTab.click()
     await expect(page.getByText('Cloud Platforms').first()).toBeVisible()
     await expect(page.getByText('Infrastructure as Code').first()).toBeVisible()
   })
 
-  test('education section exists', async ({ page }) => {
-    const educationTab = page.getByRole('tab', { name: /Education/i })
-    await educationTab.click()
-    await expect(page.getByText('Ivy Tech Community College').first()).toBeVisible()
+  test('education appears in the footer', async ({ page }) => {
+    await expect(page.getByText(/Ivy Tech Community College/).first()).toBeVisible()
   })
 
   test('no PDF link anywhere — DOCX is the only distributable', async ({ page }) => {
