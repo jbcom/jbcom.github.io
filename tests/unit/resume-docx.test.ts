@@ -12,6 +12,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import { buildResumeDocx } from '../../scripts/resume/build-docx'
 import { resumeDocxHtml } from '../../scripts/resume/template'
 import resume from '../../src/content/resume'
+import { formatDateRange } from '../../src/lib/dates'
 
 let dir: string
 let documentXml: string
@@ -91,9 +92,12 @@ describe('compiled DOCX structure', () => {
     expect(documentXml, 'double-encoded entities leaked').not.toContain('&amp;amp;')
   })
 
-  it('renders dates for resume jobs in the HTML source', () => {
+  it('renders dates for every resume job in the HTML source', () => {
     const html = resumeDocxHtml()
-    expect(html).toContain('Jun 2021 – Jan 2026')
-    expect(html).toContain('Aug 2020 – Jun 2021')
+    for (const job of resume.work.filter((j) => j.onResume !== false)) {
+      expect(html, `missing date range for ${job.name}`).toContain(
+        formatDateRange(job.startDate, job.endDate)
+      )
+    }
   })
 })
