@@ -42,7 +42,7 @@ Four equal `rounded-lg border bg-card/40 backdrop-blur-sm` boxes — big number 
 **Fix:** Kill the cards. Either weave the stats into the tagline prose, or render as a borderless horizontal typographic band (number in serif, label in mono, thin rules between). Drop the `+` where the number is already real. ~45 min.
 
 #### 4. The copy — strongest tells of all
-**Location:** `src/content/resume.json`
+**Location:** `src/content/resume.ts`
 **Category:** Content
 
 Technical readers smell LLM copy faster than LLM layout:
@@ -54,7 +54,7 @@ Technical readers smell LLM copy faster than LLM layout:
 - **Skills:** `"Agentic AI Orchestration"`, `"Prompt Engineering"`, `"LLM-Driven Workflows"` as badge text.
 - Pervasive `·` middot chains and uniform triadic sentence rhythm ("X, Y, and Z" in nearly every sentence).
 
-**Fix:** Rewrite in plain declarative voice using only facts already in resume.json. One title, not three. Lead the summary with the concrete Flipside arc (sole DevOps engineer, the Python CLI, the cost reduction) instead of adjective stacks. Delete "battle-tested"/"production-ready"/"complete" outright — the feature lists after them already do the work. ⚠️ The reviewer-suggested rewrites in the appendix below contain *illustrative* numbers — verify every fact against resume.json before adopting any of them; do not introduce new metrics.
+**Fix:** Rewrite in plain declarative voice using only facts already in resume.ts. One title, not three. Lead the summary with the concrete Flipside arc (sole DevOps engineer, the Python CLI, the cost reduction) instead of adjective stacks. Delete "battle-tested"/"production-ready"/"complete" outright — the feature lists after them already do the work. ⚠️ The reviewer-suggested rewrites in the appendix below contain *illustrative* numbers — verify every fact against resume.ts before adopting any of them; do not introduce new metrics.
 
 ### Major
 
@@ -106,7 +106,7 @@ The deeper point: **specificity is the antidote.** AI sites are generic because 
 
 ## Prioritized Fix Plan
 
-1. **Copy rewrite pass on resume.json** (headline, tagline, summary, the three project-description adjectives, "Spearheaded"/"Track record" highlights). Highest impact, zero layout risk. Facts only from existing data.
+1. **Copy rewrite pass on resume.ts** (headline, tagline, summary, the three project-description adjectives, "Spearheaded"/"Track record" highlights). Highest impact, zero layout risk. Facts only from existing data.
 2. **De-stack the backgrounds:** keep at most the shader; delete `body::before`, `body::after`, hero dot grid.
 3. **Un-animate `.hero-name`**; reduce hero motion to a single entrance.
 4. **Replace stat cards** with a typographic stat band (or fold into the tagline); drop `+` inflation; de-pill the status badge.

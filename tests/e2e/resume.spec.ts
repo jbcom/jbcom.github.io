@@ -33,7 +33,7 @@ test.describe('Resume content', () => {
   })
 
   test('download DOCX link exists in footer', async ({ page }) => {
-    const docxLink = page.locator('a[href="/Jon_Bogaty_Resume.docx"]').first()
+    const docxLink = page.locator('footer a[href="/Jon_Bogaty_Resume.docx"]')
     await expect(docxLink).toBeVisible()
     await expect(docxLink).toHaveAttribute('download', '')
   })

@@ -1,7 +1,7 @@
 # Resume Review: Recruiter + Copy Editor + Career Coach
 
 **Date:** 2026-06-09
-**Source reviewed:** `src/content/resume.json` (canonical data)
+**Source reviewed:** `src/content/resume.ts` (canonical data — migrated from resume.json in PR #152)
 **Reviewer stance:** senior technical recruiter screening Staff/Principal DevOps-Platform-SRE resumes; professional resume copy editor; career coach. Harsh-honest by request. No facts invented — `[needs real number]` marks missing data Jon must supply.
 
 ---
