@@ -1,7 +1,7 @@
 import { Badge } from '@/components/ui/badge'
-import type resume from '@/content/resume.json'
+import type { Resume } from '@/content/resume'
 
-export function EarlierCareer({ data }: { data: typeof resume.earlierCareer }) {
+export function EarlierCareer({ data }: { data: Resume['earlierCareer'] }) {
   return (
     <div className="space-y-4">
       <p className="text-sm text-muted-foreground leading-relaxed">{data.summary}</p>

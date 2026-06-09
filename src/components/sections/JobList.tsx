@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
-import type resume from '@/content/resume.json'
+import type { WorkEntry } from '@/content/resume'
 import { formatDateRange } from '@/lib/dates'
 import { cn } from '@/lib/utils'
 
 const CLOUD_TECH = new Set(['AWS', 'GCP', 'Azure'])
 
-export function JobList({ jobs }: { jobs: typeof resume.work }) {
+export function JobList({ jobs }: { jobs: WorkEntry[] }) {
   const [selected, setSelected] = useState(0)
   const active = jobs[selected]
 
@@ -46,9 +46,9 @@ export function JobList({ jobs }: { jobs: typeof resume.work }) {
             </p>
           </div>
 
-          {'tech' in active && Array.isArray(active.tech) && active.tech.length > 0 && (
+          {active.tech && active.tech.length > 0 && (
             <div className="flex flex-wrap gap-1.5">
-              {(active.tech as string[]).map((t) => (
+              {active.tech.map((t) => (
                 <Badge
                   key={t}
                   variant={CLOUD_TECH.has(t) ? 'default' : 'secondary'}
@@ -67,21 +67,15 @@ export function JobList({ jobs }: { jobs: typeof resume.work }) {
             <p className="text-sm text-muted-foreground leading-relaxed">{active.summary}</p>
           )}
 
-          {(active.highlights ?? []).length > 0 && (
+          {active.highlights.length > 0 && (
             <ul className="space-y-2">
-              {(active.highlights ?? []).map((h) => (
+              {active.highlights.map((h) => (
                 <li key={h} className="flex gap-2 text-sm text-muted-foreground leading-relaxed">
                   <span className="text-primary shrink-0 mt-1">&#8226;</span>
                   <span>{h}</span>
                 </li>
               ))}
             </ul>
-          )}
-
-          {'departureContext' in active && active.departureContext && (
-            <p className="text-xs italic text-muted-foreground/70 pt-2 border-t border-border/50">
-              {active.departureContext as string}
-            </p>
           )}
         </CardContent>
       </Card>

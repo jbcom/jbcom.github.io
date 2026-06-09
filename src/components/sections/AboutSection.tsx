@@ -1,7 +1,7 @@
-import type resume from '@/content/resume.json'
+import type { Resume } from '@/content/resume'
 
-export function AboutSection({ data }: { data: typeof resume.about }) {
-  const paragraphs = Array.isArray(data.summary) ? data.summary : [data.summary]
+export function AboutSection({ data }: { data: Resume['about'] }) {
+  const paragraphs = data.summary
   return (
     <div className="space-y-6 max-w-3xl">
       {paragraphs.map((p) => (

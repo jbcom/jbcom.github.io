@@ -67,7 +67,7 @@ export function SectionTabs({ tabs, name, heroSentinelRef }: SectionTabsProps) {
             className="gap-2 shrink-0 hidden sm:inline-flex"
             asChild
           >
-            <a href="/Jon_Bogaty_Resume.pdf" download>
+            <a href="/Jon_Bogaty_Resume.docx" download>
               <Download className="size-3.5" />
               Resume
             </a>

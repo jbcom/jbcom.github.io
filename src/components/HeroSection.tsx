@@ -148,7 +148,7 @@ export function HeroSection({ name, label, tagline, status, stats }: HeroProps) 
             className="flex items-center justify-center gap-2 mt-8 flex-wrap"
           >
             <Button size="sm" className="gap-2" asChild>
-              <a href="/Jon_Bogaty_Resume.pdf" download>
+              <a href="/Jon_Bogaty_Resume.docx" download>
                 <Download className="size-3.5" />
                 Download Resume
               </a>

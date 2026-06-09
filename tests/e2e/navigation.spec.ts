@@ -48,7 +48,7 @@ test.describe('Site navigation', () => {
     await page.goto('/')
     const footer = page.getByRole('contentinfo')
     await expect(footer).toBeVisible()
-    await expect(footer.getByText('Jon Bogaty')).toBeVisible()
+    await expect(footer.getByText('Jon Bogaty').first()).toBeVisible()
     await expect(footer.getByText(/Lincoln, NE/)).toBeVisible()
   })
 })
