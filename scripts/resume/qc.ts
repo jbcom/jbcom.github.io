@@ -61,10 +61,15 @@ if (!existsSync(qcPdf)) {
 }
 
 console.log('Rasterizing pages...')
-execFileSync('pdftoppm', ['-png', '-r', '120', qcPdf, resolve(artifactsDir, 'page')], {
-  stdio: 'pipe',
-  timeout: 60_000,
-})
+try {
+  execFileSync('pdftoppm', ['-png', '-r', '120', qcPdf, resolve(artifactsDir, 'page')], {
+    stdio: 'pipe',
+    timeout: 60_000,
+  })
+} catch {
+  console.error('pdftoppm failed or is not installed. Install poppler with: brew install poppler')
+  process.exit(1)
+}
 rmSync(qcPdf) // QC intermediate only — no PDF artifact survives
 
 const pages = readdirSync(artifactsDir)

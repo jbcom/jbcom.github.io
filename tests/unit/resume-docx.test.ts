@@ -4,10 +4,10 @@
  * unnoticed. Visual QC is `pnpm resume:qc`; this suite is the fast gate.
  */
 
-import { execFileSync } from 'node:child_process'
-import { mkdtempSync, rmSync } from 'node:fs'
+import { mkdtempSync, readFileSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
+import JSZip from 'jszip'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import { buildResumeDocx } from '../../scripts/resume/build-docx'
 import { resumeDocxHtml } from '../../scripts/resume/template'
@@ -22,10 +22,9 @@ beforeAll(async () => {
   dir = mkdtempSync(join(tmpdir(), 'resume-docx-'))
   const docxPath = join(dir, 'resume.docx')
   await buildResumeDocx(docxPath)
-  documentXml = execFileSync('unzip', ['-p', docxPath, 'word/document.xml'], {
-    encoding: 'utf-8',
-    maxBuffer: 32 * 1024 * 1024,
-  })
+  const zip = await JSZip.loadAsync(readFileSync(docxPath))
+  documentXml = (await zip.file('word/document.xml')?.async('string')) ?? ''
+  expect(documentXml.length).toBeGreaterThan(0)
   documentText = documentXml
     .replace(/<[^>]+>/g, ' ')
     .replace(/&lt;/g, '<')

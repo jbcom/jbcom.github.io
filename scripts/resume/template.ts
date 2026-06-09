@@ -159,7 +159,7 @@ function educationSection(): string {
         edu
       ) => `<p style="${body('9.5pt', `font-weight: bold; color: ${HEAD};`)} margin: 0;">${escapeHtml(edu.studyType)} — ${escapeHtml(edu.area)}</p>
 <p style="${body('9pt', `color: ${MUTED};`)} margin: 0;">${escapeHtml(edu.institution)} · ${escapeHtml(edu.startDate)}–${escapeHtml(edu.endDate)}</p>
-${edu.honors ? `<p style="${body('9pt', `color: ${ACCENT}; font-style: italic;`)} margin: 0 0 4pt 0;">${edu.honors.map((h) => escapeHtml(h)).join(' · ')}</p>` : ''}`
+${edu.honors.length > 0 ? `<p style="${body('9pt', `color: ${ACCENT}; font-style: italic;`)} margin: 0 0 4pt 0;">${edu.honors.map((h) => escapeHtml(h)).join(' · ')}</p>` : ''}`
     )
     .join('\n')
   return sectionHeading('Education') + entries

@@ -102,11 +102,13 @@ const resume: Resume = {
       '15+ years in DevOps, SRE, and platform engineering. Five of them as the sole infrastructure engineer at Flipside Crypto. Now shipping open-source tooling in Go, C, and Python.',
     // No "Available" — reads as job-hunting, not working.
     status: { label: 'Independent open-source · open to Staff platform roles', pulse: false },
+    // Each stat must be self-explanatory at a glance — a bare dollar figure
+    // with no baseline reads as noise; the percentage carries its own context.
     stats: [
-      { value: '15+', label: 'Years' },
-      { value: '$100K/mo', label: 'AWS savings' },
-      { value: '5', label: 'PyPI packages' },
+      { value: '15+', label: 'Years in infrastructure' },
+      { value: '~70%', label: 'AWS cost reduction' },
       { value: '5', label: 'OSS frameworks' },
+      { value: '5', label: 'PyPI packages' },
     ],
     email: 'jon@jonbogaty.com',
     url: 'https://www.jonbogaty.com',
