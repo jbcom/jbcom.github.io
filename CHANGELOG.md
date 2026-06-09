@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.5.0](https://github.com/jbcom/jbcom.github.io/compare/v1.4.0...v1.5.0) (2026-06-09)
+
+
+### Features
+
+* DOCX-first resume pipeline with visual QC and recruiter-driven restructure ([#152](https://github.com/jbcom/jbcom.github.io/issues/152)) ([c0b9051](https://github.com/jbcom/jbcom.github.io/commit/c0b9051bfacb93637f99b9d9744051e0552ca15a))
+* single-scroll redesign — kill AI-template tells, tri-panel OSS, consulting-first narrative ([#154](https://github.com/jbcom/jbcom.github.io/issues/154)) ([88b41c9](https://github.com/jbcom/jbcom.github.io/commit/88b41c95bf15d7b92457610d306ecac1cfcb6d6b))
+
 ## [1.4.0](https://github.com/jbcom/jbcom.github.io/compare/v1.3.0...v1.4.0) (2026-04-16)
 
 
