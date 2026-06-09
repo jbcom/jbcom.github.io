@@ -37,23 +37,46 @@ jobs:
           node-version: 22
           cache: pnpm
 
+      # pull_request `paths` filters match the whole PR diff, so this job
+      # re-runs on its own regenerate commits. The guard + content-aware diff
+      # below break that loop (the DOCX zip is not byte-deterministic).
+      - name: Skip if triggered by own regenerate commit
+        id: guard
+        run: |
+          if [ "$(git log -1 --format='%an')" = "github-actions[bot]" ]; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Install dependencies
+        if: steps.guard.outputs.skip != 'true'
         run: pnpm install --frozen-lockfile
 
       - name: Compile resume DOCX
+        if: steps.guard.outputs.skip != 'true'
         run: pnpm resume:build
 
-      - name: Check for changes
+      - name: Check for content changes
+        if: steps.guard.outputs.skip != 'true'
         id: diff
         run: |
-          if git diff --quiet public/Jon_Bogaty_Resume.docx; then
+          # Compare document content, not zip bytes (zip timestamps differ
+          # on every build even when the document is identical).
+          new_xml=$(mktemp); old_xml=$(mktemp)
+          unzip -p public/Jon_Bogaty_Resume.docx word/document.xml > "$new_xml"
+          git show HEAD:public/Jon_Bogaty_Resume.docx > /tmp/old.docx 2>/dev/null \
+            && unzip -p /tmp/old.docx word/document.xml > "$old_xml" 2>/dev/null \
+            || : > "$old_xml"
+          if cmp -s "$new_xml" "$old_xml"; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
+            git checkout -- public/Jon_Bogaty_Resume.docx
           else
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Commit and push
-        if: steps.diff.outputs.changed == 'true'
+        if: steps.guard.outputs.skip != 'true' && steps.diff.outputs.changed == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -62,7 +85,7 @@ jobs:
           git push
 
       - name: Comment on PR
-        if: steps.diff.outputs.changed == 'true'
+        if: steps.guard.outputs.skip != 'true' && steps.diff.outputs.changed == 'true'
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         with:
           script: |
