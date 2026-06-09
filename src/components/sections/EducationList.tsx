@@ -1,6 +1,6 @@
-import type resume from '@/content/resume.json'
+import type { Education } from '@/content/resume'
 
-export function EducationList({ items }: { items: typeof resume.education }) {
+export function EducationList({ items }: { items: Education[] }) {
   return (
     <div className="space-y-4">
       {items.map((edu) => (

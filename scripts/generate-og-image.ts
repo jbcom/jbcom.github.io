@@ -5,7 +5,7 @@
 import { writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { chromium } from 'playwright'
-import resume from '../src/content/resume.json' with { type: 'json' }
+import resume from '../src/content/resume.ts'
 
 const root = resolve(import.meta.dirname!, '..')
 const out = resolve(root, 'public/og-image.png')
@@ -84,7 +84,7 @@ const html = `<!doctype html>
 <body>
   <div class="pill"><span class="dot"></span> ${resume.about.status?.label ?? 'Available'}</div>
   <h1>${resume.about.name}</h1>
-  <div class="label">${resume.about.label.split(' | ')[0]}</div>
+  <div class="label">${resume.about.label}</div>
   <div class="tagline">${resume.about.tagline}</div>
   <div class="url">jonbogaty.com</div>
 </body>

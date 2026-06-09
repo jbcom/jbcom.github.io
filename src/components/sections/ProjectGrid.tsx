@@ -2,7 +2,7 @@ import { ExternalLink, Globe, Package } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
-import type resume from '@/content/resume.json'
+import type { Project } from '@/content/resume'
 
 const ACCENTS = [
   'var(--brand-amber)',
@@ -18,7 +18,7 @@ function accentFor(slug: string): string {
   return ACCENTS[h % ACCENTS.length]
 }
 
-export function ProjectGrid({ items }: { items: typeof resume.projects }) {
+export function ProjectGrid({ items }: { items: Project[] }) {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
       {items.map((project) => {

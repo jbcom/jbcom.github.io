@@ -9,7 +9,7 @@ import '@fontsource/inter/700.css'
 import '@fontsource/jetbrains-mono/400.css'
 import '@fontsource/jetbrains-mono/500.css'
 
-import resume from '@/content/resume.json'
+import resume from '@/content/resume'
 
 interface Props {
   title?: string
@@ -19,14 +19,14 @@ interface Props {
 
 const siteUrl = 'https://www.jonbogaty.com'
 const { title = resume.about.name, description = resume.about.tagline, canonical } = Astro.props
-const pageTitle = title === resume.about.name ? `${title} — ${resume.about.label.split(' | ')[0]}` : `${title} · ${resume.about.name}`
+const pageTitle = title === resume.about.name ? `${title} — ${resume.about.label}` : `${title} · ${resume.about.name}`
 const canonicalUrl = canonical || new URL(Astro.url.pathname, siteUrl).toString()
 
 const personJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
   name: resume.about.name,
-  jobTitle: resume.about.label.split(' | ')[0],
+  jobTitle: resume.about.label,
   email: resume.about.email,
   url: siteUrl,
   address: {

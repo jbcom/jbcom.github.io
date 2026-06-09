@@ -12,7 +12,7 @@ test.describe('Resume content', () => {
   })
 
   test('career summary is visible in About tab', async ({ page }) => {
-    await expect(page.getByText('Senior infrastructure engineer').first()).toBeVisible()
+    await expect(page.getByText('Infrastructure engineer with 15+ years').first()).toBeVisible()
   })
 
   test('skills section has multiple categories', async ({ page }) => {
@@ -28,14 +28,12 @@ test.describe('Resume content', () => {
     await expect(page.getByText('Ivy Tech Community College').first()).toBeVisible()
   })
 
-  test('download PDF link exists in footer', async ({ page }) => {
-    const pdfLink = page.locator('a[href="/Jon_Bogaty_Resume.pdf"]')
-    await expect(pdfLink).toBeVisible()
-    await expect(pdfLink).toHaveAttribute('download', '')
+  test('no PDF link anywhere — DOCX is the only distributable', async ({ page }) => {
+    await expect(page.locator('a[href$=".pdf"]')).toHaveCount(0)
   })
 
   test('download DOCX link exists in footer', async ({ page }) => {
-    const docxLink = page.locator('a[href="/Jon_Bogaty_Resume.docx"]')
+    const docxLink = page.locator('a[href="/Jon_Bogaty_Resume.docx"]').first()
     await expect(docxLink).toBeVisible()
     await expect(docxLink).toHaveAttribute('download', '')
   })
@@ -53,8 +51,13 @@ test.describe('Resume page (print-optimized)', () => {
 
   test('resume page has correct job entries', async ({ page }) => {
     await page.goto('/resume')
-    await expect(page.getByText('Flipside Crypto')).toBeVisible()
-    await expect(page.getByText('GoHealth')).toBeVisible()
-    await expect(page.getByText('ClassPass')).toBeVisible()
+    await expect(page.getByText('Flipside Crypto').first()).toBeVisible()
+    await expect(page.getByText('GoHealth').first()).toBeVisible()
+    await expect(page.getByText('Symbiont').first()).toBeVisible()
+  })
+
+  test('site-only roles stay off the resume page', async ({ page }) => {
+    await page.goto('/resume')
+    await expect(page.getByText('Senior Systems Operations Engineer')).toHaveCount(0)
   })
 })

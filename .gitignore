@@ -38,3 +38,9 @@ yarn-error.log*
 coverage
 playwright-report
 test-results
+
+# Resume QC render output
+artifacts/
+.ui-design/reviews/*.png
+.ui-design/reviews/snapshot.txt
+.ui-design/reviews/review_state.json

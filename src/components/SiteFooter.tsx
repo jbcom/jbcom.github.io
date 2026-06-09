@@ -61,17 +61,6 @@ export function SiteFooter() {
                 </a>
               </Button>
               <Button variant="outline" size="sm" className="w-fit gap-2" asChild>
-                <a href="/Jon_Bogaty_Resume.pdf" download>
-                  <Download className="size-3.5" />
-                  Download PDF
-                </a>
-              </Button>
-              <Button
-                variant="ghost"
-                size="sm"
-                className="w-fit gap-2 text-muted-foreground"
-                asChild
-              >
                 <a href="/Jon_Bogaty_Resume.docx" download>
                   <Download className="size-3.5" />
                   Download DOCX

@@ -1,130 +1,68 @@
 # jbcom.github.io
 
-> Jon Bogaty's professional portfolio and jbcom ecosystem showcase
+> Jon Bogaty's professional portfolio — [jonbogaty.com](https://www.jonbogaty.com)
 
-## 🎯 Purpose
+## Purpose
 
-This site serves as:
-1. **Professional Portfolio** - Resume, skills, experience
-2. **Ecosystem Directory** - All jbcom packages with links to their repos
-3. **Static Site** - Fast, accessible, zero JavaScript required
+1. **Professional portfolio** — career history, skills, open-source projects
+2. **Resume distribution** — a compiled, QC'd DOCX as the single distributable
+3. **Ecosystem showcase** — the jbcom open-source frameworks
 
-## 🏗️ Architecture: Static-First
+## Architecture
 
-This is a **pure static site** built for GitHub Pages. No React, no build tools, just HTML/CSS.
-
-```
-/
-├── content/              # Content as source (markdown/YAML)
-│   ├── resume.md        # Resume source
-│   ├── about.md         # About page content
-│   ├── vision.md        # Ecosystem vision
-│   └── ecosystem.yml    # 20+ packages with metadata
-├── templates/           # Pandoc templates for resume generation
-│   └── resume-pdf.html  # PDF generation template
-├── assets/
-│   └── css/
-│       └── style.css    # Complete design system implementation
-├── *.html               # Static HTML pages
-└── .github/workflows/
-    └── deploy.yml       # Build & deploy (generates PDF/DOCX)
-```
-
-### Build Process
-
-1. **Content** - All content stored as markdown or YAML
-2. **Generation** - GitHub Actions generates PDF/DOCX from markdown via pandoc
-3. **Deployment** - Static HTML/CSS deployed to GitHub Pages
-
-**No JavaScript required** for core functionality. Fast page loads (<1s).
-
-## 🎨 Design System
-
-### Colors
-- **Background**: Deep slate (#020617)
-- **Surface**: Slate panels with glassmorphism (#0f172a)
-- **Primary**: Cyan/Teal (#0ea5e9)
-- **Secondary**: Deep blue (#3170aa)
-- **Accent**: Purple (#7c3aed)
-
-### Typography
-- **Headings**: Space Grotesk - bold, technical, modern
-- **Body**: Inter - clean, readable, professional
-- **Code**: JetBrains Mono - monospace, developer-friendly
-
-### Components
-- Glassmorphic cards with backdrop blur
-- Gradient accents on hover states
-- Responsive grid layouts
-- Mobile bottom navigation
-
-## 📱 Responsive Design
-
-| Breakpoint | Layout |
-|------------|--------|
-| xs (0-599px) | Bottom nav, single column |
-| sm (600-899px) | Collapsible drawer, 2 columns |
-| md (900-1199px) | Persistent sidebar, 2-3 columns |
-| lg (1200px+) | Full sidebar, 3+ columns |
-
-## 🚀 Development
-
-```bash
-# Install dependencies
-npm install
-
-# Start dev server
-npm run dev
-
-# Build for production
-npm run build
-
-# Preview production build
-npm run preview
-
-# Deploy to GitHub Pages
-npm run deploy
-```
-
-## 📁 Structure
+Astro 6 static site with React islands, shadcn/ui, and Tailwind CSS v4.
 
 ```
 src/
-├── components/
-│   ├── Layout.tsx           # Main layout with responsive sidebar
-│   └── StrataBackground.tsx # The 3D layered background
-├── data/
-│   └── ecosystem.ts         # Package catalog
+├── content/resume.ts        # CANONICAL resume data — single source of truth
 ├── pages/
-│   ├── HomePage.tsx         # Landing with hero
-│   ├── AboutPage.tsx        # Bio and skills
-│   ├── EcosystemPage.tsx    # Package directory
-│   ├── ProjectPage.tsx      # Individual package
-│   └── DemosPage.tsx        # Interactive strata demos
-├── theme.ts                 # Material UI theme
-├── main.tsx                 # Entry point
-└── App.tsx                  # Router and layer composition
+│   ├── index.astro          # Portfolio SPA shell (React island)
+│   └── resume.astro         # Print-optimized HTML resume view
+├── components/              # React components (hero, tabs, sections)
+└── layouts/Layout.astro     # Meta, JSON-LD, OG tags
+
+scripts/resume/
+├── template.ts              # resume.ts → Word-semantics HTML
+├── build-docx.ts            # HTML → Jon_Bogaty_Resume.docx (turbodocx)
+└── qc.ts                    # DOCX → LibreOffice → PNG pages for visual review
 ```
 
-## 🐕 Dogfooding
+### Resume pipeline (DOCX-first, no PDF)
 
-This site demonstrates what strata can do:
-- The animated background uses strata components
-- The demos page showcases interactive scenes
-- All 3D is powered by React Three Fiber
+The DOCX is the resume. There is deliberately no PDF target.
 
-The best way to show what a library can do is to use it.
+```bash
+pnpm resume:build   # compile public/Jon_Bogaty_Resume.docx from resume.ts
+pnpm resume:qc      # render the actual DOCX to PNGs (artifacts/resume-qc/)
+                    # — read them before shipping; requires LibreOffice + poppler
+```
 
-## 📦 Tech Stack
+`src/content/resume.ts` is typed and commented; positioning decisions are
+documented inline and in `docs/resume-review/`. Hard rule: **every fact must
+be real** — no invented metrics, titles, or dates. Site-only content (extra
+projects, site-flavor copy) is controlled with `onResume: false` and
+`resumeDescription` fields rather than forked data.
 
-- **React 18** - UI framework
-- **TypeScript** - Type safety
-- **Vite** - Build tool
-- **Material UI 5** - Component library
-- **React Router 6** - Navigation
-- **React Three Fiber** - 3D rendering
-- **React Three Drei** - R3F helpers
+### Commands
 
-## 📄 License
+```bash
+pnpm dev            # dev server
+pnpm build          # static build (dist/)
+pnpm test           # vitest unit tests (includes DOCX structural QC)
+pnpm test:e2e       # Playwright
+pnpm check          # astro check + tsc
+pnpm lint           # biome
+```
 
-MIT © Jon Bogaty
+### CI/CD
+
+- `ci.yml` — lint, typecheck, tests on PRs
+- `resume.yml` — regenerates the DOCX on PRs touching resume sources
+- `cd.yml` / `release.yml` — release-please + GitHub Pages deploy
+
+## Design system
+
+Always dark. Amber `#E8A849` on rich black `#0B0D14`, steel blue `#6B8BAD`
+secondary. Instrument Serif headings, Inter body, JetBrains Mono code.
+Print/DOCX accent is `#996B1D` (dark goldenrod — site amber is too light on
+white).

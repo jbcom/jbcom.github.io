@@ -9,7 +9,7 @@ import { JobList } from '@/components/sections/JobList'
 import { ProjectGrid } from '@/components/sections/ProjectGrid'
 import { SkillGrid } from '@/components/sections/SkillGrid'
 import { Tabs, TabsContent } from '@/components/ui/tabs'
-import resume from '@/content/resume.json'
+import resume from '@/content/resume'
 
 // Explicit, reader-value ordering (not alphabetical, not JSON order)
 const TABS = [

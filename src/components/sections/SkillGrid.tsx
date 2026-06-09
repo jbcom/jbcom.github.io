@@ -1,10 +1,14 @@
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
-import type resume from '@/content/resume.json'
+import type { SkillCategory } from '@/content/resume'
 
-const HEADLINE_CATEGORIES = new Set(['Cloud Platforms', 'Programming', 'Infrastructure as Code'])
+const HEADLINE_CATEGORIES = new Set([
+  'Platform & Reliability',
+  'Cloud Platforms',
+  'Infrastructure as Code',
+])
 
-export function SkillGrid({ categories }: { categories: typeof resume.skills }) {
+export function SkillGrid({ categories }: { categories: SkillCategory[] }) {
   const headline = categories.filter((c) => HEADLINE_CATEGORIES.has(c.name))
   const rest = categories.filter((c) => !HEADLINE_CATEGORIES.has(c.name))
 
