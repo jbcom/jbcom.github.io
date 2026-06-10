@@ -7,6 +7,10 @@ import resume from '@/content/resume'
 
 const edu = resume.education[0]
 const currentYear = new Date().getFullYear()
+// Vite `define` substitutes inside frontmatter (a JS module); template
+// expressions referencing the bare globals are not reliably rewritten.
+const appVersion = __APP_VERSION__
+const buildDate = __BUILD_DATE__
 ---
 
 <footer id="contact" class="border-t border-border scroll-mt-14">
@@ -57,7 +61,7 @@ const currentYear = new Date().getFullYear()
     </div>
 
     <p class="font-mono text-[0.65rem] text-muted-foreground/70">
-      © {currentYear} Jon Bogaty · v{__APP_VERSION__} · updated {__BUILD_DATE__}
+      © {currentYear} Jon Bogaty · v{appVersion} · updated {buildDate}
     </p>
   </div>
 </footer>
