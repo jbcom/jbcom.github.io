@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.0](https://github.com/jbcom/jbcom.github.io/compare/v1.6.0...v1.7.0) (2026-06-10)
+
+
+### Features
+
+* rebuild portfolio with Astrofy shell ([84cbe7a](https://github.com/jbcom/jbcom.github.io/commit/84cbe7ad9dc8ff30161340003a66ef1f9c491b7a))
+
 ## [1.6.0](https://github.com/jbcom/jbcom.github.io/compare/v1.5.0...v1.6.0) (2026-06-10)
 
 
