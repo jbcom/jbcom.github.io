@@ -1,8 +1,4 @@
 @import "tailwindcss";
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
-
-@custom-variant dark (&:is(.dark *));
 
 @theme inline {
     --radius-sm: calc(var(--radius) - 4px);
@@ -123,6 +119,37 @@
 .scroll-fade-x {
   mask-image: linear-gradient(to right, transparent 0, black 16px, black calc(100% - 16px), transparent 100%);
   -webkit-mask-image: linear-gradient(to right, transparent 0, black 16px, black calc(100% - 16px), transparent 100%);
+}
+
+/* Button styles (replaces the shadcn Button component — same visual) */
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all h-8 px-3 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px];
+  }
+  .btn svg {
+    @apply pointer-events-none shrink-0;
+  }
+  .btn-primary {
+    @apply bg-primary text-primary-foreground hover:bg-primary/90;
+  }
+  .btn-outline {
+    @apply border border-border bg-background hover:bg-accent hover:text-accent-foreground;
+  }
+  .btn-ghost {
+    @apply hover:bg-accent hover:text-accent-foreground text-muted-foreground;
+  }
+  .btn-icon {
+    @apply size-9 px-0;
+  }
+}
+
+/* The one allowed entrance: a single hero fade-up. */
+@keyframes heroFadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.hero-enter {
+  animation: heroFadeUp 0.5s ease-out both;
 }
 
 /* Respect reduced motion */

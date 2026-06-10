@@ -1,6 +1,5 @@
 import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
-import react from '@astrojs/react'
 import sitemap from '@astrojs/sitemap'
 import tailwindcss from '@tailwindcss/vite'
 import { defineConfig } from 'astro/config'
@@ -11,7 +10,7 @@ const buildDate = new Date().toISOString().slice(0, 10)
 export default defineConfig({
   site: 'https://www.jonbogaty.com',
   output: 'static',
-  integrations: [react(), sitemap()],
+  integrations: [sitemap()],
   vite: {
     plugins: [tailwindcss()],
     define: {

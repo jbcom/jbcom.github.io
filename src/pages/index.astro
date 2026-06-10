@@ -1,8 +1,25 @@
 ---
-import App from '../App'
+/**
+ * A lobby, not a brochure: identity + proof + action in the hero, then the
+ * one thing a résumé can't show — the live open-source portfolio. Career
+ * history and the skills matrix live in the résumé (one click away, HTML
+ * and DOCX). Statically rendered; the only JavaScript is the nav scroll-spy.
+ */
+import Footer from '../components/Footer.astro'
+import Hero from '../components/Hero.astro'
+import OpenSourceSection from '../components/OpenSourceSection.astro'
+import SiteNav from '../components/SiteNav.astro'
 import Layout from '../layouts/Layout.astro'
 ---
 
 <Layout>
-  <App client:load />
+  <div class="min-h-screen flex flex-col">
+    <div id="top"></div>
+    <SiteNav />
+    <Hero />
+    <main class="flex-1">
+      <OpenSourceSection />
+    </main>
+    <Footer />
+  </div>
 </Layout>
