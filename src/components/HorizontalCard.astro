@@ -9,10 +9,12 @@ const {
   target = '_blank',
   meta,
 } = Astro.props
+
+const rel = target === '_blank' ? 'noopener noreferrer' : undefined
 ---
 
 <article class="rounded-lg bg-base-100 transition hover:scale-[1.01] hover:shadow-xl">
-  <a href={url} target={target} class="hero-content flex-col items-start gap-5 md:flex-row">
+  <a href={url} target={target} rel={rel} class="hero-content flex-col items-start gap-5 md:flex-row">
     {
       img && (
         <img

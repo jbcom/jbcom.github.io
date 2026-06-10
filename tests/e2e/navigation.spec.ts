@@ -41,6 +41,9 @@ test.describe('Astrofy portfolio navigation', () => {
     await expect(page.getByText('Extended Data Library').first()).toBeVisible()
     await expect(page.getByText('paranoid-passwd-gui')).toBeVisible()
     await expect(page.getByText('Package surface').first()).toBeVisible()
+    await expect(
+      page.locator('a[href="https://github.com/jbcom/radioactive-ralph"]')
+    ).toHaveAttribute('rel', 'noopener noreferrer')
   })
 
   test('outcomes page complements CV and projects with proof stories', async ({ page }) => {

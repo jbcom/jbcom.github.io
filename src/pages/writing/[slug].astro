@@ -12,7 +12,7 @@ const { post } = Astro.props as { post: WritingEntry }
 const { Content } = await render(post)
 
 const formatDate = (d: Date) =>
-  d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
+  d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' })
 ---
 
 <BaseLayout title={`${post.data.title} · Jon Bogaty`} description={post.data.description} sideBarActiveItemID="writing">

@@ -8,7 +8,7 @@ const posts = (await getCollection('writing', ({ data }: WritingEntry) => !data.
 )
 
 const formatDate = (d: Date) =>
-  d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
+  d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' })
 ---
 
 <BaseLayout title="Writing · Jon Bogaty" sideBarActiveItemID="writing">

@@ -19,14 +19,14 @@ import { formatDateRange } from '@/lib/dates'
     </div>
   </section>
 
-  <section id="experience" class="mb-10 scroll-mt-6">
+  <section id="profile-summary" class="mb-10 scroll-mt-6">
     <h2 class="mb-4 text-3xl font-bold text-base-content">Profile</h2>
     <div class="grid gap-4">
       {resume.about.summary.map((text) => <p class="text-base leading-relaxed text-base-content/70">{text}</p>)}
     </div>
   </section>
 
-  <section id="skills" class="mb-10 scroll-mt-6">
+  <section id="experience" class="mb-10 scroll-mt-6">
     <h2 class="mb-5 text-3xl font-bold text-base-content">Experience</h2>
     <div class="time-line-container">
       {
@@ -69,7 +69,7 @@ import { formatDateRange } from '@/lib/dates'
     </div>
   </section>
 
-  <section class="mb-10">
+  <section id="skills" class="mb-10 scroll-mt-6">
     <h2 class="mb-5 text-3xl font-bold text-base-content">Skills</h2>
     <div class="grid gap-3">
       {
