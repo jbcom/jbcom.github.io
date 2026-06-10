@@ -5,7 +5,9 @@ import resume from '@/content/resume'
 import type { WritingEntry } from '@/content.config'
 
 export async function GET(context: APIContext) {
-  const posts = await getCollection('writing', ({ data }: WritingEntry) => !data.draft)
+  const posts = (await getCollection('writing', ({ data }: WritingEntry) => !data.draft)).sort(
+    (a: WritingEntry, b: WritingEntry) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+  )
   return rss({
     title: `${resume.about.name} — Writing`,
     description: resume.about.tagline,

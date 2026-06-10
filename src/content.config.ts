@@ -33,7 +33,7 @@ export interface WritingEntry {
 }
 
 const writing = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/writing' }),
+  loader: glob({ pattern: '*.md', base: './src/content/writing' }),
   schema: writingSchema,
 })
 

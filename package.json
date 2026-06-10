@@ -16,7 +16,7 @@
     "test:watch": "vitest",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
-    "check": "astro check && tsc --noEmit -p tsconfig.json",
+    "check": "astro sync && astro check && tsc --noEmit -p tsconfig.json",
     "lint": "biome check .",
     "lint:fix": "biome check --write .",
     "format": "biome format --write ."

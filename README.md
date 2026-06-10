@@ -17,9 +17,12 @@ component framework.
 ```
 src/
 ├── content/resume.ts        # CANONICAL resume data — single source of truth
+├── content/writing/         # Markdown posts (see content.config.ts for frontmatter)
 ├── pages/
 │   ├── index.astro          # The lobby: hero → Open Source → contact
-│   └── resume.astro         # Print-optimized HTML resume view
+│   ├── resume.astro         # Print-optimized HTML resume view
+│   ├── writing/             # Post index + pages — nav link appears with the first post
+│   └── rss.xml.ts           # RSS feed for writing
 ├── components/              # Astro components (SiteNav, Hero, OpenSourceSection, Footer)
 └── layouts/Layout.astro     # Meta, JSON-LD, OG tags
 
