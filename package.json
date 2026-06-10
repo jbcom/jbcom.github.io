@@ -1,6 +1,6 @@
 {
   "name": "jbcom.github.io",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "description": "Jon Bogaty's professional portfolio and jbcom ecosystem showcase",
   "private": true,
   "type": "module",
@@ -24,7 +24,7 @@
   "dependencies": {
     "@astrojs/mdx": "^6.0.3",
     "@astrojs/rss": "^4.0.18",
-    "@astrojs/sitemap": "^3.7.2",
+    "@astrojs/sitemap": "^3.7.3",
     "@fontsource/instrument-serif": "^5.2.8",
     "@fontsource/inter": "^5.2.8",
     "@fontsource/jetbrains-mono": "^5.2.8",
@@ -33,18 +33,18 @@
     "daisyui": "^5.5.23"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.8",
-    "@biomejs/biome": "^2.4.5",
-    "@playwright/test": "^1.58.2",
-    "@tailwindcss/vite": "^4.2.1",
+    "@astrojs/check": "^0.9.9",
+    "@biomejs/biome": "^2.4.16",
+    "@playwright/test": "^1.60.0",
+    "@tailwindcss/vite": "^4.3.0",
     "@turbodocx/html-to-docx": "^1.21.0",
-    "@types/node": "^25.0.3",
+    "@types/node": "^25.9.2",
     "jszip": "^3.10.1",
-    "playwright": "^1.58.2",
-    "tailwindcss": "^4.2.1",
-    "tsx": "^4.21.0",
+    "playwright": "^1.60.0",
+    "tailwindcss": "^4.3.0",
+    "tsx": "^4.22.4",
     "typescript": "^5.9.3",
-    "vitest": "^4.1.0"
+    "vitest": "^4.1.8"
   },
   "homepage": "https://www.jonbogaty.com",
   "repository": {
