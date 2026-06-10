@@ -1,0 +1,48 @@
+---
+import { getCollection } from 'astro:content'
+import type { WritingEntry } from '../../content.config'
+import Footer from '../../components/Footer.astro'
+import SiteNav from '../../components/SiteNav.astro'
+import Layout from '../../layouts/Layout.astro'
+
+const posts = (await getCollection('writing', ({ data }: WritingEntry) => !data.draft)).sort(
+  (a: WritingEntry, b: WritingEntry) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+)
+
+const formatDate = (d: Date) =>
+  d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
+---
+
+<Layout title="Writing">
+  <div class="min-h-screen flex flex-col">
+    <div id="top"></div>
+    <SiteNav />
+    <main class="flex-1 mx-auto w-full max-w-3xl px-4 sm:px-6 py-14">
+      <h1 class="font-heading text-3xl text-foreground mb-8">Writing</h1>
+      {
+        posts.length === 0 ? (
+          <p class="text-sm text-muted-foreground">Nothing published yet.</p>
+        ) : (
+          <ul class="space-y-6">
+            {posts.map((post: WritingEntry) => (
+              <li>
+                <a href={`/writing/${post.id}/`} class="group block">
+                  <h2 class="font-heading text-xl text-foreground group-hover:text-primary transition-colors">
+                    {post.data.title}
+                  </h2>
+                  <p class="font-mono text-[0.65rem] uppercase tracking-wider text-muted-foreground mt-1">
+                    {formatDate(post.data.pubDate)}
+                  </p>
+                  <p class="text-sm text-muted-foreground leading-relaxed mt-2">
+                    {post.data.description}
+                  </p>
+                </a>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </main>
+    <Footer />
+  </div>
+</Layout>

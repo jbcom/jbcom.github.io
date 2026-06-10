@@ -1,20 +1,27 @@
 ---
 /**
  * Sticky anchor nav with scroll-spy. The spy is the only JavaScript on the
- * page — a dozen lines, inline, no framework.
+ * page — a dozen lines, inline, no framework. Hrefs are absolute so the
+ * nav works from /writing/ pages too; the spy no-ops where sections are
+ * absent. The Writing link surfaces only once a first post exists.
  */
+import { getCollection } from 'astro:content'
+import type { WritingEntry } from '@/content.config'
 import resume from '@/content/resume'
 
 const ANCHORS = [
   { id: 'open-source', label: 'Open Source' },
   { id: 'contact', label: 'Contact' },
 ] as const
+
+const hasWriting = (await getCollection('writing', ({ data }: WritingEntry) => !data.draft)).length > 0
+const onWriting = Astro.url.pathname.startsWith('/writing')
 ---
 
 <header class="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
   <div class="mx-auto max-w-5xl px-4 sm:px-6 flex items-center gap-4 h-14">
     <a
-      href="#top"
+      href="/#top"
       class="font-heading text-lg text-foreground shrink-0 hover:text-primary transition-colors"
     >
       {resume.about.name}
@@ -24,13 +31,26 @@ const ANCHORS = [
       {
         ANCHORS.map((anchor) => (
           <a
-            href={`#${anchor.id}`}
+            href={`/#${anchor.id}`}
             data-spy={anchor.id}
             class="nav-anchor relative px-2 sm:px-3 h-14 inline-flex items-center text-sm font-medium whitespace-nowrap transition-colors text-muted-foreground hover:text-foreground"
           >
             {anchor.label}
           </a>
         ))
+      }
+      {
+        hasWriting && (
+          <a
+            href="/writing/"
+            class:list={[
+              'nav-anchor relative px-2 sm:px-3 h-14 inline-flex items-center text-sm font-medium whitespace-nowrap transition-colors text-muted-foreground hover:text-foreground',
+              { active: onWriting },
+            ]}
+          >
+            Writing
+          </a>
+        )
       }
     </nav>
 

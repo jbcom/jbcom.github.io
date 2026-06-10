@@ -22,7 +22,7 @@ test.describe('Site navigation', () => {
       ['Open Source', 'open-source'],
       ['Contact', 'contact'],
     ] as const) {
-      const anchor = page.locator(`header a[href="#${id}"]`, { hasText: label })
+      const anchor = page.locator(`header a[href="/#${id}"]`, { hasText: label })
       await expect(anchor).toBeVisible()
       await anchor.click()
       await expect(page.locator(`#${id}`)).toBeInViewport()
