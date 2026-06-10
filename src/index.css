@@ -1,23 +1,15 @@
 @import "tailwindcss";
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
-
-@custom-variant dark (&:is(.dark *));
+@plugin "daisyui";
+@plugin "@tailwindcss/typography";
 
 @theme inline {
     --radius-sm: calc(var(--radius) - 4px);
     --radius-md: calc(var(--radius) - 2px);
     --radius-lg: var(--radius);
-    --radius-xl: calc(var(--radius) + 4px);
-    --radius-2xl: calc(var(--radius) + 8px);
-    --radius-3xl: calc(var(--radius) + 12px);
-    --radius-4xl: calc(var(--radius) + 16px);
     --color-background: var(--background);
     --color-foreground: var(--foreground);
     --color-card: var(--card);
-    --color-card-foreground: var(--card-foreground);
     --color-popover: var(--popover);
-    --color-popover-foreground: var(--popover-foreground);
     --color-primary: var(--primary);
     --color-primary-foreground: var(--primary-foreground);
     --color-secondary: var(--secondary);
@@ -30,19 +22,6 @@
     --color-border: var(--border);
     --color-input: var(--input);
     --color-ring: var(--ring);
-    --color-chart-1: var(--chart-1);
-    --color-chart-2: var(--chart-2);
-    --color-chart-3: var(--chart-3);
-    --color-chart-4: var(--chart-4);
-    --color-chart-5: var(--chart-5);
-    --color-sidebar: var(--sidebar);
-    --color-sidebar-foreground: var(--sidebar-foreground);
-    --color-sidebar-primary: var(--sidebar-primary);
-    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-    --color-sidebar-accent: var(--sidebar-accent);
-    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-    --color-sidebar-border: var(--sidebar-border);
-    --color-sidebar-ring: var(--sidebar-ring);
     --font-heading: 'Instrument Serif', serif;
     --font-body: 'Inter', sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
@@ -54,9 +33,7 @@
     --background: #0B0D14;
     --foreground: #F0EDE8;
     --card: #14161F;
-    --card-foreground: #F0EDE8;
     --popover: #14161F;
-    --popover-foreground: #F0EDE8;
     --primary: #E8A849;
     --primary-foreground: #0B0D14;
     --secondary: #1E2030;
@@ -69,19 +46,6 @@
     --border: #1E2030;
     --input: #1E2030;
     --ring: #E8A849;
-    --chart-1: #E8A849;
-    --chart-2: #6B8BAD;
-    --chart-3: #4ADE80;
-    --chart-4: #A78BFA;
-    --chart-5: #F472B6;
-    --sidebar: #14161F;
-    --sidebar-foreground: #F0EDE8;
-    --sidebar-primary: #E8A849;
-    --sidebar-primary-foreground: #0B0D14;
-    --sidebar-accent: #1E2030;
-    --sidebar-accent-foreground: #F0EDE8;
-    --sidebar-border: #1E2030;
-    --sidebar-ring: #E8A849;
 
     /* Brand tokens (semantic aliases for project-level use) */
     --brand-amber: #E8A849;
@@ -90,6 +54,37 @@
     --brand-purple: #A78BFA;
     --brand-pink: #F472B6;
     --brand-on-light: #996B1D;
+
+    /* daisyUI theme variables, aligned with the existing jbcom palette. */
+    color-scheme: dark;
+    --color-base-100: #0B0D14;
+    --color-base-200: #14161F;
+    --color-base-300: #1E2030;
+    --color-base-content: #F0EDE8;
+    --color-primary: #E8A849;
+    --color-primary-content: #0B0D14;
+    --color-secondary: #6B8BAD;
+    --color-secondary-content: #0B0D14;
+    --color-accent: #4ADE80;
+    --color-accent-content: #0B0D14;
+    --color-neutral: #1E2030;
+    --color-neutral-content: #F0EDE8;
+    --color-info: #6B8BAD;
+    --color-info-content: #0B0D14;
+    --color-success: #4ADE80;
+    --color-success-content: #0B0D14;
+    --color-warning: #E8A849;
+    --color-warning-content: #0B0D14;
+    --color-error: #E5484D;
+    --color-error-content: #0B0D14;
+    --radius-selector: 0.5rem;
+    --radius-field: 0.5rem;
+    --radius-box: 0.5rem;
+    --size-selector: 0.25rem;
+    --size-field: 0.25rem;
+    --border: 1px;
+    --depth: 0;
+    --noise: 0;
 }
 
 @layer base {
@@ -97,7 +92,7 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground font-body antialiased;
+    @apply bg-base-100 text-base-content font-body antialiased;
   }
 }
 
@@ -119,10 +114,8 @@
   display: none;
 }
 
-/* Horizontal scroll affordance fade-mask */
-.scroll-fade-x {
-  mask-image: linear-gradient(to right, transparent 0, black 16px, black calc(100% - 16px), transparent 100%);
-  -webkit-mask-image: linear-gradient(to right, transparent 0, black 16px, black calc(100% - 16px), transparent 100%);
+.time-line-container > div:last-child .timeline-marker > span:last-child {
+  display: none;
 }
 
 /* Respect reduced motion */

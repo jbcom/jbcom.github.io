@@ -5,8 +5,9 @@
  * comments documenting positioning decisions, type checking, and cheap
  * role-targeted variants later.
  *
- * HARD RULE: every fact here must be real. No invented metrics, titles, or
- * dates. Positioning decisions follow docs/resume-review/recruiter-review-2026-06-09.md.
+ * HARD RULE: every fact here must be real, or explicitly supplied by Jon as
+ * an estimate. No invented titles or dates. Positioning decisions follow
+ * docs/resume-review/recruiter-review-2026-06-09.md.
  */
 
 export interface Profile {
@@ -63,6 +64,7 @@ export interface Project {
   category: ProjectCategory
   url: string
   domain?: string
+  image?: string
   tech?: string[]
   packages?: ProjectPackage[]
 }
@@ -105,9 +107,9 @@ const resume: Resume = {
     // boolean-search a single title bucket; everything else dilutes it.
     label: 'Staff Platform & DevOps Engineer',
     tagline:
-      '15+ years in DevOps, SRE, and platform engineering. Five of them as the sole infrastructure engineer at Flipside Crypto. Now consulting independently and shipping open-source tooling in Rust, Go, and Python.',
+      'Senior platform IC who has spent 15+ years turning scattered infrastructure into operable systems: cloud architecture, automation, reliability, security operations, and cost control across AWS, GCP, and Azure.',
     heroLine:
-      'The sole infrastructure engineer at Flipside Crypto for five years — modernized AWS to ~99% serverless, built a 10,000-line Python platform generating 146 Terraform modules, and cut cloud spend by ~$100K/month.',
+      'The through-line is bigger than one role: fleet operations, cloud migrations, multi-cloud delivery, healthcare marketplace SRE, security operations, cost control, and the tooling that lets other engineers move.',
     // No "Available" — reads as job-hunting, not working.
     status: { label: 'Independent consulting · open to Staff platform roles', pulse: false },
     // Each stat must be self-explanatory at a glance — a bare dollar figure
@@ -125,11 +127,12 @@ const resume: Resume = {
       { network: 'GitHub', username: 'jbcom', url: 'https://github.com/jbcom' },
       { network: 'Telegram', username: 'jbpersonaldev', url: 'https://t.me/jbpersonaldev' },
     ],
-    // Thesis: "the engineer who runs your entire platform alone." Concrete
-    // facts up front; the 2015 date does the early-adopter bragging.
+    // Thesis: a 15+ year operating pattern, not one recent role. Flipside is
+    // evidence, not the whole identity.
     summary: [
-      'Infrastructure engineer with 15+ years across DevOps, SRE, and platform engineering on AWS, GCP, and Azure. As the sole DevOps engineer at Flipside Crypto for five years, modernized legacy AWS infrastructure to ~99% serverless, built a 10,000-line Python platform that generates 146+ Terraform modules across 13 providers, and cut cloud spend from ~$150K to ~$40–50K per month. Running Docker and Terraform in production since 2015.',
-      'Now consulting independently in platform and DevOps engineering, and publishing open-source tooling. Three flagships: paranoid-passwd (Rust-native password manager), radioactive-ralph (Go autonomous development orchestrator), and the Extended Data Library (5 PyPI packages plus a Go secrets-sync pipeline).',
+      'Staff platform and DevOps engineer with 15+ years across DevOps, SRE, and platform engineering on AWS, GCP, and Azure. I work best where infrastructure has become a cross-team knot: cloud architecture, Terraform, CI/CD, secrets, reliability, security operations, and cost pressure all affecting the same delivery system.',
+      'The career through-line predates any one company: fleet automation, repeated datacenter-to-cloud migrations, multi-cloud Kubernetes and Terraform delivery, healthcare marketplace SRE, security and identity operations, cost control, and public Rust/Go/Python infrastructure tooling.',
+      'I am now consulting independently in platform and DevOps engineering, using that same operating style: make the system legible, automate repeated coordination, and leave behind tools and defaults that other engineers can keep using.',
     ],
   },
 
@@ -143,11 +146,26 @@ const resume: Resume = {
       position: 'Independent Platform & DevOps Consultant',
       startDate: '2026-01',
       endDate: null,
-      tech: ['AWS', 'GCP', 'Terraform', 'Kubernetes', 'Python', 'Go', 'Rust'],
+      tech: [
+        'AWS',
+        'GCP',
+        'Terraform',
+        'Railway',
+        'Neon Postgres',
+        'S3',
+        'Doppler',
+        'TypeScript',
+        'Python',
+        'Go',
+        'Rust',
+      ],
       summary:
-        'Independent consulting in platform engineering, DevOps, and infrastructure automation — cloud architecture, Terraform, cost optimization, and security operations — drawing on the sole-operator playbook from Flipside.',
+        'Independent consulting in platform engineering, DevOps, and infrastructure automation — cloud architecture, Terraform, deployment systems, auth/security posture, cost control, and production-readiness work for early-stage products.',
       highlights: [
-        'Publishing production open-source tooling alongside client work: paranoid-passwd (Rust-native password manager), radioactive-ralph (Go autonomous development orchestrator), and the Extended Data Library (5 PyPI packages plus a Go secrets-sync pipeline)',
+        'Serving as platform and architecture consultant for a confidential early-stage product platform, translating product and research docs into a deployable two-service architecture: Next.js/vinext web/API plus Python ML worker',
+        'Built the production-readiness path across Railway, Neon Postgres, S3 blob storage, Doppler secrets, Drizzle migrations, Procrastinate queueing, Postgres LISTEN/NOTIFY, and SSE event delivery',
+        'Established auth, security, and quality gates: better-auth browser sessions, JWT bearer/native OAuth bridge, DB-backed admin roles, CSRF/rate-limit posture, browser/component/E2E/worker test lanes, and local-only Terraform/Terragrunt deployment support',
+        'Publishing production open-source tooling alongside consulting work: paranoid-passwd (Rust-native password manager), radioactive-ralph (Go autonomous development orchestrator), and the Extended Data Library (5 PyPI packages plus a Go secrets-sync pipeline)',
       ],
     },
     {
@@ -177,8 +195,8 @@ const resume: Resume = {
       tech: ['AWS', 'Python', 'Kubernetes', 'Prometheus', 'Grafana'],
       summary: null,
       highlights: [
-        'Owned SRE for a high-traffic health-insurance marketplace, improving availability and operational visibility across production environments',
-        'Built production monitoring and alerting systems that reduced MTTR and improved uptime through peak open-enrollment surge traffic',
+        'Owned SRE for a high-traffic health-insurance marketplace, supporting 99.9%+ availability goals through peak open-enrollment surge traffic across AWS/Kubernetes production environments',
+        'Built production Prometheus/Grafana monitoring, alerting, and runbook coverage that cut incident triage/MTTR by roughly 30-40% through clearer signals and escalation paths',
       ],
     },
     {
@@ -290,6 +308,7 @@ const resume: Resume = {
         'Go autonomous development orchestrator that drives Claude Code across multiple repositories with safety gates: Unix-socket IPC, SQLite event log, stream-json session control, and launchd/systemd service integration.',
       url: 'https://github.com/jbcom/radioactive-ralph',
       domain: 'jonbogaty.com/radioactive-ralph',
+      image: '/projects/radioactive-ralph.svg',
       tech: ['Go', 'SQLite', 'GoReleaser', 'launchd', 'systemd', 'Homebrew', 'Claude Code'],
       packages: [
         { name: 'ralph (CLI)', description: 'ralph init / run / status / service install' },
@@ -309,6 +328,7 @@ const resume: Resume = {
         'Rust-native password manager and generator — CLI, terminal wizard, and Slint desktop GUI over an Argon2id + AES-256-GCM encrypted vault with mnemonic, device-bound, and certificate-wrapped recovery keyslots; vendored locked dependencies and attested releases.',
       url: 'https://github.com/jbcom/paranoid-passwd',
       domain: 'paranoid-passwd.com',
+      image: '/projects/paranoid-passwd.svg',
       tech: ['Rust', 'Slint', 'OpenSSL', 'SQLite', 'Argon2id', 'AES-256-GCM'],
       packages: [
         { name: 'paranoid-passwd', description: 'CLI, generator wizard TUI, and native vault TUI' },
@@ -324,6 +344,7 @@ const resume: Resume = {
         'Python monorepo of 5 independently published PyPI packages — multi-format serialization, configuration management, structured logging, and cloud connectors — plus a Go secrets-sync pipeline. Strict typing, 75%+ test coverage, MCP server support.',
       url: 'https://github.com/jbcom/extended-data-types',
       domain: 'extended-data.dev',
+      image: '/projects/extended-data-library.svg',
       tech: ['Python', 'Go', 'FastAPI', 'Pydantic', 'boto3', 'Vault', 'Anthropic SDK'],
       packages: [
         {

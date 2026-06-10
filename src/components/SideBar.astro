@@ -1,0 +1,36 @@
+---
+import SideBarFooter from '@/components/SideBarFooter.astro'
+import SideBarMenu from '@/components/SideBarMenu.astro'
+import resume from '@/content/resume'
+
+const { sideBarActiveItemID } = Astro.props
+const location = `${resume.about.location.city}, ${resume.about.location.region}`
+---
+
+<div class="drawer-side z-40">
+  <label for="site-drawer" aria-label="Close navigation" class="drawer-overlay"></label>
+  <aside class="flex min-h-full w-[19rem] flex-col border-r border-base-300 bg-base-200 px-3 pt-4 text-base-content">
+    <a href="/" class="mx-auto mt-3 mb-5 block w-fit">
+      <div class="avatar transition hover:scale-[1.02]">
+        <div class="w-32 rounded-full border border-primary/35 bg-base-100 p-1">
+          <img src="/headshot.png" alt={resume.about.name} width="128" height="128" />
+        </div>
+      </div>
+    </a>
+
+    <div class="px-3 pb-4">
+      <p class="font-heading text-2xl leading-tight text-base-content">{resume.about.name}</p>
+      <p class="mt-1 text-sm font-semibold text-primary">{resume.about.label}</p>
+      <p class="mt-3 text-sm leading-relaxed text-base-content/70">
+        Platform and SRE work across cloud architecture, automation, reliability, security operations,
+        cost control, and tools other engineers can use.
+      </p>
+      <p class="mt-3 font-mono text-[0.7rem] uppercase tracking-wider text-base-content/50">
+        {location} · remote
+      </p>
+    </div>
+
+    <SideBarMenu sideBarActiveItemID={sideBarActiveItemID} />
+    <SideBarFooter />
+  </aside>
+</div>

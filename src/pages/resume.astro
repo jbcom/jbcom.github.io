@@ -153,15 +153,6 @@ function slugify(s: string): string {
     <h2>Professional Summary</h2>
     {resume.about.summary.map((text) => <p class="summary">{text}</p>)}
 
-    <h2 id="projects">Featured Open-Source Projects</h2>
-    {resume.projects.filter((project) => project.onResume !== false).map((project) => (
-      <div class="project" id={slugify(project.name)}>
-        <div class="project-name">{project.name}{project.domain && ` — ${project.domain}`}</div>
-        {project.tagline && <div class="project-tagline">{project.tagline}</div>}
-        <div class="project-desc">{project.resumeDescription ?? project.description}</div>
-      </div>
-    ))}
-
     <h2 id="experience">Professional Experience</h2>
     {resume.work.filter((job) => job.onResume !== false).map((job) => (
       <div class="job" id={slugify(job.name)}>
@@ -185,6 +176,15 @@ function slugify(s: string): string {
             ))}
           </ul>
         ) : null}
+      </div>
+    ))}
+
+    <h2 id="projects">Open Source</h2>
+    {resume.projects.filter((project) => project.onResume !== false).map((project) => (
+      <div class="project" id={slugify(project.name)}>
+        <div class="project-name">{project.name}{project.domain && ` — ${project.domain}`}</div>
+        {project.tagline && <div class="project-tagline">{project.tagline}</div>}
+        <div class="project-desc">{project.resumeDescription ?? project.description}</div>
       </div>
     ))}
 

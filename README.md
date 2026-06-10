@@ -10,21 +10,27 @@
 
 ## Architecture
 
-Astro 6 static site with React islands, shadcn/ui, and Tailwind CSS v4.
+Astro 6 static site, Tailwind CSS v4, **zero JavaScript shipped** — the only
+client script is a dozen inline lines of nav scroll-spy. No React, no
+component framework.
 
 ```
 src/
 ├── content/resume.ts        # CANONICAL resume data — single source of truth
+├── content/writing/         # Markdown posts (see content.config.ts for frontmatter)
 ├── pages/
-│   ├── index.astro          # Portfolio SPA shell (React island)
-│   └── resume.astro         # Print-optimized HTML resume view
-├── components/              # React components (hero, tabs, sections)
+│   ├── index.astro          # The lobby: hero → Open Source → contact
+│   ├── resume.astro         # Print-optimized HTML resume view
+│   ├── writing/             # Post index + pages — nav link appears with the first post
+│   └── rss.xml.ts           # RSS feed for writing
+├── components/              # Astro components (SiteNav, Hero, OpenSourceSection, Footer)
 └── layouts/Layout.astro     # Meta, JSON-LD, OG tags
 
 scripts/resume/
 ├── template.ts              # resume.ts → Word-semantics HTML
-├── build-docx.ts            # HTML → Jon_Bogaty_Resume.docx (turbodocx)
-└── qc.ts                    # DOCX → LibreOffice → PNG pages for visual review
+├── build-docx.ts            # HTML → DOCX (turbodocx) → OOXML postprocess
+├── postprocess.ts           # fixes turbodocx's hardcoded layout defects
+└── qc.ts                    # renders the DOCX via LibreOffice AND Apple Pages → PNGs
 ```
 
 ### Resume pipeline (DOCX-first, no PDF)
@@ -34,7 +40,8 @@ The DOCX is the resume. There is deliberately no PDF target.
 ```bash
 pnpm resume:build   # compile public/Jon_Bogaty_Resume.docx from resume.ts
 pnpm resume:qc      # render the actual DOCX to PNGs (artifacts/resume-qc/)
-                    # — read them before shipping; requires LibreOffice + poppler
+                    # via BOTH engines — read them at full size before shipping;
+                    # requires LibreOffice + poppler (Pages used when available)
 ```
 
 `src/content/resume.ts` is typed and commented; positioning decisions are

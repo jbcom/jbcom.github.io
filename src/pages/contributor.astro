@@ -1,0 +1,72 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import resume from '@/content/resume'
+import { contributionModes, contributorSignals, operatingPrinciples } from '@/content/site'
+---
+
+<BaseLayout title={`Contributor · ${resume.about.name}`} sideBarActiveItemID="contributor">
+  <section class="mb-10">
+    <p class="font-mono text-xs uppercase tracking-[0.22em] text-primary">Individual contributor</p>
+    <h1 class="mt-3 max-w-3xl text-4xl font-bold text-base-content">
+      The value is not just what I have touched. It is how I turn ambiguous platform work into leverage.
+    </h1>
+    <p class="mt-5 max-w-3xl text-base leading-relaxed text-base-content/70">
+      I am a senior IC for teams that need someone to own the hard platform surface directly: cloud
+      architecture, cost, Terraform, secrets, CI/CD, reliability, security operations, and the internal
+      tools that keep those pieces from becoming a permanent tax.
+    </p>
+    <div class="mt-8 flex flex-wrap gap-3">
+      <a href="/outcomes" class="btn btn-primary">Read outcomes</a>
+      <a href="/projects" class="btn btn-outline">Inspect artifacts</a>
+      <a href="/cv" class="btn btn-ghost">Full CV</a>
+    </div>
+  </section>
+
+  <section class="mb-10 grid gap-4 md:grid-cols-2">
+    {
+      contributorSignals.map((signal) => (
+        <article class="rounded-lg border border-base-300 bg-base-100 p-5">
+          <h2 class="text-xl font-bold text-base-content">{signal.title}</h2>
+          <p class="mt-3 text-sm leading-relaxed text-base-content/70">{signal.body}</p>
+        </article>
+      ))
+    }
+  </section>
+
+  <section class="mb-10">
+    <p class="font-mono text-xs uppercase tracking-[0.22em] text-primary">Contribution modes</p>
+    <h2 class="mt-2 text-3xl font-bold text-base-content">Where I tend to help most</h2>
+    <div class="mt-5 grid gap-5">
+      {
+        contributionModes.map((mode) => (
+          <article class="rounded-lg border border-base-300 bg-base-100 p-5">
+            <div class="grid gap-4 md:grid-cols-[0.8fr_1fr]">
+              <div>
+                <h3 class="text-xl font-bold text-base-content">{mode.title}</h3>
+                <p class="mt-2 text-sm leading-relaxed text-base-content/70">{mode.context}</p>
+              </div>
+              <p class="rounded-md bg-base-200 p-4 text-sm leading-relaxed text-base-content/75">
+                {mode.proof}
+              </p>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="rounded-lg border border-base-300 bg-base-200 p-6">
+    <p class="font-mono text-xs uppercase tracking-[0.22em] text-primary">Operating style</p>
+    <h2 class="mt-2 text-3xl font-bold text-base-content">How I try to leave teams better</h2>
+    <div class="mt-5 grid gap-4 md:grid-cols-2">
+      {
+        operatingPrinciples.map((principle) => (
+          <article>
+            <h3 class="text-lg font-bold text-base-content">{principle.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-base-content/70">{principle.body}</p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>

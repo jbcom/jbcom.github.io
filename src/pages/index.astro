@@ -1,8 +1,193 @@
 ---
-import App from '../App'
-import Layout from '../layouts/Layout.astro'
+import { getCollection } from 'astro:content'
+import HorizontalCard from '@/components/HorizontalCard.astro'
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import type { WritingEntry } from '@/content.config'
+import resume from '@/content/resume'
+import { outcomeStories } from '@/content/site'
+
+const featuredProjects = resume.projects.slice(0, 3)
+const featuredOutcomes = outcomeStories.slice(0, 3)
+const posts = (await getCollection('writing', ({ data }: WritingEntry) => !data.draft)).sort(
+  (a: WritingEntry, b: WritingEntry) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+)
+const latestPosts = posts.slice(0, 3)
+
+const positioningPoints = [
+  {
+    value: 'Untangle',
+    label: 'ambiguous infrastructure',
+    detail:
+      'Find where ownership, cloud cost, deploy flow, secrets, reliability, and security are actually coupled.',
+  },
+  {
+    value: 'Automate',
+    label: 'repeated coordination',
+    detail:
+      'Turn recurring operational work into tools, release paths, and defaults that teams can keep using.',
+  },
+  {
+    value: 'Leave',
+    label: 'usable systems',
+    detail:
+      'Make the platform easier to understand, safer to operate, and less dependent on one private expert.',
+  },
+]
 ---
 
-<Layout>
-  <App client:load />
-</Layout>
+<BaseLayout sideBarActiveItemID="home">
+  <section class="pb-10 pt-2 sm:pt-6">
+    <p class="font-mono text-xs uppercase tracking-[0.22em] text-primary">
+      Staff Platform & DevOps Engineer
+    </p>
+    <h1 class="mt-3 max-w-3xl font-heading text-5xl leading-none text-base-content sm:text-6xl">
+      I'm Jon Bogaty.
+    </h1>
+    <p class="mt-4 max-w-3xl text-2xl font-semibold leading-snug text-base-content/90">
+      I make messy infrastructure operable: clearer ownership, safer delivery, better defaults, and
+      automation that holds up after I leave the room.
+    </p>
+    <p class="mt-5 max-w-3xl text-base leading-relaxed text-base-content/70">
+      {resume.about.heroLine}
+    </p>
+    <div class="mt-8 flex flex-wrap gap-3">
+      <a class="btn btn-primary" href="/cv">Read the CV</a>
+      <a class="btn btn-outline" href="/contributor">How I contribute</a>
+      <a class="btn btn-outline" href="/projects">View projects</a>
+      <a class="btn btn-ghost" href="/Jon_Bogaty_Resume.docx" download>Download DOCX</a>
+    </div>
+  </section>
+
+  <section class="grid gap-4 py-6 md:grid-cols-3">
+    {
+      positioningPoints.map((point) => (
+        <article class="rounded-lg border border-base-300 bg-base-200 p-5">
+          <p class="font-heading text-4xl text-base-content">{point.value}</p>
+          <h2 class="mt-2 text-sm font-semibold uppercase tracking-wider text-primary">
+            {point.label}
+          </h2>
+          <p class="mt-3 text-sm leading-relaxed text-base-content/65">{point.detail}</p>
+        </article>
+      ))
+    }
+  </section>
+
+  <section class="py-8">
+    <div class="mb-4 flex items-end justify-between gap-4">
+      <div>
+        <p class="font-mono text-xs uppercase tracking-[0.18em] text-primary">Individual contributor</p>
+        <h2 class="mt-1 text-3xl font-bold text-base-content">How I contribute</h2>
+      </div>
+      <a href="/contributor" class="link-hover text-sm text-primary">Contributor profile</a>
+    </div>
+    <div class="grid gap-4 md:grid-cols-3">
+      <article class="rounded-lg border border-base-300 bg-base-100 p-5">
+        <h3 class="font-semibold text-base-content">Own the messy middle</h3>
+        <p class="mt-2 text-sm leading-relaxed text-base-content/70">
+          Cloud architecture, Terraform, secrets, reliability, security operations, and cost pressure
+          treated as one system.
+        </p>
+      </article>
+      <article class="rounded-lg border border-base-300 bg-base-100 p-5">
+        <h3 class="font-semibold text-base-content">Turn repetition into tools</h3>
+        <p class="mt-2 text-sm leading-relaxed text-base-content/70">
+          Terraform generation, secrets propagation, CI/CD standards, and release plumbing built to
+          remove repeated manual work.
+        </p>
+      </article>
+      <article class="rounded-lg border border-base-300 bg-base-100 p-5">
+        <h3 class="font-semibold text-base-content">Raise the team floor</h3>
+        <p class="mt-2 text-sm leading-relaxed text-base-content/70">
+          Better defaults, clearer workflows, and standards other engineers can use without waiting on
+          a gatekeeper.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="py-8">
+    <div class="mb-4 flex items-end justify-between gap-4">
+      <div>
+        <p class="font-mono text-xs uppercase tracking-[0.18em] text-primary">Outcome stories</p>
+        <h2 class="mt-1 text-3xl font-bold text-base-content">What changed</h2>
+      </div>
+      <a href="/outcomes" class="link-hover text-sm text-primary">All outcomes</a>
+    </div>
+    <div class="grid gap-4">
+      {
+        featuredOutcomes.map((story) => (
+          <a
+            href={`/outcomes#${story.slug}`}
+            class="group rounded-lg border border-base-300 bg-base-100 p-5 transition hover:bg-base-200"
+          >
+            <p class="font-mono text-[0.7rem] uppercase tracking-[0.18em] text-primary">
+              {story.eyebrow}
+            </p>
+            <h3 class="mt-2 text-xl font-bold text-base-content transition group-hover:text-primary">
+              {story.title}
+            </h3>
+            <p class="mt-2 text-sm leading-relaxed text-base-content/70">{story.summary}</p>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="py-8">
+    <div class="mb-4 flex items-end justify-between gap-4">
+      <div>
+        <p class="font-mono text-xs uppercase tracking-[0.18em] text-primary">Selected work</p>
+        <h2 class="mt-1 text-3xl font-bold text-base-content">Open-source systems</h2>
+      </div>
+      <a href="/projects" class="link-hover text-sm text-primary">All projects</a>
+    </div>
+
+    <div class="grid gap-1">
+      {
+        featuredProjects.map((project) => (
+          <>
+            <HorizontalCard
+              title={project.name}
+              img={project.image}
+              desc={project.description}
+              url={project.url}
+              badge={project.category}
+              tags={project.tech?.slice(0, 4)}
+              meta={project.domain}
+            />
+            <div class="divider my-0"></div>
+          </>
+        ))
+      }
+    </div>
+  </section>
+
+  {
+    latestPosts.length > 0 && (
+      <section class="py-8">
+        <div class="mb-4 flex items-end justify-between gap-4">
+          <div>
+            <p class="font-mono text-xs uppercase tracking-[0.18em] text-primary">Writing</p>
+            <h2 class="mt-1 text-3xl font-bold text-base-content">Latest notes</h2>
+          </div>
+          <a href="/writing/" class="link-hover text-sm text-primary">
+            All writing
+          </a>
+        </div>
+        <div class="grid gap-4">
+          {latestPosts.map((post: WritingEntry) => (
+            <a
+              href={`/writing/${post.id}/`}
+              class="rounded-lg border border-base-300 bg-base-100 p-5 transition hover:bg-base-200"
+            >
+              <h3 class="font-semibold text-base-content">{post.data.title}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-base-content/70">
+                {post.data.description}
+              </p>
+            </a>
+          ))}
+        </div>
+      </section>
+    )
+  }
+</BaseLayout>
