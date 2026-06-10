@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.0](https://github.com/jbcom/jbcom.github.io/compare/v1.5.0...v1.6.0) (2026-06-10)
+
+
+### Features
+
+* portfolio-first site — drop Work and Skills sections, résumé carries career history ([#156](https://github.com/jbcom/jbcom.github.io/issues/156)) ([4ff9097](https://github.com/jbcom/jbcom.github.io/commit/4ff909738e0341872f0c05a07a0fa2bc34eb2723))
+
 ## [1.5.0](https://github.com/jbcom/jbcom.github.io/compare/v1.4.0...v1.5.0) (2026-06-09)
 
 
