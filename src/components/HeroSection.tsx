@@ -1,5 +1,6 @@
-import { Download, FileText, Github, Linkedin, MessageCircle } from 'lucide-react'
+import { Download, FileText, MessageCircle } from 'lucide-react'
 import { motion } from 'motion/react'
+import { GithubIcon, LinkedinIcon } from '@/components/BrandIcons'
 import { Button } from '@/components/ui/button'
 
 interface Stat {
@@ -81,7 +82,7 @@ export function HeroSection({ name, label, heroLine, status, stats }: HeroProps)
                 asChild
               >
                 <a href="https://github.com/jbcom" target="_blank" rel="noopener noreferrer">
-                  <Github className="size-4" />
+                  <GithubIcon className="size-4" />
                 </a>
               </Button>
               <Button
@@ -96,7 +97,7 @@ export function HeroSection({ name, label, heroLine, status, stats }: HeroProps)
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Linkedin className="size-4" />
+                  <LinkedinIcon className="size-4" />
                 </a>
               </Button>
               <Button
