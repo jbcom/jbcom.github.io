@@ -26,10 +26,7 @@ export default function App() {
       />
 
       <main className="flex-1">
-        <section
-          id="open-source"
-          className="border-t border-border/60 mx-auto max-w-5xl px-4 sm:px-6 py-14 scroll-mt-14"
-        >
+        <section id="open-source" className="mx-auto max-w-5xl px-4 sm:px-6 py-14 scroll-mt-14">
           <h2 className="font-heading text-3xl text-foreground mb-8">Open Source</h2>
           <OpenSource items={resume.projects} lead={resume.about.summary[1]} />
         </section>
