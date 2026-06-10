@@ -1,0 +1,102 @@
+---
+import TimeLineElement from '@/components/cv/TimeLine.astro'
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import resume from '@/content/resume'
+import { formatDateRange } from '@/lib/dates'
+---
+
+<BaseLayout title={`CV · ${resume.about.name}`} sideBarActiveItemID="cv">
+  <section id="profile" class="mb-10">
+    <p class="font-mono text-xs uppercase tracking-[0.22em] text-primary">Curriculum vitae</p>
+    <h1 class="mt-3 text-4xl font-bold text-base-content">{resume.about.name}</h1>
+    <p class="mt-2 text-xl font-semibold text-base-content/85">{resume.about.label}</p>
+    <p class="mt-4 max-w-3xl text-base leading-relaxed text-base-content/70">
+      {resume.about.tagline}
+    </p>
+    <div class="mt-6 flex flex-wrap gap-3">
+      <a class="btn btn-primary" href="/Jon_Bogaty_Resume.docx" download>Download DOCX</a>
+      <a class="btn btn-outline" href="/resume/">Print HTML</a>
+    </div>
+  </section>
+
+  <section id="experience" class="mb-10 scroll-mt-6">
+    <h2 class="mb-4 text-3xl font-bold text-base-content">Profile</h2>
+    <div class="grid gap-4">
+      {resume.about.summary.map((text) => <p class="text-base leading-relaxed text-base-content/70">{text}</p>)}
+    </div>
+  </section>
+
+  <section id="skills" class="mb-10 scroll-mt-6">
+    <h2 class="mb-5 text-3xl font-bold text-base-content">Experience</h2>
+    <div class="time-line-container">
+      {
+        resume.work.map((job) => (
+          <TimeLineElement
+            title={`${job.position} at ${job.name}`}
+            subtitle={formatDateRange(job.startDate, job.endDate)}
+          >
+            {job.summary && <p class="mb-3">{job.summary}</p>}
+            {job.tech && (
+              <p class="mb-3 font-mono text-[0.7rem] uppercase tracking-wider text-primary">
+                {job.tech.join(' · ')}
+              </p>
+            )}
+            <ul class="list-disc space-y-2 pl-5">
+              {job.highlights.map((highlight) => (
+                <li>{highlight}</li>
+              ))}
+            </ul>
+          </TimeLineElement>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="mb-10">
+    <h2 class="mb-5 text-3xl font-bold text-base-content">Earlier career</h2>
+    <p class="mb-4 text-sm leading-relaxed text-base-content/70">{resume.earlierCareer.summary}</p>
+    <div class="grid gap-2 md:grid-cols-2">
+      {
+        resume.earlierCareer.positions.map((position) => (
+          <div class="flex justify-between gap-4 rounded-md bg-base-200 px-3 py-2 text-sm">
+            <span>
+              <strong>{position.position}</strong> · {position.name}
+            </span>
+            <span class="font-mono text-primary">{position.year}</span>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="mb-10">
+    <h2 class="mb-5 text-3xl font-bold text-base-content">Skills</h2>
+    <div class="grid gap-3">
+      {
+        resume.skills.map((category) => (
+          <div class="rounded-lg border border-base-300 bg-base-100 p-4">
+            <h3 class="font-mono text-xs uppercase tracking-[0.18em] text-primary">{category.name}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-base-content/70">
+              {category.keywords.join(', ')}
+            </p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section>
+    <h2 class="mb-5 text-3xl font-bold text-base-content">Education</h2>
+    {
+      resume.education.map((edu) => (
+        <div class="rounded-lg border border-base-300 bg-base-100 p-4">
+          <h3 class="font-semibold text-base-content">{edu.studyType} · {edu.area}</h3>
+          <p class="mt-1 text-sm text-base-content/70">
+            {edu.institution} · {edu.startDate}-{edu.endDate}
+          </p>
+          <p class="mt-1 text-sm text-primary">{edu.honors.join(' · ')}</p>
+        </div>
+      ))
+    }
+  </section>
+</BaseLayout>

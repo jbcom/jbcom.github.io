@@ -22,12 +22,15 @@
     "format": "biome format --write ."
   },
   "dependencies": {
+    "@astrojs/mdx": "^6.0.3",
     "@astrojs/rss": "^4.0.18",
     "@astrojs/sitemap": "^3.7.2",
     "@fontsource/instrument-serif": "^5.2.8",
     "@fontsource/inter": "^5.2.8",
     "@fontsource/jetbrains-mono": "^5.2.8",
-    "astro": "^6.1.10"
+    "@tailwindcss/typography": "^0.5.20",
+    "astro": "^6.4.5",
+    "daisyui": "^5.5.23"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.8",

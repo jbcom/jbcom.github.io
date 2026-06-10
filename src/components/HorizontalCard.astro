@@ -1,0 +1,46 @@
+---
+const {
+  title,
+  img,
+  desc,
+  url,
+  badge,
+  tags = [],
+  target = '_blank',
+  meta,
+} = Astro.props
+---
+
+<article class="rounded-lg bg-base-100 transition hover:scale-[1.01] hover:shadow-xl">
+  <a href={url} target={target} class="hero-content flex-col items-start gap-5 md:flex-row">
+    {
+      img && (
+        <img
+          src={img}
+          width="750"
+          height="422"
+          alt=""
+          class="aspect-[16/9] w-full rounded-lg border border-base-300 object-cover md:max-w-[13rem]"
+          loading="lazy"
+        />
+      )
+    }
+    <div class="min-w-0 grow">
+      <h2 class="flex flex-wrap items-center gap-2 text-xl font-bold text-base-content">
+        {title}
+        {badge && <span class="badge badge-secondary">{badge}</span>}
+      </h2>
+      {meta && <p class="mt-1 font-mono text-[0.7rem] uppercase tracking-wider text-primary">{meta}</p>}
+      <p class="py-2 text-sm leading-relaxed text-base-content/75">{desc}</p>
+      {
+        tags.length > 0 && (
+          <div class="card-actions justify-end">
+            {tags.map((tag: string) => (
+              <span class="badge badge-outline">{tag}</span>
+            ))}
+          </div>
+        )
+      }
+    </div>
+  </a>
+</article>

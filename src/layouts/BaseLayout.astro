@@ -1,0 +1,41 @@
+---
+import BaseHead from '@/components/BaseHead.astro'
+import Header from '@/components/Header.astro'
+import SideBar from '@/components/SideBar.astro'
+import { SITE_DESCRIPTION, SITE_TITLE } from '@/config'
+
+interface Props {
+  title?: string
+  description?: string
+  includeSidebar?: boolean
+  sideBarActiveItemID?: 'home' | 'contributor' | 'outcomes' | 'projects' | 'services' | 'writing' | 'cv'
+}
+
+const {
+  title = SITE_TITLE,
+  description = SITE_DESCRIPTION,
+  includeSidebar = true,
+  sideBarActiveItemID = 'home',
+} = Astro.props
+---
+
+<!doctype html>
+<html lang="en" data-theme="jbcom" class="dark">
+  <head>
+    <BaseHead title={title} description={description} />
+  </head>
+  <body>
+    <div class="drawer lg:drawer-open min-h-screen bg-base-100 text-base-content">
+      <input id="site-drawer" type="checkbox" class="drawer-toggle" />
+      <div class="drawer-content min-w-0 bg-base-100">
+        <Header />
+        <div class="min-h-screen lg:flex lg:justify-center">
+          <main class="w-full max-w-5xl px-4 py-8 sm:px-6 lg:px-10 lg:py-10">
+            <slot />
+          </main>
+        </div>
+      </div>
+      {includeSidebar && <SideBar sideBarActiveItemID={sideBarActiveItemID} />}
+    </div>
+  </body>
+</html>

@@ -5,13 +5,13 @@ test.describe('Resume content', () => {
     await page.goto('/')
   })
 
-  test('hero proof line names Flipside', async ({ page }) => {
-    await expect(
-      page.getByText(/sole infrastructure engineer at Flipside Crypto/).first()
-    ).toBeVisible()
+  test('hero line sells the broader career through-line', async ({ page }) => {
+    await expect(page.getByText(/through-line is bigger than one role/).first()).toBeVisible()
+    await expect(page.getByText(/fleet operations, cloud migrations/).first()).toBeVisible()
   })
 
-  test('education appears in the footer', async ({ page }) => {
+  test('education appears on the CV page', async ({ page }) => {
+    await page.goto('/cv')
     await expect(page.getByText(/Ivy Tech Community College/).first()).toBeVisible()
   })
 
@@ -19,10 +19,21 @@ test.describe('Resume content', () => {
     await expect(page.locator('a[href$=".pdf"]')).toHaveCount(0)
   })
 
-  test('download DOCX link exists in footer', async ({ page }) => {
-    const docxLink = page.locator('footer a[href="/Jon_Bogaty_Resume.docx"]')
+  test('download DOCX link exists in the Astrofy sidebar', async ({ page }) => {
+    const docxLink = page.locator('aside a[href="/Jon_Bogaty_Resume.docx"]')
     await expect(docxLink).toBeVisible()
     await expect(docxLink).toHaveAttribute('download', '')
+  })
+})
+
+test.describe('CV page (Astrofy timeline)', () => {
+  test('cv page renders profile, experience, skills, and education', async ({ page }) => {
+    await page.goto('/cv')
+    await expect(page.getByText('Profile')).toBeVisible()
+    await expect(page.getByText('Experience')).toBeVisible()
+    await expect(page.getByText('Skills')).toBeVisible()
+    await expect(page.getByText('Education')).toBeVisible()
+    await expect(page.getByText('Flipside Crypto').first()).toBeVisible()
   })
 })
 

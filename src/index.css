@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@plugin "daisyui";
+@plugin "@tailwindcss/typography";
 
 @theme inline {
     --radius-sm: calc(var(--radius) - 4px);
@@ -52,6 +54,37 @@
     --brand-purple: #A78BFA;
     --brand-pink: #F472B6;
     --brand-on-light: #996B1D;
+
+    /* daisyUI theme variables, aligned with the existing jbcom palette. */
+    color-scheme: dark;
+    --color-base-100: #0B0D14;
+    --color-base-200: #14161F;
+    --color-base-300: #1E2030;
+    --color-base-content: #F0EDE8;
+    --color-primary: #E8A849;
+    --color-primary-content: #0B0D14;
+    --color-secondary: #6B8BAD;
+    --color-secondary-content: #0B0D14;
+    --color-accent: #4ADE80;
+    --color-accent-content: #0B0D14;
+    --color-neutral: #1E2030;
+    --color-neutral-content: #F0EDE8;
+    --color-info: #6B8BAD;
+    --color-info-content: #0B0D14;
+    --color-success: #4ADE80;
+    --color-success-content: #0B0D14;
+    --color-warning: #E8A849;
+    --color-warning-content: #0B0D14;
+    --color-error: #E5484D;
+    --color-error-content: #0B0D14;
+    --radius-selector: 0.5rem;
+    --radius-field: 0.5rem;
+    --radius-box: 0.5rem;
+    --size-selector: 0.25rem;
+    --size-field: 0.25rem;
+    --border: 1px;
+    --depth: 0;
+    --noise: 0;
 }
 
 @layer base {
@@ -59,7 +92,7 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground font-body antialiased;
+    @apply bg-base-100 text-base-content font-body antialiased;
   }
 }
 
@@ -81,35 +114,8 @@
   display: none;
 }
 
-/* Button styles (replaces the shadcn Button component — same visual) */
-@layer components {
-  .btn {
-    @apply inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all h-8 px-3 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px];
-  }
-  .btn svg {
-    @apply pointer-events-none shrink-0;
-  }
-  .btn-primary {
-    @apply bg-primary text-primary-foreground hover:bg-primary/90;
-  }
-  .btn-outline {
-    @apply border border-border bg-background hover:bg-accent hover:text-accent-foreground;
-  }
-  .btn-ghost {
-    @apply hover:bg-accent hover:text-accent-foreground text-muted-foreground;
-  }
-  .btn-icon {
-    @apply size-9 px-0;
-  }
-}
-
-/* The one allowed entrance: a single hero fade-up. */
-@keyframes heroFadeUp {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.hero-enter {
-  animation: heroFadeUp 0.5s ease-out both;
+.time-line-container > div:last-child .timeline-marker > span:last-child {
+  display: none;
 }
 
 /* Respect reduced motion */
