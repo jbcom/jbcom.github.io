@@ -84,6 +84,16 @@ describe('compiled DOCX structure', () => {
     expect(documentXml).toContain('Calibri')
   })
 
+  it('has no turbodocx layout defects (postprocess invariants)', () => {
+    // Hardcoded 160-twip cell margins indent layout tables vs body text
+    expect(documentXml).not.toContain('w:w="160"')
+    // The empty paragraph turbodocx emits after tables is a dead line
+    // between each section-heading rule and its body
+    expect(documentXml).not.toMatch(
+      /<\/w:tbl>\s*<w:p>\s*<w:pPr>\s*<w:spacing w:lineRule="auto"\/>\s*<\/w:pPr>\s*<w:r>\s*<w:rPr\/>\s*<\/w:r>\s*<\/w:p>\s*<w:(?:p|tbl)[\s>]/
+    )
+  })
+
   it('has no template artifacts', () => {
     for (const artifact of ['undefined', '[object Object]', '[object', 'NaN']) {
       expect(documentText, `template artifact "${artifact}" leaked`).not.toContain(artifact)
