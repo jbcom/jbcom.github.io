@@ -1,15 +1,14 @@
 import { HeroSection } from '@/components/HeroSection'
 import { SiteFooter } from '@/components/SiteFooter'
 import { SiteNav } from '@/components/SiteNav'
-import { JobList } from '@/components/sections/JobList'
 import { OpenSource } from '@/components/sections/OpenSource'
-import { SkillSheet } from '@/components/sections/SkillSheet'
 import resume from '@/content/resume'
 
 /**
- * One opinionated scroll, not tabs: who + proof + action above the fold,
- * the Work receipts at depth 1, the open-source package detail at depth 2.
- * Each section gets its own layout — no shared shell.
+ * A lobby, not a brochure: identity + proof + action in the hero, then the
+ * one thing a résumé can't show — the live open-source portfolio. Career
+ * history and the skills matrix live in the résumé (one click away, HTML
+ * and DOCX); duplicating them here was noise.
  */
 export default function App() {
   return (
@@ -27,25 +26,12 @@ export default function App() {
       />
 
       <main className="flex-1">
-        <section id="work" className="mx-auto max-w-5xl px-4 sm:px-6 py-14 scroll-mt-14">
-          <h2 className="font-heading text-3xl text-foreground mb-8">Work</h2>
-          <JobList jobs={resume.work} earlierCareer={resume.earlierCareer} />
-        </section>
-
         <section
           id="open-source"
           className="border-t border-border/60 mx-auto max-w-5xl px-4 sm:px-6 py-14 scroll-mt-14"
         >
           <h2 className="font-heading text-3xl text-foreground mb-8">Open Source</h2>
           <OpenSource items={resume.projects} lead={resume.about.summary[1]} />
-        </section>
-
-        <section
-          id="skills"
-          className="border-t border-border/60 mx-auto max-w-5xl px-4 sm:px-6 py-14 scroll-mt-14"
-        >
-          <h2 className="font-heading text-3xl text-foreground mb-8">Skills</h2>
-          <SkillSheet categories={resume.skills} />
         </section>
       </main>
 

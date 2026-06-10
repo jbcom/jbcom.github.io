@@ -5,19 +5,10 @@ test.describe('Resume content', () => {
     await page.goto('/')
   })
 
-  test('Flipside Crypto appears in the Work section', async ({ page }) => {
-    await expect(page.getByText('Flipside Crypto').first()).toBeVisible()
-  })
-
-  test('hero proof line is visible', async ({ page }) => {
+  test('hero proof line names Flipside', async ({ page }) => {
     await expect(
       page.getByText(/sole infrastructure engineer at Flipside Crypto/).first()
     ).toBeVisible()
-  })
-
-  test('skills section has multiple categories', async ({ page }) => {
-    await expect(page.getByText('Cloud Platforms').first()).toBeVisible()
-    await expect(page.getByText('Infrastructure as Code').first()).toBeVisible()
   })
 
   test('education appears in the footer', async ({ page }) => {
@@ -45,15 +36,13 @@ test.describe('Resume page (print-optimized)', () => {
     await expect(page.getByText('Education')).toBeVisible()
   })
 
-  test('resume page has correct job entries', async ({ page }) => {
+  test('resume page has correct job entries, starting at Symbiont', async ({ page }) => {
     await page.goto('/resume')
     await expect(page.getByText('Flipside Crypto').first()).toBeVisible()
     await expect(page.getByText('GoHealth').first()).toBeVisible()
     await expect(page.getByText('Symbiont').first()).toBeVisible()
-  })
-
-  test('site-only roles stay off the resume page', async ({ page }) => {
-    await page.goto('/resume')
+    // Pre-2017 roles live in the Earlier Career paragraph, never as entries
     await expect(page.getByText('Senior Systems Operations Engineer')).toHaveCount(0)
+    await expect(page.getByText('Cloud Platforms').first()).toBeVisible() // skills matrix lives here
   })
 })

@@ -4,9 +4,7 @@ import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 
 const ANCHORS = [
-  { id: 'work', label: 'Work' },
   { id: 'open-source', label: 'Open Source' },
-  { id: 'skills', label: 'Skills' },
   { id: 'contact', label: 'Contact' },
 ] as const
 

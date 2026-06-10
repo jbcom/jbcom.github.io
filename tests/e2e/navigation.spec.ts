@@ -19,9 +19,7 @@ test.describe('Site navigation', () => {
   test('anchor nav scrolls to sections', async ({ page }) => {
     await page.goto('/')
     for (const [label, id] of [
-      ['Work', 'work'],
       ['Open Source', 'open-source'],
-      ['Skills', 'skills'],
       ['Contact', 'contact'],
     ] as const) {
       const anchor = page.locator(`header a[href="#${id}"]`, { hasText: label })
@@ -31,10 +29,10 @@ test.describe('Site navigation', () => {
     }
   })
 
-  test('work section shows master-detail with Flipside', async ({ page }) => {
+  test('no Work or Skills sections — the résumé carries career history', async ({ page }) => {
     await page.goto('/')
-    await page.getByRole('button', { name: /Flipside Crypto/ }).click()
-    await expect(page.getByText(/Cut AWS spend from ~\$150K/)).toBeVisible()
+    await expect(page.locator('#work')).toHaveCount(0)
+    await expect(page.locator('#skills')).toHaveCount(0)
   })
 
   test('open source tri-panel shows the three flagships with package tables', async ({ page }) => {
@@ -44,13 +42,6 @@ test.describe('Site navigation', () => {
     await expect(oss.getByText('radioactive-ralph').first()).toBeVisible()
     await expect(oss.getByText('Extended Data Library').first()).toBeVisible()
     await expect(oss.getByText('paranoid-passwd-gui')).toBeVisible()
-  })
-
-  test('no badge chip-walls in skills (spec-sheet rows instead)', async ({ page }) => {
-    await page.goto('/')
-    const skills = page.locator('#skills')
-    await expect(skills.getByText('Platform & Reliability')).toBeVisible()
-    await expect(skills.locator('[data-slot="badge"]')).toHaveCount(0)
   })
 
   test('GitHub link opens in new tab', async ({ page }) => {
