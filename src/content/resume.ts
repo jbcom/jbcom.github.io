@@ -194,23 +194,10 @@ const resume: Resume = {
         'Built Terraform-based repeatable customer deployment workflows for secure installs of DLT infrastructure into enterprise cloud environments on all three major providers',
       ],
     },
-    {
-      // Site-only: on the DOCX this is covered by the Earlier Career
-      // paragraph (its cost win and early-IaC claim are quoted there).
-      name: 'ClassPass',
-      position: 'Senior Systems Operations Engineer',
-      startDate: '2015-04',
-      endDate: '2016-04',
-      onResume: false,
-      tech: ['AWS', 'Docker', 'Terraform', 'Packer', 'Vagrant'],
-      summary: null,
-      highlights: [
-        'Containerized services with Docker and adopted Terraform, Packer, Atlas, and Vagrant in 2015 — infrastructure as code before it was standard practice',
-        'Managed 200–300 production AWS instances powering the ClassPass desktop and mobile experience for a major international fitness subscription platform',
-        'Reduced cloud costs $20K/month by deploying Netflix OSS Janitor Monkey for automated resource lifecycle management',
-      ],
-    },
   ],
+  // ClassPass (2015–16) is intentionally NOT a work entry: everything before
+  // Symbiont (2017) lives in the Earlier Career paragraph below, which
+  // already carries its cost win, fleet scale, and early-IaC claim.
 
   // Everything before Symbiont is compressed into one prose paragraph:
   // a decade of short roles reads as a consulting-style arc in prose, but as

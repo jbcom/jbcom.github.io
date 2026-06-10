@@ -3,7 +3,9 @@
  *
  * The DOCX is the canonical distributable resume. No PDF is produced.
  * Fast local loop: no Astro build required — template.ts renders straight
- * from the resume data module.
+ * from the resume data module. The turbodocx output is post-processed at
+ * the OOXML level (see postprocess.ts) to fix layout defects the converter
+ * hardcodes.
  *
  * Usage: pnpm resume:build  (or: npx tsx scripts/resume/build-docx.ts [outPath])
  * Output: public/Jon_Bogaty_Resume.docx
@@ -12,7 +14,9 @@
 import { mkdirSync, writeFileSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
 import HTMLtoDOCX from '@turbodocx/html-to-docx'
+import JSZip from 'jszip'
 
+import { postprocessDocumentXml } from './postprocess.ts'
 import { resumeDocxHtml } from './template.ts'
 
 export async function buildResumeDocx(outPath: string): Promise<void> {
@@ -26,8 +30,13 @@ export async function buildResumeDocx(outPath: string): Promise<void> {
     pageSize: { width: 12240, height: 15840 }, // US Letter in twips
   })
 
+  const zip = await JSZip.loadAsync(Buffer.from(buffer as ArrayBuffer))
+  const documentXml = await zip.file('word/document.xml')?.async('string')
+  if (!documentXml) throw new Error('turbodocx output is missing word/document.xml')
+  zip.file('word/document.xml', postprocessDocumentXml(documentXml))
+  const output = await zip.generateAsync({ type: 'nodebuffer', compression: 'DEFLATE' })
+
   mkdirSync(dirname(outPath), { recursive: true })
-  const output = Buffer.from(buffer as ArrayBuffer)
   writeFileSync(outPath, output)
   console.log(`DOCX generated: ${outPath} (${(output.length / 1024).toFixed(1)} KB)`)
 }
