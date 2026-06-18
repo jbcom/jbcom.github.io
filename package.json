@@ -29,7 +29,7 @@
     "@fontsource/inter": "^5.2.8",
     "@fontsource/jetbrains-mono": "^5.2.8",
     "@tailwindcss/typography": "^0.5.20",
-    "astro": "^6.4.5",
+    "astro": "^6.4.6",
     "daisyui": "^5.5.23"
   },
   "devDependencies": {
