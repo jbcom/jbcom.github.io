@@ -12,6 +12,10 @@ This is a no-build static portfolio for Jon Bogaty.
 There is no Node.js project. Do not add `package.json`, `node_modules`, Astro,
 React, TypeScript, Vite, Tailwind, or resume build scripts.
 
+The deployed site lives under `public/`. Browser assets live under
+`public/assets/`, and pinned third-party libraries live under
+`public/assets/vendor/`. Do not load runtime dependencies from external CDNs.
+
 ## Resume
 
 `public/Jon_Bogaty_Resume.docx` is the canonical uploaded resume. Do not modify

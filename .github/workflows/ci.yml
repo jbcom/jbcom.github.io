@@ -29,11 +29,18 @@ jobs:
 
       - name: Validate static assets
         run: |
-          test -s index.html
-          test -s styles.css
-          test -s script.js
+          test -s public/index.html
+          test -s public/404.html
+          test -s public/assets/styles.min.css
+          test -s public/assets/script.min.js
+          test -s public/assets/vendor/lenis.min.js
+          test -s public/assets/vendor/modern-normalize.min.css
           test -s public/Jon_Bogaty_Resume.docx
-          test -s public/headshot.png
+          test -s public/assets/headshot.png
+
+      - name: Assert no runtime CDN dependencies
+        run: |
+          ! grep -R -E "cdn\.jsdelivr\.net|unpkg\.com|cdnjs\.cloudflare\.com" public
 
       - name: Check local links
         run: |
@@ -42,8 +49,8 @@ jobs:
           from pathlib import Path
           from urllib.parse import urlparse
 
-          root = Path('.')
-          checked = sorted(Path('.').glob('*.html')) + sorted(Path('.').glob('*/*.html'))
+          root = Path('public').resolve()
+          checked = sorted(Path('public').glob('*.html')) + sorted(Path('public').glob('**/*.html'))
           attrs = {'a': 'href', 'link': 'href', 'script': 'src', 'img': 'src'}
 
           class LinkParser(HTMLParser):
@@ -72,7 +79,10 @@ jobs:
               target = link.split('#', 1)[0].split('?', 1)[0]
               if not target:
                 continue
-              candidate = (file.parent / target.lstrip('/')).resolve()
+              if target.startswith('/'):
+                candidate = (root / target.lstrip('/')).resolve()
+              else:
+                candidate = (file.parent / target).resolve()
               if not candidate.exists():
                 errors.append(f'{file}: missing {link}')
 
