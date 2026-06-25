@@ -1,49 +1,22 @@
 # Security Policy
 
-## Supported Versions
-
-| Version | Supported          |
-| ------- | ------------------ |
-| latest  | :white_check_mark: |
-| < latest| :x:                |
-
 ## Reporting a Vulnerability
 
-**Please do not report security vulnerabilities through public GitHub issues.**
+Do not report security vulnerabilities through public GitHub issues. Email the
+maintainer directly.
 
-Instead, please report security vulnerabilities by emailing the maintainers directly.
+Include:
 
-When reporting a vulnerability, please include:
+1. Description of the issue
+2. Steps to reproduce
+3. Potential impact
+4. Suggested mitigation, if known
 
-1. **Description** of the vulnerability
-2. **Steps to reproduce** the issue
-3. **Potential impact** of the vulnerability
-4. **Suggested fix** (if any)
+## Static Site Security Notes
 
-We will acknowledge receipt within 48 hours and provide a detailed response within 7 days indicating:
-
-- Our assessment of the report
-- Expected timeline for a fix
-- Any mitigations available
-
-## Security Best Practices
-
-### For Contributors
-
-- Never commit secrets, API keys, or credentials
-- Use environment variables for sensitive configuration
-- Review dependencies for known vulnerabilities
-- Follow secure coding guidelines
-
-### Automated Security
-
-This repository uses:
-
-- **Dependabot** for dependency updates
-- **Secret scanning** to detect leaked credentials
-- **Push protection** to prevent secret commits
-- **CodeQL** for static analysis (where applicable)
-
-## Acknowledgments
-
-We appreciate responsible disclosure of security issues.
+- Do not commit `.env` or credentials.
+- Do not add client-side scripts that collect visitor data without explicit
+  review.
+- Keep the site no-build unless the owner explicitly changes direction.
+- `public/Jon_Bogaty_Resume.docx` is user-supplied and must not be regenerated
+  by site tooling.
