@@ -30,7 +30,6 @@ jobs:
           mkdir -p _site
           cp index.html 404.html styles.css script.js robots.txt sitemap.xml .nojekyll CNAME _site/
           cp -R public _site/public
-          cp -R radioactive-ralph _site/radioactive-ralph
 
       - name: Configure Pages
         uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
