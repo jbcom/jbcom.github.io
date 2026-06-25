@@ -1,147 +1,65 @@
 # AGENTS.md
 
-Comprehensive instructions for AI agents working with this repository.
+Instructions for AI agents working in `/Users/jbogaty/src/jbcom/jbcom.github.io`.
 
-## Agent Types
+## Repository Shape
 
-| Agent | Best For | Context File |
-|-------|----------|--------------|
-| **Claude** | Complex reasoning, architecture, cross-repo work | `CLAUDE.md` |
-| **Copilot** | Issue kickoffs, targeted fixes, code generation | `.github/copilot-instructions.md` |
-| **Cursor** | IDE-integrated development | `.cursor/rules/*.mdc` |
+This is a no-build static portfolio website for Jon Bogaty.
 
-## Before Starting Any Task
+- Runtime: browser-native HTML5, CSS3, and JavaScript.
+- Deployment: GitHub Pages.
+- Deploy artifact root: `public/`.
+- Canonical resume artifact: `public/Jon_Bogaty_Resume.docx`.
+- There is no Node.js project here. Do not add `package.json`, `node_modules`,
+  Astro, React, TypeScript, Vite, Tailwind, or resume-generation tooling.
+- Third-party browser libraries must be pinned, minified, checked in under
+  `public/assets/vendor/`, and loaded locally. Do not add runtime CDN imports.
 
-### 1. Check Context
+## Hard Rule: Resume
+
+`public/Jon_Bogaty_Resume.docx` is user-supplied and immutable from the website
+tooling perspective.
+
+- Do not regenerate it.
+- Do not run a build step that rewrites it.
+- Do not create a source-of-truth resume data file.
+- If the resume changes, the user replaces the DOCX directly.
+
+## Local Work
+
+Use simple static-server checks:
+
 ```bash
-# Current focus and recent decisions
-cat memory-bank/activeContext.md
-
-# Session progress
-cat memory-bank/progress.md
+python3 -m http.server 4173 --directory public
 ```
 
-### 2. Understand the Request
-- Read the issue/PR description completely
-- Check for linked issues or PRs
-- Look for acceptance criteria
+Then inspect `http://localhost:4173`.
 
-### 3. Check Existing Patterns
-```bash
-# Recent commits show coding patterns
-git log --oneline -10
+## Design Direction
 
-# Similar files show conventions
-find . -name "*.py" | head -5 | xargs head -50
-```
+The site should sell Jon specifically:
 
-## Development Commands
+- Platform engineering leader and hands-on Staff-level engineer.
+- SRE, cloud infrastructure, developer platforms, security, observability, and
+  automation.
+- Concrete proof beats generic claims: ~$100K/month AWS savings, 146+ Terraform
+  modules, 30-40% faster incident triage/MTTR, embedded SRE leadership, and a
+  multi-year AI-agent engineering program.
 
-<!-- These will be overridden by language-specific instructions -->
+Avoid LLM portfolio tropes:
 
-### Testing
-```bash
-# Run tests (check package.json or pyproject.toml for exact command)
-npm test        # Node.js
-uv run pytest   # Python
-go test ./...   # Go
-```
+- generic SaaS hero language
+- purple/blue gradient sludge
+- decorative orb backgrounds
+- fake dashboards
+- vague "I build scalable solutions" copy
+- card soup with no hierarchy
+- icons standing in for substance
 
-### Linting
-```bash
-npm run lint    # Node.js
-uvx ruff check  # Python
-golangci-lint run  # Go
-```
+Keep the implementation small, readable, accessible, and static.
 
-### Building
-```bash
-npm run build   # Node.js
-uv build        # Python
-go build        # Go
-```
+Current vendored libraries:
 
-## Commit Message Format
-
-Use [Conventional Commits](https://www.conventionalcommits.org/):
-
-```
-<type>(<scope>): <description>
-
-[optional body]
-
-[optional footer]
-```
-
-### Types
-- `feat`: New feature (minor version bump)
-- `fix`: Bug fix (patch version bump)
-- `docs`: Documentation only
-- `style`: Formatting, no code change
-- `refactor`: Code restructure, no behavior change
-- `test`: Adding/updating tests
-- `chore`: Maintenance tasks
-
-### Examples
-```bash
-feat(auth): add OAuth2 support
-fix(api): handle null response correctly
-docs: update installation instructions
-test(utils): add edge case coverage
-chore(deps): update dependencies
-```
-
-## Error Recovery
-
-### Tests Failing
-1. Read the error message carefully
-2. Check if it's a flaky test (run again)
-3. Check recent commits that might have caused it
-4. Fix the root cause, not just the symptom
-
-### Lint Errors
-1. Run auto-fix first (`--fix` flag)
-2. Manually fix remaining issues
-3. Don't disable rules without justification
-
-### Build Errors
-1. Check for type errors first
-2. Ensure dependencies are installed
-3. Check for missing files or imports
-
-## Memory Bank Protocol
-
-### Reading Context
-```bash
-# Always check before starting
-cat memory-bank/activeContext.md
-```
-
-### Updating Context
-```bash
-# After completing significant work
-cat >> memory-bank/activeContext.md << 'EOF'
-
-## Session: $(date +%Y-%m-%d)
-
-### Completed
-- [x] Description of completed work
-
-### For Next Agent
-- [ ] Remaining tasks
-EOF
-```
-
-## What NOT To Do
-
-- ❌ Don't make unrelated changes
-- ❌ Don't skip tests
-- ❌ Don't ignore linting errors
-- ❌ Don't commit without meaningful message
-- ❌ Don't push directly to main (use PRs)
-- ❌ Don't add dependencies without justification
-
-## Repository-Specific Instructions
-
-<!-- Add repository-specific agent instructions below -->
-
+- `public/assets/vendor/lenis.min.js`: Lenis v1.0.42 for smooth scrolling.
+- `public/assets/vendor/modern-normalize.min.css`: modern-normalize v3.0.1 for
+  cross-browser baseline consistency.

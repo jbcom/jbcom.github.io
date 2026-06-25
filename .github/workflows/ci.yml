@@ -4,102 +4,89 @@ on:
   pull_request:
     branches: [main]
 
+permissions:
+  contents: read
+
 concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  lint:
-    name: Lint
+  static-site:
+    name: Static site validation
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@9fd676a19091d4595eefd76e4bd31c97133911f1 # v4.2.0
+      - name: Assert no Node build pipeline
+        run: |
+          test ! -e package.json
+          test ! -e pnpm-lock.yaml
+          test ! -d src
+          test ! -d scripts/resume
+          test ! -d node_modules
 
-      - name: Setup Node.js
-        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
-        with:
-          node-version: 22
-          cache: pnpm
+      - name: Validate static assets
+        run: |
+          test -s public/index.html
+          test -s public/404.html
+          test -s public/assets/styles.min.css
+          test -s public/assets/script.min.js
+          test -s public/assets/vendor/lenis.min.js
+          test -s public/assets/vendor/modern-normalize.min.css
+          test -s public/Jon_Bogaty_Resume.docx
+          test -s public/assets/headshot.png
 
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+      - name: Assert no runtime CDN dependencies
+        run: |
+          ! grep -R -E "cdn\.jsdelivr\.net|unpkg\.com|cdnjs\.cloudflare\.com" public
 
-      - name: Lint
-        run: pnpm lint
+      - name: Check local links
+        run: |
+          python3 - <<'PY'
+          from html.parser import HTMLParser
+          from pathlib import Path
+          from urllib.parse import urlparse
 
-  typecheck:
-    name: Typecheck
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+          root = Path('public').resolve()
+          checked = sorted(Path('public').glob('*.html')) + sorted(Path('public').glob('**/*.html'))
+          attrs = {'a': 'href', 'link': 'href', 'script': 'src', 'img': 'src'}
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@9fd676a19091d4595eefd76e4bd31c97133911f1 # v4.2.0
+          class LinkParser(HTMLParser):
+            def __init__(self):
+              super().__init__()
+              self.links = []
 
-      - name: Setup Node.js
-        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
-        with:
-          node-version: 22
-          cache: pnpm
+            def handle_starttag(self, tag, attrs_list):
+              attr = attrs.get(tag)
+              if not attr:
+                return
+              values = dict(attrs_list)
+              if attr in values:
+                self.links.append(values[attr])
 
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+          errors = []
+          for file in checked:
+            parser = LinkParser()
+            parser.feed(file.read_text(encoding='utf-8'))
+            for link in parser.links:
+              parsed = urlparse(link)
+              if parsed.scheme in {'http', 'https', 'mailto', 'tel'}:
+                continue
+              if link.startswith('#') or link.startswith('data:'):
+                continue
+              target = link.split('#', 1)[0].split('?', 1)[0]
+              if not target:
+                continue
+              if target.startswith('/'):
+                candidate = (root / target.lstrip('/')).resolve()
+              else:
+                candidate = (file.parent / target).resolve()
+              if not candidate.exists():
+                errors.append(f'{file}: missing {link}')
 
-      - name: Typecheck
-        run: pnpm check
-
-  build:
-    name: Build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@9fd676a19091d4595eefd76e4bd31c97133911f1 # v4.2.0
-
-      - name: Setup Node.js
-        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
-        with:
-          node-version: 22
-          cache: pnpm
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Build
-        run: pnpm build
-
-      - name: Upload build artifact
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
-        with:
-          name: dist
-          path: dist/
-          retention-days: 7
-
-  test:
-    name: Test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@9fd676a19091d4595eefd76e4bd31c97133911f1 # v4.2.0
-
-      - name: Setup Node.js
-        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
-        with:
-          node-version: 22
-          cache: pnpm
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Test
-        run: pnpm test
+          if errors:
+            print('\n'.join(errors))
+            raise SystemExit(1)
+          PY
