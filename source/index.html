@@ -1,0 +1,567 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Jon Bogaty - Platform Engineering Leader</title>
+    <meta
+      name="description"
+      content="Jon Bogaty is a platform engineering leader, Staff-level engineer, and SRE/cloud infrastructure operator with 15+ years across AWS, Google Cloud, Azure, Kubernetes, Terraform, security, observability, and developer platforms."
+    />
+    <meta name="theme-color" content="#11120f" />
+    <meta
+      property="og:title"
+      content="Jon Bogaty - Platform Engineering Leader"
+    />
+    <meta
+      property="og:description"
+      content="Platform engineering leadership, Staff-level execution, SRE operating models, cloud infrastructure, and production automation."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://jonbogaty.com/" />
+    <meta
+      property="og:image"
+      content="https://jonbogaty.com/assets/og-image.png"
+    />
+    <link rel="canonical" href="https://jonbogaty.com/" />
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="preload" as="image" href="assets/headshot.png" />
+    <link rel="stylesheet" href="assets/vendor/modern-normalize.min.css" />
+    <link rel="stylesheet" href="assets/styles.min.css" />
+    <script src="assets/vendor/lenis.min.js" defer></script>
+    <script src="assets/script.min.js" defer></script>
+    <script src="assets/vendor/alpinejs-3.15.12.min.js" defer></script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Jon Bogaty",
+        "url": "https://jonbogaty.com/",
+        "email": "mailto:jon@jonbogaty.com",
+        "jobTitle": "Platform Engineering Leader and Staff Engineer",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Lincoln",
+          "addressRegion": "NE",
+          "addressCountry": "US"
+        },
+        "sameAs": [
+          "https://www.linkedin.com/in/jonbogaty",
+          "https://github.com/jbcom"
+        ],
+        "knowsAbout": [
+          "Platform Engineering",
+          "Site Reliability Engineering",
+          "Cloud Infrastructure",
+          "AWS",
+          "Google Cloud",
+          "Azure",
+          "Kubernetes",
+          "Terraform",
+          "Observability",
+          "Security Operations",
+          "AI Agents"
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header" data-header>
+      <a class="brand" href="#top" aria-label="Jon Bogaty home"
+        ><span class="brand-mark" aria-hidden="true">JB</span
+        ><span>Jon Bogaty</span></a
+      >
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="#impact">Impact</a><a href="#system">System</a
+        ><a href="#experience">Experience</a><a href="#contact">Contact</a>
+      </nav>
+    </header>
+    <main id="main">
+      <section class="hero section" id="top" aria-labelledby="hero-title">
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <p class="eyebrow">
+              Platform Engineering Leader | Staff Engineer | SRE & Cloud
+              Infrastructure
+            </p>
+            <h1 id="hero-title">Jon Bogaty</h1>
+            <p class="hero-lede">
+              I am at my best when the production story is messy: cloud spend is
+              noisy, deploys are fragile, dashboards are not trusted, and the
+              team needs someone who can lead the room and still write the code.
+            </p>
+            <div class="hero-actions" aria-label="Primary actions">
+              <a class="button primary" href="Jon_Bogaty_Resume.docx" download
+                >Download resume</a
+              ><a class="button" href="mailto:jon@jonbogaty.com">Email Jon</a
+              ><button class="button quiet" type="button" data-copy-email>
+                Copy email
+              </button>
+            </div>
+          </div>
+          <aside
+            class="hero-panel proof-card"
+            aria-label="Current operating signal and proof deck"
+          >
+            <div class="panel-head">
+              <img
+                src="assets/headshot.png"
+                alt="Jon Bogaty"
+                class="headshot"
+                width="250"
+                height="250"
+              />
+              <dl class="signal-list">
+                <div>
+                  <dt>Base</dt>
+                  <dd>Lincoln, Nebraska</dd>
+                </div>
+                <div>
+                  <dt>Mode</dt>
+                  <dd>Platform, SRE, cloud, security, developer systems</dd>
+                </div>
+                <div>
+                  <dt>Range</dt>
+                  <dd>
+                    AWS, Google Cloud, Azure; leadership through implementation
+                  </dd>
+                </div>
+              </dl>
+            </div>
+            <div class="proof-deck" data-proof-deck x-data="proofDeck()">
+              <div class="proof-dynamic" x-cloak>
+                <div
+                  class="proof-tabs"
+                  role="tablist"
+                  aria-label="Above the fold proof"
+                >
+                  <template x-for="tab in tabs" :key="tab.key"
+                    ><button
+                      type="button"
+                      role="tab"
+                      :id="`proof-tab-${tab.key}`"
+                      :aria-selected="String(active===tab.key)"
+                      :aria-controls="`proof-panel-${tab.key}`"
+                      @click="select(tab.key)"
+                      @keydown.arrow-right.prevent="move(1)"
+                      @keydown.arrow-left.prevent="move(-1)"
+                      @keydown.home.prevent="first()"
+                      @keydown.end.prevent="last()"
+                      x-text="tab.label"
+                    ></button
+                  ></template>
+                </div>
+                <section
+                  class="proof-panel"
+                  role="tabpanel"
+                  :id="`proof-panel-${panel.key}`"
+                  :aria-labelledby="`proof-tab-${panel.key}`"
+                >
+                  <p class="proof-kicker" x-text="panel.kicker"></p>
+                  <h3 x-text="panel.title"></h3>
+                  <p class="proof-intro" x-text="panel.intro"></p>
+                  <ul class="proof-list">
+                    <template x-for="item in panel.items" :key="item[0]"
+                      ><li>
+                        <strong x-text="item[0]"></strong
+                        ><span x-text="item[1]"></span></li
+                    ></template>
+                  </ul>
+                </section>
+              </div>
+              <noscript
+                ><div class="proof-panel">
+                  <p class="proof-kicker">What I can prove</p>
+                  <h3>I have receipts, not a vibe.</h3>
+                  <p class="proof-intro">
+                    The useful version of me is the one who can point to
+                    production systems, invoices, incidents, and code that
+                    changed.
+                  </p>
+                  <ul class="proof-list">
+                    <li>
+                      <strong>~$100K/mo AWS savings</strong
+                      ><span
+                        >Reduced spend from roughly $150K to $40-50K per month
+                        while improving platform control.</span
+                      >
+                    </li>
+                    <li>
+                      <strong>146+ Terraform modules</strong
+                      ><span
+                        >Built tm_cli, a 10,000+ line Python platform across 13
+                        providers.</span
+                      >
+                    </li>
+                    <li>
+                      <strong>30-40% faster recovery</strong
+                      ><span
+                        >Improved incident triage and MTTR through monitoring,
+                        alerting, escalation, and runbooks.</span
+                      >
+                    </li>
+                  </ul>
+                </div></noscript
+              >
+            </div>
+          </aside>
+        </div>
+        <div class="ticker" aria-label="Resume proof points">
+          <span>15+ years production systems</span
+          ><span>~$100K monthly AWS savings</span
+          ><span>146+ Terraform modules</span
+          ><span>30-40% faster triage and recovery</span
+          ><span>3-year AI-agent engineering program</span>
+        </div>
+      </section>
+      <section
+        class="section impact"
+        id="impact"
+        aria-labelledby="impact-title"
+      >
+        <div class="section-heading">
+          <p class="eyebrow">Selected impact</p>
+          <h2 id="impact-title">Receipts, not slogans.</h2>
+          <p>
+            The resume is dense because the work has been real: production
+            ownership, economics, reliability, platform product, and team
+            operating models.
+          </p>
+        </div>
+        <div class="metric-grid">
+          <article class="metric" data-count="100">
+            <span class="metric-value">~$100K</span>
+            <h3>Monthly AWS savings</h3>
+            <p>
+              Reduced spend from roughly $150K to $40-50K per month while
+              improving scalability.
+            </p>
+          </article>
+          <article class="metric" data-count="146">
+            <span class="metric-value">146+</span>
+            <h3>Terraform modules</h3>
+            <p>
+              Built tm_cli, a 10,000+ line Python platform spanning 13
+              providers.
+            </p>
+          </article>
+          <article class="metric" data-count="40">
+            <span class="metric-value">30-40%</span>
+            <h3>Faster recovery</h3>
+            <p>
+              Improved incident triage and MTTR through monitoring, alerting,
+              escalation, and runbooks.
+            </p>
+          </article>
+          <article class="metric" data-count="3">
+            <span class="metric-value">3 years</span>
+            <h3>AI-agent engineering</h3>
+            <p>
+              Led specialized agents across architecture, implementation,
+              testing, docs, review, and release.
+            </p>
+          </article>
+        </div>
+      </section>
+      <section
+        class="section system"
+        id="system"
+        aria-labelledby="system-title"
+      >
+        <div class="section-heading compact">
+          <p class="eyebrow">Operating model</p>
+          <h2 id="system-title">
+            The pattern is not just infrastructure. It is control.
+          </h2>
+        </div>
+        <div class="system-board">
+          <article>
+            <span class="step">01</span>
+            <h3>Make the system legible</h3>
+            <p>
+              Map ownership, runtime boundaries, spend, secrets, deployment
+              paths, and incident reality.
+            </p>
+          </article>
+          <article>
+            <span class="step">02</span>
+            <h3>Encode the repeatable parts</h3>
+            <p>
+              Move decisions into Terraform, CI/CD, migrations, policies,
+              runbooks, and reviewable defaults.
+            </p>
+          </article>
+          <article>
+            <span class="step">03</span>
+            <h3>Teach the operating model</h3>
+            <p>
+              Mentor engineers into shared SRE practice rather than centralizing
+              every production judgment.
+            </p>
+          </article>
+          <article>
+            <span class="step">04</span>
+            <h3>Keep the loop closed</h3>
+            <p>
+              Use observability, incident review, cost signals, and release
+              gates to catch drift early.
+            </p>
+          </article>
+        </div>
+      </section>
+      <section class="section lens" aria-labelledby="lens-title">
+        <div class="section-heading">
+          <p class="eyebrow">Hiring lens</p>
+          <h2 id="lens-title">
+            Different teams need different versions of the same operator.
+          </h2>
+        </div>
+        <div class="lens-tabs" role="tablist" aria-label="Role lenses">
+          <button
+            role="tab"
+            aria-selected="true"
+            aria-controls="lens-leader"
+            id="tab-leader"
+            data-lens="leader"
+          >
+            Leader</button
+          ><button
+            role="tab"
+            aria-selected="false"
+            aria-controls="lens-staff"
+            id="tab-staff"
+            data-lens="staff"
+          >
+            Staff IC</button
+          ><button
+            role="tab"
+            aria-selected="false"
+            aria-controls="lens-sre"
+            id="tab-sre"
+            data-lens="sre"
+          >
+            SRE</button
+          ><button
+            role="tab"
+            aria-selected="false"
+            aria-controls="lens-ai"
+            id="tab-ai"
+            data-lens="ai"
+          >
+            AI systems
+          </button>
+        </div>
+        <div
+          class="lens-panel"
+          id="lens-leader"
+          role="tabpanel"
+          aria-labelledby="tab-leader"
+          data-lens-panel="leader"
+        >
+          <h3>For platform leadership</h3>
+          <p>
+            Roadmaps, mentoring, architecture reviews, incident command, team
+            operating models, and cross-functional delivery grounded in actual
+            production work.
+          </p>
+        </div>
+        <div
+          class="lens-panel hidden"
+          id="lens-staff"
+          role="tabpanel"
+          aria-labelledby="tab-staff"
+          data-lens-panel="staff"
+        >
+          <h3>For Staff-level execution</h3>
+          <p>
+            Ambiguous platform problems converted into infrastructure code,
+            CI/CD, secrets systems, migrations, observability, and sustainable
+            defaults.
+          </p>
+        </div>
+        <div
+          class="lens-panel hidden"
+          id="lens-sre"
+          role="tabpanel"
+          aria-labelledby="tab-sre"
+          data-lens-panel="sre"
+        >
+          <h3>For SRE and reliability</h3>
+          <p>
+            Availability targets, runbooks, alert quality, escalation paths,
+            incident review, capacity planning, and production ownership without
+            theater.
+          </p>
+        </div>
+        <div
+          class="lens-panel hidden"
+          id="lens-ai"
+          role="tabpanel"
+          aria-labelledby="tab-ai"
+          data-lens-panel="ai"
+        >
+          <h3>For AI-enabled engineering</h3>
+          <p>
+            Agent work queues, specialized responsibilities, quality gates, code
+            review, documentation, release coordination, and traceable
+            engineering standards.
+          </p>
+        </div>
+      </section>
+      <section
+        class="section experience"
+        id="experience"
+        aria-labelledby="experience-title"
+      >
+        <div class="section-heading">
+          <p class="eyebrow">Experience</p>
+          <h2 id="experience-title">
+            Production ownership across company stages.
+          </h2>
+        </div>
+        <ol class="timeline">
+          <li>
+            <div class="time">Jan 2026 - Present</div>
+            <div>
+              <h3>Independent Platform & DevOps Consultant</h3>
+              <p>
+                Fractional platform architecture, production readiness,
+                automation, security, and delivery systems for early-stage
+                products.
+              </p>
+            </div>
+          </li>
+          <li>
+            <div class="time">Jun 2021 - Jan 2026</div>
+            <div>
+              <h3>Staff DevOps & Platform Engineer, Flipside Crypto</h3>
+              <p>
+                Founding DevOps hire and sole platform engineer; owned AWS
+                infrastructure, Terraform/Terragrunt, CI/CD, identity,
+                observability, cost, incident response, and developer
+                enablement.
+              </p>
+            </div>
+          </li>
+          <li>
+            <div class="time">Aug 2020 - Jun 2021</div>
+            <div>
+              <h3>Senior Site Reliability Engineer, GoHealth</h3>
+              <p>
+                SRE ownership for a high-traffic health-insurance marketplace
+                during seasonal open-enrollment demand.
+              </p>
+            </div>
+          </li>
+          <li>
+            <div class="time">Nov 2017 - Aug 2020</div>
+            <div>
+              <h3>Senior Development Operations Engineer, Symbiont</h3>
+              <p>
+                Enterprise CI/CD and multi-cloud delivery for a blockchain
+                distributed-ledger platform across AWS, Google Cloud, and Azure.
+              </p>
+            </div>
+          </li>
+          <li>
+            <div class="time">2005 - 2017</div>
+            <div>
+              <h3>Earlier infrastructure and DevOps leadership</h3>
+              <p>
+                Senior and consulting roles across ad-tech, e-commerce, mobile,
+                media, and publishing, including cloud migrations, Docker,
+                Terraform, Chef/Rundeck, and cost automation.
+              </p>
+            </div>
+          </li>
+        </ol>
+      </section>
+      <section class="section expertise" aria-labelledby="expertise-title">
+        <div class="section-heading compact">
+          <p class="eyebrow">Core expertise</p>
+          <h2 id="expertise-title">Searchable, scannable, and real.</h2>
+        </div>
+        <div class="expertise-grid">
+          <article>
+            <h3>Leadership & management</h3>
+            <p>
+              Engineering management, Staff+ leadership, mentoring, SRE
+              operating models, roadmaps, architecture reviews, incident
+              command.
+            </p>
+          </article>
+          <article>
+            <h3>Platform & reliability</h3>
+            <p>
+              Platform engineering, DevOps, developer experience, distributed
+              systems, EKS/GKE/AKS, serverless, RDS, capacity planning, FinOps.
+            </p>
+          </article>
+          <article>
+            <h3>Cloud & delivery</h3>
+            <p>
+              AWS, Google Cloud, Azure, Terraform, Terragrunt, Packer, Ansible,
+              GitHub Actions, GitLab CI, Jenkins, Argo CD, GitOps, Docker.
+            </p>
+          </article>
+          <article>
+            <h3>Security & software</h3>
+            <p>
+              IAM/RBAC, SSO/SCIM, Vault, Secrets Manager, Snowflake security,
+              SLSA, Sigstore, SBOM, Python, Go, TypeScript, Bash, SQL, MCP
+              servers.
+            </p>
+          </article>
+        </div>
+      </section>
+      <section class="section open-source" aria-labelledby="oss-title">
+        <div class="section-heading">
+          <p class="eyebrow">AI and open source</p>
+          <h2 id="oss-title">Engineering standards applied in public.</h2>
+        </div>
+        <div class="project-strip">
+          <a href="https://jonbogaty.com/radioactive-ralph/" class="project"
+            ><span>Go</span>
+            <h3>radioactive-ralph</h3>
+            <p>Autonomous continuous development orchestrator.</p></a
+          ><a href="https://paranoid-passwd.com" class="project"
+            ><span>Rust</span>
+            <h3>paranoid-passwd</h3>
+            <p>Local password manager focused on verifiable trust.</p></a
+          ><a href="https://extended-data.dev" class="project"
+            ><span>Python + Go</span>
+            <h3>Extended Data Library</h3>
+            <p>Five Python packages plus a Go secrets-sync pipeline.</p></a
+          >
+        </div>
+      </section>
+      <section
+        class="section contact"
+        id="contact"
+        aria-labelledby="contact-title"
+      >
+        <div>
+          <p class="eyebrow">Contact</p>
+          <h2 id="contact-title">Bring the messy production problem.</h2>
+          <p>
+            Best fit: Staff/Senior platform, DevOps, SRE, infrastructure, cloud,
+            observability, and technical customer-facing roles where deep
+            infrastructure credibility matters.
+          </p>
+        </div>
+        <div class="contact-actions">
+          <a class="button primary" href="mailto:jon@jonbogaty.com"
+            >jon@jonbogaty.com</a
+          ><a class="button" href="https://www.linkedin.com/in/jonbogaty"
+            >LinkedIn</a
+          ><a class="button" href="https://github.com/jbcom">GitHub</a>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <p>Jon Bogaty. Platform engineering, SRE, cloud infrastructure.</p>
+      <a href="Jon_Bogaty_Resume.docx" download>Resume DOCX</a>
+    </footer>
+  </body>
+</html>

@@ -11,3 +11,4 @@
 # Generated artifacts should not be committed.
 _site/
 site-*.tar.gz
+.playwright-cli/
