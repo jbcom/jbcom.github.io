@@ -33,9 +33,8 @@ jobs:
           test -s public/404.html
           test -s public/assets/styles.min.css
           test -s public/assets/script.min.js
-          test -s public/assets/vendor/lenis.min.js
           test -s public/assets/vendor/modern-normalize.min.css
-          test -s public/Jon_Bogaty_Resume.docx
+          test -s public/assets/resume.pdf
           test -s public/assets/headshot.png
 
       - name: Assert no runtime CDN dependencies
