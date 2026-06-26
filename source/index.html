@@ -73,8 +73,8 @@
         ><span>Jon Bogaty</span></a
       >
       <nav class="nav" aria-label="Primary navigation">
-        <a href="#impact">Impact</a><a href="#system">System</a
-        ><a href="#experience">Experience</a><a href="#contact">Contact</a>
+        <a href="#impact">Proof</a><a href="#experience">Experience</a
+        ><a href="#projects">Projects</a><a href="#contact">Contact</a>
       </nav>
     </header>
     <main id="main">
@@ -87,9 +87,9 @@
             </p>
             <h1 id="hero-title">Jon Bogaty</h1>
             <p class="hero-lede">
-              I am at my best when the production story is messy: cloud spend is
-              noisy, deploys are fragile, dashboards are not trusted, and the
-              team needs someone who can lead the room and still write the code.
+              I turn messy production reality into control: spend down, systems
+              observable, infrastructure encoded, and teams able to ship without
+              guessing.
             </p>
             <div class="hero-actions" aria-label="Primary actions">
               <a class="button primary" href="Jon_Bogaty_Resume.docx" download
@@ -216,198 +216,115 @@
         </div>
       </section>
       <section
-        class="section impact"
+        class="section workbench"
         id="impact"
-        aria-labelledby="impact-title"
+        aria-labelledby="workbench-title"
+        x-data="evidenceConsole()"
       >
-        <div class="section-heading">
-          <p class="eyebrow">Selected impact</p>
-          <h2 id="impact-title">Receipts, not slogans.</h2>
+        <div class="section-heading workbench-heading">
+          <div>
+            <p class="eyebrow">Control plane</p>
+            <h2 id="workbench-title">Production work, indexed by signal.</h2>
+          </div>
           <p>
-            The resume is dense because the work has been real: production
-            ownership, economics, reliability, platform product, and team
-            operating models.
+            Cost, reliability, platform product, customer pressure, and code
+            live together because the useful work is the connective tissue
+            between them.
           </p>
         </div>
-        <div class="metric-grid">
-          <article class="metric" data-count="100">
-            <span class="metric-value">~$100K</span>
-            <h3>Monthly AWS savings</h3>
-            <p>
-              Reduced spend from roughly $150K to $40-50K per month while
-              improving scalability.
-            </p>
-          </article>
-          <article class="metric" data-count="146">
-            <span class="metric-value">146+</span>
-            <h3>Terraform modules</h3>
-            <p>
-              Built tm_cli, a 10,000+ line Python platform spanning 13
-              providers.
-            </p>
-          </article>
-          <article class="metric" data-count="40">
-            <span class="metric-value">30-40%</span>
-            <h3>Faster recovery</h3>
-            <p>
-              Improved incident triage and MTTR through monitoring, alerting,
-              escalation, and runbooks.
-            </p>
-          </article>
-          <article class="metric" data-count="3">
-            <span class="metric-value">3 years</span>
-            <h3>AI-agent engineering</h3>
-            <p>
-              Led specialized agents across architecture, implementation,
-              testing, docs, review, and release.
-            </p>
-          </article>
-        </div>
-      </section>
-      <section
-        class="section system"
-        id="system"
-        aria-labelledby="system-title"
-      >
-        <div class="section-heading compact">
-          <p class="eyebrow">Operating model</p>
-          <h2 id="system-title">
-            The pattern is not just infrastructure. It is control.
-          </h2>
-        </div>
-        <div class="system-board">
-          <article>
-            <span class="step">01</span>
-            <h3>Make the system legible</h3>
-            <p>
-              Map ownership, runtime boundaries, spend, secrets, deployment
-              paths, and incident reality.
-            </p>
-          </article>
-          <article>
-            <span class="step">02</span>
-            <h3>Encode the repeatable parts</h3>
-            <p>
-              Move decisions into Terraform, CI/CD, migrations, policies,
-              runbooks, and reviewable defaults.
-            </p>
-          </article>
-          <article>
-            <span class="step">03</span>
-            <h3>Teach the operating model</h3>
-            <p>
-              Mentor engineers into shared SRE practice rather than centralizing
-              every production judgment.
-            </p>
-          </article>
-          <article>
-            <span class="step">04</span>
-            <h3>Keep the loop closed</h3>
-            <p>
-              Use observability, incident review, cost signals, and release
-              gates to catch drift early.
-            </p>
-          </article>
-        </div>
-      </section>
-      <section class="section lens" aria-labelledby="lens-title">
-        <div class="section-heading">
-          <p class="eyebrow">Hiring lens</p>
-          <h2 id="lens-title">
-            Different teams need different versions of the same operator.
-          </h2>
-        </div>
-        <div class="lens-tabs" role="tablist" aria-label="Role lenses">
-          <button
-            role="tab"
-            aria-selected="true"
-            aria-controls="lens-leader"
-            id="tab-leader"
-            data-lens="leader"
+        <div class="console-shell" x-cloak>
+          <div
+            class="console-tabs"
+            role="tablist"
+            aria-label="Evidence categories"
           >
-            Leader</button
-          ><button
-            role="tab"
-            aria-selected="false"
-            aria-controls="lens-staff"
-            id="tab-staff"
-            data-lens="staff"
+            <template x-for="sectionItem in sections" :key="sectionItem.key"
+              ><button
+                type="button"
+                role="tab"
+                :id="`console-tab-${sectionItem.key}`"
+                :aria-selected="String(activeSection===sectionItem.key)"
+                :aria-controls="`console-panel-${sectionItem.key}`"
+                @click="selectSection(sectionItem.key)"
+                @keydown.arrow-right.prevent="moveSection(1)"
+                @keydown.arrow-left.prevent="moveSection(-1)"
+                x-text="sectionItem.label"
+              ></button
+            ></template>
+          </div>
+          <div
+            class="console-body"
+            role="tabpanel"
+            :id="`console-panel-${section.key}`"
+            :aria-labelledby="`console-tab-${section.key}`"
           >
-            Staff IC</button
-          ><button
-            role="tab"
-            aria-selected="false"
-            aria-controls="lens-sre"
-            id="tab-sre"
-            data-lens="sre"
-          >
-            SRE</button
-          ><button
-            role="tab"
-            aria-selected="false"
-            aria-controls="lens-ai"
-            id="tab-ai"
-            data-lens="ai"
-          >
-            AI systems
-          </button>
+            <aside class="console-sidebar">
+              <p class="proof-kicker" x-text="section.kicker"></p>
+              <h3 x-text="section.title"></h3>
+              <p x-text="section.summary"></p>
+              <div
+                class="console-rail"
+                role="tablist"
+                :aria-label="`${section.label} details`"
+              >
+                <template x-for="detailItem in section.details" :key="detailItem.key"
+                  ><button
+                    type="button"
+                    role="tab"
+                    :id="`console-detail-tab-${section.key}-${detailItem.key}`"
+                    :aria-selected="String(activeDetail===detailItem.key)"
+                    :aria-controls="`console-detail-${section.key}-${detailItem.key}`"
+                    @click="selectDetail(detailItem.key)"
+                    @keydown.arrow-down.prevent="moveDetail(1)"
+                    @keydown.arrow-up.prevent="moveDetail(-1)"
+                    x-text="detailItem.label"
+                  ></button
+                ></template>
+              </div>
+            </aside>
+            <article
+              class="console-detail"
+              role="tabpanel"
+              :id="`console-detail-${section.key}-${detail.key}`"
+              :aria-labelledby="`console-detail-tab-${section.key}-${detail.key}`"
+            >
+              <span class="metric-value compact" x-text="detail.stat"></span>
+              <div>
+                <h3 x-text="detail.title"></h3>
+                <p x-text="detail.body"></p>
+                <ul class="console-tags">
+                  <template x-for="item in detail.items" :key="item"
+                    ><li x-text="item"></li
+                  ></template>
+                </ul>
+              </div>
+            </article>
+          </div>
         </div>
-        <div
-          class="lens-panel"
-          id="lens-leader"
-          role="tabpanel"
-          aria-labelledby="tab-leader"
-          data-lens-panel="leader"
-        >
-          <h3>For platform leadership</h3>
-          <p>
-            Roadmaps, mentoring, architecture reviews, incident command, team
-            operating models, and cross-functional delivery grounded in actual
-            production work.
-          </p>
-        </div>
-        <div
-          class="lens-panel hidden"
-          id="lens-staff"
-          role="tabpanel"
-          aria-labelledby="tab-staff"
-          data-lens-panel="staff"
-        >
-          <h3>For Staff-level execution</h3>
-          <p>
-            Ambiguous platform problems converted into infrastructure code,
-            CI/CD, secrets systems, migrations, observability, and sustainable
-            defaults.
-          </p>
-        </div>
-        <div
-          class="lens-panel hidden"
-          id="lens-sre"
-          role="tabpanel"
-          aria-labelledby="tab-sre"
-          data-lens-panel="sre"
-        >
-          <h3>For SRE and reliability</h3>
-          <p>
-            Availability targets, runbooks, alert quality, escalation paths,
-            incident review, capacity planning, and production ownership without
-            theater.
-          </p>
-        </div>
-        <div
-          class="lens-panel hidden"
-          id="lens-ai"
-          role="tabpanel"
-          aria-labelledby="tab-ai"
-          data-lens-panel="ai"
-        >
-          <h3>For AI-enabled engineering</h3>
-          <p>
-            Agent work queues, specialized responsibilities, quality gates, code
-            review, documentation, release coordination, and traceable
-            engineering standards.
-          </p>
-        </div>
+        <noscript>
+          <div class="metric-grid">
+            <article class="metric">
+              <span class="metric-value">~$100K</span>
+              <h3>Monthly AWS savings</h3>
+              <p>Reduced AWS spend from roughly $150K to $40-50K per month.</p>
+            </article>
+            <article class="metric">
+              <span class="metric-value">146+</span>
+              <h3>Terraform modules</h3>
+              <p>Built tm_cli across 13 providers and 146+ modules.</p>
+            </article>
+            <article class="metric">
+              <span class="metric-value">30-40%</span>
+              <h3>Faster recovery</h3>
+              <p>Improved triage and MTTR through SRE operating practice.</p>
+            </article>
+            <article class="metric">
+              <span class="metric-value">3 years</span>
+              <h3>AI-agent engineering</h3>
+              <p>Led agents across code, tests, docs, review, and release.</p>
+            </article>
+          </div>
+        </noscript>
       </section>
       <section
         class="section experience"
@@ -477,45 +394,11 @@
           </li>
         </ol>
       </section>
-      <section class="section expertise" aria-labelledby="expertise-title">
-        <div class="section-heading compact">
-          <p class="eyebrow">Core expertise</p>
-          <h2 id="expertise-title">Searchable, scannable, and real.</h2>
-        </div>
-        <div class="expertise-grid">
-          <article>
-            <h3>Leadership & management</h3>
-            <p>
-              Engineering management, Staff+ leadership, mentoring, SRE
-              operating models, roadmaps, architecture reviews, incident
-              command.
-            </p>
-          </article>
-          <article>
-            <h3>Platform & reliability</h3>
-            <p>
-              Platform engineering, DevOps, developer experience, distributed
-              systems, EKS/GKE/AKS, serverless, RDS, capacity planning, FinOps.
-            </p>
-          </article>
-          <article>
-            <h3>Cloud & delivery</h3>
-            <p>
-              AWS, Google Cloud, Azure, Terraform, Terragrunt, Packer, Ansible,
-              GitHub Actions, GitLab CI, Jenkins, Argo CD, GitOps, Docker.
-            </p>
-          </article>
-          <article>
-            <h3>Security & software</h3>
-            <p>
-              IAM/RBAC, SSO/SCIM, Vault, Secrets Manager, Snowflake security,
-              SLSA, Sigstore, SBOM, Python, Go, TypeScript, Bash, SQL, MCP
-              servers.
-            </p>
-          </article>
-        </div>
-      </section>
-      <section class="section open-source" aria-labelledby="oss-title">
+      <section
+        class="section open-source"
+        id="projects"
+        aria-labelledby="oss-title"
+      >
         <div class="section-heading">
           <p class="eyebrow">AI and open source</p>
           <h2 id="oss-title">Engineering standards applied in public.</h2>
