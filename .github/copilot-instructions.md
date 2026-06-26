@@ -18,7 +18,7 @@ The deployed site lives under `public/`. Browser assets live under
 
 ## Resume
 
-`public/Jon_Bogaty_Resume.docx` is the canonical uploaded resume. Do not modify
+`public/assets/resume.pdf` is the canonical uploaded resume. Do not modify
 or regenerate it from tooling.
 
 ## Review Priorities

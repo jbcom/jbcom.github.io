@@ -8,7 +8,7 @@
 
 - [ ] Static page loads from a local HTTP server
 - [ ] Mobile viewport checked
-- [ ] Resume DOCX was not regenerated or modified by tooling
+- [ ] Resume PDF was not regenerated or modified by tooling
 - [ ] Links and buttons verified
 
 ## Notes

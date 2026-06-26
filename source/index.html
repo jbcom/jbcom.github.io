@@ -3,19 +3,19 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Jon Bogaty - Platform Engineering Leader</title>
+    <title>Jon Bogaty - Staff Platform Engineering Leader</title>
     <meta
       name="description"
-      content="Jon Bogaty is a platform engineering leader, Staff-level engineer, and SRE/cloud infrastructure operator with 15+ years across AWS, Google Cloud, Azure, Kubernetes, Terraform, security, observability, and developer platforms."
+      content="Jon Bogaty is a Staff-level Platform Engineering leader with 15+ years across AWS, Google Cloud, Azure, Kubernetes, Terraform, SRE, security, FinOps, and developer platforms."
     />
-    <meta name="theme-color" content="#11120f" />
+    <meta name="theme-color" content="#111821" />
     <meta
       property="og:title"
-      content="Jon Bogaty - Platform Engineering Leader"
+      content="Jon Bogaty - Staff Platform Engineering Leader"
     />
     <meta
       property="og:description"
-      content="Platform engineering leadership, Staff-level execution, SRE operating models, cloud infrastructure, and production automation."
+      content="Staff-level platform engineering, cloud infrastructure, SRE, security, FinOps, and developer platforms."
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://jonbogaty.com/" />
@@ -28,9 +28,7 @@
     <link rel="preload" as="image" href="assets/headshot.png" />
     <link rel="stylesheet" href="assets/vendor/modern-normalize.min.css" />
     <link rel="stylesheet" href="assets/styles.min.css" />
-    <script src="assets/vendor/lenis.min.js" defer></script>
-    <script src="assets/script.min.js"></script>
-    <script src="assets/vendor/alpinejs-3.15.12.min.js" defer></script>
+    <script src="assets/script.min.js" defer></script>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -38,7 +36,7 @@
         "name": "Jon Bogaty",
         "url": "https://jonbogaty.com/",
         "email": "mailto:jon@jonbogaty.com",
-        "jobTitle": "Platform Engineering Leader and Staff Engineer",
+        "jobTitle": "Staff-level Platform Engineering Leader",
         "address": {
           "@type": "PostalAddress",
           "addressLocality": "Lincoln",
@@ -58,393 +56,121 @@
           "Azure",
           "Kubernetes",
           "Terraform",
-          "Observability",
+          "FinOps",
           "Security Operations",
-          "AI Agents"
+          "Developer Platforms"
         ]
       }
     </script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
-    <header class="site-header" data-header>
-      <a class="brand" href="#top" aria-label="Jon Bogaty home"
-        ><span class="brand-mark" aria-hidden="true">JB</span
-        ><span>Jon Bogaty</span></a
-      >
+    <header class="site-header">
+      <a class="brand" href="#main" aria-label="Jon Bogaty home">
+        <span class="brand-mark" aria-hidden="true">JB</span>
+        <span>Jon Bogaty</span>
+      </a>
       <nav class="nav" aria-label="Primary navigation">
-        <a href="#impact">Proof</a><a href="#experience">Experience</a
-        ><a href="#projects">Projects</a><a href="#contact">Contact</a>
+        <a href="assets/resume.pdf">Resume</a>
+        <a href="mailto:jon@jonbogaty.com">Email</a>
+        <a
+          href="https://www.linkedin.com/in/jonbogaty"
+          target="_blank"
+          rel="noopener"
+        >
+          LinkedIn
+        </a>
       </nav>
     </header>
-    <main id="main">
-      <section class="hero section" id="top" aria-labelledby="hero-title">
-        <div class="hero-grid">
-          <div class="hero-copy">
-            <p class="eyebrow">
-              Platform Engineering Leader | Staff Engineer | SRE & Cloud
-              Infrastructure
-            </p>
-            <h1 id="hero-title">Jon Bogaty</h1>
-            <p class="hero-lede">
-              I turn messy production reality into control: spend down, systems
-              observable, infrastructure encoded, and teams able to ship without
-              guessing.
-            </p>
-            <div class="hero-actions" aria-label="Primary actions">
-              <a class="button primary" href="Jon_Bogaty_Resume.docx" download
-                >Download resume</a
-              ><a class="button" href="mailto:jon@jonbogaty.com">Email Jon</a
-              ><button class="button quiet" type="button" data-copy-email>
-                Copy email
-              </button>
-            </div>
-          </div>
-          <aside
-            class="hero-panel proof-card"
-            aria-label="Current operating signal and proof deck"
-          >
-            <div class="panel-head">
-              <img
-                src="assets/headshot.png"
-                alt="Jon Bogaty"
-                class="headshot"
-                width="250"
-                height="250"
-              />
-              <dl class="signal-list">
-                <div>
-                  <dt>Base</dt>
-                  <dd>Lincoln, Nebraska</dd>
-                </div>
-                <div>
-                  <dt>Mode</dt>
-                  <dd>Platform, SRE, cloud, security, developer systems</dd>
-                </div>
-                <div>
-                  <dt>Range</dt>
-                  <dd>
-                    AWS, Google Cloud, Azure; leadership through implementation
-                  </dd>
-                </div>
-              </dl>
-            </div>
-            <div class="proof-deck" data-proof-deck x-data="proofDeck()">
-              <div class="proof-dynamic" x-cloak>
-                <div
-                  class="proof-tabs"
-                  role="tablist"
-                  aria-label="Above the fold proof"
-                >
-                  <template x-for="tab in tabs" :key="tab.key"
-                    ><button
-                      type="button"
-                      role="tab"
-                      :id="`proof-tab-${tab.key}`"
-                      :aria-selected="String(active===tab.key)"
-                      :aria-controls="`proof-panel-${tab.key}`"
-                      @click="select(tab.key)"
-                      @keydown.arrow-right.prevent="move(1)"
-                      @keydown.arrow-left.prevent="move(-1)"
-                      @keydown.home.prevent="first()"
-                      @keydown.end.prevent="last()"
-                      x-text="tab.label"
-                    ></button
-                  ></template>
-                </div>
-                <section
-                  class="proof-panel"
-                  role="tabpanel"
-                  :id="`proof-panel-${panel.key}`"
-                  :aria-labelledby="`proof-tab-${panel.key}`"
-                >
-                  <p class="proof-kicker" x-text="panel.kicker"></p>
-                  <h3 x-text="panel.title"></h3>
-                  <p class="proof-intro" x-text="panel.intro"></p>
-                  <ul class="proof-list">
-                    <template x-for="item in panel.items" :key="item[0]"
-                      ><li>
-                        <strong x-text="item[0]"></strong
-                        ><span x-text="item[1]"></span></li
-                    ></template>
-                  </ul>
-                </section>
-              </div>
-              <noscript
-                ><div class="proof-panel">
-                  <p class="proof-kicker">What I can prove</p>
-                  <h3>I have receipts, not a vibe.</h3>
-                  <p class="proof-intro">
-                    The useful version of me is the one who can point to
-                    production systems, invoices, incidents, and code that
-                    changed.
-                  </p>
-                  <ul class="proof-list">
-                    <li>
-                      <strong>~$100K/mo AWS savings</strong
-                      ><span
-                        >Reduced spend from roughly $150K to $40-50K per month
-                        while improving platform control.</span
-                      >
-                    </li>
-                    <li>
-                      <strong>146+ Terraform modules</strong
-                      ><span
-                        >Built tm_cli, a 10,000+ line Python platform across 13
-                        providers.</span
-                      >
-                    </li>
-                    <li>
-                      <strong>30-40% faster recovery</strong
-                      ><span
-                        >Improved incident triage and MTTR through monitoring,
-                        alerting, escalation, and runbooks.</span
-                      >
-                    </li>
-                  </ul>
-                </div></noscript
-              >
-            </div>
-          </aside>
-        </div>
-        <div class="ticker" aria-label="Resume proof points">
-          <span>15+ years production systems</span
-          ><span>~$100K monthly AWS savings</span
-          ><span>146+ Terraform modules</span
-          ><span>30-40% faster triage and recovery</span
-          ><span>3-year AI-agent engineering program</span>
+
+    <main class="hero" id="main">
+      <section class="hero-copy" aria-labelledby="hero-title">
+        <p class="eyebrow">
+          Staff-level Platform Engineering Leader | SRE | Cloud Infrastructure
+        </p>
+        <h1 id="hero-title">Jon Bogaty</h1>
+        <p class="hero-summary">
+          I architect scalable, secure, and cost-optimized cloud infrastructure
+          across AWS, Google Cloud, and Azure, with deep experience in platform
+          engineering, SRE, FinOps, security, CI/CD, Kubernetes, serverless, and
+          developer enablement.
+        </p>
+        <div class="hero-actions" aria-label="Primary actions">
+          <a class="button primary" href="assets/resume.pdf" download>
+            Download resume PDF
+          </a>
+          <a class="button" href="assets/resume.pdf">View resume</a>
+          <button class="button quiet" type="button" data-copy-email>
+            Copy email
+          </button>
         </div>
       </section>
-      <section
-        class="section workbench"
-        id="impact"
-        aria-labelledby="workbench-title"
-        x-data="evidenceConsole()"
-      >
-        <div class="section-heading workbench-heading">
-          <div>
-            <p class="eyebrow">Control plane</p>
-            <h2 id="workbench-title">Production work, indexed by signal.</h2>
-          </div>
-          <p>
-            Cost, reliability, platform product, customer pressure, and code
-            live together because the useful work is the connective tissue
-            between them.
-          </p>
+
+      <aside class="profile-card" aria-label="Profile and resume proof points">
+        <img
+          src="assets/headshot.png"
+          alt="Jon Bogaty"
+          class="headshot"
+          width="250"
+          height="250"
+        />
+        <div class="profile-copy">
+          <dl class="signal-list">
+            <div>
+              <dt>Base</dt>
+              <dd>Lincoln, Nebraska</dd>
+            </div>
+            <div>
+              <dt>Focus</dt>
+              <dd>Platform, SRE, cloud, security, FinOps, developer systems</dd>
+            </div>
+          </dl>
+          <a class="resume-callout" href="assets/resume.pdf">
+            <span>97% ATS resume</span>
+            <strong>Open the current PDF</strong>
+          </a>
         </div>
-        <div class="console-shell" x-cloak>
-          <div
-            class="console-tabs"
-            role="tablist"
-            aria-label="Evidence categories"
-          >
-            <template x-for="sectionItem in sections" :key="sectionItem.key"
-              ><button
-                type="button"
-                role="tab"
-                :id="`console-tab-${sectionItem.key}`"
-                :aria-selected="String(activeSection===sectionItem.key)"
-                :aria-controls="`console-panel-${sectionItem.key}`"
-                @click="selectSection(sectionItem.key)"
-                @keydown.arrow-right.prevent="moveSection(1)"
-                @keydown.arrow-left.prevent="moveSection(-1)"
-                x-text="sectionItem.label"
-              ></button
-            ></template>
-          </div>
-          <div
-            class="console-body"
-            role="tabpanel"
-            :id="`console-panel-${section.key}`"
-            :aria-labelledby="`console-tab-${section.key}`"
-          >
-            <aside class="console-sidebar">
-              <p class="proof-kicker" x-text="section.kicker"></p>
-              <h3 x-text="section.title"></h3>
-              <p x-text="section.summary"></p>
-              <div
-                class="console-rail"
-                role="tablist"
-                :aria-label="`${section.label} details`"
-              >
-                <template x-for="detailItem in section.details" :key="detailItem.key"
-                  ><button
-                    type="button"
-                    role="tab"
-                    :id="`console-detail-tab-${section.key}-${detailItem.key}`"
-                    :aria-selected="String(activeDetail===detailItem.key)"
-                    :aria-controls="`console-detail-${section.key}-${detailItem.key}`"
-                    @click="selectDetail(detailItem.key)"
-                    @keydown.arrow-down.prevent="moveDetail(1)"
-                    @keydown.arrow-up.prevent="moveDetail(-1)"
-                    x-text="detailItem.label"
-                  ></button
-                ></template>
-              </div>
-            </aside>
-            <article
-              class="console-detail"
-              role="tabpanel"
-              :id="`console-detail-${section.key}-${detail.key}`"
-              :aria-labelledby="`console-detail-tab-${section.key}-${detail.key}`"
-            >
-              <span class="metric-value compact" x-text="detail.stat"></span>
-              <div>
-                <h3 x-text="detail.title"></h3>
-                <p x-text="detail.body"></p>
-                <ul class="console-tags">
-                  <template x-for="item in detail.items" :key="item"
-                    ><li x-text="item"></li
-                  ></template>
-                </ul>
-              </div>
-            </article>
-          </div>
-        </div>
-        <noscript>
-          <div class="metric-grid">
-            <article class="metric">
-              <span class="metric-value">~$100K</span>
-              <h3>Monthly AWS savings</h3>
-              <p>Reduced AWS spend from roughly $150K to $40-50K per month.</p>
-            </article>
-            <article class="metric">
-              <span class="metric-value">146+</span>
-              <h3>Terraform modules</h3>
-              <p>Built tm_cli across 13 providers and 146+ modules.</p>
-            </article>
-            <article class="metric">
-              <span class="metric-value">30-40%</span>
-              <h3>Faster recovery</h3>
-              <p>Improved triage and MTTR through SRE operating practice.</p>
-            </article>
-            <article class="metric">
-              <span class="metric-value">3 years</span>
-              <h3>AI-agent engineering</h3>
-              <p>Led agents across code, tests, docs, review, and release.</p>
-            </article>
-          </div>
-        </noscript>
+      </aside>
+
+      <section class="proof-strip" aria-label="Resume highlights">
+        <article>
+          <span>15+ years</span>
+          <p>Platform engineering, DevOps, SRE, and cloud infrastructure.</p>
+        </article>
+        <article>
+          <span>~$100K/mo</span>
+          <p>AWS savings through serverless migration and workload redesign.</p>
+        </article>
+        <article>
+          <span>146+</span>
+          <p>Terraform modules generated across 13 providers with tm_cli.</p>
+        </article>
+        <article>
+          <span>95%</span>
+          <p>Reduction in manual internal tooling effort through automation.</p>
+        </article>
       </section>
-      <section
-        class="section experience"
-        id="experience"
-        aria-labelledby="experience-title"
-      >
-        <div class="section-heading">
-          <p class="eyebrow">Experience</p>
-          <h2 id="experience-title">
-            Production ownership across company stages.
-          </h2>
-        </div>
-        <ol class="timeline">
-          <li>
-            <div class="time">Jan 2026 - Present</div>
-            <div>
-              <h3>Independent Platform & DevOps Consultant</h3>
-              <p>
-                Fractional platform architecture, production readiness,
-                automation, security, and delivery systems for early-stage
-                products.
-              </p>
-            </div>
-          </li>
-          <li>
-            <div class="time">Jun 2021 - Jan 2026</div>
-            <div>
-              <h3>Staff DevOps & Platform Engineer, Flipside Crypto</h3>
-              <p>
-                Founding DevOps hire and sole platform engineer; owned AWS
-                infrastructure, Terraform/Terragrunt, CI/CD, identity,
-                observability, cost, incident response, and developer
-                enablement.
-              </p>
-            </div>
-          </li>
-          <li>
-            <div class="time">Aug 2020 - Jun 2021</div>
-            <div>
-              <h3>Senior Site Reliability Engineer, GoHealth</h3>
-              <p>
-                SRE ownership for a high-traffic health-insurance marketplace
-                during seasonal open-enrollment demand.
-              </p>
-            </div>
-          </li>
-          <li>
-            <div class="time">Nov 2017 - Aug 2020</div>
-            <div>
-              <h3>Senior Development Operations Engineer, Symbiont</h3>
-              <p>
-                Enterprise CI/CD and multi-cloud delivery for a blockchain
-                distributed-ledger platform across AWS, Google Cloud, and Azure.
-              </p>
-            </div>
-          </li>
-          <li>
-            <div class="time">2005 - 2017</div>
-            <div>
-              <h3>Earlier infrastructure and DevOps leadership</h3>
-              <p>
-                Senior and consulting roles across ad-tech, e-commerce, mobile,
-                media, and publishing, including cloud migrations, Docker,
-                Terraform, Chef/Rundeck, and cost automation.
-              </p>
-            </div>
-          </li>
-        </ol>
-      </section>
-      <section
-        class="section open-source"
-        id="projects"
-        aria-labelledby="oss-title"
-      >
-        <div class="section-heading">
-          <p class="eyebrow">AI and open source</p>
-          <h2 id="oss-title">Engineering standards applied in public.</h2>
-        </div>
-        <div class="project-strip">
-          <a href="https://jonbogaty.com/radioactive-ralph/" class="project"
-            ><span>Go</span>
-            <h3>radioactive-ralph</h3>
-            <p>Autonomous continuous development orchestrator.</p></a
-          ><a href="https://paranoid-passwd.com" class="project"
-            ><span>Rust</span>
-            <h3>paranoid-passwd</h3>
-            <p>Local password manager focused on verifiable trust.</p></a
-          ><a href="https://extended-data.dev" class="project"
-            ><span>Python + Go</span>
-            <h3>Extended Data Library</h3>
-            <p>Five Python packages plus a Go secrets-sync pipeline.</p></a
-          >
-        </div>
-      </section>
-      <section
-        class="section contact"
-        id="contact"
-        aria-labelledby="contact-title"
-      >
-        <div>
-          <p class="eyebrow">Contact</p>
-          <h2 id="contact-title">Bring the messy production problem.</h2>
-          <p>
-            Best fit: Staff/Senior platform, DevOps, SRE, infrastructure, cloud,
-            observability, and technical customer-facing roles where deep
-            infrastructure credibility matters.
-          </p>
-        </div>
-        <div class="contact-actions">
-          <a class="button primary" href="mailto:jon@jonbogaty.com"
-            >jon@jonbogaty.com</a
-          ><a class="button" href="https://www.linkedin.com/in/jonbogaty"
-            >LinkedIn</a
-          ><a class="button" href="https://github.com/jbcom">GitHub</a>
-        </div>
+
+      <section class="link-strip" aria-label="Secondary links">
+        <a
+          href="https://jonbogaty.com/radioactive-ralph/"
+          target="_blank"
+          rel="noopener"
+        >
+          radioactive-ralph
+        </a>
+        <a
+          href="https://paranoid-passwd.com"
+          target="_blank"
+          rel="noopener"
+        >
+          paranoid-passwd
+        </a>
+        <a href="https://extended-data.dev" target="_blank" rel="noopener">
+          Extended Data Library
+        </a>
+        <a href="mailto:jon@jonbogaty.com">jon@jonbogaty.com</a>
       </section>
     </main>
-    <footer class="site-footer">
-      <p>Jon Bogaty. Platform engineering, SRE, cloud infrastructure.</p>
-      <a href="Jon_Bogaty_Resume.docx" download>Resume DOCX</a>
-    </footer>
   </body>
 </html>

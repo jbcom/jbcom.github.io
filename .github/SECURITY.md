@@ -18,5 +18,5 @@ Include:
 - Do not add client-side scripts that collect visitor data without explicit
   review.
 - Keep the site no-build unless the owner explicitly changes direction.
-- `public/Jon_Bogaty_Resume.docx` is user-supplied and must not be regenerated
+- `public/assets/resume.pdf` is user-supplied and must not be regenerated
   by site tooling.
