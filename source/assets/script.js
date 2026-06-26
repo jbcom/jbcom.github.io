@@ -92,6 +92,176 @@
         ],
       },
     ],
+    consoleSections: [
+      {
+        key: "proof",
+        label: "Proof",
+        kicker: "Evidence",
+        title: "Numbers, systems, and visible outcomes.",
+        summary:
+          "The work is easiest to trust when it is tied to cost, reliability, platform surface area, and code that stayed useful.",
+        details: [
+          {
+            key: "cost",
+            label: "Cost",
+            stat: "~$100K/mo",
+            title: "Cloud spend brought under control.",
+            body: "Reduced AWS spend from roughly $150K to $40-50K per month while improving platform control, scalability, and ownership.",
+            items: ["FinOps", "AWS", "architecture reviews", "service ownership"],
+          },
+          {
+            key: "infra",
+            label: "Infra",
+            stat: "146+",
+            title: "Terraform modules with real adoption pressure.",
+            body: "Built tm_cli, a 10,000+ line Python platform spanning 13 providers and 146+ modules.",
+            items: ["Terraform", "Terragrunt", "Python", "platform product"],
+          },
+          {
+            key: "recovery",
+            label: "Recovery",
+            stat: "30-40%",
+            title: "Faster triage and recovery.",
+            body: "Improved incident triage and MTTR through monitoring, alerting, escalation, and runbooks that engineers could actually use.",
+            items: ["SRE", "observability", "incident command", "runbooks"],
+          },
+          {
+            key: "ai",
+            label: "AI",
+            stat: "3 years",
+            title: "AI-assisted engineering as a working system.",
+            body: "Led specialized agents across architecture, implementation, tests, docs, review, release, and evidence collection.",
+            items: ["agents", "quality gates", "code review", "release proof"],
+          },
+        ],
+      },
+      {
+        key: "model",
+        label: "Model",
+        kicker: "Operating model",
+        title: "Control is designed, not wished into existence.",
+        summary:
+          "The pattern is to make the production system legible, encode the repeatable parts, and keep feedback loops close.",
+        details: [
+          {
+            key: "map",
+            label: "Map",
+            stat: "01",
+            title: "Make the system legible.",
+            body: "Map ownership, runtime boundaries, spend, secrets, deployment paths, vendor constraints, and incident reality.",
+            items: ["ownership", "runtime boundaries", "secrets", "vendor context"],
+          },
+          {
+            key: "encode",
+            label: "Encode",
+            stat: "02",
+            title: "Move repeatable decisions into code.",
+            body: "Turn recurring platform choices into Terraform, CI/CD, migrations, policy checks, runbooks, and reviewable defaults.",
+            items: ["IaC", "CI/CD", "policy", "docs"],
+          },
+          {
+            key: "teach",
+            label: "Teach",
+            stat: "03",
+            title: "Make the operating model shared.",
+            body: "Mentor engineers into shared SRE practice instead of centralizing every production judgment in one person.",
+            items: ["mentoring", "reviews", "incident practice", "internal customers"],
+          },
+          {
+            key: "loop",
+            label: "Loop",
+            stat: "04",
+            title: "Keep drift visible.",
+            body: "Use observability, incident review, cost signals, release gates, and customer feedback to catch drift early.",
+            items: ["dashboards", "postmortems", "FinOps", "release gates"],
+          },
+        ],
+      },
+      {
+        key: "fit",
+        label: "Fit",
+        kicker: "Hiring lens",
+        title: "Different teams need different versions of the same operator.",
+        summary:
+          "The consistent value is the ability to lead the room, talk to internal customers and vendors, and still implement the thing.",
+        details: [
+          {
+            key: "leader",
+            label: "Leader",
+            stat: "Lead",
+            title: "Platform leadership grounded in production.",
+            body: "Roadmaps, mentoring, architecture reviews, incident command, team operating models, and cross-functional delivery.",
+            items: ["roadmaps", "mentoring", "architecture", "incident command"],
+          },
+          {
+            key: "staff",
+            label: "Staff IC",
+            stat: "Build",
+            title: "Staff-level execution in ambiguous systems.",
+            body: "Ambiguous platform problems converted into infrastructure code, delivery paths, secrets systems, migrations, and durable defaults.",
+            items: ["platform engineering", "secrets", "migrations", "developer experience"],
+          },
+          {
+            key: "sre",
+            label: "SRE",
+            stat: "Own",
+            title: "Reliability without theater.",
+            body: "Availability targets, alert quality, escalation paths, capacity planning, and production ownership that survives pressure.",
+            items: ["availability", "alerting", "capacity", "operations"],
+          },
+          {
+            key: "customers",
+            label: "Customers",
+            stat: "Talk",
+            title: "Credible with internal customers and vendors.",
+            body: "Comfortable handling compliance, vendor constraints, internal customer pressure, product tradeoffs, and technical explanation.",
+            items: ["vendors", "compliance", "stakeholders", "technical discovery"],
+          },
+        ],
+      },
+      {
+        key: "stack",
+        label: "Stack",
+        kicker: "Searchable skills",
+        title: "The keywords are backed by work.",
+        summary:
+          "This keeps the ATS surface broad without turning the page into a wall of badges.",
+        details: [
+          {
+            key: "cloud",
+            label: "Cloud",
+            stat: "3x",
+            title: "AWS, Google Cloud, and Azure.",
+            body: "Production infrastructure across compute, Kubernetes, serverless, storage, databases, identity, and networking.",
+            items: ["AWS", "Google Cloud", "Azure", "Kubernetes"],
+          },
+          {
+            key: "delivery",
+            label: "Delivery",
+            stat: "Ship",
+            title: "CI/CD and developer systems.",
+            body: "GitHub Actions, GitLab CI, Jenkins, Argo CD, GitOps, Docker, Packer, Ansible, and release gates.",
+            items: ["GitHub Actions", "GitLab CI", "Argo CD", "Docker"],
+          },
+          {
+            key: "security",
+            label: "Security",
+            stat: "Trust",
+            title: "Identity, secrets, and supply chain.",
+            body: "IAM/RBAC, SSO/SCIM, Vault, Secrets Manager, Snowflake security, SLSA, Sigstore, and SBOM work.",
+            items: ["IAM", "Vault", "SLSA", "SBOM"],
+          },
+          {
+            key: "code",
+            label: "Code",
+            stat: "Code",
+            title: "Enough software depth to build the platform.",
+            body: "Python, Go, TypeScript, Bash, SQL, MCP servers, automation, and testable operational tooling.",
+            items: ["Python", "Go", "TypeScript", "SQL"],
+          },
+        ],
+      },
+    ],
   };
   window.proofDeck = () => ({
     active: "impact",
@@ -124,6 +294,62 @@
       );
     },
   });
+  window.evidenceConsole = () => ({
+    activeSection: "proof",
+    activeDetails: {
+      proof: "cost",
+      model: "map",
+      fit: "leader",
+      stack: "cloud",
+    },
+    sections: window.JON_PORTFOLIO.consoleSections,
+    get section() {
+      return (
+        this.sections.find((section) => section.key === this.activeSection) ||
+        this.sections[0]
+      );
+    },
+    get activeDetail() {
+      return this.activeDetails[this.activeSection] || this.section.details[0].key;
+    },
+    get detail() {
+      return (
+        this.section.details.find((detail) => detail.key === this.activeDetail) ||
+        this.section.details[0]
+      );
+    },
+    selectSection(key) {
+      this.activeSection = key;
+      if (!this.activeDetails[key]) {
+        const section = this.sections.find((item) => item.key === key);
+        this.activeDetails[key] = section?.details[0]?.key;
+      }
+    },
+    selectDetail(key) {
+      this.activeDetails[this.activeSection] = key;
+    },
+    moveSection(delta) {
+      const current = this.sections.findIndex(
+        (section) => section.key === this.activeSection,
+      );
+      const next = (current + delta + this.sections.length) % this.sections.length;
+      this.selectSection(this.sections[next].key);
+      requestAnimationFrame(() =>
+        document.getElementById(`console-tab-${this.activeSection}`)?.focus(),
+      );
+    },
+    moveDetail(delta) {
+      const details = this.section.details;
+      const current = details.findIndex((detail) => detail.key === this.activeDetail);
+      const next = (current + delta + details.length) % details.length;
+      this.selectDetail(details[next].key);
+      requestAnimationFrame(() =>
+        document
+          .getElementById(`console-detail-tab-${this.section.key}-${this.activeDetail}`)
+          ?.focus(),
+      );
+    },
+  });
   const ready = (fn) => {
     if (document.readyState === "loading")
       document.addEventListener("DOMContentLoaded", fn, { once: true });
@@ -142,22 +368,6 @@
         window.location.href = `mailto:${email}`;
       }
     });
-    const tabs = Array.from(document.querySelectorAll("[data-lens]"));
-    const panels = Array.from(document.querySelectorAll("[data-lens-panel]"));
-    for (const tab of tabs) {
-      tab.addEventListener("click", () => {
-        const key = tab.getAttribute("data-lens");
-        for (const current of tabs) {
-          current.setAttribute("aria-selected", String(current === tab));
-        }
-        for (const panel of panels) {
-          panel.classList.toggle(
-            "hidden",
-            panel.getAttribute("data-lens-panel") !== key,
-          );
-        }
-      });
-    }
     const navLinks = Array.from(document.querySelectorAll(".nav a"));
     const sections = navLinks
       .map((link) => {
