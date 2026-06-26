@@ -1,20 +1,33 @@
 repos:
   - repo: local
     hooks:
-      - id: minify-site
-        name: Minify static site assets
+      - id: minify-css
+        name: Minify static CSS
         language: node
         additional_dependencies:
           - clean-css-cli@5.6.3
+        entry: cleancss --output public/assets/styles.min.css source/assets/styles.css
+        pass_filenames: false
+        always_run: true
+
+      - id: minify-js
+        name: Minify static JavaScript
+        language: node
+        additional_dependencies:
           - terser@5.43.1
+        entry: terser source/assets/script.js --compress --mangle --output public/assets/script.min.js
+        pass_filenames: false
+        always_run: true
+
+      - id: minify-html
+        name: Minify static HTML
+        language: node
+        additional_dependencies:
           - html-minifier-terser@7.2.0
         entry: >-
-          bash -c 'cleancss --output public/assets/styles.min.css source/assets/styles.css &&
-          terser source/assets/script.js --compress --mangle --output public/assets/script.min.js &&
-          html-minifier-terser source/index.html --collapse-whitespace --conservative-collapse
-          --remove-comments --remove-redundant-attributes --remove-script-type-attributes
-          --remove-style-link-type-attributes --minify-css true --minify-js true
-          --output public/index.html &&
-          perl -0pi -e "s/[ \t]+$//" public/index.html'
+          html-minifier-terser source/index.html --collapse-whitespace
+          --remove-comments --remove-redundant-attributes
+          --remove-script-type-attributes --remove-style-link-type-attributes
+          --minify-css true --minify-js true --output public/index.html
         pass_filenames: false
         always_run: true

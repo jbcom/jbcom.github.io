@@ -1,6 +1,7 @@
 (() => {
   const email = "jon@jonbogaty.com";
   window.JON_PORTFOLIO = {
+    email,
     proofDeck: [
       {
         key: "impact",
@@ -94,6 +95,7 @@
   };
   window.proofDeck = () => ({
     active: "impact",
+    email: window.JON_PORTFOLIO.email,
     tabs: window.JON_PORTFOLIO.proofDeck,
     get panel() {
       return this.tabs.find((tab) => tab.key === this.active) || this.tabs[0];
@@ -158,34 +160,59 @@
     }
     const navLinks = Array.from(document.querySelectorAll(".nav a"));
     const sections = navLinks
-      .map((link) => document.querySelector(link.getAttribute("href")))
+      .map((link) => {
+        const href = link.getAttribute("href");
+        return href?.startsWith("#") ? document.querySelector(href) : null;
+      })
       .filter(Boolean);
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (!visible) return;
-        for (const link of navLinks) {
-          link.classList.toggle(
-            "active",
-            link.getAttribute("href") === `#${visible.target.id}`,
-          );
-        }
-      },
-      { rootMargin: "-35% 0px -55% 0px", threshold: [0.1, 0.35, 0.65] },
-    );
-    for (const section of sections) observer.observe(section);
+    if (sections.length > 0 && "IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          const visible = entries
+            .filter((entry) => entry.isIntersecting)
+            .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+          if (!visible) return;
+          for (const link of navLinks) {
+            link.classList.toggle(
+              "active",
+              link.getAttribute("href") === `#${visible.target.id}`,
+            );
+          }
+        },
+        { rootMargin: "-35% 0px -55% 0px", threshold: [0.1, 0.35, 0.65] },
+      );
+      for (const section of sections) observer.observe(section);
+    }
     if (
       !window.matchMedia("(prefers-reduced-motion:reduce)").matches &&
       window.Lenis
     ) {
       const lenis = new window.Lenis({ duration: 0.9, smoothWheel: true });
+      let rafId = null;
       const raf = (time) => {
         lenis.raf(time);
-        requestAnimationFrame(raf);
+        rafId = requestAnimationFrame(raf);
       };
-      requestAnimationFrame(raf);
+      const start = () => {
+        if (rafId === null) rafId = requestAnimationFrame(raf);
+      };
+      const stop = () => {
+        if (rafId !== null) cancelAnimationFrame(rafId);
+        rafId = null;
+      };
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden) stop();
+        else start();
+      });
+      window.addEventListener(
+        "pagehide",
+        () => {
+          stop();
+          lenis.destroy?.();
+        },
+        { once: true },
+      );
+      start();
     }
   });
 })();
