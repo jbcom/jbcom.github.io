@@ -12,3 +12,11 @@
 _site/
 site-*.tar.gz
 .playwright-cli/
+
+# Local agent configuration and runtime state (at any depth).
+.agent-state/
+.claude/
+.mcp.json
+opencode.json
+.augment/
+.agents/

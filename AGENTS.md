@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Instructions for AI agents working in `/Users/jbogaty/src/jbcom/jbcom.github.io`.
+Instructions for AI agents contributing to this repository.
 
 ## Repository Shape
 
